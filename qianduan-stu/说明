@@ -1,0 +1,430 @@
+环境是create-react-app 脚手架搭建的
+用于学习一些前端知识
+
+
+moment.js 
+//安装moment.js   npm i moment -S  使用ES6语法导入
+console.log(moment());  //返回当前时间的对象
+console.log(moment(new Date())) //同上
+//输出moment对象Moment
+// {_isAMomentObject: true, _isUTC: false, _pf: {…}, _locale: Locale, _d: Thu Sep 19 2019 20:53:38 GMT+0800 (中国标准时间), …}
+// _d: Thu Sep 19 2019 20: 53: 38 GMT + 0800(中国标准时间) { }
+// _isAMomentObject: true
+// _isUTC: false
+// _isValid: true
+// _locale: Locale { _calendar: { … }, _longDateFormat: { … }, _invalidDate: "Invalid date", ordinal: ƒ, _dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/, … }
+// _pf: { empty: false, unusedTokens: Array(0), unusedInput: Array(0), overflow: -2, charsLeftOver: 0, … }
+// __proto__: Object
+console.log(typeof (moment()))  //object对象
+
+//moment（字符串）  将一个字符串转转换成moment对象  不推荐使用  因为每个浏览器编码不一致
+console.log(moment("1995-12-25"))   //返回了moment对象
+
+//moment（字符串 + 格式）
+console.log(moment("12-25-1995", "MM-DD-YYYY"))     //moment对象  指定的格式转换
+
+//If you don't know the exact format of an input string, but know it could be one of many, you can use an array of formats
+moment("12-25-1995", ["MM-DD-YYYY", "YYYY-MM-DD"])  //注意Y M D 的顺序
+
+//moment(Number)    //代表偏移 Number是距离那个点的毫秒值 the number of milliseconds since the Unix Epoch (Jan 1 1970 12AM UTC)
+console.log(moment(1318781876406))  //moment 时间是Mon Oct 17 2011 00:17:56 GMT+0800 (中国标准时间)
+//moment.unix(Number)   //时间戳
+var day1 = moment.unix(1318781876);
+console.log(day1)            //同上
+
+//moment（Date对象）
+var day = new Date(2011, 9, 16);
+var dayWrapper = moment(day);
+
+//moment.utc()      By default, moment parses and displays in local time.If you want to parse or display a moment in UTC, you can use moment.utc() instead of moment()   说明UTC是世界标准时间就是伦敦时间  我们东八区
+//默认值
+moment(5, "HH");  // today, 5:00:00.000
+moment({ hour: 5 });  // today, 5:00:00.000
+moment({ hour: 5, minute: 10 });  // today, 5:10.00.000
+moment({ hour: 5, minute: 10, seconds: 20 });  // today, 5:10.20.000
+moment({ hour: 5, minute: 10, seconds: 20, milliseconds: 300 });  // today, 5:10.20.300
+
+//moment 取值和赋值采用GET和SET方式   参数使用正负数   函数有无s都一样
+//moment().seconds(30) === new Date().setSeconds(30);
+//moment().seconds() === new Date().getSeconds();
+//毫秒millisecond  second minute hour date day weekday
+
+//moment 操作 
+// moment().add(Number, String);        +
+// moment().add(Duration);
+// moment().add(Object);
+//moment().subtract(7, 'days')      -
+//moment().startOf(String)      开始时间   moment().startOf('year')等
+//moment().endOf("year")
+console.log(moment().add(7, 'days'))    //在当前时间对象上  加上七天  返回moment
+console.log(moment().add(7, 'days').add(1, 'months'))
+console.log(moment().add({ days: 7, months: 1 }))
+
+//格式化
+console.log(moment().format());      //默认格式  2019-09-19T22:03:06+08:00
+console.log(typeof (moment().format()))     //string 类型
+moment().format(String);        //我们给定的格式格式化         moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
+
+//moment().toObject()   对象
+//查询
+moment('2010-10-20').isBefore('2010-12-31', 'year'); // false
+moment('2010-10-20').isBefore('2011-01-01', 'year'); // true
+
+moment('2010-10-20').isSame('2009-12-31', 'year');  // false
+moment('2010-10-20').isSame('2010-01-01', 'year');  // true
+moment('2010-10-20').isSame('2010-12-31', 'year');  // true
+moment('2010-10-20').isSame('2011-01-01', 'year');  // false
+
+moment('2010-10-20').isAfter('2010-01-01', 'year'); // false
+moment('2010-10-20').isAfter('2009-12-31', 'year'); // true
+
+moment('2010-10-20').isBetween('2010-10-19', '2010-10-25'); // true
+moment('2010-10-20').isBetween('2010-01-01', '2012-01-01', 'year'); // false
+moment('2010-10-20').isBetween('2009-12-31', '2012-01-01', 'year'); // true
+
+Moment.js是一个轻量级的JavaScript时间库，它方便了日常开发中对时间的操作，提高了开发效率。日常开发中，通常会对时间进行下面这几个操作：比如获取时间，设置时间，格式化时间，比较时间等等。下面就是我对moment.js使用过程中的整理，方便以后查阅。
+
+一、引入moment.js
+1.Node.js方式引入
+（1）安装
+
+npm install moment  或者  yarn add moment
+（2）引入
+
+// require 方式
+var moment = require('moment');
+
+// import 方式
+import moment from 'moment'; 
+2.浏览器方式引入
+<script src="moment.js"></script>
+二、设定moment区域为中国
+// require 方式
+require('moment/locale/zh-cn')
+moment.locale('zh-cn'); 
+
+// import 方式
+import 'moment/locale/zh-cn'
+moment.locale('zh-cn');   
+三、使用
+1.获取时间
+（1）获取当前时间
+moment()
+（2）获取今天0时0分0秒
+moment().startOf('day')
+（3）获取本周第一天(周日)0时0分0秒
+moment().startOf('week')
+（4）获取本周周一0时0分0秒
+moment().startOf('isoWeek')
+（5）获取当前月第一天0时0分0秒
+moment().startOf('month')
+（6）获取今天23时59分59秒
+
+moment().endOf('day')
+（7）获取本周最后一天(周六)23时59分59秒
+
+moment().endOf('week')
+（8）获取本周周日23时59分59秒
+
+moment().endOf('isoWeek')
+（9）获取当前月最后一天23时59分59秒
+
+moment().endOf('month')
+（10）获取当前月的总天数
+
+moment().daysInMonth() 
+（11）获取时间戳(以秒为单位)
+
+moment().format('X') // 返回值为字符串类型
+moment().unix() // 返回值为数值型
+（12）获取时间戳(以毫秒为单位)
+
+moment().format('x') // 返回值为字符串类型
+moment().valueOf() // 返回值为数值型
+（13）获取年份
+
+moment().year()
+moment().get('year')
+（14）获取月份
+
+moment().month()  // (0~11, 0: January, 11: December)
+moment().get('month')
+（15）获取一个月中的某一天
+
+moment().date()
+moment().get('date')
+（16）获取一个星期中的某一天
+
+moment().day() // (0~6, 0: Sunday, 6: Saturday)
+moment().weekday() // (0~6, 0: Sunday, 6: Saturday)
+moment().isoWeekday() // (1~7, 1: Monday, 7: Sunday)
+moment().get('day')
+mment().get('weekday')
+moment().get('isoWeekday')
+（17）获取小时
+
+moment().hours()
+moment().get('hours')
+（18）获取分钟
+
+moment().minutes()
+moment().get('minutes')
+（19）获取秒数
+
+moment().seconds()
+moment().get('seconds')
+（20）获取当前的年月日时分秒
+
+moment().toArray() // [years, months, date, hours, minutes, seconds, milliseconds]
+moment().toObject() // {years: xxxx, months: x, date: xx ...}
+2.设置时间
+（1）设置年份
+
+moment().year(2019)
+moment().set('year', 2019)
+moment().set({year: 2019})
+（2）设置月份
+
+moment().month(11)  // (0~11, 0: January, 11: December)
+moment().set('month', 11) 
+（3）设置某个月中的某一天
+
+moment().date(15)
+moment().set('date', 15)
+（4）设置某个星期中的某一天
+
+moment().weekday(0) // 设置日期为本周第一天（周日）
+moment().isoWeekday(1) // 设置日期为本周周一
+moment().set('weekday', 0)
+moment().set('isoWeekday', 1)
+（5）设置小时
+
+moment().hours(12)
+moment().set('hours', 12)
+（6）设置分钟
+
+moment().minutes(30)
+moment().set('minutes', 30)
+（7）设置秒数
+
+moment().seconds(30)
+moment().set('seconds', 30)
+（8）年份+1
+
+moment().add(1, 'years')
+moment().add({years: 1})
+（9）月份+1
+
+moment().add(1, 'months')
+（10）日期+1
+
+moment().add(1, 'days')
+（11）星期+1
+
+moment().add(1, 'weeks')
+（12）小时+1
+
+moment().add(1, 'hours')
+（13）分钟+1
+
+moment().add(1, 'minutes')
+（14）秒数+1
+
+moment().add(1, 'seconds')
+（15）年份-1
+
+moment().subtract(1, 'years')
+moment().subtract({years: 1})
+（16）月份-1
+
+moment().subtract(1, 'months')
+（17）日期-1
+
+moment().subtract(1, 'days')
+（18）星期-1
+
+moment().subtract(1, 'weeks')
+（19）小时-1
+
+moment().subtract(1, 'hours')
+（20）分钟-1
+
+moment().subtract(1, 'minutes')
+（21）秒数-1
+
+moment().subtract(1, 'seconds')
+3.格式化时间
+格式代码	说明	返回值例子
+M	数字表示的月份，没有前导零	1到12
+MM	数字表示的月份，有前导零	01到12
+MMM	三个字母缩写表示的月份	Jan到Dec
+MMMM	月份，完整的文本格式	January到December
+Q	季度	1到4
+D	月份中的第几天，没有前导零	1到31
+DD	月份中的第几天，有前导零	01到31
+d	星期中的第几天，数字表示	0到6，0表示周日，6表示周六
+ddd	三个字母表示星期中的第几天	Sun到Sat
+dddd	星期几，完整的星期文本	从Sunday到Saturday
+w	年份中的第几周	如42：表示第42周
+YYYY	四位数字完整表示的年份	如：2014 或 2000
+YY	两位数字表示的年份	如：14 或 98
+A	大写的AM PM	AM PM
+a	小写的am pm	am pm
+HH	小时，24小时制，有前导零	00到23
+H	小时，24小时制，无前导零	0到23
+hh	小时，12小时制，有前导零	00到12
+h	小时，12小时制，无前导零	0到12
+m	没有前导零的分钟数	0到59
+mm	有前导零的分钟数	00到59
+s	没有前导零的秒数	1到59
+ss	有前导零的描述	01到59
+X	Unix时间戳	1411572969
+（1）格式化年月日： 'xxxx年xx月xx日'
+
+moment().format('YYYY年MM月DD日')
+（2）格式化年月日： 'xxxx-xx-xx'
+
+moment().format('YYYY-MM-DD')
+（3）格式化时分秒(24小时制)： 'xx时xx分xx秒'
+
+moment().format('HH时mm分ss秒')
+（4）格式化时分秒(12小时制)：'xx:xx:xx am/pm'
+
+moment().format('hh:mm:ss a')
+（5）格式化时间戳(以毫秒为单位)
+
+moment().format('x') // 返回值为字符串类型
+4.比较时间
+（1）获取两个日期之间的时间差
+
+let start_date = moment().subtract(1, 'weeks')
+let end_date = moment()
+
+end_date.diff(start_date) // 返回毫秒数
+
+end_date.diff(start_date, 'months') // 0
+end_date.diff(start_date, 'weeks') // 1
+end_date.diff(start_date, 'days') // 7
+start_date.diff(end_date, 'days') // -7
+5.转化为JavaScript原生Date对象
+moment().toDate()
+new Date(moment())
+
+
+Git的使用
+首先自己创建项目的话  git init -y 初始化仓库
+安装好git之后做全局配置
+    git config --global user.name
+    git config --global user.email 'XXX'
+查看状态
+    git status
+添加文件到缓存区
+    git add ./aa.txt
+    git add * 
+    git add ./   把当前目录下面的修改的  添加的文件全都提交到暂存区
+缓存区到本地仓库
+    git commit -m ''
+    git commit -am ''  直接将文件夹代码提交到本地仓库（本地版本库）  省略掉了添加暂存区操作
+
+.gitignore,在这个文件中可以设置要被忽略的文件或者目录。
+被忽略的文件不会被提交仓储里去.
+在.gitignore中可以书写要被忽略的文件的路径，以/开头， 一行写一个路径，这些路径所对应的文件都会被忽略， 不会被提交到仓储中
+写法
+/.idea 会忽略.idea文件
+/js 会忽略js目录里的所有文件
+/js/*.js 会忽略js目录下所有js文件
+
+查看本地提交版本库记录  如果push到远程仓库也就是之前提交本地版本哭的commit
+    git log     
+    git log  --oneline  在一行显示日志信息
+恢复版本  本地版本库之前的版本
+    git reset 参数比如--hard HEAD-0  HEAD指向上0个节点 就是最近的提交节点，会把我们自己修改的文件夹内容给覆盖掉
+    假如回到最初的节点  reset并不会把后面的节点从删除掉，但是git log 是看不到的
+    想回去 可以git reset --hard HEAD 版本号
+怎么获取版本号？
+    存在git log 中的可以直接获取
+    不存在的使用 git reflog  里面记录了我们版本切换记录
+分支
+    为什么会有分支的 概念？ 之前的代码出了BUG 新建分支解决  开发了一半的功能想备份一下，如果采用提交远程的话，别人克隆下来的代码我们的功能是不完善的，可以在开发分支开发，最后合并主分支
+    创建分支：： git branch dev     刚创建的dev分支和master分支内容一羊
+    查看所有分支 ： git branch   * 代表我们所在分支
+    合并分支 ： git merge 分支名   把分支名合并到当前分支  合并分支时候出现冲突  因为两个分支中某个文件不一样  需要手动合并  conflict错误
+冲突： 文件你也改了  我也改了  git 不知道怎么处理
+    Auto-merge 失败  conflict（冲突存在某个文件）
+    自己手动解决  HEAD指向当前分支的代码  下面指向其他分支代码
+        自己保留需要的行   然后add  commit 
+推送： push 
+    首先远程服务器有个仓库  GitHub上面自己手动新建一个 （就有了.git文件）
+    git push 远程仓库地址 《本地分支名》 《远程分支名》
+    每次都写仓库地址太麻烦  可以申明变量origin为远程仓库地址
+        git remote add origin <远程仓库地址>  后面使用只需要git push/pull origin 分支
+    每次都写分支太麻烦 -》关联本地分支和远程分支
+        git push -u origin master   //以后只需要    git push 即可推送  git pull 即可拉取
+拉取  ： pull
+    初始化一个空的仓库  git init    
+    git pull 仓库地址  《分支名》
+    一种情况： 我修改了某个文件产生冲突没有提交到本地，直接git pull 会提示error  解决： 先提交到本地版本库在pull  手动解决冲突 在提交到服务器
+    另一种情况： 我修改了某个文件已经提交到本地，小明修改另一个文件，已经提交到server，现在就是本地和server版本库不一样的问题，pull一下自动给我们合并小明修改的文件  会让我们书写commit描述文件，然后版本库是不是就同步了，提交我们自己修改到server
+
+underscore使用
+npm i underscore //安装
+import _ from 'underscore'  //引入underscore
+
+//https://www.html.cn/doc/underscore/   中文文档
+let arr = [1, 2, 3, 4, 5]
+let object = { one: 1, two: 2, three: 3 }
+//集合函数    对对象进行操作的时候，先是（value,key）return 控制条件和数组中的内容
+_.each(arr, i => console.log(i * 2))        //2 4 6 8 10 对于数组相当于forEach的用法
+_.each(object, i => console.log(i))         //1 2 3     遍历对象的value值
+
+console.log(_.map(arr, i => i > 3))         //[false, false, false, true, true]
+console.log(_.map(arr, i => i * i))         //[1, 4, 9, 16, 25]
+console.log(_.map(object, i => i * i))         //[1,4,9]    一个参数的时候代表value
+console.log(_.map(object, (key, value) => value + 1))        //["one1", "two1", "three1"] 
+console.log(_.map(object, (num, key) => num + 2))           //[3,4,5]   注意相反 第一个位置是value 第二个位置是key   所以使用可以如下  为什么这么设计，当我们第二个参数不传入的时候，遍历的值需要是对象的value啊
+console.log(_.map({ name: 'wang', age: '18' }, (value, key) => value + 1))    //["wang1", "181"]
+console.log(_.mapObject({ name: 'wang', age: '18' }, (value, key) => value + 1))    //{name: "wang1", age: "181"}   返回的就是对象   有了1 是因为return
+
+console.log(_.find(arr, (item) => item > 2))        //3
+console.log(_.find(object, (item) => item > 2))     //3
+console.log(_.find(object, (value, key) => {
+    console.log(key);   //one  two three
+    return key.length > 3   //3  把符合条件的属性值返回了
+    //return key.length > 5   //undefined
+}))
+console.log(typeof (_.find(object, i => i > 2)))    //number
+console.log((_.find(object, (value, key) => key.startsWith('t'))))    //number2把符合条件的属性值返回了
+console.log(_.filter(arr, i => i % 2 === 0))     //[2,4]
+console.log(_.filter(object, i => i % 2 > 0))   //[1,3]
+console.log(_.filter(object, (value, key) => key.startsWith('t')))   //[2,3]   是2，3 数组 并不是一个对象 
+console.log(_.filter({ name: 'wang', age: '18' }, (value, key) => value + 1))   //["wang", "18"]   是2，3 数组 并不是一个对象 
+
+var odds = _.reject([1, 2, 3, 4, 5, 6], function (num) { return num % 2 == 0; });
+console.log(odds)   //与filter用法相反  【 1,3,5 】
+console.log(_.every([2, 4, 5], function (num) { return num % 2 == 0; }))//false 判断是否数组/对象中每一个元素都满足我们的条件
+console.log(_.some([1, 2, 3], (i) => i > 2))    //true
+console.log(_.contains([1, 2, 3], 3))   //true  如果list包含指定的value则返回true
+//_.pluck(list, propertyName)
+//pluck也许是map最常使用的用例模型的简化版本，即萃取数组对象中某属性值，返回一个数组。
+var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
+_.pluck(stooges, 'name');       //= ["moe", "larry", "curly"]
+
+_.max(arr) //不仅可以得到数组的最大值，也可以遍历对象，得到我们指定条件最大的对象
+console.log(_.max([{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }], (obj) => obj.age))    //{name: "curly", age: 60}
+
+//_.toArray(list)  把list(任何可以迭代的对象)转换成一个数组，在转换 arguments 对象时非常有用
+//_.size(list)  返回list的长度  对象没有.length属性
+
+
+_.size({ one: 1, two: 2, three: 3 })    //3
+
+//_.object(list, [values])  将数组转换为对象。传递任何一个单独[key, value]对的列表，或者一个键的列表和一个值得列表。成对（Pairs）传递 则是 pairs 的反函数。 如果存在重复键，最后一个值将被返回
+
+//有关对象的方法
+//_.keys(object)  检索object拥有的所有可枚举属性的名称数组
+//_.values(object)   返回object对象所有的属性值数组
+//_.mapObject(object, iteratee, [context]) 它类似于map，但是这用于对象。转换每个属性的值  返回值是对象
+_.mapObject({ start: 5, end: 12 }, function (val, key) {
+    return val + 5;
+})  //{start: 10, end: 17}
+//_.isUndefined(value) 如果value是undefined，返回true

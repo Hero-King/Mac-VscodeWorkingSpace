@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <script>
+        /*
+                安装： npm i webpack -g 全局安装webpack
+                      npm i webpack-dev-server 全局安装webpack-dev-server
+                启动server  webpack-dev-server
+                配置server  在webpack.config.js中 配置devServer
+
+        *        学习webpack第一课
+             1。创建src和dist/build目录
+             2。书写首页  包管理使用npm  所以npm init -y初始化 生成package.json文件
+             3。新建main.js作为项目JS入口文件，npm 安装需要的包 使用ES6 的import from 导入包
+             4. 新建webpack.config.js文件  配置webpack
+        * */
+    </script>
+    <!--    <script src="main.js"></script>    没有效果 因为并不支持es6语法  应该引入打包后的.js-->
+    <!--    <script src="/bundle.js"></script>    当使用html-webpack-plugin时  能够自动生成 -->
+
+
+</head>
+
+<body>
+    <div>我们在使用npm install 安装模块或插件的时候，有两种命令把他们写入到 package.json 文件里面去，比如：
+
+        --save-dev -D
+
+        --save -S
+
+        在 package.json 文件里面提现出来的区别就是，使用 --save-dev 安装的 插件，被写入到 devDependencies 对象里面去，而使用 --save 安装的插件，责被写入到 dependencies
+        对象里面去。
+
+        那 package.json 文件里面的 devDependencies  和 dependencies 对象有什么区别呢？
+
+        devDependencies  里面的插件只用于开发环境，不用于生产环境，而 dependencies  是需要发布到生产环境的
+        ---------------------
+    </div>
+    <ul>
+        <li>这是第1个li</li>
+        <li>这是第2个li</li>
+        <li>这是第3个li</li>
+        <li>这是第4个li</li>
+        <li>这是第5个li</li>
+        <li>这是第6个li</li>
+        <li>这是第7个li</li>
+    </ul>
+    <img src="./aa_1.jpg" width="100px"><br>
+    <button id="btn" style="width: 50px;">点我</button>
+</body>
+
+</html>

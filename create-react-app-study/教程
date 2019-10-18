@@ -1,0 +1,203 @@
+更改适用性说明 自己写的组件放在/src/js/components下面
+网页就是/public/index.html
+打包入口 /src/index.js
+
+在antd-stu-components下面学习antd的组件，引入到index.js 只能够渲染
+{安装 npm install antd --save   或者 yarn add antd}
+示例#
+import { DatePicker } from 'antd';
+ReactDOM.render(<DatePicker />, mountNode);
+引入样式  import 'antd/dist/antd.css'  一般大的UI组件都是CSS样式  所以自己写的样式不要是CSS 可以是LESS 在webpack.config.js中打包处理CSS不要module参数  给到LESS上面就好了
+ 
+按需导入CSS样式  添加插件babel-plugin-imports  这样打包后的JS文件明显变小了
+暴露配置  安装eject 就可以了
+
+脚手架使用  后面的components里面存放自己写的组件
+里面在自定义组件文件夹名字和组件一样  然后那个组件的样式（全局的样式 应用的其他样式肯定是src/下面的的CSS）正好也放在里面  需要的图片等等就很清晰  
+或者根据路由去创建文件夹
+
+react 组件数据类型指定  npm i -S prop-types
+方式1. default 同级别的地方  APP.propTypes={
+}
+方式2.我么不是要给组件定义数据格式吗  组件里面应该也可以吧 
+static propTypes ={}    //static 静态属性啊！！就是针对组件类的呀 嘿嘿
+
+react ajax请求  fetch就是promise封装好的  可以直接使用https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch
+最简单的用法是只提供一个参数用来指明想fetch()到的资源路径，然后返回一个包含响应结果的promise(一个 Response 对象)。
+当然它只是一个 HTTP 响应，而不是真的JSON。为了获取JSON的内容，我们需要使用  json()方法,如下
+fetch('http://example.com/movies.json')//
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    console.log(myJson);
+  });
+
+  组件之间的通信方式  两种：
+  props 
+1) 共同的数据放在父组件上, 特有的数据放在自己组件内部(state)
+2) 通过 props 可以传递一般数据和函数数据, 只能一层一层传递
+3) 一般数据-->父组件传递数据给子组件-->子组件读取数据
+4) 函数数据-->子组件传递数据给父组件-->子组件调用函数
+  消息的订阅（绑定事件）于发布（触发事件）--》PubSubJS
+
+
+
+
+数组操作方法：
+concat()	连接两个或更多的数组，并返回结果。
+join()	把数组的所有元素放入一个字符串。元素通过指定的分隔符进行分隔。
+pop()	删除并返回数组的最后一个元素
+push()	向数组的末尾添加一个或更多元素，并返回新的长度。
+reverse()	颠倒数组中元素的顺序。
+shift()	删除并返回数组的第一个元素
+slice()	从某个已有的数组返回选定的元素
+sort()	对数组的元素进行排序
+splice()	删除元素，并向数组添加新元素。
+toSource()	返回该对象的源代码。
+toString()	把数组转换为字符串，并返回结果。
+toLocaleString()	把数组转换为本地数组，并返回结果。
+unshift()	向数组的开头添加一个或更多元素，并返回新的长度。
+valueOf()	返回数组对象的原始值
+
+
+
+react组件中render函数里面第一件事是解构赋值引入this.state/this.props里面需要的数据
+react 阻止组件的默认行为 e.preventDefault()
+react 卸载组件   ReactDOM.unmountComponentAtNode(document.getElementById('example'))   卸载挂载在ID为example的节点下面的组件  注意componentWillUnmount生命周期清理资源
+
+
+react受控组件和非受控组件
+第一个就是输入后  把数据存放到state里面  用户名；<input type='text' onChange={this.handleChange}>   
+handleChange =(e)=>{
+    this.setState({username:e.target.value})
+}
+
+第二种就是使用ref指向真实DOM
+别名：<input type='text' ref={(input)=>this.nameInput=input}/>
+取值就是this.nameInput.value 
+
+vs code安装插件---ES7 React/Redux/GraphQL/React-Native snippets
+
+
+
+redux ----学习
+npm i redux 
+createStore()
+1) 作用:
+创建包含指定 reducer 的 store 对象
+2) 编码:
+import {createStore} from 'redux'
+import counter from './reducers/counter' 
+const store = createStore(counter)
+store对象
+1) 作用:
+redux 库最核心的管理对象
+2) 它内部维护着: state
+          reducer 
+3) 核心方法:
+getState() dispatch(action) subscribe(listener)
+4) 编码: 
+store.getState()
+store.dispatch({type:'INCREMENT', number})
+store.subscribe(render)
+
+ redux 的三个核心概念
+ action
+1) 标识要执行行为的对象
+2) 包含 2 个方面的属性
+a. type: 标识属性, 值为字符串, 唯一, 必要属性
+b. xxx: 数据属性, 值类型任意, 可选属性
+3) 例子:
+const action = {
+type: 'INCREMENT',
+data: 2 }
+4) Action Creator(创建 Action 的工厂函数)
+const increment = (number) => ({type: 'INCREMENT', data: number})
+
+reducer
+1) 根据老的 state 和 action, 产生新的 state 的纯函数
+2) 样例
+export default function counter(state = 0, action) { switch (action.type) {
+case 'INCREMENT':
+return state + action.data
+case 'DECREMENT':
+return state - action.data
+default: return state
+} }
+3) 注意
+a. 返回一个新的状态 b. 不要修改原来的状态
+
+store
+1) 将 state,action 与 reducer 联系在一起的对象
+2) 如何得到此对象?
+import {createStore} from 'redux' 
+import reducer from './reducers' 
+const store = createStore(reducer)  //根据reducer去创建一个store
+3) 此对象的功能?
+getState(): 得到 state
+dispatch(action): 分发 action, 触发 reducer 调用, 产生新的 state
+subscribe(listener): 注册监听, 当产生了新的 state 时, 自动调用
+
+
+
+
+
+
+
+项目目录
+项目的默认目录：
+├── package.json
+├── public                  # 这个是webpack的配置的静态目录
+│   ├── favicon.ico
+│   ├── index.html          # 默认是单页面应用，这个是最终的html的基础模板
+│   └── manifest.json
+├── src
+│   ├── App.css             # App根组件的css
+│   ├── App.js              # App组件代码
+│   ├── App.test.js
+│   ├── index.css           # 启动文件样式
+│   ├── index.js            # 启动的文件（开始执行的入口）！！！！
+│   ├── logo.svg
+│   └── serviceWorker.js
+└── yarn.lock
+
+默认的npm的脚本
+启动开发
+npm start
+# or
+yarn start
+
+启动测试
+npm test
+#or
+yarn test
+
+构建生产版本---打包项目资源文件到/build
+npm run build
+#or
+yarn build
+
+解压默认的webpack配置到配置文件中
+npm run eject
+
+公共目录
+公共目录里面的内容不会被webpack进行处理，仅仅会拷贝到最终生成的项目的根目录下。
+HTML模板修改
+在public目录中有个index.html是单页面应用的基本模板，所有react生成的代码都会注入到此HTML中。所以此处可以添加一些cdn脚本或者全局的html。
+
+添加全局的资源（图片、字体、svg、视频等）
+在公共目录下，你可以放字体文件、图片、svg等文件，访问这些文件最好添加 %PUBLIC_URL%作为根目录。  代表public目录哦
+
+<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+
+配合TypeScript
+第一种方式：创建项目的时候直接配置好TypeScript.
+npx create-react-app my-app --typescript
+#or
+yarn create react-app my-app --typescript
+
+第二种方式：为现有的React项目添加TypeScript
+npm install --save typescript @types/node @types/react @types/react-dom @types/jest
+# or
+yarn add typescript @types/node @types/react @types/react-dom @types/jest
