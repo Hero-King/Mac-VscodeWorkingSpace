@@ -32,7 +32,7 @@ console.log(`Current directory: ${process.cwd()}`);  //process.cwd() 是当前�
  * 模块化开发规则：
  *  1.如何定义模块： 一个JS文件就是一个模块。模块内部的成员都是相互独立的
  *  2.模块之间的导入导出
- *  require / export
+ *  require / exports
  */
 var sum = function (a, b) {
     return parseInt(a) + parseInt(b);
