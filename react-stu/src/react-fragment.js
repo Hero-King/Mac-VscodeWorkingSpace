@@ -101,7 +101,4 @@ function Glossary(props) {
 
 key 是唯一可以传递给 Fragment 的属性。在将来，我们可能增加额外的属性支持，比如事件处理。
 
-作者：小小美呀
-链接：https://www.jianshu.com/p/0c486b8f8b65
-来源：简书
-简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
+。

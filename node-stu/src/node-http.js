@@ -41,7 +41,7 @@ http.createServer((req, res) => {
         }
 
     })
-}).listen(3000, 'localhost', () => {
+}).listen(80, () => {
     console.log('server is running');
 
 })
