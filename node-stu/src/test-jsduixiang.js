@@ -1,4 +1,5 @@
 let duixiang1 = require('./js-duixiang1')
+console.log(duixiang1);
 console.log(duixiang1.name);    //wangjunjie
 //console.log(duixiang1[name]);   //error;
 console.log(duixiang1['name']);     //wangjunjie

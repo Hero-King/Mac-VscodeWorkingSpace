@@ -2,7 +2,7 @@ import React from 'react'
 import { HashRouter, Route, Link } from 'react-router-dom'
 
 //导入antd组件
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, SubMenu } from 'antd';
 import Home from './Home/Home.jsx';
 import Movie from './Movie/Movie';
 import About from './About/About';
@@ -37,6 +37,12 @@ export default class App extends React.Component {
                             <Menu.Item key="about">
                                 <Link to='/about'>关于</Link>
                             </Menu.Item>
+                            <SubMenu title="submenu">
+                                <Link to='/about-sub'>sub</Link>
+                                <Menu.Item key="about-sub">
+                                    <Link to='/about-sub'>关于-sub</Link>
+                                </Menu.Item>
+                            </SubMenu>
                         </Menu>
                     </Header>
                     <Content style={{ backgroundColor: '#fff', flex: 1 }}>

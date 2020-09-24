@@ -1,6 +1,7 @@
 import $ from 'jquery'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import ReactImage from '../react-img'
 
 $(function () {
     //  对于webpack-dev-server  是一个可执行脚本，可以使用-h查看使用什么参数，本地安装了webpack 和webpack-dev-server 可以在package.json中配置scripts，然后npm run 新定义的命令名字  如npm rum start  对于全局安装的server 直接执行webpack-dev-server（该加参数加参数）如果出错 npm link webpack -D  软链接一下
@@ -11,3 +12,5 @@ $(function () {
 
     ReactDOM.render(h22, document.getElementById('mydiv'))
 })
+
+// ReactDOM.render()

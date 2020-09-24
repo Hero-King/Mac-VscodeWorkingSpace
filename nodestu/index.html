@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="http://localhost:3000/fileupload" enctype="multipart/form-data" method="post">  <!--后台服务由server-file.js提供-->
+        用户名：<input type="text" name="name"><br>
+        密码：<input type="password" name="password"><br>
+        头像：<input type="file" name="touxiang"><br>
+            <input type="submit" value="upload">
+    </form>
+    <button type="button" id="btn">点我</button>
+</body>
+</html>

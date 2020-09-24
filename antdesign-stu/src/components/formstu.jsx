@@ -4,7 +4,7 @@ import { Form, Input, Icon, Button } from 'antd'
 
 /**
  * Form表单默认没有this.props.form属性  需要使用Form.create()()
- * 
+ * 新版本使用Form.useForm() 方法返回form实例
  */
 
 class Formstu1 extends Component {

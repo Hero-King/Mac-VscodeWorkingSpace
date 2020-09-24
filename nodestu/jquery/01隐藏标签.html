@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.1.js" type="text/javascript"></script>
+    <script>
+        function display() {
+            $('p').hide();
+        }
+        
+        //更好的写法
+        $(function () {
+            $('button').click(function () {
+                $('h2').hide();
+                //AJAX
+                $.get('http://127.0.0.1:3000',function (responseText) {
+                    alert(responseText);
+                });
+
+            })
+        })
+    </script>
+</head>
+<body>
+    <h2>你好</h2>
+    <p>PPPPP</p>
+    <button onclick=display()>点我</button>   <!--onclick='display()'   也一样-->
+
+
+</body>
+</html>
