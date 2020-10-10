@@ -30,6 +30,7 @@ import Modalstu from './components/Modalstu';
 // import './echartsTest'  // 使用这种方式也可以执行成功
 import * as all from './export/exportUse' 
 import todolist from './components/todolist';
+import TreeSelectStu from './components/treeselectstu';
 require('bootstrap')
 // require('./components/DateTimePickerTest')
 // console.log(aaaa);  // 输出的是暴露出来的default对象
@@ -89,6 +90,7 @@ ReactDOM.render(
             <br></br>  
             <SomeIcon></SomeIcon>
             <NewTable></NewTable>
+            <TreeSelectStu/>
         </div> 
         
         {/* <LayoutStu></LayoutStu> */}

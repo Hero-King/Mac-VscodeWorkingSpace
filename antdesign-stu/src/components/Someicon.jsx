@@ -90,6 +90,13 @@ export default function () {
             <button onClick={sendAjax2}>测试ajaxwhen</button>
             <button onClick={sendAjax3}>测试ajaxdone</button>
             <img src="https://www.baidu.com/img/flexible/logo/pc/result.png"/>
+            {
+                // setTimeout()方法的返回值是一个唯一的数值，这个数值有什么用呢？
+                // 如果你想要终止setTimeout()方法的执行，那就必须使用 clearTimeout()方法来终止，而使用这个方法的时候，
+                // 系统必须知道你到底要终止的是哪一个setTimeout()方法(因为你可能同时调用了好几个 setTimeout()方法)，
+                // 这样clearTimeout()方法就需要一个参数，这个参数就是setTimeout()方法的返回值(数值)，
+                // 用这个数值来唯一确定结束哪一个setTimeout()方法。
+            }
         </div>
 
     )
