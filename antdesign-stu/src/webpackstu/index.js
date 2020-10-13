@@ -21,3 +21,5 @@ console.error( _.max([1,2,3]))  // 控制台正常输出了  也就是通过scri
 export default {
     name11: 11
 }
+
+
