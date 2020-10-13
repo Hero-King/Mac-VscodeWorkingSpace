@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     entry: './index.js',
@@ -12,10 +13,20 @@ module.exports = {
         libraryTarget: "umd"
     },
     // externals 配置选项提供了「从输出的 bundle 中排除依赖」的方法。相反，所创建的 bundle 依赖于那些存在于用户环境(consumer's environment)中的依赖。此功能通常对 library 开发人员来说是最有用的，然而也会有各种各样的应用程序用到它。
-    // jquery 就可以通过其他方式引入 jQuery是指全局对象（window/global）下的这个属性  而不是通过webpack打包node_modules里面jquery到 bundle.js中
+    // jquery 就不会再node_modules中查找，而是通过其他方式引入 jQuery是指全局对象（window/global）下的这个属性  而不是通过webpack打包node_modules里面jquery到 bundle.js中
     externals: {
+        // jquery: 'jquery',   // error index.js中$.map就报错了 $ is undefined
         jquery: 'jQuery'
     },
+    plugins: [
+        // 自动加载模块，而不必到处 import 或 require 。
+        new webpack.ProvidePlugin({
+            // identifier: 'module1',
+            // 任何时候，当 identifier 被当作未赋值的变量时，module 就会自动被加载，并且 identifier 会被这个 module 输出的内容所赋值。  
+            $: 'jquery',
+            // jQuery: 'jquery'
+        })
+    ],
     module: {
         rules: [{
             // 处理import 的css
