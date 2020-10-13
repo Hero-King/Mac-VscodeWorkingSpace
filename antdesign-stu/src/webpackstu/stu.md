@@ -32,6 +32,18 @@ css 引入方式：
 1、属于CSS2.1
 2、先加载HTML结构在加载CSS文件。
 ```
+### 插件(可以在webpack运行到某个时刻，帮我们做一些事情)
+- html-webpack-plugin 打包结束后，自动生成HTML文件，并把打包的js文件引入到其中  可以在实例化时候，传入配置以方便我们使用
+- clean-webpack-plugin 帮我们清空打包dist目录下无用的文件
 
+### source map 
+在开发者模式下，我们浏览器报错时候希望定位到源代码的哪一行而不是打包后的bundle.js
+sourceMap 存放的是打包后的bundle.js中的行  -> 对应的某一个js文件中的哪一行
+devtool 有多中方式 model使用development时推荐cheap-module-eval-source-map  线上环境可以使用cheap-module-source-map 或者不用
+
+### dev server
+webpack --watch  监听源代码改动，自动打包
+webpack-dev-server
+webpack-dev-middleware  自己使用express和中间件也可以实现dev-server效果，就是在node中使用webpack
 
 

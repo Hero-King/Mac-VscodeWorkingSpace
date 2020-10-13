@@ -1,11 +1,18 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
-    entry: './index.js',
+    mode: "development",    // "production" | "development" | "none"
+    devServer: {},          // 配置webpack-dev-server
+    entry: './index.js',    //等价于 entry: {main : './index.js'} 其中key 可以在 output配置中使用占位符读取 [name]
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
+        // publicPath: "http://www.heroking.top/", //html文件中引入打包后的js文件前添加了URL网址
+        // publicPath: "/public/", //html文件中引入打包后的js文件前添加了相对于html文件的路径 <script src="/public/bundle.js"></script></body>
+        
 
         // 这样导出的模块就将export导出的 属性以umd方式重命名为 name11   clg(window.name11.default.name11)  => 11
         // webpack打出的包是自调用函数
@@ -25,6 +32,10 @@ module.exports = {
             // 任何时候，当 identifier 被当作未赋值的变量时，module 就会自动被加载，并且 identifier 会被这个 module 输出的内容所赋值。  
             $: 'jquery',
             // jQuery: 'jquery'
+        }),
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: "index.html"
         })
     ],
     module: {
