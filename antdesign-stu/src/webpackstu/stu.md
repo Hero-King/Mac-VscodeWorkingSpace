@@ -32,6 +32,7 @@ css 引入方式：
 1、属于CSS2.1
 2、先加载HTML结构在加载CSS文件。
 ```
+- imports-loader 使得组件内部的this一直指向windows
 ### 插件(可以在webpack运行到某个时刻，帮我们做一些事情)
 - html-webpack-plugin 打包结束后，自动生成HTML文件，并把打包的js文件引入到其中  可以在实例化时候，传入配置以方便我们使用
 - clean-webpack-plugin 帮我们清空打包dist目录下无用的文件
@@ -46,4 +47,16 @@ webpack --watch  监听源代码改动，自动打包
 webpack-dev-server
 webpack-dev-middleware  自己使用express和中间件也可以实现dev-server效果，就是在node中使用webpack
 
+### css modules
+所谓的css模块化本质就是 打包css的时候，重命名hash样式名字得到唯一的样式，然后引用的时候使用style.***找到这个唯一的hash样式
+import style from './xxx.css'
+启用了模块化后xxx.css会暴露出来一个对象，key是classname,value是生成的hash样式名
+使用时候class = style.***
 
+### hot module replacement
+它能够不变动html的结构，刷新其他资源
+比如html页面的结构因为js文件页面变动到一个状态，然后我们要调试样式，使用HMR技术直接改动样式表，页面不会恢复成初始
+
+### code splitting
+分割工具块代码和业务代码，使得打包到不同的文件中去，节省浏览器请求资源时间和利用浏览器缓存少加载资源
+使用 SplitChunksPlugin 插件

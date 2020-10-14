@@ -1,3 +1,10 @@
 .pink{
-    border: 1px red solid;
+    border: 1px red solid;  
+    background-color: #000;
+    /* i am index.js import  */
+}
+
+.imgsmall{
+    width: 100px;
+    height: 100px;
 }
