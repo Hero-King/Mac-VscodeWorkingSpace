@@ -1,9 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
+    // context: path.resolve(__dirname,'aaaa'),    // 基础目录，绝对路径，用于从配置中解析入口起点(entry point)和 loader, 传入使得你的配置独立于 CWD(current working directory - 当前执行路径)。
+    //模块中的所有相对路径都是相对这个,配置长上面那样打包回失败，因为aaaa目录下找不打模块ModuleNotFoundError:
     mode: "development",    // "production" | "development" | "none"
     devServer: {
         contentBase: './dist',
@@ -27,9 +29,23 @@ module.exports = {
     // 我们开发离线应用避免使用这个模式，或者说我们都推荐使用 node_modules方式引入公共组件而不是通过script标签
     externals: {
         // jquery: 'jquery',   // error index.js中$.map就报错了 $ is undefined
-        // jquery: 'jQuery'
+        // jquery: 'jQuery',
+        underscore: '_'
     },
 
+    resolve: {
+        alias: {
+            // mymodule: path.resolve(__dirname,'mymodule.js')
+            mymodule: path.resolve(__dirname,'mymodule')
+        },
+        extensions:[".js",".json",'.jsx'],   // 上面的mymodule.js 如果拓展名是前面数组中列举的可以不写 mymodule: path.resolve(__dirname,'mymodule')效果一样
+        modules: [__dirname,"node_modules"]         //告诉 webpack 解析模块时应该搜索的目录。 默认值：["node_modules"] 相对目录，会祖先递归 
+        // 使用绝对路径，将只在给定目录中搜索!! 举例
+        // modules: [__dirname]     只在当前目录寻找 那么jquery将在当前目录查找导入，如果没有就报错了
+        // modules: [__dirname,"node_modules"] 先当前目录搜索，找不到在递归向上
+        // resolveLoader 这组选项与上面的 resolve 对象的属性集合相同，但仅用于解析 webpack 的 loader 包
+
+    },
     // split code
     optimization: {
         splitChunks: {
@@ -44,7 +60,7 @@ module.exports = {
     },
 
     plugins: [
-        // 自动加载模块，而不必到处 import 或 require 。直接从node_module中引入进来
+        // 自动加载模块，而不必到处 import 或 require 。直接从node_module中引入进来,是node默认的层层往上遍历的方式找组件
         new webpack.ProvidePlugin({
             // identifier: 'module1',
             // 任何时候，当 identifier 被当作未赋值的变量时，module 就会自动被加载，并且 identifier 会被这个 module 输出的内容所赋值。  

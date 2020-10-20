@@ -1,43 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        #div1{
-            width: 200px;
-            height: 200px;
-        }
-
-        .pink{
-            background-color: pink;
-        }
-
-        .pink{
-            background-color: #000;
-        }
-    </style>
-    <style>
-        .pink{
-            background-color: pink;
-        }
-
-        .imgsmall{
-            width: 600px;
-            height: 600px;
-        }
-    </style>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-    <!-- <script src="jquery.js"></script> 避免使用这种方式！！ 使用node_modules-->  
-
-</head>
-<body>
-    <div class="pink" id="div1"></div>
-    <div id="div2"></div>
-    <!-- <script src="./dist/bundle.js"></script>  -->
-    <!-- jquery的引入必须在bundle之前 -->
-
-<script src="vendors-node_modules_jquery_dist_jquery_js-node_modules_underscore_modules_index-all_js-node_-a10990.js"></script><script src="main.js"></script></body>
-</html>
+Html Webpack Plugin:
+<pre>
+  Error: Child compilation failed:
+  Module not found: Error: Can't resolve 'D:\Git\Mac-VscodeWorkingSpace\antdesign-stu\src\webpackstu\aaaa\index.html' in 'D:\Gi  t\Mac-VscodeWorkingSpace\antdesign-stu\src\webpackstu\aaaa':
+  Error: Can't resolve 'D:\Git\Mac-VscodeWorkingSpace\antdesign-stu\src\webpackstu\aaaa\index.html' in 'D:\Git\Mac-VscodeWorkin  gSpace\antdesign-stu\src\webpackstu\aaaa'
+  ModuleNotFoundError: Module not found: Error: Can't resolve 'D:\Git\Mac-VscodeWorkingSpace\antdesign-stu\src\webpackstu\aaaa\  index.html' in 'D:\Git\Mac-VscodeWorkingSpace\antdesign-stu\src\webpackstu\aaaa'
+  
+  - Compilation.js:1476 factory.create
+    [webpackstu]/[webpack]/lib/Compilation.js:1476:28
+  
+  - NormalModuleFactory.js:648 hooks.factorize.callAsync
+    [webpackstu]/[webpack]/lib/NormalModuleFactory.js:648:13
+  
+  
+  - NormalModuleFactory.js:233 hooks.resolve.callAsync
+    [webpackstu]/[webpack]/lib/NormalModuleFactory.js:233:22
+  
+  
+  - NormalModuleFactory.js:357 err
+    [webpackstu]/[webpack]/lib/NormalModuleFactory.js:357:22
+  
+  - NormalModuleFactory.js:120 err
+    [webpackstu]/[webpack]/lib/NormalModuleFactory.js:120:11
+  
+  - NormalModuleFactory.js:577 resolveResource
+    [webpackstu]/[webpack]/lib/NormalModuleFactory.js:577:24
+  
+  - NormalModuleFactory.js:721 resolver.resolve
+    [webpackstu]/[webpack]/lib/NormalModuleFactory.js:721:5
+  
+  - Resolver.js:287 finishWithoutResolve
+    [webpackstu]/[enhanced-resolve]/lib/Resolver.js:287:11
+  
+  - child-compiler.js:131 childCompiler.runAsChild
+    [webpackstu]/[html-webpack-plugin]/lib/child-compiler.js:131:18
+  
+  - Compiler.js:496 compile
+    [webpackstu]/[webpack]/lib/Compiler.js:496:11
+  
+  - Compiler.js:990 hooks.afterCompile.callAsync.err
+    [webpackstu]/[webpack]/lib/Compiler.js:990:17
+  
+  
+  - Hook.js:18 Hook.CALL_ASYNC_DELEGATE [as _callAsync]
+    [webpackstu]/[webpack]/[tapable]/lib/Hook.js:18:14
+  
+  - Compiler.js:986 compilation.seal.err
+    [webpackstu]/[webpack]/lib/Compiler.js:986:33
+  
+  - Compilation.js:2025 hooks.afterSeal.callAsync.err
+    [webpackstu]/[webpack]/lib/Compilation.js:2025:10
+  
+  
+  - Hook.js:18 Hook.CALL_ASYNC_DELEGATE [as _callAsync]
+    [webpackstu]/[webpack]/[tapable]/lib/Hook.js:18:14
+  
+  - Compilation.js:2018 hooks.processAssets.callAsync.err
+    [webpackstu]/[webpack]/lib/Compilation.js:2018:37
+  
+</pre><script src="main.js"></script>

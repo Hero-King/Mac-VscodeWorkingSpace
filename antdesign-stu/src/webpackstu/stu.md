@@ -7,6 +7,9 @@ webpack就是把指定的入口文件打包到指定的输出目录中，使得h
 不推荐全局安装，因为项目依赖webpack版本不同时候，又得项目将跑不起来
 推荐: 局部安装  使用 npx webpack 调用
 
+### 暴露配置
+支持导出单个对象、对象数组（构建多个应用就可以用这个了）、函数等
+
 ### loader
 注意： loader的顺序是重要的，从右到左，从下到上调用！！
 - file-loader 就是把文件复制到指定的目录下，更改成配置的文件名，并返回到代码中  js中引用没有问题 （用于静态资源比较大的场景）
@@ -57,6 +60,12 @@ import style from './xxx.css'
 它能够不变动html的结构，刷新其他资源
 比如html页面的结构因为js文件页面变动到一个状态，然后我们要调试样式，使用HMR技术直接改动样式表，页面不会恢复成初始
 
-### code splitting
+### code splitting （牛皮）
 分割工具块代码和业务代码，使得打包到不同的文件中去，节省浏览器请求资源时间和利用浏览器缓存少加载资源
 使用 SplitChunksPlugin 插件
+
+### tree shaking （只支持ESmodule引入方式）
+适用于mode: development模式
+默认情況import {aa} from './XXX.js' 我们只使用了XXX.js模块中的aa  但是该模块中导出的其他内容也都会被打包进来 
+可以使用这个配置，但是如果xxx.js 或者xxx.css等模块没有到处内容，那么将不会打包进去
+生产环境production  webpack默认帮我们优化好了

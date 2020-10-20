@@ -6,3 +6,32 @@ color:rgba(255, 255, 255, 0.65);
 a:link{
     /* color: #fff; */
 }
+
+/* CSS3 stu */
+/* 
+    属性选择器 
+        input[value]{} 含有value属性的input  
+        input[attr="aa"] 属性attr为aa的input
+    
+*/
+ul li:first-child{
+
+}
+
+/* 位置数字   或者 偶数  奇数odd 还可以是公式 2n+1 n从0开始*/
+/* 会把所有的孩子排列序号，把序号选中然后匹配前面的li */
+ul li:nth-child(even){
+
+}
+
+/* 用法它能够first-child  但是先把指定的元素排列序号，在找到指定的某个  */
+ul li:first-of-type{
+
+}
+
+/* 利用css创建标签元素: 伪元素选择器 推荐::before 不推荐:before*/
+/* before在父元素内容化最前面（左面）创建元素（行内元素），权重是1  必须有content属性*/
+
+
+
+
