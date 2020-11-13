@@ -113,6 +113,9 @@ module.exports = {
             use: [
                 'file-loader'
             ]
-        }]
+        },
+        { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] }, // 处理 less 文件的 loader
+    
+    ]
     }
 };

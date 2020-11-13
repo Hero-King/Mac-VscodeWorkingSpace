@@ -1,0 +1,162 @@
+a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+a:link {
+    /* color: #fff; */
+}
+
+/* CSS3 stu */
+/* 
+    属性选择器 
+        input[value]{} 含有value属性的input  
+        input[attr="aa"] 属性attr为aa的input
+
+        图像模糊 设置 filter属性 blur(**px) ** 越大越模糊
+
+    calc函数 + - * /操作
+    calc(100% -80px)
+    
+*/
+ul li:first-child {}
+
+/* 位置数字   或者 偶数  奇数odd 还可以是公式 2n+1 n从0开始*/
+/* 会把所有的孩子排列序号，把序号选中然后匹配前面的li */
+ul li:nth-child(even) {}
+
+/* 用法它能够first-child  但是先把指定的元素排列序号，在找到指定的某个  */
+ul li:first-of-type {}
+
+button{
+    border: 1px solid red !important;
+    background-color: #111;
+}
+/*
+ 
+*/
+
+/* 利用css创建标签元素: 伪元素选择器 推荐::before 不推荐:before*/
+/* before在父元素内容化最前面（左面）创建元素（行内元素），权重是1  必须有content属性*/
+
+/* 元素高度
+1 height()         高度为 height ,
+2 innerHeight()    高度为 height+padding ,
+3 outerHeight()    高度为 height+padding+border ,
+4 outerHeight(true)高度为 height+margin+padding+border ;
+
+Less 是一门 CSS 预处理语言，它扩展了 CSS 语言，增加了变量、Mixin、函数等特性，使 CSS 更易维护和扩展。
+Less 可以运行在 Node 或浏览器端。
+“导入”的工作方式和你预期的一样。你可以导入一个 .less 文件，此文件中的所有变量就可以全部使用了。如果导入的文件是 .less 扩展名，则可以将扩展名省略掉：
+@import "library"; // library.less
+@import "typo.css";
+(& 表示当前选择器的父级）
+~ 转义 允许你使用任意字符串作为属性或变量值
+变量： @变量名
+@width: 10px;
+@height: @width + 10px;
+#header {
+  width: @width;
+  height: @height;
+}
+引用样式：.样式名()  定义样式时候加() 代表不把这个样式输出到css中  像不像命名空间
+.bordered {
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
+}
+#menu a {
+  color: #111;
+  .bordered();
+}
+.post a {
+  color: red;
+  .bordered();
+}
+
+*/
+
+
+// css 权威指南学习 https://github.com/gdut-yy/CSS-The-Definitive-Guide-4th-zh
+/*
+根据 HTML 规范，em可以作为p的后代，但反过来则不行。通常 HTML 的层级结构允许行内元素作为块级元素的后代，而不是相反。
+但是css是允许的 设置display属性
+
+@ import位于样式容器内。必须将其放置在其他CSS规则之前，否则将根本无法使用，一个文档中可以有多个@import语句
+<style type="text/css">
+  @import url(styles.css) [媒体（可省略）]; 
+  h1 {
+    color: gray;
+  }
+</style>
+ @media 媒体查询   你可以针对不同的媒体类型定义不同的样式。
+ all 在所有演示媒体中使用。 print 在为有视力的用户打印文档以及显示文档的打印预览时使用。 screen 在台式电脑显示器等屏幕介质中显示文档时使用。
+ @media mediatype and|not|only (media feature) {
+    CSS-Code;
+}
+标签也是有media属性的
+<link type="text/css" href="frobozz.css" media="screen, print" />
+<style type="text/css" media="screen, print">
+  ...;
+</style>
+
+@support 如果用户代理支持某些CSS属性-值组合，则CSS可以应用CSS块
+@supports (color: black) {
+  body {
+    color: black;
+  }
+  h1 {
+    color: purple;
+  }
+  h2 {
+    color: navy;
+  }
+}
+如果您认识到并可以使用属性值组合颜色：黑色，则应用以下样式。否则，请跳过这些样式
+
+
+样式前缀出现的原因是： 浏览器厂商为了方便测试属性提出来的内部使用的东西，后面还是被发布出来了导致现在还存在一下，但是已经缩减了较多
+
+选择器权重问题：
+* 通配符 权重为 0 
+对于选择器中给定的每个 ID 属性值，添加' 0,1,0,0 '。
+对于选择器中给出的每个类属性值、属性选择或伪类，添加' 0,0,1,0 '。
+对于选择器中给出的每个元素和伪元素，添加' 0,0,0,1 '。
+对于每个内联声明都有一个' 1,0,0,0 '的权重。
+*/
+h1 {
+  color: red;
+} /* specificity = 0,0,0,1 */
+p em {
+  color: purple;
+} /* specificity = 0,0,0,2 */
+.grape {
+  color: purple;
+} /* specificity = 0,0,1,0 */
+*.bright {
+  color: yellow;
+} /* specificity = 0,0,1,0 */
+p.bright em.dark {
+  color: maroon;
+} /* specificity = 0,0,2,2 */
+#id216 {
+  color: blue;
+} /* specificity = 0,1,0,0 */
+div#sidebar *[href] {
+  color: silver;
+} /* specificity = 0,1,1,1 */
+* {
+  color: gray;
+} 
+
+// CSS3定义了三个“全局”的关键词：inherit, initial和unset。这三个关键词可以用在任何属性上
+// inherit 关键词使元素上该属性的值继承其父元素响应属性的值。换句话来说，在继承没有发生的情况下，
+// 它会强行进行属性继承。在很多情况下，你不需要特意指明继承，很多继承是自动进行的。
+// 但是，inherit关键词还是非常有用的。
+
+// initial 关键词可以将属性的值恢复成初始值，某种程度上可以说它“重置”了该值。例如：fontweight属性的默认值为normal。
+// 因此，font-weight: initial这样声明跟font-weight: normal这样声明是一个效果。
+
+// unset 关键词是inherit和initial的通用替代。如果一个属性是继承的，unset的效果跟inherit关键词的效果相同，如果一个属性不是继承的，unset的效果则跟initial关键词的效果相同。
+
+// all 关键词用于指代全部属性，除direction、unicode-bidi。因此，如果你在一个元素中这样声明all: inherit，意思是除了direction、unicode-bidi属性外，全部属性的值均继承自它们的父元素。
+

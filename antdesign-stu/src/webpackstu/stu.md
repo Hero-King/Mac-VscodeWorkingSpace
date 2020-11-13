@@ -5,7 +5,7 @@ webpack就是把指定的入口文件打包到指定的输出目录中，使得h
 
 ### 安装
 不推荐全局安装，因为项目依赖webpack版本不同时候，又得项目将跑不起来
-推荐: 局部安装  使用 npx webpack 调用
+推荐: 局部安装  使用 npx webpack 调用 npx webpack s 启动server
 
 ### 暴露配置
 支持导出单个对象、对象数组（构建多个应用就可以用这个了）、函数等
@@ -39,6 +39,7 @@ css 引入方式：
 ### 插件(可以在webpack运行到某个时刻，帮我们做一些事情)
 - html-webpack-plugin 打包结束后，自动生成HTML文件，并把打包的js文件引入到其中  可以在实例化时候，传入配置以方便我们使用
 - clean-webpack-plugin 帮我们清空打包dist目录下无用的文件
+- provideplugin 自动给某个模块中引入模块  不需要写import 语句
 
 ### source map 
 在开发者模式下，我们浏览器报错时候希望定位到源代码的哪一行而不是打包后的bundle.js
@@ -62,10 +63,29 @@ import style from './xxx.css'
 
 ### code splitting （牛皮）
 分割工具块代码和业务代码，使得打包到不同的文件中去，节省浏览器请求资源时间和利用浏览器缓存少加载资源
-使用 SplitChunksPlugin 插件
+使用 SplitChunksPlugin 插件   这里掌握了 异步组件的概念
 
 ### tree shaking （只支持ESmodule引入方式）
 适用于mode: development模式
 默认情況import {aa} from './XXX.js' 我们只使用了XXX.js模块中的aa  但是该模块中导出的其他内容也都会被打包进来 
 可以使用这个配置，但是如果xxx.js 或者xxx.css等模块没有到处内容，那么将不会打包进去
 生产环境production  webpack默认帮我们优化好了
+
+### chunk
+webpack 打包生成的每个js文件就是一个chunk
+
+### preloading 、 prefetching
+考虑代码利用率的问题，刚打开页面时候，资源紧张，不需要执行的代码可以不加载
+比如事件代码，但是用户点击事件时候在加载代码又来不及，使用prefetching 能够在网络带宽空闲下来时候去加载代码
+代码优化时候： 浏览器缓存已经不是重点，而且优化程度不高，而是提高代码利用率，使用延迟加载方式优化 
+
+### 浏览器缓存问题
+项目上线了，更改了文件之后，从新上传服务器，但是文件名没有改变，用户的浏览器中是由缓存的并不会获取最新的代码
+引入 contenthash占位符，根据content产生hash值，文件内容不变，hash值也不会变
+
+### mainfast文件 
+记录的是包和包之间的依赖关系
+
+### pwa技术
+之前打开过某个页面，服务器挂了后，希望还能打开之前的那个页面
+workbox-webpack-plugin

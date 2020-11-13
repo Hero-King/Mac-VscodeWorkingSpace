@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import { ConfigProvider } from 'antd';
 // import './components/editTable'
 import {
     BrowserRouter as Router,
@@ -8,7 +8,7 @@ import {
     Route,
     Link
   } from "react-router-dom";
-import './index.css'
+
 // import Formstu from './components/formstu'
 // import WrappedDynamicFieldSet from './components/formstu2'
 // import CollectionsPage from './components/formstu1' //点击按钮调出modal
@@ -56,7 +56,8 @@ const AA = (props) => {
 }
 
 ReactDOM.render(
-    <Router>
+    <ConfigProvider prefixCls="antdd">
+        <Router>
     <React.Fragment>
         {/* <Modal 
             title="1111"
@@ -93,7 +94,7 @@ ReactDOM.render(
             <TreeSelectStu/>
         </div> 
         
-        {/* <LayoutStu></LayoutStu> */}
+        <LayoutStu></LayoutStu>
         
         <ReactImage/>
         
@@ -130,6 +131,7 @@ ReactDOM.render(
                    
     </React.Fragment>
     </Router>
+    </ConfigProvider>
     , document.getElementById('root'));
 
 console.log("-------------");
