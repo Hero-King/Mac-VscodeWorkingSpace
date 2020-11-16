@@ -1,0 +1,22 @@
+pipeline {
+    // agent指令是必需的，它指示 Jenkins 为流水线分配一个执行器和工作区。没有 agent 指令的话，声明式流水线不仅无效，它也不可能完成任何工作！默认情况下，agent 指令确保源代码仓库被检出并在后续阶段的步骤中可被使用。
+    agent any   
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
+}
