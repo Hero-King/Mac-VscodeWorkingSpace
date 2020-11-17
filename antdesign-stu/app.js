@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-let antdesignstuPath = "/home/git/Mac-VscodeWorkingSpace/antdesign-stu"
+let antdesignstuPath = __dirname;
 app.use(express.static(antdesignstuPath + '/build'));
 app.get('/index-cn', function (req, res) {
 	console.log(req.query,'response index-cn.html')
