@@ -64,6 +64,7 @@ function Frame(props) {
                     >
                         {
                             adminRouteShow.map((item, index) => {
+                                console.log(props.location.pathname)
                                 return <Menu.Item key={item.path} onClick={e => props.history.push(e.key)} icon={item.icon.render()}>
                                     {item.title}
                                 </Menu.Item>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { StepBackwardOutlined } from '@ant-design/icons'
-import { Tooltip } from 'antd';
+import { Tooltip, message } from 'antd';
 import $ from 'jquery'
 // import {StepBackwardOutlined } from 
 
@@ -9,7 +9,11 @@ export default function () {
     function sendAjax(e) {
         $.get("http://localhost:3000/robots.txt", data => {
             console.log(data);
+            // message.info('请求结束了',0)
+            
+
         })
+        message.loading('loading',0.5)
     }
 
     function sendAjax1(params) {

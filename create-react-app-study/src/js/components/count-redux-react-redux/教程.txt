@@ -1,0 +1,84 @@
+第一步：  记住使用redux 后的组件更新状态流程图
+自己写的组件App里面 触发点击事件  需要更改state
+this.props.store.dispatch(action对象)
+this.props.store.dispatch({type:'increment',data:number})
+this.props.store.dispatch(actions.increment(number))    //可以自己写一个actions.js文件 里面封装好需要的函数 返回一个action对象   import * as actions from './actions' 
+
+为什么props里面有store  因为我们在使用App组件的时候传入了store={store}
+store 怎么产生的？   可以写在一个stores.js里面  import { createStore } from 'redux'  const store = createStore(counter)    这里就涉及到了reducers
+
+reducers里面存放的是函数   
+参数（state【=0初始化使用】，action对象 ）对state进行处理更新  并返回return state + action.data * 1
+想要在state变化后更新页面  需要将渲染页面的函数作为
+store.subscribe()的回调函数
+
+react-redux 的诞生  是降低App。jsx里面的耦合性  index.js的书写方式和以前一样
+安装好   区分UI组件和容器组件
+使用<Provider>标签包裹  这样就可以自己监听变化并更新页面
+ReactDOM.render(
+    <Provider store={store}>
+        <App></App>
+    </Provider>
+    , document.getElementById('root')
+)
+还有一点是App.js里面使用this.props.store.XXXX特别耦合 繁琐
+
+connect() : 技术上讲，容器组件就是使用 store.subscribe() 从 Redux state 树中读取部分数据，并通过 props 来把这些数据提供给要渲染的组件。你可以手工来开发容器组件，但建议使用 React Redux 库的 connect() 方法来生成，这个方法做了性能优化来避免很多不必要的重复渲染。
+mapStateToProps是一个函数，用于建立组件跟store的state的映射关系作为一个函数，它可以传入两个参数，结果一定要返回一个object
+mapDispatchToProps用于建立组件跟store.dispatch的映射关系可以是一个object，也可以传入函数(dispatch, ownProps)
+
+可以这么玩: 
+const mapDispatchToProps = (dispatch, ownProps) => {
+return {
+increase: (...args) => dispatch(actions.increase(...args)),
+decrease: (...args) => dispatch(actions.decrease(...args))
+}
+}
+
+也可以直接将action包装成可以被调用的函数(借助bindActionCreator)
+如果mapDispatchToProps是一个函数, 并且传入ownProps, 当组件获取新的props的时候，mapDispatchToProps也会被调用.
+传入一个object，其中这个object所对应的value必须是actionCreator，这样redux里面会自动帮我们调用bindActionCreator，所以上面又可以变成
+const mapDispatchToProps = {
+...action
+}
+不传的时候，React-Redux会自动将dispatch注入组件的props
+如果不mapDispatchToProps   那么就是用 props.dispatch(action对象)
+
+我们使用connect函数包装需要使用store的组件 举例Counter组件
+export default connect （
+    state=>({count:state}  )        //mapStateToProps 把state值赋给count属性   就是给包装后的组件传入一个数据
+    {increment:increment}       // mapDispatchToProps  第一个是属性increment（可以是一个函数吧就是为了在组件里面直接使用this.props.increment调用）  第二个是actions里面暴漏出来的函数
+）（Counter）
+
+合并多个 reducer  => combineReducers(a,b)   取用的时候注意一下路径变了
+如果redux中的数据是异步的  使用 redux-thunk
+
+异步 Action
+一般情况下，每个 API 请求都需要 dispatch 至少三种 action：  
+    一种通知 reducer 请求开始的 action。
+    一种通知 reducer 请求成功的 action。
+    一种通知 reducer 请求失败的 action。
+为了区分这三种 action，可能在 action 里添加一个专门的 status 字段作为标记位：
+{ type: 'FETCH_POSTS' }
+{ type: 'FETCH_POSTS', status: 'error', error: 'Oops' }
+{ type: 'FETCH_POSTS', status: 'success', response: { ... } }
+又或者为它们定义不同的 type：
+{ type: 'FETCH_POSTS_REQUEST' }
+{ type: 'FETCH_POSTS_FAILURE', error: 'Oops' }
+{ type: 'FETCH_POSTS_SUCCESS', response: { ... } }
+
+如何把 之前定义 的同步 action 创建函数和网络请求结合起来呢？标准的做法是使用 Redux Thunk 中间件。要引入 redux-thunk 这个专门的库才能使用。
+我们 后面 会介绍 middleware 大体上是如何工作的；目前，
+你只需要知道一个要点：通过使用指定的 middleware，action 创建函数除了返回 action 对象外还可以返回函数。
+这时，这个 action 创建函数就成为了 thunk。
+
+当 action 创建函数返回函数时，这个函数会被 Redux Thunk middleware 执行。这个函数并不需要保持纯净；它还可以带有副作用，包括执行异步 API 请求。这个函数还可以 dispatch action，就像 dispatch 前面定义的同步 action 一样。
+  // Thunk middleware 知道如何处理函数。
+  // 把 dispatch 方法通过参数的形式传给函数，
+  // 以此来让它自己也能 dispatch action。
+
+
+
+
+
+
