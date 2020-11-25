@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-
+import { connect } from 'react-redux'
+import { increment, decrement } from '../redux/actions'
 //components 目录主要用于存放UI组件  不涉及redux的API操作  redux都放在containers目录里面
 
 /**index7.js
@@ -11,26 +12,29 @@ import React, { Component } from 'react'
  * 包裹App 
  */
 
-export default class Counter extends Component {
+class Counter extends Component {
+
+    constructor(props){
+        super(props);
+        this.select = React.createRef();
+    }
 
     increment = () => {
-        const number = this.select.value
-        console.log(this.props);
+        const number = this.select.current.value
         this.props.increment(number)
     }
     decrement = () => {
-        const number = this.select.value
+        const number = this.select.current.value
         this.props.decrement(number)
     }
 
-
     render() {
-        const count = this.props.count
+        const {count} = this.props
         return (
             <div>
                 <h2>count数值是：{count}</h2>
                 <div>
-                    <select ref={(select) => this.select = select}>
+                    <select ref={this.select}>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -42,3 +46,8 @@ export default class Counter extends Component {
         )
     }
 }
+
+export default connect(
+    (state) => ({ count: state })   //是一个函数 将state转换成props
+    , { increment, decrement }      //是一个对象，里面存放的是actions里面的函数，就是渲染的组件里面要对数据XX处理 所使用到的XXaction
+)(Counter)
