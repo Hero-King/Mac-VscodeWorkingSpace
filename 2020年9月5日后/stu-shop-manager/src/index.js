@@ -16,9 +16,12 @@ import { notices } from './store/reducers'
 
 const store = createStore(notices)
 
+// 本项目package.json设置部署在  "homepage": "http://www.heroking.top/shop-stu", 这将使 Create React App 正确地推断出在生成的 HTML 文件中使用的根路径。
+//  所以默认的路由要改
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router basename='/shop-stu'>
       {/* 表示只会匹配一次 */}
       <ConfigProvider locale={zhCN}>
         <Switch>
