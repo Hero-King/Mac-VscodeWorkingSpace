@@ -1,10 +1,12 @@
 import React from 'react'
 import { Card, Table, Button, Popconfirm } from 'antd'
+import { genderTableData} from '../../../utils/genderData'
 
-export default function Product() {
+export default function Product(props) {
     const dataSource = [{
         name: "小灰灰",
-        price: "9999"
+        price: "9999",
+        id: 0
     }]
     const columns = [{
         title: "序号",
@@ -23,6 +25,7 @@ export default function Product() {
                 <Button type="primary" onClick={handleEdit} >修改</Button> &nbsp; &nbsp;
                 <Popconfirm title="你确定要删除吗？" onConfirm={handleDelete(index)}>
                     <Button type="danger" >删除</Button>
+                    {/* 长度使用rem ?? 学习一下 */}
                 </Popconfirm>
 
             </div>
@@ -33,15 +36,13 @@ export default function Product() {
         console.log(e)
     };
 
-    const handleDelete =(index) => {
+    const handleDelete = (index) => {
         console.log(index)
     }
 
     return (
-        <div>
-            <Card title="商品列表" bordered={true} >
-                <Table columns={columns} dataSource={dataSource} />
-            </Card>
-        </div>
+        <Card title="商品列表" bordered={true} extra={<Button type='primary' size='small' onClick={(e) => props.history.push('/admin/products/edit/1')}>新增</Button>}>
+            <Table columns={columns} dataSource={genderTableData(dataSource,100)} rowKey="id" />
+        </Card>
     )
 }

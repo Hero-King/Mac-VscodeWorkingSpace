@@ -3,7 +3,8 @@ import NotFound from "../components/page/notFound";
 import Index from "../components/page/admin";
 import Product from "../components/page/admin/product";
 import Edit from "../components/page/admin/edit";
-
+import Notices from "../components/page/admin/notices";
+import {AreaChartOutlined, ShopOutlined} from '@ant-design/icons'
 
 // 本项目分成两个路由
 export const mainRoutes = [{
@@ -18,13 +19,21 @@ export const adminRoute = [{
     path: "/admin/dashboard",
     component: Index,
     title: "看板",
-    isShow: true
+    isShow: true,
+    icon: AreaChartOutlined
 },{
     path: "/admin/products",
     component: Product,
     title: "商品列表",
-    isShow: true
+    exact: true,
+    isShow: true,
+    icon: ShopOutlined
 },{
-    path: "/admin/products/edit/:id",
-    component: Edit
+    path: "/admin/products/edit/:id?",
+    component: Edit,
+    isShow: false
+},{
+    path: "/admin/notices",
+    component: Notices,
+    isShow: false
 }]

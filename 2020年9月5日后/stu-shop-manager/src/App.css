@@ -1,10 +1,14 @@
 /* 将前面的所有选择器设置相同的属性 */
-html,body,#root,#root>section{    
+html,
+body,
+#root,
+#root>section {
   height: 100%;
   width: 100%;
 }
 
-header{
+.header {
   display: flex;
   justify-content: space-between;
+  background-color: #40a9ff;
 }
