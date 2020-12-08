@@ -18,5 +18,5 @@ $.get("http://127.0.0.1:3000/robots.txt",{},function (data) {
 });
 
 console.log($.get("http://127.0.0.1:3000/robots.txt",{}));
-console.log(11);
+
 

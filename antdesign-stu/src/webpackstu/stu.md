@@ -89,3 +89,34 @@ webpack 打包生成的每个js文件就是一个chunk
 ### pwa技术
 之前打开过某个页面，服务器挂了后，希望还能打开之前的那个页面
 workbox-webpack-plugin
+
+### 单页面路由问题
+webpackdevserver 开始historyApiFallback 属性
+项目部署时候仍需要 手动配置
+
+### ESlint  
+存在eslint-loader 但是影响打包速度  使用vscode的插件即可
+
+### 提高webpack的打包速度
+- 升级node npm yarn 版本
+- 在尽可能少的模块上使用loader
+
+### 手写loader
+XXXloader.js    :
+```
+<!-- 使用声明式函数(里面的this会有些参数传入),非箭头函数 -->
+module.exports = function(source){
+  return 对source的处理
+}
+```
+
+### bundle源码分析
+函数分析入口文件的内容
+
+const fs = require('fs')
+const moduleAnalyser = (fileName) => {
+
+}
+
+使用babel/parser 分析源代码 
+npm i @babel/parser -D

@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import ReactDOM from  'react-dom'
-import RouterApp from '../react-route/routerApp'
 
 // 父组件想要执行子组件里面的方法和数据，可以父组件通过ref指向子组件，父组件中使用this.refs。“”》得到子组件实例
 // 父组件给调用子组件时候没有给出指定的props 可以再子组件中使用defaultprops定义默认值
@@ -57,8 +55,7 @@ export default function(){
             </ul>
 
             <hr />
-            <h3>todolist组件中挂载的路由组件学习</h3>
-            <RouterApp/>
+            
         </div>
 
     )
