@@ -1,0 +1,16 @@
+
+        (function(graph){
+            console.log(graph)
+            function require(module){
+                function localRequire(relatiPath){
+                    return require(graph[module].dependencies[relatiPath])
+                }
+                const exports = {};
+                (function(require, code,exports){
+                    eval(code)
+                })(localRequire,graph[module].code,exports)
+                return exports;
+            }
+            require('./indexTlp.js')
+        })({"./indexTlp.js":{"code":"\"use strict\";\n\nvar _indexTlp = _interopRequireDefault(require(\"./indexTlp1.js\"));\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nconsole.log(\"1111\");","dependencies":{"./indexTlp1.js":"./indexTlp1.js"}},"./indexTlp1.js":{"code":"\"use strict\";\n\nvar _index = _interopRequireDefault(require(\"./index/index3.js\"));\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nconsole.log(\"2222\");","dependencies":{"./index/index3.js":"./index\\index3.js"}},"./index\\index3.js":{"code":"\"use strict\";\n\nconsole.log(\"3333\");","dependencies":{}}});
+    

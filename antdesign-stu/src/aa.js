@@ -1,4 +1,3 @@
-
 const result = [
     { fieldId: 20000, fieldValue: "1111" },
     { fieldId: 20008, fieldValue: [101, 102, 103] },
@@ -12,10 +11,8 @@ result.find(item => {
 })
 
 var f = (a, b) => a + b;
-var g = (a, b) => { a + b };
 //8
 console.log(f(6, 2))
-console.log(g(6, 1))    //undefined
 
 const obj = {
     name: 'wang',

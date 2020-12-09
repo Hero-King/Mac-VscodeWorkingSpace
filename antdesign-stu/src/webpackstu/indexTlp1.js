@@ -1,1 +1,2 @@
-console.log(22);
+import aa from './index/index3.js'
+console.log("2222");

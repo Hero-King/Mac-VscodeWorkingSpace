@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { BrowserRouter as Router, Redirect, Route, Link, Switch, useRouteMatch, useParams, useHistory } from 'react-router-dom'
+import InfiniteListExample from './InfiniteListExample'
+import { BrowserRouter as Router, Redirect,withRouter,  Route, Link, Switch, useRouteMatch, useParams, useHistory } from 'react-router-dom'
 
 function Workspace(props) {
     console.log(props,'workspace props');
@@ -54,7 +55,7 @@ class Home extends React.Component {
         return (
             <div className="router-home">
                 Home
-
+                <InfiniteListExample/>
             </div>
         );
     }
@@ -140,3 +141,4 @@ function View(props) {
         macth: 
     </div>
   }
+  
