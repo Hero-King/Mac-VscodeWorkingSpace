@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+<!--    CDN网络加载-->
+<!--    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>-->
+<!--    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>-->
+<!--    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>-->
+
+<!--    本地加载-->
+    <script src="../node_modules/react/umd/react.development.js"></script>
+    <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="../node_modules/babel-standalone/babel.js"></script>
+</head>
+<body>
+
+<div id="example"></div>
+<script type="text/babel">
+    //  render只有两个参数  第一个是DOM元素，第二个是位置
+        let a=10
+        let str='nihao'
+        var mystyle={
+            font:12,
+            color:'red'
+        }
+        ReactDOM.render(
+        <div>
+            <h1>Hello, world!</h1>
+            {a}     {/* JSX 注释 */}
+            <h3>{str}</h3>
+            <hr/>
+            <span style={mystyle}>哈哈哈哈 i 好呀！ </span>
+        </div> ,
+        document.getElementById('example')
+    );
+</script>
+
+</body>
+</html>

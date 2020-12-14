@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.1.js" type="text/javascript"></script>
+    <style>
+        body{
+            padding: 20px;
+            /*margin: ;*/
+        }
+    </style>
+    <script>
+        $(function () {
+            $('button').click(function () {
+                var text=$('input[type=text]').val();
+               // console.log(text);
+                $('img').attr('src',text);  //文本框中输入https://www.iqiyipic.com/common/fix/site-v4/sprite-headLogo-index.png
+                //CSS 样式练习
+                $('div').css('background-color','red');
+
+            })
+        });
+
+    </script>
+</head>
+<body>
+    <input type="text" width="200px">
+    <div>HHHH</div>
+    <button type="button" >点击切换图片</button><br>
+    <img src="https://www.baidu.com/img/bd_logo1.png">
+</body>
+</html>

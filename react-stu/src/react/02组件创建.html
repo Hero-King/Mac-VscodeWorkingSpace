@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../node_modules/react/umd/react.development.js"></script>
+    <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="../node_modules/babel-standalone/babel.js"></script>
+
+    <script type="text/babel">
+        //创建组件的第一种方式  使用构造函数--首字母大写哟
+        function Hello() {
+            return <h2>我是组件</h2>;
+        }
+        var dog={
+            name:'阿黄',
+            age:'3',
+            gender:'M'
+        }
+
+        //展开运算符 ... 给Hello添加了三个属性
+        ReactDOM.render(<Hello {...dog}></Hello>,document.getElementById('div1'))
+
+
+    </script>
+</head>
+<body>
+    <div id="div1">
+    </div>
+</body>
+</html>

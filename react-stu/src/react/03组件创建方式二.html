@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../node_modules/react/umd/react.development.js"></script>
+    <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="../node_modules/babel-standalone/babel.js"></script>
+
+    <script type="text/babel">
+        //创建组件的第二种方式  使用class类创建
+        class Person extends React.Component{
+            constructor(){
+                super()
+
+                this.state={
+                    title:'啦啦啦',
+                    info:'infoinfo'
+                }
+            }
+            render(){
+                return <div>
+                    <h2>hahahaha</h2>
+                    <h2>hahahaha</h2>
+                    <p>我是一个段落</p>
+                    <p>{this.state.info}</p>{/*访问state的数据*/}
+                </div>
+            }
+
+
+        }
+
+        //展开运算符 ... 给Hello添加了三个属性
+        // ReactDOM.render(<Person {this.state.info}></Person>,document.getElementById('div1'))  state数据是私有的
+        ReactDOM.render(<Person/>, document.getElementById('div1'))
+
+    </script>
+</head>
+<body>
+    <div id="div1"></div>
+</body>
+</html>
