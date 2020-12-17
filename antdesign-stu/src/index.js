@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import { ConfigProvider } from 'antd';
 import './aa'
@@ -31,6 +31,7 @@ import Modalstu from './components/Modalstu';
 import * as all from './export/exportUse'
 import todolist from './components/todolist';
 import TreeSelectStu from './components/treeselectstu';
+import { HelloWorld } from './typescript/helloworld';
 require('bootstrap')
 // require('./components/DateTimePickerTest')
 // console.log(aaaa);  // 输出的是暴露出来的default对象
@@ -44,6 +45,15 @@ const props = {
 }
 
 const AA = (props) => {
+
+    // useEffect(() => {
+    //     console.log("开始添加 onbeforeunload 事件");
+    //     window.onbeforeunload = (e) => {
+    //         return "12"
+    //     }
+        
+    // }, [])
+
     console.log(props, "AA");
     function BB({ name, age }) {
         console.log(name, "BB");
@@ -132,6 +142,7 @@ ReactDOM.render(
 
                 <h3>-----------layoutstu------------</h3>
                 <LayoutStu></LayoutStu>
+                <HelloWorld/>
 
 
             </React.Fragment>

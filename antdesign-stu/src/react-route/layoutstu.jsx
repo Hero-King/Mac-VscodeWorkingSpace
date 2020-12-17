@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter as Router, Route,NavLink, Link, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route,NavLink, Link, Switch,Prompt } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb, Table, Button } from 'antd';
 import './index.css'
 import {
@@ -13,10 +13,16 @@ import Workspace from "./content";
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
+// Prompt 组件 用于阻止react路由切换  组件可以放在任意需要的地方
+// 属性 message 弹出框要展示的信息 string 或者 function 返回true跳转 字符串 阻止跳转
+// 属性 when true弹窗 false 顺利跳转 
+// 配合 BrowserRouter HashRouter 里面的getUserConfirmation属性
+// https://segmentfault.com/a/1190000020241389?utm_source=tag-newest
+
 export default function () {
     return (
         <div id="datamanage">
-            <Layout style={{ minHeight: '100vh' }}>
+            <Layout style={{ height: '300px' }}>
                 <Sider collapsible >
 
                     <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
