@@ -1,3 +1,6 @@
+html{
+    font-size: 100px;  /*no*/
+}
 .pink{
     border: 1px red solid;  
     background-color: #000;
@@ -5,6 +8,11 @@
 }
 
 .imgsmall{
-    width: 100px;
+    width: 100px; 
     height: 100px;
+}
+
+.reactdiv{
+    width: 1300px;
+    display: inline-block;
 }

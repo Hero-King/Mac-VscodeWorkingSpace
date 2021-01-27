@@ -9,7 +9,8 @@ module.exports = {
     mode: "development",    // "production" | "development" | "none"
     devServer: {
         contentBase: './dist',
-        open: true
+        open: true,
+        hot: true
     },          // 配置webpack-dev-server
     entry: './index.js',    //等价于 entry: {main : './index.js'} 其中key 可以在 output配置中使用占位符读取 [name]
     output: {
@@ -17,7 +18,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         // publicPath: "http://www.heroking.top/", //html文件中引入打包后的js文件前添加了URL网址
         // publicPath: "/public/", //html文件中引入打包后的js文件前添加了相对于html文件的路径 <script src="/public/bundle.js"></script></body>
-        
+
 
         // 这样导出的模块就将export导出的 属性以umd方式重命名为 name11   clg(window.name11.default.name11)  => 11
         // webpack打出的包是自调用函数
@@ -36,10 +37,10 @@ module.exports = {
     resolve: {
         alias: {
             // mymodule: path.resolve(__dirname,'mymodule.js')
-            mymodule: path.resolve(__dirname,'mymodule')
+            mymodule: path.resolve(__dirname, 'mymodule')
         },
-        extensions:[".js",".json",'.jsx'],   // 上面的mymodule.js 如果拓展名是前面数组中列举的可以不写 mymodule: path.resolve(__dirname,'mymodule')效果一样
-        modules: [__dirname,"node_modules"]         //告诉 webpack 解析模块时应该搜索的目录。 默认值：["node_modules"] 相对目录，会祖先递归 
+        extensions: [".js", ".json", '.jsx'],   // 上面的mymodule.js 如果拓展名是前面数组中列举的可以不写 mymodule: path.resolve(__dirname,'mymodule')效果一样
+        modules: [__dirname, "node_modules"]         //告诉 webpack 解析模块时应该搜索的目录。 默认值：["node_modules"] 相对目录，会祖先递归 
         // 使用绝对路径，将只在给定目录中搜索!! 举例
         // modules: [__dirname]     只在当前目录寻找 那么jquery将在当前目录查找导入，如果没有就报错了
         // modules: [__dirname,"node_modules"] 先当前目录搜索，找不到在递归向上
@@ -79,7 +80,7 @@ module.exports = {
             test: /\.css$/,
             use: [
                 {
-                    loader:'style-loader',
+                    loader: 'style-loader',
                     options: {
                         insert: "body"  //生成的style标签放在HTML页面的哪里
                         // insert: function insertAtTop(element) {
@@ -87,7 +88,7 @@ module.exports = {
                         //     // eslint-disable-next-line no-underscore-dangle
                         //     var lastInsertedElement =
                         //       window._lastElementInsertedByStyleLoader;
-            
+
                         //     if (!lastInsertedElement) {
                         //       parent.insertBefore(element, parent.firstChild);
                         //     } else if (lastInsertedElement.nextSibling) {
@@ -95,15 +96,21 @@ module.exports = {
                         //     } else {
                         //       parent.appendChild(element);
                         //     }
-            
+
                         //     // eslint-disable-next-line no-underscore-dangle
                         //     window._lastElementInsertedByStyleLoader = element;
                         // }
                     }
-                },{
+                }, {
                     loader: 'css-loader',
                     options: {
-                        modules: true   // 启用css modules   https://github.com/css-modules/css-modules
+                        modules: false   // 启用css modules   https://github.com/css-modules/css-modules
+                    }
+                }, {
+                    loader: "px2rem-loader",
+                    options: {
+                        remUnit: 100,
+                        remPrecision: 8
                     }
                 }
             ]
@@ -115,7 +122,15 @@ module.exports = {
             ]
         },
         { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] }, // 处理 less 文件的 loader
-    
-    ]
+        {
+            test: /\.js$/,
+            loader: 'babel-loader',
+            exclude: /node_modules/,
+            options: {
+                presets: ['@babel/preset-env']
+            }
+        }
+
+        ]
     }
 };

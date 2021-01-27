@@ -1,6 +1,7 @@
 import aa from './index.css'  // 需要webpack中配置loader,这样webpack就能够把项目中import css 给打包到bundle.js中
 import touXiang from './touxiang.jpg'
 import './index.less'
+import App from './index3'
 // import _ from 'underscore'
 import { funaa } from './index2'
 // import mymodule from './mymodule'   //之前引入本地公共模块只能使用相对路径方式 现在可以使用 webpack配置resolve.alias

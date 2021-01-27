@@ -1,10 +1,11 @@
 import React from 'react'
-
+import { Dialog, LinkButton } from 'rc-easyui';
 import InfiniteListExample from './InfiniteListExample'
-import { BrowserRouter as Router, Redirect,withRouter,  Route, Link, Switch, useRouteMatch, useParams, useHistory } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, withRouter, Route, Link, Switch, useRouteMatch, useParams, useHistory } from 'react-router-dom'
+// import $ from 'jquery'
 
 function Workspace(props) {
-    console.log(props,'workspace props');
+    console.log(props, 'workspace props');
 
     return (
         <div>
@@ -13,8 +14,8 @@ function Workspace(props) {
             <Switch>
 
                 {/* 使用render属性 或者函数式组件都有钩子了*/}
-                <Route exact path="/fun3" render={(props) => <Fun3 {...props} name="fun3"/>}>
-                    
+                <Route exact path="/fun3" render={(props) => <Fun3 {...props} name="fun3" />}>
+
                 </Route>
                 {/* exact解决的是精准匹配的问题, /home/aa /home都会走下面这个  而有了exact 就不会匹配到/home/aa */}
                 <Route path="/home" component={Home} />
@@ -23,7 +24,7 @@ function Workspace(props) {
                     <Topics />
                 </Route>
                 <Route path="/404" render={() => <div>404</div>} />
-                <Redirect to="/404"/>
+                <Redirect to="/404" />
             </Switch>
         </div>
     )
@@ -32,10 +33,34 @@ function Workspace(props) {
 export default Workspace
 
 function Fun3(props) {
-    console.log(props,"fun3 props");    //存在路由三个参数
+    console.log(props, "fun3 props");    //存在路由三个参数
+
+
     return (
-        <div>
-            新建模型
+        <div id="dd">
+            <div id="test">新建模型</div>
+            
+            {/* <Dialog
+                title="上传完成"
+                style={{ width: 400, height: 200 }}
+                borderType="none"
+                border={true}
+            // bodyCls="f-column"
+            // modal
+            // ref={ref => this.dlg = ref}
+            >
+                <div className="dialog-toolbar">
+                    <LinkButton iconCls="icon-edit" plain>Edit</LinkButton>
+                    <LinkButton iconCls="icon-help" plain>Help</LinkButton>
+                </div>
+                <div className="f-full">
+                    <p style={{ textAlign: 'center', margin: '20px 0', fontSize: '16px' }}>The Dialog Content.</p>
+                </div>
+                <div className="dialog-button">
+                    <LinkButton style={{ width: 80 }}>Save</LinkButton>
+                    <LinkButton style={{ width: 80 }}>Close</LinkButton>
+                </div>
+            </Dialog> */}
         </div>
     )
 }
@@ -55,7 +80,7 @@ class Home extends React.Component {
         return (
             <div className="router-home">
                 Home
-                <InfiniteListExample/>
+                <InfiniteListExample />
             </div>
         );
     }
@@ -132,13 +157,12 @@ function View(props) {
 //   }
 
 //   you can just ??2020年12月8日15:22:52没明白
-  
-  function BlogPost() {
+
+function BlogPost() {
     let match = useRouteMatch("/blog/:slug");
-  
+
     // Do whatever you want with the match...
-    return <div > 
-        macth: 
+    return <div >
+        macth:
     </div>
-  }
-  
+}

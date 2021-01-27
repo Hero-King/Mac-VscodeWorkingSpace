@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { ConfigProvider } from 'antd';
 import './aa'
@@ -19,6 +19,7 @@ import SomeIcon from './components/Someicon'
 import ReactImage from './reactImage'
 import Yuansheng from './yuansheng'
 import ToDoList from './components/todolist'
+import ComponentIndex from './components/index'
 
 // import './threejs'
 // import aaaa from './export/exportUse'   // == import default as aaaa from 
@@ -51,7 +52,7 @@ const AA = (props) => {
     //     window.onbeforeunload = (e) => {
     //         return "12"
     //     }
-        
+
     // }, [])
 
     console.log(props, "AA");
@@ -69,6 +70,7 @@ ReactDOM.render(
     <ConfigProvider prefixCls="ant">
         <Router basename="/route">
             <React.Fragment>
+                <ComponentIndex />
                 {/* <Modal 
             title="1111"
             visible={ false}
@@ -142,7 +144,7 @@ ReactDOM.render(
 
                 <h3>-----------layoutstu------------</h3>
                 <LayoutStu></LayoutStu>
-                <HelloWorld/>
+                <HelloWorld />
 
 
             </React.Fragment>

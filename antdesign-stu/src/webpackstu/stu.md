@@ -120,3 +120,27 @@ const moduleAnalyser = (fileName) => {
 
 使用babel/parser 分析源代码 
 npm i @babel/parser -D
+
+
+### 额外学习
+前端分辨率不同的问题
+默认的单位都是px 就是像素点  一般1920*1080 都是指的px
+css3 引入rem单位   是相对根节点的font-size 大小   设置html{ font-size: 100px} 
+那么1rem = 100px 
+为了使得不同分辨率查看的效果一致  同时不需要改动代码  可以使用在开发中使用rem为单位  然后根据浏览器窗口的大小(分辨率)
+动态计算 设置html{ font-size: **px} 的大小
+
+css中px为单位的长度怎么办?? 
+打包编译的时候使用 px2rem-loader  这样打包出来的文件的单位就是rem了
+```
+{
+  loader: "px2rem-loader",
+  options: {
+      remUnit: 100,   //一个rem对应的多少个px
+      remPrecision: 8 //rem小数点后精确到8位
+  }
+}
+```
+注意: 
+- jsx中使用的style={{width: 200}} 默认的是200px  可以使用width: "2rem"  
+- 不能启用css模块化
