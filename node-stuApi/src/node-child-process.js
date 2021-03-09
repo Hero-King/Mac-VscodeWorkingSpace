@@ -56,7 +56,11 @@ console.log("下面是同步进程,阻塞创建他的进程");
 let ee1 = execSync("sleep 2 && ps -ef");    //创建的进程父进程不是当前node执行的进程
 console.log(ee1.toString());
 
-console.log("阻塞在同步进程下的输出");
+async function awaitExec() {
+    await execSync("sleep 3 && ps ")
+    console.log("execSync");
+}
+awaitExec()
 
 
 
