@@ -1,0 +1,27 @@
+docker 容器的entrypoint和cmd
+命令格式都有两种
+都是在容器启动的时候要执行的命令
+我们知道启动的容器必须有个前台进程
+
+
+从根本上说, ENTRYPOINT和CMD都是让用户指定一个可执行程序, 
+这个可执行程序在container启动后自动启动. 实际上, 如果你想让自己制作的镜像自动运行程序
+(不需要在docker run后面添加命令行指定运行的命令), 你必须在Dockerfile里面, 使用ENTRYPOINT或者CMD命令
+
+在写Dockerfile时, ENTRYPOINT或者CMD命令会自动覆盖之前的ENTRYPOINT或者CMD命令.
+
+docker run 后面的命令 会覆盖 覆盖默认的CMD
+FROM ubuntu:trusty
+CMD ping localhost 
+----->
+docker run demo hostname
+6c1573c0d4c0
+
+
+如果你希望你的docker镜像只执行一个具体程序, 不希望用户在执行docker run的时候随意覆盖默认程序. 建议用ENTRYPOINT.
+
+FROM ubuntu:trusty
+ENTRYPOINT ["/bin/ping","-c","3"]
+CMD ["localhost"] 
+docker run ping  ---> ping localhost
+docker run ping docker.io ---> ping docker.io

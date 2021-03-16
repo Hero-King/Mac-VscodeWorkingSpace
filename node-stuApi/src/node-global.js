@@ -47,8 +47,8 @@ require('./00000')
 require('./00000')
 
 // .js的拓展名可以省略，加载顺序.js .json .node (C++/C语言写的模块) 注意哦JSON文件也可以通过require加载哦
-var person = require('./111111.json')
-console.log(person.name);
+// var person = require('./111111.json')
+// console.log(person.name);
 
 //ES6语法  --let:没有预解析，块作用域  --const定义常量，定义时候必须赋值，不可二次赋值
 let var1 = 111;
