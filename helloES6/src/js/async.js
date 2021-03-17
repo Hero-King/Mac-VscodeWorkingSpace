@@ -34,3 +34,6 @@ asy().then(value => console.log(`我是使用Promise.then接受的数据: ${valu
 })().catch(e => {
     console.log(e);
 })
+
+
+// async关键字的位置   ： 哪个方法用到await  在那里标记async
