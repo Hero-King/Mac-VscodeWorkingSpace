@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { ConfigProvider } from 'antd';
+import ReactApi from './reactApi.js'
 import './aa'
 // import './components/editTable'
 import {
@@ -145,7 +146,8 @@ ReactDOM.render(
                 <h3>-----------layoutstu------------</h3>
                 <LayoutStu></LayoutStu>
                 <HelloWorld />
-
+                
+                <ReactApi/>
 
             </React.Fragment>
         </Router>
