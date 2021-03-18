@@ -20,6 +20,11 @@ app.get('/', function (req, res) {
   })
 
 
-// 用户可以在客户端手动改变cookie的  主注意安全
-   
+// 用户可以在客户端手动改变cookie的  主注意安全  -->使用cookie加密
+// maxAge: cookie有效期时间
+// domain: 多域名之间共享cookie
+// path: 表示哪些路径可以使用cookie
+// httpOnly: true表示只能在后端设置cookie,不允许JavaScript设置
+// secure: 只有在https协议的时候生效
+
 app.listen(3000)
