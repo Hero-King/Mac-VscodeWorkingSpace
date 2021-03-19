@@ -78,6 +78,23 @@ export default connect （
   // 以此来让它自己也能 dispatch action。
 
 
+举例: 
+somereduxer.js
+
+export function somereduxer = (initState, action) => {
+    switch(action.type) {
+        case one :
+            return {...initState,操作}
+        default: 
+            return initState
+    }
+}
+
+someaction.js
+些许的函数,返回reducer需要的action 
+
+
+
 
 
 
