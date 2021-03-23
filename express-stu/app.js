@@ -108,6 +108,13 @@ app.get('/send', (req, res) => {
     // res.end()
 })
 
+app.get("/download",(req, res) => {
+    res.download("./public/Set笔记.pdf","笔记.pdf",(err) => {
+        if(err)
+        console.log(err);
+    })
+})
+
 // 中间件   中间件功能是可以访问请求对象 （req），响应对象（res）和next应用程序的请求-响应周期中的功能
 // 中间件功能可以执行以下任务：
 
