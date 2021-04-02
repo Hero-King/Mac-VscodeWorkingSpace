@@ -119,6 +119,10 @@ app.get("/download",(req, res) => {
     })
 })
 
+app.get("/buffer",(req, res) => {
+    res.send(Buffer.from("./index.htnml"))
+})
+
 // 中间件   中间件功能是可以访问请求对象 （req），响应对象（res）和next应用程序的请求-响应周期中的功能
 // 中间件功能可以执行以下任务：
 

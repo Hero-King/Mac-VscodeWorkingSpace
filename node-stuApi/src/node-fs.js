@@ -54,10 +54,13 @@ console.log(fs.readFile('./login',(err,data)=>{
 // 使用同步的操作发生的异常会立即抛出，可以使用 try…catch 处理，也可以允许冒泡。
 // console.log(fs.readFileSync('./login'));         //报错  因为没有那个文件
 try {
-    console.log(fs.readFileSync('./login'));        //抛出错误
+    // console.log(fs.readFileSync('./login'));        //抛出错误
+    console.log(fs.readFileSync("./00000.js").toString());
 } catch (err) {
     console.log(err);
 }
+// 先输出 fs.readFileSync("./00000.js").toString() 的文件内容, 在输出run
+console.log("run");
 
 // 使用异步的方法时无法保证顺序。 因此，fs.rename() 和fs.stat（）并列时候，因为 fs.stat() 操作可能在 fs.rename() 操作之前完成导致错误
 // 要正确地排序这些操作，则将 fs.stat() 调用移动到 fs.rename() 操作的回调中：
@@ -91,7 +94,6 @@ fs.open('./node-Buffer.js', 'r', (err, fd) => {
  * 
  * fs.readfile 读取文件的操作一般只写一次，如果出现多次应该写在第一个回调函数的内部
  */
-const fs = require('fs')
 
 fs.createReadStream('node-path.js').pipe(fs.createWriteStream('node-path-beifen.js'))
 

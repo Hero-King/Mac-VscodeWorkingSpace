@@ -1,0 +1,31 @@
+Html Webpack Plugin:
+<pre>
+  TypeError: The 'compilation' argument must be an instance of Compilation
+  
+  - JavascriptModulesPlugin.js:118 getCompilationHooks
+    [webpackstu]/[webpack]/lib/javascript/JavascriptModulesPlugin.js:118:10
+  
+  - CommonJsChunkFormatPlugin.js:30 compiler.hooks.thisCompilation.tap.compilation
+    [webpackstu]/[webpack]/lib/javascript/CommonJsChunkFormatPlugin.js:30:19
+  
+  
+  - Hook.js:14 Hook.CALL_DELEGATE [as _call]
+    [npm]/[webpack]/[tapable]/lib/Hook.js:14:14
+  
+  - Compiler.js:918 Compiler.newCompilation
+    [npm]/[webpack]/lib/Compiler.js:918:30
+  
+  - Compiler.js:960 hooks.beforeCompile.callAsync.err
+    [npm]/[webpack]/lib/Compiler.js:960:29
+  
+  
+  - Hook.js:18 Hook.CALL_ASYNC_DELEGATE [as _callAsync]
+    [npm]/[webpack]/[tapable]/lib/Hook.js:18:14
+  
+  - Compiler.js:955 Compiler.compile
+    [npm]/[webpack]/lib/Compiler.js:955:28
+  
+  - Compiler.js:480 Compiler.runAsChild
+    [npm]/[webpack]/lib/Compiler.js:480:8
+  
+</pre><script src="vendors-node_modules_antd_es_button_index_js-node_modules_jquery_dist_jquery_js-node_modules_-2586bc.js"></script><script src="main.js"></script>
