@@ -71,6 +71,8 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 
 ---------------------start----------
+### 项目介绍
+超简单的react-redux react编写的后台管理项目
 ### 环境搭建
 - 使用全局安装yarn工具 npm install yarn -g
 - 设置yarn 仓库地址：`yarn config set registry http://registry.npm.taobao.org/`
