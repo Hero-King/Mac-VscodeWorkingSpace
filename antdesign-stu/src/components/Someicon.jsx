@@ -2,9 +2,11 @@ import React from 'react'
 import { StepBackwardOutlined } from '@ant-design/icons'
 import { Tooltip, message } from 'antd';
 import $ from 'jquery'
-import {makePost} from '../utils'
 // import {StepBackwardOutlined } from 
 
+const makePost = function(){
+    
+}
 export default function () {
 
     function sendAjaxMakePost(params) {
