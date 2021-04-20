@@ -65,9 +65,28 @@
     <span :class="{red: true}">对象语法</span>
     <div :class="genderClass">对象语法+ data</div>
     <!-- <div class="active text-danger"></div> -->
-    <div v-bind:class="[activeClass, errorClass]">数组语法</div>  
-  </div>
+    <div v-bind:class="[activeClass, errorClass]">数组语法</div>
 
+
+    <!-- v-if 和 v-show 只有一个作用,就是根据指定的标识符,切换元素的显示和隐藏状态 -->
+
+    <!-- v-if 是实时的创建或移除元素,从而达到元素的显示和隐藏 -->
+    <!-- v-show 是通过为元素 添加或移除 display:none 来实现 隐藏 和 显示的 -->
+
+    <!-- 如果 元素 需要经常的切换显示和隐藏的状态,此时,使用 v-show 更合适一些; -->
+    <!-- 如果元素 被创建出来之后,可能不会进行状态的切换,此时,适合使用 v-if -->
+
+    <!-- 过滤器 -->
+    <!-- Vue.js 允许你自定义过滤器，可被用作一些常见的文本格式化。过滤器可以用在两个地方：mustache 插值和
+     v-bind 表达式。过滤器应该被添加在 JavaScript 表达式的尾部，由“管道”符指示； -->
+    <!-- 注意： 使用Vue中过滤器，并不会修改原数据，只是在展示数据的时候，做了一层包装而已； -->
+    <div>{{ activeClass | strrepeat}}</div>
+    <!-- 输出: activeactive -->
+
+    <!-- 全局过滤器 -->
+    <div>{{ activeClass | stringfilter}}</div>
+
+  </div>
 
   <script src="../assets/vue.min.js"></script>
   <script>
@@ -129,7 +148,17 @@
         activeClass: 'active',
         errorClass: 'text-danger'
       },
+      filters: {
+        strrepeat(input) {
+          return input + input + ""
+        }
+      }
 
+    })
+
+    // 第一个参数是管道进来的数据,第二个参数才是调用stringfilter函数的参数 
+    Vue.filters("stringfilter", function (params,  pattern = '') {
+      return params.toString()
     })
 
   </script>

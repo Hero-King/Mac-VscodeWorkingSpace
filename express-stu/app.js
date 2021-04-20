@@ -89,7 +89,17 @@ app.get('/aa', function (req, res) {
 // 公开指定目录  当前public目录下文件可以通过/public/文件名 访问  第一个参数省略表示根目录 /
 app.use('/public', express.static('./public'))
 
-
+// 手写jsonp 接口
+app.get("/getJsonp", function (req, res) {
+    console.log(req.query);
+    const {callback} = req.query;
+    if(req.query && callback){
+        // res.jsonp({age: 1})
+        res.send(`${callback}(${JSON.stringify({age: 1})})`)
+    }else{
+        res.send("404")
+    }
+})
 /**
  *
 res.download()	提示要下载的文件。
@@ -111,15 +121,15 @@ app.get('/send', (req, res) => {
 // 下载文件
 // <a download/> download属性表示下载文件,即使浏览器能够打开文件也不打开
 // <a hred="/dataquality/img/aa.png" />    点击了后的效果是打开图片
-app.get("/download",(req, res) => {
+app.get("/download", (req, res) => {
     // 会让浏览器触发下载文件弹窗
-    res.download("./public/Set笔记.pdf","笔记.pdf",(err) => {
-        if(err)
-        console.log(err);
+    res.download("./public/Set笔记.pdf", "笔记.pdf", (err) => {
+        if (err)
+            console.log(err);
     })
 })
 
-app.get("/buffer",(req, res) => {
+app.get("/buffer", (req, res) => {
     res.send(Buffer.from("./index.htnml"))
 })
 
