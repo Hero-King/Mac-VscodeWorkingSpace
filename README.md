@@ -21,8 +21,15 @@ auth: password
    todo tree 解析TODOS   
    ant design snippets   
    better align 代码上下对齐   
-Bracket Pair Colorizer 安装了这个插件之后的效果。各个结对的括号兄弟都有了不同的颜色。   
+Bracket Pair Colorizer 安装了这个插件之后的效果。各个结对的括号兄弟都有了不同的颜色。 
 
+
+### 项目说明
+comment应用是学习react时候 写的最简单的评论列表
+create-react-app-study 是学习react,豆瓣电影/github用户搜索 react-redux
+helloes6 学习es6简单项目
+qianduan-stu  学习underscore moment mysql  git等工具
+react-stu 学习react 杂碎东西
 
 
 
