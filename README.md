@@ -7,7 +7,7 @@ port: 8000
 auth: password
 
 安装vscode windows和linux 相同版本
-> arm64 架构需要 vscode Insiders   
+> arm64 架构需要 vscode Insiders    sshd配置: AllowTcpForwarding yes
 插件: 
 >> remote-ssh 用于本地vscode连接远程主机   
    auto close tag   
