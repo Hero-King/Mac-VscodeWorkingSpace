@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    // context: path.resolve(__dirname,'aaaa'),    // 基础目录，绝对路径，用于从配置中解析入口起点(entry point)和 loader, 传入使得你的配置独立于 CWD(current working directory - 当前执行路径)。
+    // context: path.resolve(__dirname,'aaaa'),    // 基础目录，绝对路径，用于从配置中解析入口起点(entry point)和 loader, 传入使得你的配置独立于 CWD(current working directory - 当前执行路径)。 不影响node_modules的查找路径
     //模块中的所有相对路径都是相对这个,配置长上面那样打包回失败，因为aaaa目录下找不打模块ModuleNotFoundError:
     mode: "development",    // "production" | "development" | "none"
     devServer: {
