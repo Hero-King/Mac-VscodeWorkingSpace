@@ -57,6 +57,11 @@ import style from './xxx.css'
 启用了模块化后xxx.css会暴露出来一个对象，key是classname,value是生成的hash样式名
 使用时候class = style.***
 
+### Dll插件
+使得node_modules第三方模块打包一次生成静态文件存起来
+以后每次的打包不重新打包第三方模块,
+使用第三方模块的时候使用dllreference 插件优先从生成的静态文件暴露出来的模块找
+
 ### hot module replacement
 它能够不变动html的结构，刷新其他资源
 比如html页面的结构因为js文件页面变动到一个状态，然后我们要调试样式，使用HMR技术直接改动样式表，页面不会恢复成初始
@@ -81,7 +86,8 @@ webpack 打包生成的每个js文件就是一个chunk
 
 ### 浏览器缓存问题
 项目上线了，更改了文件之后，从新上传服务器，但是文件名没有改变，用户的浏览器中是由缓存的并不会获取最新的代码
-引入 contenthash占位符，根据content产生hash值，文件内容不变，hash值也不会变
+打包生成的文件名 引入 contenthash占位符，根据content产生hash值，文件内容不变，hash值也不会变
+在使用代码分割的时候,比如node_modules里面的文件没有变化,生成的outputname 的contenthash是不变的,浏览器的缓存是可用的
 
 ### mainfast文件 
 记录的是包和包之间的依赖关系
