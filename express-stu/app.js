@@ -89,6 +89,7 @@ app.use(function (req, res, next) { //use 匹配相同目录和子目录   根�
 
 app.get("/testendj",(req, res) => {
     console.log("request testendj");
+    console.log(req.paramname);     // 打印wangjj
     res.endj({reqfun: "testendj"})
 })
 

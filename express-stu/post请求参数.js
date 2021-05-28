@@ -1,6 +1,13 @@
 var express = require('express');
 var app = express(); //创建服务器应用程序
-var bodyParser = require('body-parser')
+
+// req.body Contains key-value pairs of data submitted in the request body. By default, it is undefined, and is populated when you use body-parsing middleware such as express.json() or express.urlencoded().
+// 默认情况下 req.body在接到post请求还是undefined   使用了body-parsing中间件(比如 express.json() or express.urlencoded()) (我估计这两个中间件里面使用了body-parser)才有数据
+
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+// var bodyParser = require('body-parser');
 
 app.get('/', (req, res) => {
     console.log(req.query);
@@ -14,9 +21,11 @@ app.get('/', (req, res) => {
 // app.use(bodyParser.urlencoded({
 //     extended: false
 // }))
-// parse application/json
-app.use(bodyParser.json())
+// parse application/json  -> app.use(express.json()) 
+
+// app.use(bodyParser.json())
 app.post('/', (req, res) => {
+    console.log(req.query)      //这个是取url里面的参数的
     console.log(req.body);      //req.body对象里面存了参数
     res.send(req.body)
 })
