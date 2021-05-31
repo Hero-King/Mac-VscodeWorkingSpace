@@ -14,10 +14,10 @@ webpack就是把指定的入口文件打包到指定的输出目录中，使得h
 注意： loader的顺序是重要的，从右到左，从下到上调用！！
 - file-loader 就是把文件复制到指定的目录下，更改成配置的文件名，并返回到代码中  js中引用没有问题 （用于静态资源比较大的场景）
 - url-loader  类似file-loader,但是可以把文件做base64加密到bundle.js中，省了http请求 但是加大了bundle.js的大小 （用于静态资源很小的场景） option：{limit属性限制大小}
-- css-loader  分析css文件之间的关系（比如某个css通过css语法引入其他css文件）最终把几个css文件合并成一段css
-- style-loader 会把css-loader生成的css内容挂载到页面head标签下（用的是style标签方式）
+- css-loader  分析css文件之间的关系（比如某个css通过css语法引入其他css文件）最终把几个css文件合并成一段css，打包到js文件中
+- style-loader 会把css-loader生成的css内容（再js中的css提取到标签中）挂载到页面head标签下（用的是style标签方式）
 - sass-loader  sass翻译为css
-- postcss-loader css3语法自动添加厂商前缀
+- postcss-loader css3语法自动添加厂商前缀,解决浏览器兼容问题
 ```
 css 引入方式： 
 1、链接式
@@ -37,9 +37,11 @@ css 引入方式：
 ```
 - imports-loader 使得组件内部的this一直指向windows
 ### 插件(可以在webpack运行到某个时刻，帮我们做一些事情)
-- html-webpack-plugin 打包结束后，自动生成HTML文件，并把打包的js文件引入到其中  可以在实例化时候，传入配置以方便我们使用
+- html-webpack-plugin 打包结束后，自动生成HTML文件，并把打包的js文件引入到其中  可以在实例化时候，传入配置以方便我们使用 也能用于压缩html
 - clean-webpack-plugin 帮我们清空打包dist目录下无用的文件
 - provideplugin 自动给某个模块中引入模块  不需要写import 语句
+- MiniCssExtractPlugin 把js中引入的样式文件提取出来打包到某一个单独的css文件中，和style-loader冲突
+- OPtimizeCssAssetWebpackPlugin 压缩css代码的插件
 
 ### source map 
 在开发者模式下，我们浏览器报错时候希望定位到源代码的哪一行而不是打包后的bundle.js
