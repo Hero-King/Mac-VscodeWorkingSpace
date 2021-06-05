@@ -17,7 +17,6 @@
     [v-cloak] {
       display: none;
     }
-
   </style>
 
   <title>入门vue</title>
@@ -27,16 +26,19 @@
   <div id="app">
     <input type="button" value="start" @click="lang">
     <input type="button" value="stop" @click="stop">
-    <p v-cloak>{{ msg }}</p>
+    <p v-cloak>++++ {{ msg }} ++++ </p>
 
-    <!-- 不会有网速慢闪烁的问题 -->
+    <!-- 不会有网速慢闪烁的问题 会替换h3里面的文本节点内容-->
     <h3 v-text="msg" :title="msg + '123'"></h3>
   </div>
 
   <div id="appvfor">
     <p v-for="( t, index) in arr">{{ t }}</p>
-    <span v-for="i in 10" :style="{marginRight: '10px' }" :key="i">{{ i}}</span>
-    <label >姓名：<input></label>
+    <!-- v-for迭代数字的话  从1开始  指定好key-->
+    <span v-for="i in 10" :style="{marginRight: '10px' }" :key="i">{{ i}}</span>  
+    <div v-for="user in objArr">
+      <label>姓名：<input :value="user.name"></label>
+    </div>
   </div>
 
   <script src="../assets/vue.min.js"></script>
@@ -71,7 +73,14 @@
     var appvfor = new Vue({
       el: "#appvfor",
       data: {
-        arr: [1, 2, 3, 4, 5]
+        arr: [1, 2, 3, 4, 5],
+        objArr: [{
+          name: 'wang', age: 1
+        },{
+          name: "jun", age: 2
+        },{
+          name: "jie", age: 3
+        }]
       }
     })
 

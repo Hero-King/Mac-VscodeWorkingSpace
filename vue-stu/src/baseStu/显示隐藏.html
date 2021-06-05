@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <div class="messag" v-show="show">{{message}}</div>
+        <div class="messag" v-if="show">{{message}}</div>
+        <button @click="toggle">切换显示隐藏</button>
+        <button @click="show=!show">切换显示隐藏2</button>
+    </div>
+
+    <script src="../assets/vue.min.js"></script>
+    <script>
+        const root = new Vue({
+            el: "#root",
+            data: {
+                message: "i am message",
+                show: true
+            },
+            methods: {
+                toggle(){
+                    this.show = !this.show;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

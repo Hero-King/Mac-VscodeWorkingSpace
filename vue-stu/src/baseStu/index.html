@@ -13,17 +13,17 @@
     .blue {
       color: blue
     }
-
   </style>
 
   <title>入门vue</title>
 </head>
 
 <body>
+  <!-- mvvm 的 v层 -->
   <div id="app">
     {{ message }}
 
-    <!-- 作用在 HTML attribute 上，遇到这种情况应该使用 v-bind 指令： -->
+    <!-- 作用在 HTML attribute 上，遇到这种情况应该使用 v-bind 指令：代表后面的字符串是js表达式 -->
     <span v-bind:title="message">
       鼠标悬停几秒钟查看此处动态绑定的提示信息！
     </span>
@@ -35,7 +35,10 @@
     <button v-on:click="reverseMessage">反转消息</button>
 
     <input v-model="message">
-    <!-- Vue 还提供了 v-model 指令，它能轻松实现表单输入和应用状态之间的双向绑定。 -->
+    <!-- v-bind 只能实现单向的绑定  -->
+    <!-- Vue 还提供了 v-model 指令，它能轻松实现表单输入和应用状态之间的双向绑定。也只有这一个指令能实现双向绑定 
+      v-model 只能在表单元素中使用
+    -->
 
     <!-- 双大括号会将数据解释为普通文本，而非 HTML 代码。为了输出真正的 HTML，你需要使用 v-html -->
     <p>Using v-html directive: <span v-html="rawHtml"></span></p>
@@ -98,6 +101,7 @@
         rawHtml: '<span style="color: red">This should be red.</span>',
         attributeName: "href"
       },
+      // methods对象里面定义了实例上面所有可以调用的方法
       methods: {
         reverseMessage: function () {
           this.message = this.message.split('').reverse().join('')
@@ -138,6 +142,7 @@
 
     console.log(app.reversedMessage);
 
+    // new出来的实例就是mvvm 中 vm调度者  data是mvvm中的 m 专门用来保存每个页面的数据
     var cls = new Vue({
       el: "#class",
       data: {
@@ -157,7 +162,7 @@
     })
 
     // 第一个参数是管道进来的数据,第二个参数才是调用stringfilter函数的参数 
-    Vue.filters("stringfilter", function (params,  pattern = '') {
+    Vue.filters("stringfilter", function (params, pattern = '') {
       return params.toString()
     })
 

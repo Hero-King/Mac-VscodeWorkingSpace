@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../assets/vue.js"></script>
+
+    <!-- vue-resource是Vue.js的一款插件，它可以通过XMLHttpRequest或JSONP发起请求并处理响应。
+        依赖vue.js  引入vue-resource后，可以基于全局的Vue对象使用http，也可以基于某个Vue实例使用http。
+
+        
+
+    -->
+    <script>
+        // debugger
+        // console.log(Vue) 
+    </script>
+    <script src="../assets/vue-resource.js"></script>
+</head>
+
+<body>
+
+    <div id="root">
+        <input type="button" value="ajax" @click="get">
+    </div>
+
+    <script>
+        // console.log(Vue) // 挂载了http方法
+        const root = new Vue({
+            el: "#root",
+            data: {
+
+            },
+            methods: {
+                get(){
+                    // Vue
+                    this.$http.get("/package.json").then((result) => {
+                        console.log(result.data)
+                    }).catch((err) => {
+                        alert(err)
+                    });
+                }
+            }
+        })
+
+
+        // 基于全局Vue对象使用http
+        // Vue.http.get('/someUrl', [options]).then(successCallback, errorCallback);
+        // Vue.http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
+
+        // 在一个Vue实例内使用$http
+        // this.$http.get('/someUrl', [options]).then(successCallback, errorCallback);
+        // this.$http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
+    </script>
+</body>
+
+</html>

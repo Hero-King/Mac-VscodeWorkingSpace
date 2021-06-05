@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../assets/vue.min.js"></script>
+    <style>
+        .father {
+            width: 100%;
+            height: 200px;
+            background-color: #ccc;
+        }
+
+        .child {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        class样式 VUE在你命令他不能解析时候，就会渲染不出来
+        <input type="button" v-model="button" @click.stop="changeBool">
+        <div :class="redClass">哈哈哈哈</div>
+        <!-- <div :class="redClass blueClass">这样是不能解析的</div> -->
+        <div :class="[redClass, blueClass,'reddd']">多个样式使用数组</div>
+        <div :class="[redClass, button ? blueClass : null]">数组中可以使用三元运算</div>
+        <div :class="{red: false,blue: true,redClass: button}">数组中嵌套对象/直接使用对象</div>
+        <div :class="classObj">使用对象应用</div>
+
+        <br/>
+        使用style行内样式  
+        <div :style="{ color: 'red','font-weight': '200'}">:style</div>
+        <div :style="divstyle">使用对象 引用到model中的数据</div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#root",
+            data: {
+                button: false,
+                fatherTitle: "father title",
+                redClass: "red",
+                blueClass: "blue",
+                classObj: {active: true},
+                someStyle: {'font-size': "20px"},
+                divstyle: [{color: "#ccc", 'white-space': 'nowrap','text-overflow':'ellipsis',width: '200px'}]
+
+                // 不要再data中和methods 生命同名变量
+                // father: "father title"
+            },
+            methods: {
+                child: function () {
+                    console.log("child click")
+                },
+                father: function () {
+                    console.log("father click")
+                },
+                changeBool: function () {
+                    this.button = !this.button
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
