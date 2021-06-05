@@ -80,8 +80,19 @@ var server = app.listen(80, function () {
 
 app.use(function (req, res, next) { //use 匹配相同目录和子目录   根目录可以不写     http://localhost/aa:3000  控制台打印了信息
     console.log('Time: %d', Date.now());
+    req.paramname = "wangjj";
+    res.endj = function (params) {
+        res.send(JSON.stringify(params))
+    }
     next();
 });
+
+app.get("/testendj",(req, res) => {
+    console.log("request testendj");
+    console.log(req.paramname);     // 打印wangjj
+    res.endj({reqfun: "testendj"})
+})
+
 app.get('/aa', function (req, res) {
     res.end('aa被访问了')
 })

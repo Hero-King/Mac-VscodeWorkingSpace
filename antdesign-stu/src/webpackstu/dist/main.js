@@ -8,14 +8,14 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("_"));
+		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define(["_"], factory);
+		define([], factory);
 	else if(typeof exports === 'object')
-		exports["name11"] = factory(require("_"));
+		exports["name11"] = factory();
 	else
-		root["name11"] = factory(root["_"]);
-})(self, function(__WEBPACK_EXTERNAL_MODULE_underscore__) {
+		root["name11"] = factory();
+})(self, function() {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -30,7 +30,7 @@ return /******/ (() => { // webpackBootstrap
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.css */ \"./index.css\");\n/* harmony import */ var _touxiang_jpg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./touxiang.jpg */ \"./touxiang.jpg\");\n/* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.less */ \"./index.less\");\n/* harmony import */ var _index3__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index3 */ \"./index3.js\");\n/* harmony import */ var _index2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./index2 */ \"./index2.js\");\n/* provided dependency */ var $ = __webpack_require__(/*! jquery */ \"../../node_modules/jquery/dist/jquery.js\");\n/* provided dependency */ var _ = __webpack_require__(/*! underscore */ \"underscore\");\n // 需要webpack中配置loader,这样webpack就能够把项目中import css 给打包到bundle.js中\n\n\n\n // import _ from 'underscore'\n\n // import mymodule from './mymodule'   //之前引入本地公共模块只能使用相对路径方式 现在可以使用 webpack配置resolve.alias\n// import mymoduleByAlias from 'mymodule'\n// import $ from 'jquery'         //并没有把node_modules目录下的jquery代码打包，是因为webpack中配置了externals\n// import jQuery from 'jquery'    // 因为使用了ProvidePlugin插件，所以这里不用手动导入了  其实通过script标签引入的可以直接使用\n\nconsole.log(1111);\n\nvar log = function log(str) {\n  console.log(str);\n};\n\nvar div1 = document.getElementById(\"div2\");\nvar newImg = document.createElement(\"img\");\nconsole.log(_index_css__WEBPACK_IMPORTED_MODULE_0__.default.imgsmall);\nnewImg.classList.add(_index_css__WEBPACK_IMPORTED_MODULE_0__.default.imgsmall);\nnewImg.src = _touxiang_jpg__WEBPACK_IMPORTED_MODULE_1__.default;\ndiv1.appendChild(newImg);\nlog(2222);\n$.map([1, 2, 3], function (item, index) {\n  console.log(item);\n});\nconsole.info(_.max([1, 2, 3])); // 控制台正常输出了  也就是通过script标签引入的可以直接使用\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\n  name11: 11\n});\n\n//# sourceURL=webpack://name11/./index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _loaderTest_txt__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./loaderTest.txt */ \"./loaderTest.txt\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.css */ \"./index.css\");\n/* harmony import */ var _touxiang_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./touxiang.jpg */ \"./touxiang.jpg\");\n/* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index.less */ \"./index.less\");\n/* harmony import */ var _index3__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./index3 */ \"./index3.js\");\n/* harmony import */ var _index2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./index2 */ \"./index2.js\");\n/* provided dependency */ var $ = __webpack_require__(/*! jquery */ \"../../node_modules/jquery/dist/jquery.js\");\n\nconsole.log(_loaderTest_txt__WEBPACK_IMPORTED_MODULE_0__.default); // 书写自己的loader 加载文件\n\n // 需要webpack中配置loader,这样webpack就能够把项目中import css 给打包到bundle.js中\n\n\n\n // import _ from 'underscore'\n\n // import mymodule from './mymodule'   //之前引入本地公共模块只能使用相对路径方式 现在可以使用 webpack配置resolve.alias\n// import mymoduleByAlias from 'mymodule'\n// import $ from 'jquery'         //并没有把node_modules目录下的jquery代码打包，是因为webpack中配置了externals\n// import jQuery from 'jquery'    // 因为使用了ProvidePlugin插件，所以这里不用手动导入了  其实通过script标签引入的可以直接使用\n\nconsole.log(1111);\n\nvar log = function log(str) {\n  console.log(str);\n};\n\nvar div1 = document.getElementById(\"div2\");\nvar newImg = document.createElement(\"img\");\nconsole.log(_index_css__WEBPACK_IMPORTED_MODULE_1__.default.imgsmall);\nnewImg.classList.add(_index_css__WEBPACK_IMPORTED_MODULE_1__.default.imgsmall);\nnewImg.src = _touxiang_jpg__WEBPACK_IMPORTED_MODULE_2__.default;\ndiv1.appendChild(newImg);\nlog(2222);\n$.map([1, 2, 3], function (item, index) {\n  console.log(item);\n}); // console.info(_.max([1, 2, 3]))  // 控制台正常输出了  也就是通过script标签引入的可以直接使用\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\n  name11: 11\n});\n\n//# sourceURL=webpack://name11/./index.js?");
 
 /***/ }),
 
@@ -59,6 +59,20 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../../node_modules/react/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"../../node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _node_modules_antd_dist_antd_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../node_modules/antd/dist/antd.css */ \"../../node_modules/antd/dist/antd.css\");\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ \"../../node_modules/antd/es/button/index.js\");\n\n\n\n // const aa =React.createElement('div', {\n//     title: 'hello react',className: \"imgsmall\"\n//   }, 'Hello React！！！')\n\nvar aa = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(antd__WEBPACK_IMPORTED_MODULE_3__.default, {\n  type: \"primary\",\n  style: {\n    width: \"2rem\"\n  }\n}, \"200px\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"span\", {\n  className: \"reactdiv\"\n}, \"reactdiv  \"));\nreact_dom__WEBPACK_IMPORTED_MODULE_1___default().render(aa, document.getElementById(\"root\"));\n\n//# sourceURL=webpack://name11/./index3.js?");
+
+/***/ }),
+
+/***/ "./loaderTest.txt":
+/*!************************!*\
+  !*** ./loaderTest.txt ***!
+  \************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (\"my name  1212\");\n\n//# sourceURL=webpack://name11/./loaderTest.txt?");
 
 /***/ }),
 
@@ -129,19 +143,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ \"./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js\");\n/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_0_use_1_node_modules_px2rem_loader_index_js_ruleSet_1_rules_0_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/px2rem-loader/index.js??ruleSet[1].rules[0].use[2]!./index.css */ \"./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/px2rem-loader/index.js??ruleSet[1].rules[0].use[2]!./index.css\");\n\n            \n\nvar options = {\"insert\":\"body\"};\n\noptions.insert = \"body\";\noptions.singleton = false;\n\nvar update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_0_use_1_node_modules_px2rem_loader_index_js_ruleSet_1_rules_0_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__.default, options);\n\n\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_0_use_1_node_modules_px2rem_loader_index_js_ruleSet_1_rules_0_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__.default.locals || {});\n\n//# sourceURL=webpack://name11/./index.css?");
-
-/***/ }),
-
-/***/ "underscore":
-/*!********************!*\
-  !*** external "_" ***!
-  \********************/
-/*! dynamic exports */
-/*! exports [maybe provided (runtime-defined)] [no usage info] */
-/*! runtime requirements: module */
-/***/ ((module) => {
-
-eval("module.exports = __WEBPACK_EXTERNAL_MODULE_underscore__;\n\n//# sourceURL=webpack://name11/external_%22_%22?");
 
 /***/ })
 

@@ -1,3 +1,7 @@
+
+import txt from './loaderTest.txt'
+console.log(txt)    // 书写自己的loader 加载文件
+
 import aa from './index.css'  // 需要webpack中配置loader,这样webpack就能够把项目中import css 给打包到bundle.js中
 import touXiang from './touxiang.jpg'
 import './index.less'
@@ -23,7 +27,7 @@ $.map([1, 2, 3], (item, index) => {
     console.log(item);
 })
 
-console.info(_.max([1, 2, 3]))  // 控制台正常输出了  也就是通过script标签引入的可以直接使用
+// console.info(_.max([1, 2, 3]))  // 控制台正常输出了  也就是通过script标签引入的可以直接使用
 export default {
     name11: 11
 }

@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    // context: path.resolve(__dirname,'aaaa'),    // 基础目录，绝对路径，用于从配置中解析入口起点(entry point)和 loader, 传入使得你的配置独立于 CWD(current working directory - 当前执行路径)。
+    // context: path.resolve(__dirname,'aaaa'),    // 基础目录，绝对路径，用于从配置中解析入口起点(entry point)和 loader, 传入使得你的配置独立于 CWD(current working directory - 当前执行路径)。 不影响node_modules的查找路径
     //模块中的所有相对路径都是相对这个,配置长上面那样打包回失败，因为aaaa目录下找不打模块ModuleNotFoundError:
     mode: "development",    // "production" | "development" | "none"
     devServer: {
@@ -23,7 +23,7 @@ module.exports = {
         // 这样导出的模块就将export导出的 属性以umd方式重命名为 name11   clg(window.name11.default.name11)  => 11
         // webpack打出的包是自调用函数
         library: "name11",
-        libraryTarget: "umd"
+        libraryTarget: "umd", // 使用什么模块规范导出,AMD CJS UMD(前后端都通吃)   还有一种规范是ES6提出的es module
     },
     // externals 配置选项提供了「从输出的 bundle 中排除依赖」的方法。相反，所创建的 bundle 依赖于那些存在于用户环境(consumer's environment)中的依赖。此功能通常对 library 开发人员来说是最有用的，然而也会有各种各样的应用程序用到它。
     // jquery 就不会再node_modules中查找，而是通过其他方式引入 jQuery是指全局对象（window/global）下的这个属性  而不是通过webpack打包node_modules里面jquery到 bundle.js中
@@ -74,6 +74,14 @@ module.exports = {
             template: "index.html"
         })
     ],
+
+    resolveLoader: {
+        modules: [
+            'node_modules',
+            path.resolve(__dirname),
+        ]
+    },
+
     module: {
         rules: [{
             // 处理import 的css
@@ -129,6 +137,10 @@ module.exports = {
             options: {
                 presets: ['@babel/preset-env']
             }
+        },
+        {
+            test: /\.txt$/,
+            loader: "my-loader"
         }
 
         ]
