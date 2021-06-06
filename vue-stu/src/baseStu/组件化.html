@@ -20,8 +20,10 @@
     </template>
 
     <div id="root2">
-        <login/>
+        <login />
     </div>
+
+    <div id="root3"></div>
 
     <script src="../assets/vue.js"></script>
     <script>
@@ -100,6 +102,47 @@
 
             }
         })
+    </script>
+
+
+    <!-- template 和 el 一起使用的情况 -->
+    <template id='app3'>
+        <div class="app">
+            app
+        </div>
+    </template>
+    <script>
+
+        const App = {
+            // name: "app",
+            template: "#app3"
+        }
+        new Vue({
+            el: "#root3",
+            template: "<App></App>",        //存在el 有存在template 属性时候,template的内容会直接覆盖el
+            components: {
+                App
+            }
+        })
+
+        // 上面组件生成的结构: <div class="app">app</div>  直接吧div#root3干没了
+    </script>
+
+    <div id="apppp"></div>
+    <!--此处template标签必须在vue绑定的元素外面定义，并且在页面中不显示下面的template标签中的内容-->
+    <template id="first">
+        <div v-if="flag">{{msg}}</div>
+        <div v-else>111<div>
+    </template>
+    <script>
+        let vm = new Vue({
+            el: "#apppp",
+            data: {
+                msg: "hello",
+                flag: true
+            },
+            template: "#first"//通过该属性可以将自定义的template属性中的内容全部替换app的内容，并且会覆盖里面原有的内容，并且在查看dom结构时没有template标签
+        });
     </script>
 </body>
 
