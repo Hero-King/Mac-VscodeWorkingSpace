@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../assets/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 可以用过属性绑定的形式,把参数传递给子组件 通过事件绑定的方式把方法传递给子组件 -->
+        {{msg}}
+        <com1 :name="msg" @parentlog="logmsg" mytitle="我是title props" ></com1>
+
+        <com2 @click="logmsg"  ref="mycom2"></com2>
+
+        <div ref="mydiv">使用ref</div>
+    </div>
+
+    <template id="temp2">
+        <h3 @click="handleClick" @mouseover="handleClick">我是temp2子组件</h3>
+    </template>
+
+    <script>
+        Vue.config.devtools = true;
+        const vue = new Vue({
+            el: "#root",
+            methods:{
+                logmsg(data){
+                    this.msg +=1;
+                    console.log("message: --",data);
+                    console.log(this.$refs.mydiv.innerText)
+                    console.log(this.$refs)
+                }
+            },
+            data: {
+                msg: "我是父组件数据"
+            },
+            components: {
+                com1: {
+                    // 使用props申明一下传入的参数
+                    props: ['name', 'mytitle'],
+                    data() {
+                        return {
+
+                        }
+                    },
+                    methods: {
+                        myclick(){
+                            this.$emit('parentlog')
+                        }
+                    },
+                    template: "<h1 @click='myclick'>我是{{ name + mytitle }} 使用ref指向子组件实例 </h1>"
+                },
+                com2: {
+                    template: "#temp2",
+                    methods: {
+                        handleClick(){
+                            // 子组件 触发父组件的回调
+                            this.$emit('click',123)
+                        }
+                    }
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <app></app>
+
+        <br/>
+        <a @click="flag=true">登录</a>
+        <a @click="flag=false">注册</a>
+        <login v-if="flag"></login>
+        <register v-else></register>
+
+        <br/>
+        <!-- vue提供组件占位符 is属性指定要展示的组件名称 -->
+        <component :is="'login'"></component>
+    </div>
+
+    <template id="app">
+        <span>
+            <button @click="count++">你已经点击了{{ count }}次</button>
+            <button @click="increment">你已经点击了{{ count }}次. 方法++</button>
+        </span>
+    </template>
+
+    <script src="../assets/vue.js"></script>
+    <script>
+
+        // 组件可以有自己的data, 但是必须是个方法,返回数据对象 
+        Vue.component("app", {
+            template: "#app",
+            data() {
+                return {
+                    count: 0
+                }
+            },
+            methods: {
+                increment() {
+                    this.count++
+                }
+            }
+        })
+
+        const vue = new Vue({
+            el: "#root",
+            data: {
+                flag: true
+            },
+            components: {
+                login: {
+                    template: "<h3>登录组件</h3>"
+                },
+                register: {
+                    template: "<h3>注册组件</h3>"
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

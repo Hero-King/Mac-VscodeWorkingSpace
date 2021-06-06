@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <!-- <myh3></myh3> -->
+        <my-h3></my-h3>
+        <test></test>
+        <app />
+    </div>
+
+    <template id="tem1">
+        <span>我是templete标签创建的</span>
+    </template>
+
+    <div id="root2">
+        <login/>
+    </div>
+
+    <script src="../assets/vue.js"></script>
+    <script>
+        // 全局组件
+        // 创建组件 1. Vue.extend("组件名称")创建组件
+        const myh3 = Vue.extend({
+            template: '<h3>这是使用vue.extend创建出来的组件</h3>', //通过templete指定要展示的html结构
+        })
+        // Vue.component('myh3',myh3)  // 注册组件
+        // 如果组件用驼峰命名注册到页面中,使用时候需要使用横线
+        Vue.component('myH3', myh3)
+
+        // 创建组件 2.直接给一个对象
+        Vue.component("test", {
+            template: "<div>我是test组件</div>"
+        })
+
+        // 创建组件 3.templete指向html页面结构(在vue实例控制的外部,使用templete标签书写模板结构)
+        Vue.component("app", {
+            template: "#tem1"
+        })
+
+        const vue = new Vue({
+            el: "#root",
+            data: {
+
+            },
+
+        })
+
+        // 以上定义的都是全局组件,我想定义私有组件
+        const root2 = new Vue({
+            el: "#root2",
+            data: {
+
+            },
+            methods: {
+
+            },
+            filters: {
+
+            },
+            directives: {
+
+            },
+            // 定义实例内部组件
+            components: {
+                login: {
+                    template: "<div>这是私有的组件</div>"
+                }
+            },
+
+
+            beforeCreate() {
+
+            },
+            created() {
+
+            },
+            beforeMount() {
+
+            },
+            mounted() {
+
+            },
+            beforeUpdate() {
+
+            },
+            updated() {
+
+            },
+            beforeDestory() {
+
+            },
+            destoryed() {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

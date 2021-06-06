@@ -35,7 +35,6 @@
             },
             methods: {
                 get(){
-                    // Vue
                     this.$http.get("/package.json").then((result) => {
                         console.log(result.data)
                     }).catch((err) => {
