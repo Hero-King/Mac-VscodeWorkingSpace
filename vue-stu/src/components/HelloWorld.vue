@@ -80,11 +80,17 @@
         </a>
       </li>
     </ul>
+
+    <div class="wangjj-test">
+      <myh-2></myh-2>
+    </div>
   </div>
 </template>
 
 <script>
+import myh2 from './myh2.vue'
 export default {
+  components: { myh2 },
   name: 'HelloWorld',
   data () {
     return {
