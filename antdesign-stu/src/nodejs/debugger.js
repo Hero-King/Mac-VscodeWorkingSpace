@@ -1,5 +1,10 @@
 /**
  * 
+ * vscode调试node代码
+ * 打开调试模式,选择一个配置文件,   vscode可以从 package.json中寻找要调试的程序,或者选择当前命令窗口执行的程序,或者自己写配置文件
+ * 在vscode窗口中  执行 node app.js --debugger 自动进入调试窗口
+ * 
+ * 
 对于web页面：
 node --inspect app.js
 
