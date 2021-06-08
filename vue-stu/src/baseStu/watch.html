@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <p>计数器: {{ count }}</p>
+        <input type="button" @click="count++" value="计数器++" />
+    </div>
+
+    <script src="../assets/vue.js"></script>
+    <script>
+        const vue = new Vue({
+            el: "#root",
+            data: {
+                count: 0
+            },
+            // 用于监听某个数据的变化,执行自定义的回调函数  在 watch 中，可以监听当前 vm 实例上所有的属性变化, 
+            watch: {
+                "count": function (newValue, oldValue) {
+                    console.log(newValue, oldValue);
+                }
+            }
+        });
+        vue.$watch('count',function (n,o) {
+            console.log("$watch监听")
+        })
+    </script>
+</body>
+
+</html>
