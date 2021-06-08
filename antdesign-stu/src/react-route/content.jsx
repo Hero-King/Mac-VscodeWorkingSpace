@@ -3,6 +3,7 @@ import { Dialog, LinkButton } from 'rc-easyui';
 import InfiniteListExample from './InfiniteListExample'
 import { BrowserRouter as Router, Redirect, withRouter, Route, Link, Switch, useRouteMatch, useParams, useHistory } from 'react-router-dom'
 // import $ from 'jquery'
+import View from './view'
 
 function Workspace(props) {
     console.log(props, 'workspace props');
@@ -238,22 +239,7 @@ function Topic() {
     return <h3>Requested topic ID: {topicId}</h3>;
 }
 
-function View(props) {
-    let history = useHistory();
 
-    function handleClick() {
-        history.push("fun3");
-    }
-
-    return (
-        <div>
-            view
-            <button type="button" onClick={handleClick}>
-                Go fun3
-            </button>
-        </div>
-    );
-}
 
 
 // function BlogPost() {
