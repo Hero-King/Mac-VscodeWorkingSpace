@@ -1,6 +1,9 @@
 # vue-stu
 
 > 学习vue
+```
+安装 element-ui  : npm i element-ui -S
+```
 
 ## Build Setup
 
