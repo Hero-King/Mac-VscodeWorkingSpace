@@ -45,7 +45,6 @@ function ReactApi(props) {
     const ThirdTitleMemo = useMemo(() => <ThirdTitleMemoT result={result} />, [result])
 
     return <div>
-        <h2>学习react hook组件</h2>
         <ThirdTitle type={type} />
         {ThirdTitleMemo}
         {/* <ThirdTitleMemoT reuslt={result}/>  这种方式 state状态变化,就会重新渲染 使用上面的useMemo只会在result变化才刷新*/}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { ConfigProvider } from 'antd';
+import { Button, ConfigProvider } from 'antd';
+import "./index.css"
 import ReactApi from './reactApi.js'
 import './aa'
 // import './components/editTable'
@@ -145,9 +146,15 @@ ReactDOM.render(
 
                 <h3>-----------layoutstu------------</h3>
                 <LayoutStu></LayoutStu>
-                <HelloWorld />
-                
-                <ReactApi/>
+                <div className="module">
+                    <h4>学习typescript</h4>
+                    <HelloWorld />
+                </div>
+
+                <div className="module">
+                    <h2>学习react hook组件</h2>
+                    <ReactApi />
+                </div>
 
             </React.Fragment>
         </Router>
@@ -156,10 +163,14 @@ ReactDOM.render(
 
 console.log("-------------");
 
-// 测试组件里面的函数怎么写
+const antContextDiv = document.getElementById("ant-context")
+ReactDOM.render(<Test />, antContextDiv)
 
-// test jquery 
-
+function Test(params) {
+    return <div>
+        <Button size="small">antd button</Button>
+    </div>
+}
 
 
 

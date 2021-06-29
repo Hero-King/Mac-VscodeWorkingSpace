@@ -14,7 +14,7 @@ export function HelloWorld() {
     return (
         <div>
             <Greeter firstName="firstName" lastName="lastName"/>
-            aa
+            <Type/>
         </div>
         )
 
@@ -26,8 +26,20 @@ interface Person {
     lastName: string;
 }
 
+export interface TypeProps{
+    name: string
+}
+
+// 接口
+class Type extends React.Component<TypeProps,{}>{
+    constructor(props){
+        super(props)
+    }
+    render(){
+        return <div>指定类型</div>
+    }
+}
+
 function Greeter(person: Person) {
     return "Hello, " + person.firstName + " " + person.lastName;
 }
-
-let user = { firstName: "Jane", lastName: "User" };
