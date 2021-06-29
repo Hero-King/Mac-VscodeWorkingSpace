@@ -27,7 +27,9 @@
     <template id="app">
         <span>
             <button @click="count++">你已经点击了{{ count }}次</button>
+            <!-- 在 vue中 事件处理函数加不加()都可以 -->
             <button @click="increment">你已经点击了{{ count }}次. 方法++</button>
+            <button @click="increment()">你已经点击了{{ count }}次. increment()</button>
         </span>
     </template>
 

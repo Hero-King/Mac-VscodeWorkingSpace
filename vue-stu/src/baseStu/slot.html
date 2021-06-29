@@ -34,7 +34,7 @@
         <!-- 中间不传入数据 会默认使用slot标签提供的默认数据 -->
         <reddiv1></reddiv1>
 
-        <!-- 只能访问父组件的data数据 -->
+        <!-- 默认只能访问父组件(当前组件)的data数据 -->
         <reddiv2>
             <!-- 访问子组件的数据域  -> 访问不到  怎么办? -->
             <!-- {{name}}     -->
@@ -45,6 +45,7 @@
             <template v-slot:default="slotProps">
                 <span>哈哈哈哈 你多大啦?</span>
                 <span> {{ slotProps.childdata }} </span>
+                <input v-model="slotProps.childdata" />
             </template>
         </reddiv2>
     </div>
@@ -71,6 +72,8 @@
         <div class="reddiv">
             <!-- {{name}} -->
             <!-- <slot>{{ name }}</slot> -->
+
+            <!-- 在子组件里面  往父组件传递参数 -->
             <slot :childdata="age"></slot>
         </div>
     </template>
@@ -92,9 +95,14 @@
                 reddiv2: {
                     template: "#reddiv2",
                     data() {
-                        return { name: "child data name ", age: "child age" }
+                        return { name: "child data name ", age: 10 }
+                    },
+                    watch: {
+                        "age":function(newValue, old){
+                            console.log("old",old)
+                        }
                     }
-                }
+                },
             }
         });
 
