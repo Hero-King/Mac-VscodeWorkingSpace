@@ -30,8 +30,9 @@ create-react-app-study 是学习react,豆瓣电影/github用户搜索 react-redu
 helloes6 学习es6简单项目
 qianduan-stu  学习underscore moment mysql  git等工具
 react-stu 学习react 杂碎东西
+vue-stu 学习Vue 使用脚手架搭建，基础内容使用*.html的方式学习
 
-
+学习计划：  React.native 跨端开发的taro
 
 
 
