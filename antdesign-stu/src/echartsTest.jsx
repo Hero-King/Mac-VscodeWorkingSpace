@@ -11,13 +11,6 @@ import echarts from 'echarts'
 import 'echarts-gl';
 import '../node_modules/echarts/map/js/world.js'
 import '../node_modules/echarts/map/js/china.js'
-// import * as d3counter from 'd3-contour'
-// import * as d3geo from 'd3-geo'
-// import * as d3timer from 'd3-timer'
-
-// const d3 = {}
-// Object.assign(d3, d3counter, d3geo, d3timer)
-// console.log(d3);
 
 var myChart = echarts.init(document.getElementById('echarts'));
 // console.log('www')

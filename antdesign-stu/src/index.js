@@ -23,7 +23,6 @@ import Yuansheng from './yuansheng'
 import ToDoList from './components/todolist'
 import ComponentIndex from './components/index'
 
-// import './threejs'
 // import aaaa from './export/exportUse'   // == import default as aaaa from 
 
 import { Statistic, Card, Row, Col, Select, Divider, Modal } from 'antd';
