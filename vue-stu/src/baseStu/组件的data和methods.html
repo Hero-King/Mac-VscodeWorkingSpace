@@ -28,8 +28,8 @@
         <span>
             <button @click="count++">你已经点击了{{ count }}次</button>
             <!-- 在 vue中 事件处理函数加不加()都可以 -->
-            <button @click="increment">你已经点击了{{ count }}次. 方法++</button>
-            <button @click="increment()">你已经点击了{{ count }}次. increment()</button>
+            <button @click="increment">你已经点击了{{ count }}次.  </button>
+            <button @click="increment(123,$event)">你已经点击了{{ count }}次. increment(increment方法获取原生对象使用$event)</button>
         </span>
     </template>
 
@@ -45,8 +45,10 @@
                 }
             },
             methods: {
-                increment() {
-                    this.count++
+                increment(e,event) {
+                    this.count++;
+                    console.log(e && e.target);
+                    event && console.log(event.target);
                 }
             }
         })

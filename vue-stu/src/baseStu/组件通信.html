@@ -28,6 +28,7 @@
         const vue = new Vue({
             el: "#root",
             methods:{
+                // 父组件的回调事件可以通过$event接受子组件的参数
                 logmsg(data){
                     this.msg +=1;
                     console.log("message: --",data);
