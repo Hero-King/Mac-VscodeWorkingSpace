@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Login from '../components/login'
-import Home from '../components/Home'
+import Home from '../components/Home.vue'
+import Form from '../components/form.vue'
 import '../assets/global.css'
 
 Vue.use(Router)
@@ -23,8 +24,16 @@ const router = new Router({
     }, {
       path: '/home',
       name: 'Home',
-      component: Home
-    }
+      component: Home,
+      children: [{
+        path: "form",
+        component: Form
+      },{
+        path: "hello",
+        component: HelloWorld
+      }]
+    },
+    
   ]
 })
 
