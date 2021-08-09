@@ -1,38 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vue 动画</title>
-    <link rel="stylesheet" href="../assets/animate.css" />
-    <style>
-      .fade-enter-active,
-      .fade-leave-active {
-        transition: opacity 0.5s;
-      }
 
-      .fade-enter,
-      .fade-leave-to {
-        opacity: 0;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vue 动画</title>
+  <link rel="stylesheet" href="../assets/animate.css" />
+  <style>
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity 0.5s;
+    }
 
-      .side-fade-enter,
-      .side-fade-leave-to {
-        opacity: 0;
-        transform: translateX(100%);
-      }
-      .side-fade-enter-active,
-      .side-fade-leave-active {
-        transition: all 5s;
-      }
-    </style>
-  </head>
+    .fade-enter,
+    .fade-leave-to {
+      opacity: 0;
+    }
 
-  <body>
-    <div id="root">
-      <button @click="flag=!flag">切换动画</button>
+    .side-fade-enter,
+    .side-fade-leave-to {
+      opacity: 0;
+      transform: translateX(100%);
+    }
 
-      <!-- 当插入或删除包含在 transition 组件中的元素时，Vue 将会做以下处理：
+    .side-fade-enter-active,
+    .side-fade-leave-active {
+      transition: all 5s;
+    }
+
+    .v-enter,
+    .v-leave-to {
+      opacity: 0;
+      transform: translateY(80px);
+    }
+
+    .v-enter-active,.v-leave-active {
+      transition: all .5s;
+    }
+
+    .v-move{
+      transition: all .5s;
+    }
+    .v-leave-active{
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <button @click="flag=!flag">切换动画</button>
+
+    <!-- 当插入或删除包含在 transition 组件中的元素时，Vue 将会做以下处理：
 自动嗅探目标元素是否应用了 CSS 过渡或动画，如果是，在恰当的时机添加/删除 CSS 类名。
 如果过渡组件提供了 JavaScript 钩子函数，这些钩子函数将在恰当的时机被调用。
 如果没有找到 JavaScript 钩子并且也没有检测到 CSS 过渡/动画，DOM 操作 (插入/删除) 在下一帧中立即执行。(注意：此指浏览器逐帧动画机制，和 Vue 的 nextTick 概念不同) 
@@ -50,110 +69,121 @@ v-leave-active：定义离开过渡生效时的状态。在整个离开过渡的
 
 v-leave-to：2.1.8 版及以上定义离开过渡的结束状态。在离开过渡被触发之后下一帧生效 (与此同时 v-leave 被删除)，在过渡/动画完成之后移除。
 -->
+    <transition name="fade">
+      <com1 v-if="flag"></com1>
+      <com2 v-else></com2>
+    </transition>
+    <div style="position: absolute; top: 10vh; left: 20vw;">
       <transition name="fade">
-        <com1 v-if="flag"></com1>
-        <com2 v-else></com2>
+        <com1 v-show="flag"></com1>
       </transition>
-      <div style="position: absolute; top: 10vh; left: 20vw;">
-        <transition name="fade">
-          <com1 v-show="flag"></com1>
-        </transition>
-      </div>
-      <div style="position: absolute; top: 10vh; left: 40vw;">
-        <transition name="side-fade">
-          <com1 v-show="flag"></com1>
-        </transition>
-      </div>
-      <div style="position: absolute; top: 10vh; left: 60vw;">
-        <!-- 也可以使用JS hooks 给DOM添加样式  推荐对于仅使用 JavaScript 过渡的元素添加 v-bind:css="false"，Vue 会跳过 CSS 的检测。这也可以避免过渡过程中 CSS 的影响。 -->
-        <transition
-          v-on:before-enter="beforeEnter"
-          v-on:enter="enter"
-          v-on:after-enter="afterEnter"
-          v-on:enter-cancelled="enterCancelled"
-          v-on:before-leave="beforeLeave"
-          v-on:leave="leave"
-          v-on:after-leave="afterLeave"
-          v-on:leave-cancelled="leaveCancelled"
-        >
-          <com1 v-show="flag"></com1>
-        </transition>
-      </div>
-
-      <div style="position: absolute; top: 20vh; left: 20vw;">
-        <transition appear>
-          <com1></com1>
-        </transition>
-      </div>
-
-      <!-- 多个元素的过渡 -->
+    </div>
+    <div style="position: absolute; top: 10vh; left: 40vw;">
+      <transition name="side-fade">
+        <com1 v-show="flag"></com1>
+      </transition>
+    </div>
+    <div style="position: absolute; top: 10vh; left: 60vw;">
+      <!-- 也可以使用JS hooks 给DOM添加样式  推荐对于仅使用 JavaScript 过渡的元素添加 v-bind:css="false"，Vue 会跳过 CSS 的检测。这也可以避免过渡过程中 CSS 的影响。 -->
+      <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:after-enter="afterEnter"
+        v-on:enter-cancelled="enterCancelled" v-on:before-leave="beforeLeave" v-on:leave="leave"
+        v-on:after-leave="afterLeave" v-on:leave-cancelled="leaveCancelled">
+        <com1 v-show="flag"></com1>
+      </transition>
     </div>
 
-    <script src="../assets/vue.js"></script>
-    <script>
-      // Vue 提供过渡动画， 提高用户体验
-      const vue = new Vue({
-        el: "#root",
-        data: {
-          flag: true
+    <div style="position: absolute; top: 20vh; left: 20vw;">
+      <h3>初始渲染的过度</h3>
+      <transition appear>
+        <com1></com1>
+      </transition>
+    </div>
+
+    <div style="position: absolute; top: 20vh; left: 40vw;">
+      <h3>列表的过度
+        <span @click="arr.push(Math.random())">++++</span>
+        <!-- 在减少列表数据的时候, 没有move样式的效果: 在出厂动画完成后, 下一向数据往上平移 -->
+        <span @click="arr.length > 4 && arr.splice(arr.length -2 ,1)">----</span>
+      </h3>
+      <!-- 怎么同时渲染整个列表，比如使用 v-for？在这种场景中，使用 <transition-group> 组件。在我们深入例子之前，先了解关于这个组件的几个特点：
+
+不同于 <transition>，它会以一个真实元素呈现：默认为一个 <span>。你也可以通过 tag attribute 更换为其他元素。
+过渡模式不可用，因为我们不再相互切换特有的元素。
+内部元素总是需要提供唯一的 key attribute 值。
+CSS 过渡的类将会应用在内部的元素中，而不是这个组/容器本身。 -->
+      <transition-group tag="p" appear>
+        <p v-for="item in arr" :key="item">{{ item }}</p>
+        </transition>
+    </div>
+  </div>
+
+  <script src="../assets/vue.js"></script>
+  <script>
+    // Vue 提供过渡动画， 提高用户体验
+    const vue = new Vue({
+      el: "#root",
+      data: {
+        flag: true,
+        arr: [1]
+      },
+      components: {
+        com1: {
+          template: "<h2>component 1 </h2>"
         },
-        components: {
-          com1: {
-            template: "<h2>component 1 </h2>"
-          },
-          com2: {
-            template: "<h2>component 2 </h2>"
-          }
-        },
-        methods: {
-          // --------
-          // 进入中
-          // --------
-
-          beforeEnter: function(el) {
-            console.log("beforeEnter");
-            el.style.opacity = 0;
-            // ...
-          },
-          // 当与 CSS 结合使用时
-          // 回调函数 done 是可选的
-          enter: function(el, done) {
-            console.log("enter");
-            el.style.opacity = 1;
-            el.style.transition = "all 5s"
-            // ...
-            done();
-          },
-          afterEnter: function(el) {
-            el.style.opacity = 1;
-            // ...
-          },
-          enterCancelled: function(el) {
-            // ...
-          },
-
-          // --------
-          // 离开时
-          // --------
-
-          beforeLeave: function(el) {
-            // ...
-          },
-          // 当与 CSS 结合使用时
-          // 回调函数 done 是可选的
-          leave: function(el, done) {
-            // ...
-            done();
-          },
-          afterLeave: function(el) {
-            // ...
-          },
-          // leaveCancelled 只用于 v-show 中
-          leaveCancelled: function(el) {
-            // ...
-          }
+        com2: {
+          template: "<h2>component 2 </h2>"
         }
-      });
-    </script>
-  </body>
+      },
+      methods: {
+        // --------
+        // 进入中
+        // --------
+
+        beforeEnter: function (el) {
+          console.log("beforeEnter");
+          el.style.opacity = 0;
+          // ...
+        },
+        // 当与 CSS 结合使用时
+        // 回调函数 done 是可选的
+        enter: function (el, done) {
+          console.log("enter");
+          el.style.opacity = 1;
+          el.style.transition = "all 5s"
+          // ...
+          done();
+        },
+        afterEnter: function (el) {
+          el.style.opacity = 1;
+          // ...
+        },
+        enterCancelled: function (el) {
+          // ...
+        },
+
+        // --------
+        // 离开时
+        // --------
+
+        beforeLeave: function (el) {
+          // ...
+        },
+        // 当与 CSS 结合使用时
+        // 回调函数 done 是可选的
+        leave: function (el, done) {
+          // ...
+          done();
+        },
+        afterLeave: function (el) {
+          // ...
+        },
+        // leaveCancelled 只用于 v-show 中
+        leaveCancelled: function (el) {
+          // ...
+        }
+      }
+    });
+  </script>
+</body>
+
 </html>
