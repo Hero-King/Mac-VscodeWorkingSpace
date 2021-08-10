@@ -82,7 +82,8 @@
     </ul>
 
     <div class="wangjj-test">
-      <myh-2></myh-2>
+      <myh2></myh2>
+      <div style="height: 100vh;"></div>
     </div>
   </div>
 </template>
@@ -96,6 +97,10 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  props: ["author"],
+  mounted(){
+    console.log(this.author)
   }
 }
 </script>

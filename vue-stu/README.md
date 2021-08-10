@@ -19,6 +19,13 @@ new Vue({
 })
 // 当使用 vue-loader 或 vueify 的时候，*.vue 文件内部的模板会在构建时预编译成 JavaScript。你在最终打好的包里实际上是不需要编译器的，所以只用运行时版本即可。
 // 我们也就知道了templete 和 render 关键字的主要区别
+
+> 关闭控制台编译警告
+找到webpack配置文件 关闭createLintingRule
+
+> 路由懒加载
+import()语法需要 npm install --save-dev @babel/plugin-syntax-dynamic-import
+
 ```
 
 > 学习vue

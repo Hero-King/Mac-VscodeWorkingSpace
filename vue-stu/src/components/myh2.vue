@@ -4,7 +4,7 @@
 
 <script>
 export default {
-
+    name: "MyH2",   // 指定组件的名字,如果不指定,Vue会自己推测驼峰命名的组件
     methods: {
         log(){
             console.log("myh2 组件被点击了")
