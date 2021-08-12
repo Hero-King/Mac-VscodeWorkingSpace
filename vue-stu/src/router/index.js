@@ -11,7 +11,7 @@ Vue.use(Router)
 const router = new Router({
   // https://router.vuejs.org/zh/api/#router-%E6%9E%84%E5%BB%BA%E9%80%89%E9%A1%B9
   mode: 'history', // 配置路由模式 "hash" | "history" | "abstract"
-  base: '/app', // 应用的基路径。例如，如果整个单页应用服务在 /app/ 下，然后 base 就应该设为 "/app/"
+  // base: '/app', // 应用的基路径。例如，如果整个单页应用服务在 /app/ 下，然后 base 就应该设为 "/app/"
 
   /**
    * 滚动行为
@@ -65,8 +65,8 @@ const router = new Router({
           component: Form
         },
         {
-          path: 'hello'
-          // component: HelloWorld
+          path: 'hello',
+          component: () => import(/* webpackChunkName: "hello" */ '../components/HelloWorld.vue')
         }
       ]
     }
