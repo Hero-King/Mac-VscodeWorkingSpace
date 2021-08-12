@@ -2,7 +2,9 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import vuex from 'vuex'
 import router from './router'
+import store from './store'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -10,6 +12,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 // 配置axios
 import axios from 'axios'
 import './assets/global.css'
+
+Vue.use(vuex)
 
 axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1/'
 // 挂载常用工具到原型上
@@ -27,5 +31,6 @@ new Vue({
   el: '#app',
   router,
   components: { App },
+  store,
   template: '<App/>'
 })

@@ -22,7 +22,7 @@ const router = new Router({
    * @param {*} savedPosition
    * @returns { x: number, y: number } or { selector: string, offset? : { x: number, y: number }} (offset 只在 2.6.0+ 支持)
    */
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     // return 期望滚动到哪个的位置
     // 第三个参数 savedPosition 当且仅当 popstate 导航 (通过浏览器的 前进/后退 按钮触发) 时才可用。
     console.log(arguments)
@@ -33,8 +33,7 @@ const router = new Router({
       path: '/hello',
       name: 'HelloWorld', // 命名路由
       props: { author: 'wangjj' }, // 传递props给路由组件
-      component: () =>
-        import(/* webpackChunkName: "hello" */ '../components/HelloWorld.vue'),
+      component: () => import(/* webpackChunkName: "hello" */ '../components/HelloWorld.vue'),
       // 定义路由元信息 在路由信息中就会有meta字段
       meta: {
         requiresAuth: true
@@ -83,7 +82,6 @@ router.beforeEach((to, from, next) => {
   NProgress.done()
 })
 
-router.afterEach((to, from) => {
-})
+router.afterEach((to, from) => {})
 
 export default router
