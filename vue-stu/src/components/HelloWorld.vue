@@ -98,8 +98,8 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     }
   },
-  props: ["author"],
-  mounted(){
+  props: ['author'],
+  mounted () {
     console.log(this.author)
   }
 }

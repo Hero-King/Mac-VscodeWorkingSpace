@@ -47,7 +47,11 @@
       // 初始化完成我们的数据和方法等
       created() {
         // debugger;
+        console.log(this);
         console.log(this.msg, typeof this.show)   // ok function
+        this.timer = setInterval(() => {
+          console.log("interval")
+        }, 1000 * 1);
       },
 
       // 模板已经编译成功在内存中,但是没渲染到页面 
@@ -69,6 +73,10 @@
       updated(){
         console.log(this.msg) // No
         console.log(document.getElementById("h3").innerHTML)  // No
+      },
+      beforeDestroy(){
+        console.log("beforeDestory");
+        clearInterval(this.timer);
       }
     })
   </script>

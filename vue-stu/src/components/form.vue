@@ -55,26 +55,26 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       form: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
+        name: '',
+        region: '',
+        date1: '',
+        date2: '',
         delivery: false,
         type: [],
-        resource: "",
-        desc: "",
-      },
-    };
+        resource: '',
+        desc: ''
+      }
+    }
   },
   methods: {
-    onSubmit() {
-      console.log("submit!",this.form);
-    },
-  },
-};
+    onSubmit () {
+      console.log('submit!', this.form)
+    }
+  }
+}
 </script>
 
 <style scoped>

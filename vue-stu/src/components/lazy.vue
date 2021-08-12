@@ -6,6 +6,6 @@
 
 <script>
 export default {
-    name: "TestLazy"
+  name: 'TestLazy'
 }
 </script>

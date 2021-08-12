@@ -32,49 +32,49 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       form: {
-        username: "admin",
-        password: "123456",
+        username: 'admin',
+        password: '123456'
       },
       rules: {
         username: [
-          { required: true, message: "请输入名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+          { required: true, message: '请输入名称', trigger: 'blur' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ],
         password: [
-          { required: true, message: "请输入名称", trigger: "change" },
-        ],
-      },
-    };
+          { required: true, message: '请输入名称', trigger: 'change' }
+        ]
+      }
+    }
   },
   methods: {
-    resetForm() {
-      console.log("vm实例: ", this);
-      let formInstance = this.$refs.loginform;
-      formInstance.resetFields();
+    resetForm () {
+      console.log('vm实例: ', this)
+      let formInstance = this.$refs.loginform
+      formInstance.resetFields()
     },
-    login() {
-      let formInstance = this.$refs.loginform;
+    login () {
+      let formInstance = this.$refs.loginform
       formInstance.validate((valid) => {
-        if (!valid) return;
-        this.$http.post("login", this.form).then(({data: result}) => {
-            if(result.meta.status !== 200){
-                this.$message.error("登录失败!!")
-                return 
-            }
-            this.$message.info("登录成功");
-            // 保存token 到sessionStorage
-            sessionStorage.setItem("token",result.data.token);
-            this.$router.push("/home")
+        if (!valid) return
+        this.$http.post('login', this.form).then(({data: result}) => {
+          if (result.meta.status !== 200) {
+            this.$message.error('登录失败!!')
+            return
+          }
+          this.$message.info('登录成功')
+          // 保存token 到sessionStorage
+          sessionStorage.setItem('token', result.data.token)
+          this.$router.push('/home')
         }).catch((err) => {
-            console.log(err)
-        });
-      });
-    },
-  },
-};
+          console.log(err)
+        })
+      })
+    }
+  }
+}
 </script>
 
 <style scoped >

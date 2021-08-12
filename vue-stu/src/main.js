@@ -7,13 +7,13 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
-// 配置axios 
-import axios from "axios"
+// 配置axios
+import axios from 'axios'
 import './assets/global.css'
 
 axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1/'
 // 挂载常用工具到原型上
-Vue.prototype.$http = axios;
+Vue.prototype.$http = axios
 
 // 全局导入element的话 是会在Vue.prototype.$message注册的
 // Vue.prototype.$message = ElementUI.Message
