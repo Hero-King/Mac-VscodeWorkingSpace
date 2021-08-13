@@ -2,90 +2,91 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="../assets/vue.js"></script>
-    <script src="../assets/vuex.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../assets/vue.js"></script>
+  <script src="../assets/vuex.js"></script>
 </head>
 
 <body>
-    <div id="app">
-        <div>{{ $store.getters.getCount }}</div>
-        <div>{{ $store.state.count }}</div>
-        <div>{{ insCount }}</div>
-        <button @click="$store.dispatch({type: 'incrementAsync',step: 10})"> ++ </button>
+  <div id="app">
+    <div>{{ $store.getters.getCount }}</div>
+    <div>{{ $store.state.count }}</div>
+    <div>{{ insCount }}</div>
+    <button @click="$store.dispatch({type: 'incrementAsync',step: 10})"> ++ </button>
 
-        <com1></com1>
-    </div>
+    <com1></com1>
+  </div>
 
-    <template id="com1">
-        <div>{{ getCount }}</div>
-    </template>
-    <script>
-        const { mapGetters, mapMutations } = Vuex
-        const store = new Vuex.Store({
-            state: {
-                count: 0
-            },
-            getters: {
-                getCount(state) {
-                    return state.count
-                }
-            },
-            mutations: {
-                increment(state, payload) {
-                    console.log(payload)
-                    // 变更状态
-                    state.count = state.count + (payload.step || 1)
-                },
-            },
-            actions: {
-                // Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象，因此你可以调用 context.commit 提交一个 mutation，或者通过 context.state 和 context.getters 来获取 state 和 getters。
-                incrementAsync(context, payload) {
-                    console.log(arguments)
-                    setTimeout(() => {
-                        context.commit('increment', { step: payload.step })
-                    }, 500);
-                }
+  <template id="com1">
+    <div>{{ getCount }}</div>
+  </template>
+  <script>
+    const { mapGetters, mapMutations } = Vuex
+    const store = new Vuex.Store({
+      state: {
+        count: 0
+      },
+      getters: {
+        getCount(state) {
+          return state.count
+        }
+      },
+      mutations: {
+        increment(state, payload) {
+          console.log(payload)
+          // 变更状态
+          state.count = state.count + (payload.step || 1)
+        },
+      },
+      actions: {
+        // 如果通过异步的方式变更数据,必须通过Action, 在Action里面触发Mutation的方式间接变更数据
+        // Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象，因此你可以调用 context.commit 提交一个 mutation，或者通过 context.state 和 context.getters 来获取 state 和 getters。
+        incrementAsync(context, payload) {
+          console.log(arguments)
+          setTimeout(() => {
+            context.commit('increment', { step: payload.step })
+          }, 500);
+        }
 
-                // 组合 Action 使用Promise实现
-                // 对于模块内部的 action，局部状态通过 context.state 暴露出来，根节点状态则为 context.rootState
-            }
-        })
-        const app = new Vue({
-            el: "#app",
-            store,
-            methods: {
-                increment1(step) {
-                    this.$store.commit("increment", step)
-                },
-                ...mapMutations([
-                    'increment' // 将 `this.increment(amount)` 映射为 `this.$store.commit('increment', amount)`
-                ])
-            },
-            computed: {
-                insCount() {
-                    return this.$store.getters.getCount
-                }
-            },
-            components: {
-                com1: {
-                    template: "#com1",
-                    computed: {
-                        // 把store.getter里面的方法 映射到 组件内
-                        ...mapGetters([
-                            'getCount',
-                            // ...
-                        ])
-                    }
-                }
-            }
-        })
+        // 组合 Action 使用Promise实现
+        // 对于模块内部的 action，局部状态通过 context.state 暴露出来，根节点状态则为 context.rootState
+      }
+    })
+    const app = new Vue({
+      el: "#app",
+      store,
+      methods: {
+        increment1(step) {
+          this.$store.commit("increment", step)
+        },
+        ...mapMutations([
+          'increment' // 将 `this.increment(amount)` 映射为 `this.$store.commit('increment', amount)`
+        ])
+      },
+      computed: {
+        insCount() {
+          return this.$store.getters.getCount
+        }
+      },
+      components: {
+        com1: {
+          template: "#com1",
+          computed: {
+            // 把store.getter里面的方法 映射到 组件内
+            ...mapGetters([
+              'getCount',
+              // ...
+            ])
+          }
+        }
+      }
+    })
 
 
-    </script>
+  </script>
 </body>
 
 </html>

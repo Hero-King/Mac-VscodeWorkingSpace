@@ -14,6 +14,7 @@
     <div id="app">
         <div>{{ $store.getters.getCount }}</div>
         <div>{{ $store.state.count }}</div>
+        <div>{{ count }}</div>
         <div>{{ insCount }}</div>
         <button @click="increment1(2)"> ++ </button>
         <button @click="increment2"> ++ </button>
@@ -27,7 +28,7 @@
         <div>{{ getCount }}</div>
     </template>
     <script>
-        const { mapGetters, mapMutations } = Vuex
+        const { mapGetters, mapMutations, mapState } = Vuex
         const store = new Vuex.Store({
             state: {
                 count: 0
@@ -75,7 +76,8 @@
             computed: {
                 insCount() {
                     return this.$store.getters.getCount
-                }
+                },
+                ...mapState(["count"])
             },
             components: {
                 com1: {
