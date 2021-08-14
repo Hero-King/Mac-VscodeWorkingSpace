@@ -77,6 +77,7 @@
                 insCount() {
                     return this.$store.getters.getCount
                 },
+                // store中的 state 状态映射到组件中
                 ...mapState(["count"])
             },
             components: {

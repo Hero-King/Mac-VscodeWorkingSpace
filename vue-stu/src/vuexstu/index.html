@@ -59,7 +59,7 @@
           { id: 2, text: '...', done: false }
         ]
       },
-      // 使得获取state里面的某属性更方便点
+      // 使得获取state里面的某属性更方便点 不会改变store里面的数据
       getters: {
         doneTodos: state => {
           return state.todos.filter(todo => todo.done)
