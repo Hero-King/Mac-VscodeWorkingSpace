@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Login from '../components/login'
 import Home from '../components/Home.vue'
 import Form from '../components/form.vue'
+import DraggableStu from '../components/draggable-stu'
 import NProgress from 'nprogress'
 
 Vue.use(Router)
@@ -66,6 +67,10 @@ const router = new Router({
         {
           path: 'hello',
           component: () => import(/* webpackChunkName: "hello" */ '../components/HelloWorld.vue')
+        },
+        {
+          path: 'draggable',
+          component: DraggableStu
         }
       ]
     }

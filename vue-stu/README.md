@@ -53,6 +53,10 @@ less语法支持: npm i less-loader less -D
 vue-router  导航守卫  对于没有登录的用户直接用过url访问需要登录权限的页面的时候使用
 ```
 
+## Vue draggable
+npm i -S vuedraggable
+
+
 ## Build Setup
 
 ``` bash
