@@ -2,17 +2,36 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="../assets/vue.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../assets/vue.js"></script>
+  <!-- <script src="http://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script> -->
+  <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script> -->
 </head>
 
 <body>
-    
+  <div id="app">
+    <ul>
+      <li v-for='item in arrList' :key='item.id'>
+        {{ item.name}}
+      </li>
+    </ul>
+  </div>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        list: ["张三", '李四', '王五']
+      },
+      computed: {
+        arrList() {
+          return this.list.map((item, i) => ({ id: i, name: item }))
+        }
+      }
+    })
+  </script>
 </body>
 
 </html>

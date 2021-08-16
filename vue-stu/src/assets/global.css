@@ -5,3 +5,9 @@ html,body,#app{
     padding: 0;
     box-sizing: border-box;
 }
+
+.module{
+  padding: 10px 10vw;
+  border: 1px solid red;
+  margin: 20px;
+}
