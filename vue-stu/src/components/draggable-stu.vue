@@ -33,16 +33,20 @@
       </draggable>
     </div>
 
-    <h2>handle</h2>
-    <p>只有当鼠标移动到css为mover类的元素上才能拖动</p>
+    <h2>handle & filter</h2>
+    <p>只有当鼠标移动到css为handle指定的类的元素上才能拖动</p>
+    <p>对应 filter=".unmover" 设置了unmover样式的元素不允许拖动</p>
     <div class="module">
-      <draggable v-model="myArray" tag="p" handle=".mover">
-        <div class="mover" v-for="element in myArray" :key="element.id">{{ element.name }}</div>
+      <!-- <draggable v-model="myArray" tag="p" handle=".mover"> -->
+      <draggable v-model="myArray" tag="p" filter=".mover">
+        <div :class="{ mover: element.id % 2 == 0 }" v-for="element in myArray" :key="element.id">
+          {{ element.name }}
+        </div>
         <button slot="header" @click="handleAdd">Add</button>
       </draggable>
     </div>
 
-    <h2>chosen-class 拖拽时候的样式</h2>
+    <h2>chosen-class 选中时候的样式</h2>
     <div class="module">
       <draggable v-model="myArray" tag="p" chosen-class="chosen" :force-fallback="true">
         <div class="mover" v-for="element in myArray" :key="element.id">{{ element.name }}</div>
@@ -50,7 +54,13 @@
       </draggable>
     </div>
 
-
+    <h2>dragClass 拖动时候元素的样式</h2>
+    <div class="module">
+      <draggable v-model="myArray" tag="p" chosen-class="chosen" drag-class='dragging' :force-fallback="true">
+        <div class="mover" v-for="element in myArray" :key="element.id">{{ element.name }}</div>
+        <button slot="header" @click="handleAdd">Add</button>
+      </draggable>
+    </div>
   </div>
 </template>
 
@@ -97,8 +107,12 @@ export default {
     }
   }
 
-  .chosen{
+  .chosen {
     border: 2px solid blue;
+  }
+
+  .dragging{
+    border: 2px solid yellow;
   }
 }
 </style>
