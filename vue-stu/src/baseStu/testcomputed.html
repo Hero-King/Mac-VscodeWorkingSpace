@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <p>计数器: {{ count }} count2: {{count2}}</p>
+        <h4 v-if='isEnev()'>我是测试文本 count为偶数时候想要隐藏</h4>
+        <h4 :class='`my-${someClass()}`'>我是测试文本请看我的类名</h4>
+        <h4 :class='computedClass'>我是测试文本请看我的类名</h4>
+        <input type="button" @click="count = (count+1) % 2" value="计数器++" />
+        <input type="button" @click="count2++" value="计数器 count2 ++" />
+    </div>
+
+    <script src="../assets/vue.js"></script>
+    <script>
+        const vue = new Vue({
+            el: "#root",
+            data: {
+                count: 0,
+                count2: 0
+            },
+            methods: {
+                isEnev() {
+                    console.log("isEnev 我被执行了")
+                    return this.count % 2 === 0
+                },
+                someClass() {
+                    console.log("someClass 我被执行了")
+                    return this.count % 2 === 0 ? 'red' : 'blue'
+                }
+            },
+            computed: {
+                computedClass() {
+                    console.log("computedClass 我被执行了")
+                    return this.count % 2 === 0 ? 'red' : 'blue'
+                }
+            }
+        });
+        vue.$watch('count', function (n, o) {
+            console.log("$watch监听")
+        })
+    </script>
+</body>
+
+</html>
