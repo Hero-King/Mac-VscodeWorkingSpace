@@ -69,12 +69,30 @@
     </div>
 
     <div class="module">
-      <draggable tag="p" chosen-class="chosen" handle='.mover' drag-class="dragging" :force-fallback="true">
+      <draggable
+        tag="p"
+        chosen-class="chosen"
+        handle=".mover"
+        drag-class="dragging"
+        :force-fallback="true"
+      >
         <div>
           <div>{{ 1 }}</div>
           <div class="mover">{{ 3 }}</div>
         </div>
         <div class="mover">{{ 2 }}</div>
+      </draggable>
+    </div>
+
+    <div class="module">
+      <h4>合并两个item拖拽</h4>
+      <draggable tag="p" v-model="keyList" handle=".mover" group="test">
+        <div v-for="i in keyItemList3" :key="i.title" class="mover">
+          <span style="color: red">{{ i.title }}</span>
+        </div>
+        <div class="mover">
+          <span style="color: red">1212</span>
+        </div>
       </draggable>
     </div>
   </div>
@@ -93,9 +111,29 @@ export default {
       console.log(this.i)
     }
   },
+  computed: {
+    keyItemList3() {
+      const { keyList } = this
+      console.log(keyList)
+      let arr = []
+      for (let i = 0; i < 3; i++) {
+        arr.push({ title: keyList[i] + 'title', text: keyList[i] })
+      }
+      return arr
+    },
+    keyItemList45() {
+      const { keyList } = this
+      let arr = []
+      for (let i = 3; i < 4; i++) {
+        arr.push({ title: keyList[i] + 'title', text: keyList[i] })
+      }
+      return arr
+    }
+  },
   data() {
     return {
       i: 0,
+      keyList: ['0', '1', '2', '3'],
       myArray: [
         {
           name: '1',

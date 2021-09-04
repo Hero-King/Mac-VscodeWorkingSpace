@@ -15,6 +15,11 @@
         <h4 :class='computedClass'>我是测试文本请看我的类名</h4>
         <input type="button" @click="count = (count+1) % 2" value="计数器++" />
         <input type="button" @click="count2++" value="计数器 count2 ++" />
+
+        <h3>测试computed属性能否修改</h3>
+        <input v-module='inputValue' /><button @click='handleClick'>添加到list</button>
+        <div v-for='item in myList' :key='item'>{{ item }}</div>
+
     </div>
 
     <script src="../assets/vue.js"></script>
@@ -23,7 +28,8 @@
             el: "#root",
             data: {
                 count: 0,
-                count2: 0
+                count2: 0,
+                inputValue: ''
             },
             methods: {
                 isEnev() {
@@ -33,12 +39,18 @@
                 someClass() {
                     console.log("someClass 我被执行了")
                     return this.count % 2 === 0 ? 'red' : 'blue'
+                },
+                handleClick() {
+                    this.myList = [this.myList, this.inputValue]
                 }
             },
             computed: {
                 computedClass() {
                     console.log("computedClass 我被执行了")
                     return this.count % 2 === 0 ? 'red' : 'blue'
+                },
+                myList() {
+                    return [1, 2, 3]
                 }
             }
         });

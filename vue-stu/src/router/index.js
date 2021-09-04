@@ -71,6 +71,10 @@ const router = new Router({
         {
           path: 'draggable',
           component: DraggableStu
+        },
+        {
+          path: 'datePicker',
+          component: resolve => require(['../components/datePickerStu.vue'], resolve)
         }
       ]
     }
@@ -87,6 +91,6 @@ router.beforeEach((to, from, next) => {
   NProgress.done()
 })
 
-router.afterEach((to, from) => {})
+router.afterEach((to, from) => { })
 
 export default router

@@ -5,6 +5,7 @@ import App from './App'
 import vuex from 'vuex'
 import router from './router'
 import store from './store'
+import moment from 'moment'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -18,6 +19,7 @@ Vue.use(vuex)
 axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1/'
 // 挂载常用工具到原型上
 Vue.prototype.$http = axios
+Vue.prototype.$moment = moment
 
 // 全局导入element的话 是会在Vue.prototype.$message注册的
 // Vue.prototype.$message = ElementUI.Message
