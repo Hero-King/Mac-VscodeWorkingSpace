@@ -5,6 +5,7 @@ import Login from '../components/login'
 import Home from '../components/Home.vue'
 import Form from '../components/form.vue'
 import DraggableStu from '../components/draggable-stu'
+import LoadingStu from '../components/loadingstu'
 import NProgress from 'nprogress'
 
 Vue.use(Router)
@@ -75,6 +76,9 @@ const router = new Router({
         {
           path: 'datePicker',
           component: resolve => require(['../components/datePickerStu.vue'], resolve)
+        }, {
+          path: 'loadingstu',
+          component: LoadingStu
         }
       ]
     }

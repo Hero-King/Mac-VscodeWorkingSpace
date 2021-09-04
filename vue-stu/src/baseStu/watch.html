@@ -36,7 +36,7 @@
                     console.log(newValue, oldValue)
                 }
             },
-            // 用于监听某个数据的变化,执行自定义的回调函数  在 watch 中，可以监听当前 vm 实例上所有的属性变化, 
+            // 用于监听某个数据的变化,执行自定义的回调函数  在 watch 中，可以监听当前 vm 实例上所有的属性变化,
             // 不应该使用箭头函数来定义 watcher 函数 watch里面需要this指向vue实例
             watch: {
                 "count": function (newValue, oldValue) {
