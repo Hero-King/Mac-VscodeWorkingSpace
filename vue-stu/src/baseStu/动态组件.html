@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态组件</title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <button @click="handleChangeView('A')">切换到A</button>
+        <button @click="handleChangeView('B')">切换到B</button>
+        <button @click="handleChangeView('C')">切换到C</button>
+
+        <div style="display: flex; justify-content: space-around;">
+            <div>
+                <span>没动画</span>
+                <component :is="currentView"></component>
+            </div>
+
+            <div>
+                <span>动画</span>
+                <transition>
+                    <component :is="currentView"></component>
+                </transition>
+            </div>
+
+            <div>
+                <span>动画 + keepalive</span>
+                <transition>
+                    <keep-alive>
+                        <component :is="currentView"></component>
+                    </keep-alive>
+                </transition>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../assets/vue.js"></script>
+    <script>
+        var root = new Vue({
+            el: "#app",
+            components: {
+                comA: {
+                    template: `<textarea>A组件</textarea>`
+                },
+                comB: {
+                    template: `<textarea>B组件</textarea>`
+                },
+                comC: {
+                    template: `<textarea>C组件</textarea>`
+                }
+            },
+            data: {
+                currentView: 'comA'
+            },
+            methods: {
+                handleChangeView(type) {
+                    this.currentView = 'com' + type
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

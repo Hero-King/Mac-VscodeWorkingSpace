@@ -23,6 +23,9 @@
   <div id="app">
     {{ message }}
 
+    <!-- 如果不想让vue编辑{{}} 使用v-pre -->
+    <span v-pre>{{ message }} </span>
+
     <!-- 作用在 HTML attribute 上，遇到这种情况应该使用 v-bind 指令：代表后面的字符串是js表达式 -->
     <span v-bind:title="message">
       鼠标悬停几秒钟查看此处动态绑定的提示信息！
@@ -88,6 +91,10 @@
 
     <!-- 全局过滤器 -->
     <div>{{ activeClass | stringfilter}}</div>
+
+    <!-- 接收参数 -->
+    <!-- {{ message | stringfilter(arg1,1rg2) }} -->
+    <!-- 这里的字符串缸gl 和arg2 将分别传给过滤器的第二个和第三个参数，因为第一个是数据本身。 -->
 
   </div>
 
@@ -162,7 +169,7 @@
     })
 
     // 第一个参数是管道进来的数据,第二个参数才是调用stringfilter函数的参数 
-    Vue.filters("stringfilter", function (params, pattern = '') {
+    Vue.filter("stringfilter", function (params, pattern = '') {
       return params.toString()
     })
 
