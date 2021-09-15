@@ -1,10 +1,14 @@
 # vue-stu
-项目使用 vue-cli创建 新项目请使用vue/cli
-> vue包 完整版vs 运行版本
-完整版：同时包含编译器和运行时的版本。
-编译器：用来将模板字符串编译成为 JavaScript 渲染函数的代码。
-运行时：用来创建 Vue 实例、渲染并处理虚拟 DOM 等的代码。基本上就是除去编译器的其它一切。
->> 如果你需要在客户端编译模板 (比如传入一个字符串给 template 选项，或挂载到一个元素上并以其 DOM 内部的 HTML 作为模板)，就将需要加上编译器，即完整版
+
+项目使用 vue-cli 创建 新项目请使用 vue/cli(其学习记录在下面)
+
+> vue 包 完整版 vs 运行版本
+> 完整版：同时包含编译器和运行时的版本。
+> 编译器：用来将模板字符串编译成为 JavaScript 渲染函数的代码。
+> 运行时：用来创建 Vue 实例、渲染并处理虚拟 DOM 等的代码。基本上就是除去编译器的其它一切。
+>
+> > 如果你需要在客户端编译模板 (比如传入一个字符串给 template 选项，或挂载到一个元素上并以其 DOM 内部的 HTML 作为模板)，就将需要加上编译器，即完整版
+
 ```
 // 需要编译器
 new Vue({
@@ -28,7 +32,8 @@ import()语法需要 npm install --save-dev @babel/plugin-syntax-dynamic-import
 
 ```
 
-> 学习vue
+> 学习 vue
+
 ```
 
 Vue实例对外提供了一些有用的实例属性与方法,用前缀$+属性名/方法名表示,以便于和用户定义属性区分开
@@ -54,12 +59,54 @@ vue-router  导航守卫  对于没有登录的用户直接用过url访问需要
 ```
 
 ## Vue draggable
+
 npm i -S vuedraggable
 
+## @vue/cli
+
+项目使用@vue/cli 快速搭建
+
+### CLI
+
+CLI (@vue/cli) 是一个全局安装的 npm 包，提供了终端里的 vue 命令
+
+### CLI 服务
+
+CLI 服务 (@vue/cli-service) 是一个开发环境依赖。它是一个 npm 包，局部安装在每个 @vue/cli 创建的项目中。
+CLI 服务是构建于 webpack 和 webpack-dev-server 之上的。它包含了:
+
+- 加载其它 CLI 插件的核心服务；
+- 一个针对绝大部分应用优化过的内部的 webpack 配置；
+- 项目内部的 vue-cli-service 命令，提供 serve、build 和 inspect 命令。
+  > 也就是说他也是个开发 serve 提供了命令:
+
+```
+vue-cli-service
+--open    在服务器启动时打开浏览器
+--copy    在服务器启动时将 URL 复制到剪切版
+--mode    指定环境模式 (默认值：development)
+--host    指定 host (默认值：0.0.0.0)
+--port    指定 port (默认值：8080)
+--https   使用 https (默认值：false)
+```
+
+vue-cli-service serve 命令会启动一个开发服务器 (基于 webpack-dev-server) 并附带开箱即用的模块热重载 (Hot-Module-Replacement)。
+**除了通过命令行参数，你也可以使用 vue.config.js 里的 devServer 字段配置开发服务器。**
+
+查看所有命令 npx vue-cli-service help
+
+### CLI 插件
+
+CLI 插件是向你的 Vue 项目提供可选功能的 npm 包,例如 Babel/TypeScript 转译、ESLint 集成、单元测试和 end-to-end 测试等。Vue CLI 插件的名字以 @vue/cli-plugin- (内建插件) 或 vue-cli-plugin- (社区插件) 开头，非常容易使用。
+当你在项目内部运行 vue-cli-service 命令时，它会自动解析并加载 package.json 中列出的所有 CLI 插件。
+
+待学习
+eslint-loader
+postcss Autoprefixer
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 

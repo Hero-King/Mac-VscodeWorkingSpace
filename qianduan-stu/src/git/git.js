@@ -35,6 +35,8 @@ git commit - am ''  直接将文件夹代码提交到本地仓库（本地版本
     git reset --hard 远程分支 效果和 git checkout 远程分支相同 远程分支写法可以git branch -a 查看 需要带上origin/
     假如回到最初的节点  reset并不会把后面的节点从删除掉，但是git log 是看不到的
     想回去 可以git reset --hard HEAD 版本号
+    git reset --mixed (默认参数) 不删除工作空间改动代码，撤销commit，并且撤销git add . 操作
+    git reset --soft  不删除工作空间改动代码，撤销commit，不撤销git add . 
 怎么获取版本号？
     存在git log 中的可以直接获取
     不存在的使用 git reflog  里面记录了我们版本切换记录
@@ -97,4 +99,12 @@ git rebase
         在 git rebase --continue 这样 git 会继续应用余下的 patch 补丁文件。
         
     结论: 只要你的分支上需要 rebase 的所有 commits 历史还没有被 push 过，就可以安全地使用 git-rebase来操作。
+
+如何避免过多的merge log
+  使用git pull --rebase 方式拉取代码
+  git reset 节点 撤销上一次的commit 在同步代码重新提交
+
+合并这次提交到上一次
+    git commit --amend
+    git commit --amend --no-edit
  */
