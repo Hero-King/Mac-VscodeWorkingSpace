@@ -18,3 +18,9 @@ npm install --save-dev electron
 主进程的主要目的是使用 BrowserWindow 模块创建和管理应用程序窗口。
 
 BrowserWindow 类的每个实例创建一个应用程序窗口，且在单独的渲染器进程中加载一个网页。 您可从主进程用 window 的 webContent 对象与网页内容进行交互。
+
+
+
+### 打包
+electron-packager
+npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/

@@ -131,7 +131,7 @@ app.get('/send', (req, res) => {
 
 // 下载文件
 // <a download/> download属性表示下载文件,即使浏览器能够打开文件也不打开
-// <a hred="/dataquality/img/aa.png" />    点击了后的效果是打开图片
+// <a href="/dataquality/img/aa.png" />    点击了后的效果是打开图片
 app.get("/download", (req, res) => {
     // 会让浏览器触发下载文件弹窗
     res.download("./public/Set笔记.pdf", "笔记.pdf", (err) => {
