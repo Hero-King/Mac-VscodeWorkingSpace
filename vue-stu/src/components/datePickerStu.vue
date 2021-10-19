@@ -24,10 +24,29 @@
       </el-date-picker>
     </div>
 
-     <h2>format</h2>
+    <h2>format 和 value-format</h2>
     <div class="module">
-      <el-date-picker v-model="value10" format="yyyy 年 MM 月 dd 日" type="date" placeholder="选择日期"> </el-date-picker>
-      <el-date-picker v-model="value11" value-format="yyyy-MM-dd" format="yyyy 年 MM 月 dd 日" type="date" placeholder="选择日期"> </el-date-picker>
+      <div>
+        format格式化组件显示的样式
+        <el-date-picker
+          v-model="value10"
+          format="yyyy 年 MM 月 dd 日"
+          type="date"
+          placeholder="选择日期"
+        >
+        </el-date-picker>
+      </div>
+      <div>
+        value-format 将组件返回的值指定格式
+        <el-date-picker
+          v-model="value11"
+          value-format="yyyy-MM-dd"
+          format="yyyy 年 MM 月 dd 日"
+          type="date"
+          placeholder="选择日期"
+        >
+        </el-date-picker>
+      </div>
     </div>
   </div>
 </template>

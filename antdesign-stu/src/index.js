@@ -155,6 +155,10 @@ ReactDOM.render(
                     <ReactApi />
                 </div>
 
+                <div className="module">
+                    <h2>学习ES7 装饰器decorator</h2>
+                </div>
+
             </React.Fragment>
         </Router>
     </ConfigProvider>

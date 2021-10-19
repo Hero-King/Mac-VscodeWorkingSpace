@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import Counter from '../components/Counter.jsx'
 import Father from '../components/Father.jsx'
+import { BrowserRouter } from "react-router-dom";
+import Mobx from '../components/mobx/mobx.jsx'
+import App from './App.jsx'
 $(function () {
     ReactDOM.render(
         <div>
@@ -18,5 +21,9 @@ $(function () {
     var show3 = () => {
         console.log(333);
     }
-    show3()
+    show3();
+    ReactDOM.render(
+        <BrowserRouter><App/></BrowserRouter>
+        , document.getElementById('root')
+    )
 })

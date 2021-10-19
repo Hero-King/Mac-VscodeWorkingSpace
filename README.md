@@ -33,7 +33,9 @@ react-stu 学习react 杂碎东西
 vue-stu 学习Vue 使用脚手架搭建，基础内容使用*.html的方式学习
 
 学习计划：  React.native 跨端开发的taro
-
+Vsphere 和 openwrt
+SSL https
+nginx
 
 
 

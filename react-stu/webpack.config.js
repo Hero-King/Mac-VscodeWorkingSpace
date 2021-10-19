@@ -9,8 +9,12 @@ module.exports = {
   }*/
   devServer: {
     open: true,
-    port: 3000,
-    hot: true
+    port: 8000,
+    hot: true,
+    historyApiFallback: true
+  },
+  resolve: {
+    extensions:['.js','.jsx','.json'],	//表示在import 文件时文件后缀名可以不写
   },
   plugins: [
     new htmlWebpackPlugin({
