@@ -2,6 +2,8 @@ import React from "react";
 // observer 可以用作包裹 React 组件的高阶组件。
 import { observer, Provider, inject } from "mobx-react";
 import appStore from "./store";
+import './mobxobservable'
+
 const MobxTest = observer(({store}) => {
   const value = store.inputValue;
   const { inputObj:{secondObj: {input}} } = store
@@ -9,7 +11,7 @@ const MobxTest = observer(({store}) => {
   return  <div>MobxTest 
   <input value={value} onChange={e => appStore.inputValue = e.target.value}/>
   深层对象:
-  <input value={input} onChange={e => appStore.inputObj.secondObj.input = e.target.value}/>
+  <input value={input} onChange={e => store.updateDeepValue(e.target.value)}/>
 </div>
 });
 

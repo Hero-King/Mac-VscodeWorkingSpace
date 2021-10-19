@@ -13,23 +13,26 @@ class AppStore {
   time = "";
 
   inputValue = "init";
+  map = new Map();
   inputObj = {
     secondObj: {
       input: "input"
     }
-  }
+  };
+
+  updateDeepValue(value) {
+    this.inputObj.secondObj.input = value
+  };
 
   @observable
   num = 0;
 
   @observable todoList = [{ name: "init" }];
 
-  @action
   addTodo(item) {
     this.todoList.push(item);
   }
 
-  @action
   addNum() {
     this.num += 1;
   }
