@@ -32,10 +32,9 @@ qianduan-stu  学习underscore moment mysql  git等工具
 react-stu 学习react 杂碎东西
 vue-stu 学习Vue 使用脚手架搭建，基础内容使用*.html的方式学习
 
-学习计划：  React.native 跨端开发的taro
-Vsphere 和 openwrt
-SSL https
-nginx
-
+### 框架比较
+- create-react-app 算是把babel webpack封装起来,方便开发react程序,是脚手架 不支持SSR 定制困难 使用react-rewired 定制配置
+- nextjs 是一个构建 React 应用的框架 支持ts 懒加载 server rendering和code splitting
+- umi 基于路由的框架, 配合antd使用特别适合企业级别的平台管理系统的框架
 
 

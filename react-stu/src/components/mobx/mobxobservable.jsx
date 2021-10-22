@@ -1,9 +1,13 @@
 import React from 'react'
-import { observable,isObservableArray, action, autorun , computed, when} from 'mobx'
+import { observable,isObservableArray, action, autorun , computed, when, trace} from 'mobx'
 
 // mobx可以用在多个平台
 // mobx-react是将react组件转换成可观察数据的反应,准确来说是将组件的render方法做成观察熟悉的autorun, 内部也重写了shouldComponentUpdate方法,不需要在处理
 // mobx 能精确定位到那个对象变化,哪一层对象发生变化, 注解应该放在真正使用observable观察的数据变化的组件中
+
+// 工具: toJs()是把obserable的数据转换成js类型数据
+    // oberserve observe(target, propertyName?, listener, invokeImmediately?) 监听参数变化 执行回调函数 observe 会响应对应的变动，而像是 autorun 或 reaction 则会对新值做出响应。
+    // trace() 用于放在组件的render函数中调用, 跟踪组件渲染的次数和重新渲染的原因
 
 // observable 把对象 数组 map 类型的数据转换成可观察的对象
 const arr = observable([1,2,3])
