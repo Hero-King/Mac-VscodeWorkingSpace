@@ -61,3 +61,12 @@ $ yarn start
 .env 环境变量
 mock 目录  存储 mock 文件，此目录下所有 js 和 ts 文件会被解析为 mock 文件。
 Umi 在 .umirc.ts 或 config/config.ts 中配置项目和插件，支持 es6。 .umirc.ts 优先级更高
+
+## 搭建步骤
+- 安装normalize.css重置/统一浏览器样式 yarn add normalize.css 
+- 安装bootstrap yarn add bootstrap (不使用)
+- 添加配置文件,路由配置
+- 添加layout目录,整体布局组件
+
+
+

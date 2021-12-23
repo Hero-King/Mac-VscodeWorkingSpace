@@ -1,6 +1,7 @@
 import React from 'react'
 import { observable,isObservableArray, action, autorun , computed, when, trace} from 'mobx'
 
+// https://zh.mobx.js.org/README.html 官网
 // mobx可以用在多个平台
 // mobx-react是将react组件转换成可观察数据的反应,准确来说是将组件的render方法做成观察熟悉的autorun, 内部也重写了shouldComponentUpdate方法,不需要在处理
 // mobx 能精确定位到那个对象变化,哪一层对象发生变化, 注解应该放在真正使用observable观察的数据变化的组件中
@@ -18,9 +19,9 @@ let num = observable(10)
 let str = observable("str")
 let bool = observable(true)
 console.log(num, str, bool)
-console.log(num.get(), str.get(), bool.get());  // 10 "str"
+console.log(num.get(), str.get(), bool.get());  // 10 "str" true
 num.set(100)
-console.log(num.get(), str.get(), bool.get());  // 100
+console.log(num.get(), str.get(), bool.get());  // 100 "str" true
 
 // objects
 // 默认情况下，observable 是递归应用的，所以如果对象的某个值是一个对象或数组，那么该值也将通过 observable 传递。
@@ -45,13 +46,15 @@ var person = observable({
 
 // 对象属性没有暴露 'observe' 方法,
 // 但不用担心, 'mobx.autorun' 功能更加强大
+// autorun 会创建一个 action，这个 action 会先自动运行一次，之后每当小函数用到的任意一个 observable 数据发生了改变，它也会自动重新运行。
 autorun(() => console.log(person.labelText));
 // 输出: "John"
 
 person.name = "Dave";
 // 输出: 'Dave'
 
-person.setAge(21);
+person.showAge = true;
+// 输出: "Dave (age: 42)"
 
 
 //  对 observables 作出响应
@@ -67,3 +70,4 @@ console.log(upperName.get());   // NEWNAME
 // when
 // when(predicate: () => boolean, effect?: () => void, options?)  when 观察并运行给定的 predicate，直到返回true。 一旦返回 true，给定的 effect 就会被执行，然后 autorunner(自动运行程序) 会被清理。 该函数返回一个清理器以提前取消自动运行程序。 如果条件直接是真,那么后面的条件函数就直接执行
 when(() => upperName.length > 6, () => console.log("upperName.length > 6啦"));
+
