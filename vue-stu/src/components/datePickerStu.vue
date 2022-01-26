@@ -84,11 +84,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.module {
-  p {
-    > div {
-      padding: 3px;
-    }
-  }
-}
+// .module {
+//   p {
+//     > div {
+//       padding: 3px;
+//     }
+//   }
+// }
 </style>

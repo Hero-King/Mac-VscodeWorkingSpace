@@ -86,14 +86,14 @@ const router = new Router({
 })
 
 // 挂载路由导航守卫
-router.beforeEach((to, from, next) => {
-  NProgress.start()
-  if (to.path === '/login') return next()
-  let token = window.sessionStorage.getItem('token')
-  if (!token) return next('/login')
-  next()
-  NProgress.done()
-})
+// router.beforeEach((to, from, next) => {
+//   NProgress.start()
+//   if (to.path === '/login') return next()
+//   let token = window.sessionStorage.getItem('token')
+//   if (!token) return next('/login')
+//   next()
+//   NProgress.done()
+// })
 
 router.afterEach((to, from) => { })
 
