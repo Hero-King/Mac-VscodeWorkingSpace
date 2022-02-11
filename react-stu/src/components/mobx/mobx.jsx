@@ -3,6 +3,9 @@ import React from "react";
 import { observer, Provider, inject } from "mobx-react";
 import appStore from "./store";
 import './mobxobservable'
+import './observableObject'
+import TestShallow from './testshallow'
+import { trace } from "mobx";
 
 const MobxTest = observer(({ store }) => {
   const value = store.inputValue;
@@ -21,6 +24,7 @@ class ToDoList extends React.Component {
   render() {
     const { todoList } = this.props.appstore;
     console.log("ToDoList Component render");
+    trace()
     return <ul>
       {
         todoList.map(i => <li key={i.name}>{i.name || ""}</li>)
@@ -32,53 +36,88 @@ class ToDoList extends React.Component {
 
 @inject("appstore")
 @observer
+class ShallowList extends React.Component {
+  render() {
+    const { shallowList } = this.props.appstore;
+    console.log("shallowList Component render");
+    return <ul>
+      {
+        // 不直接引用i.name时候 不会再[0].name 变化后刷新
+        shallowList.map(i => <Item key={i.id} item={i} />)
+      }
+      {/* {
+        shallowList.map(i => <li key={i.id}>{i.name}</li>)
+      } */}
+    </ul>
+  }
+}
+
+function Item(props) {
+  return <div style={{ padding: 10, color: "red" }} >
+    {props.item.name}
+  </div>
+}
+
+@inject("appstore")
+@observer
 class AddList extends React.Component {
-  handleClick(){
+  handleClick() {
     // 不要解构函数  会影响函数内部this指向
     const { appstore } = this.props;
     let name = "Init" + Math.random()
-    appstore.addTodo({name})
+    appstore.addTodo({ name })
     // this.props.appstore.addTodo({name})
   }
   render() {
     const { appstore } = this.props;
-    const {map} = appstore;
+    const { map } = appstore;
     console.log("AddList Component render");
     return <div>
       <button onClick={e => this.handleClick(e)}>
-      添加List (ToDoList 会重新渲染一遍)
-    </button>
-    <button onClick={e => appstore.resetToDoList()}>
-      重置List (ToDoList 会重新渲染一遍)
-    </button>
-    <button onClick={e => appstore.deleteAllToDoList()}>
-      store中一个一个删除List
-    </button>
-    <button onClick={e => appstore.updateInputObj({name: "wang",age: 24})}>
-      挨个属性添加到inputObj中 
-      {/* MObx真的做的很好  render()中使用到哪个属性  属性变化了才刷新 只引用对象不刷新 用到数组中的元素变化了才刷新, 只引用数组不刷新
+        添加List (ToDoList 会重新渲染一遍)
+      </button>
+      <button onClick={e => appstore.setToDoListItem(1)}>
+        更改List数组中某个属性(ToDoList 组件会刷新)
+      </button>
+      <button onClick={e => appstore.todoList[0].name = "newName"}>
+        更改List数组中某个属性(ToDoList 组件会刷新)
+      </button>
+      <button onClick={e => appstore.resetToDoList()}>
+        重置List (ToDoList 会重新渲染一遍)
+      </button>
+      <button onClick={e => appstore.deleteAllToDoList()}>
+        store中一个一个删除List
+      </button>
+      <button onClick={e => appstore.updateInputObj({ name: "wang", age: 24 })}>
+        挨个属性添加到inputObj中
+        {/* MObx真的做的很好  render()中使用到哪个属性  属性变化了才刷新 只引用对象不刷新 用到数组中的元素变化了才刷新, 只引用数组不刷新
         观察: 添加List时候 MobxContext 组件不刷新
               更新updateInputObj  MobxContext组件打印inputObj不刷新  打印inputObj.name 组件刷新
       */}
-    </button>
-    <button onClick={e => appstore.updateMap("name","123")}>
-      更新map一个key
-    </button>
-    <button onClick={e => {
-      let object = {name: "wang", age: 18,money: 1000,time: Date.now()}
-      // 1. 批量更新Store中map的数据  mobx也会优化渲染一次
-      // 2. render中直接引用的数据没变化, 组件不刷新
-      for (const key in object) {
-        if (Object.hasOwnProperty.call(object, key)) {
-          const value = object[key];
-          console.log(key,value);
-          appstore.updateMap(key,value)
+      </button>
+      <button onClick={e => appstore.updateMap("name", "123")}>
+        更新map一个key
+      </button>
+      <button onClick={e => {
+        let object = { name: "wang", age: 18, money: 1000, time: Date.now() }
+        // 1. 批量更新Store中map的数据 多个action react-mobx也会优化渲染一次
+        // 2. render中直接引用的数据没变化, 组件不刷新
+        for (const key in object) {
+          if (Object.hasOwnProperty.call(object, key)) {
+            const value = object[key];
+            console.log(key, value);
+            appstore.updateMap(key, value)
+          }
         }
-      }
-    }}>
-      更新map多个key
-    </button>
-    <div>map.size: {map.size} map.time: {map.get("time")}</div>
+      }}>
+        更新map多个key
+      </button>
+      <div>map.size: {map.size} map.time: {map.get("time")}</div>
+
+      <hr />
+      测试ShallowList <button onClick={e => appstore.addShallowItem({ id: Math.random(), name: "" + Math.random() })}>添加ShallowItem到list中</button> <button onClick={e => (appstore.shallowList[0].name = -1)}>更改shallowList第一个数据值</button>
+      <ShallowList />
+      <TestShallow />
     </div>
 
   }
@@ -94,7 +133,7 @@ class MobxContext extends React.Component {
   }
 
   render() {
-    const { todoList, num, inputValue ,inputObj} = this.props.appstore;
+    const { todoList, num, inputValue, inputObj } = this.props.appstore;
     console.log(todoList, inputValue, inputObj.name);
     return (
       <div>
@@ -108,7 +147,7 @@ class MobxContext extends React.Component {
           +
         </button>
         <ToDoList />
-        <AddList/>
+        <AddList />
       </div>
     );
   }
@@ -130,7 +169,14 @@ class Mobx extends React.Component {
         React 组件树以修补DOM、等等。
         <div>
           MObx核心思想: 状态变化引起的副作用应该被自动化触发: action ---》 state
-          ---》 Reaction        </div>
+          ---》 Reaction
+        </div>
+        <strong>在版本6之前，Mobx鼓励使用ES.next中的decorators,将某个对象标记为observable, computed 和 action。然而，装饰器语法尚未定案以及未被纳入ES标准，标准化的过程还需要很长时间，且未来制定的标准可能与当前的装饰器实现方案有所不同。出于兼容性的考虑，我们在MobX 6中放弃了它们，并建议使用makeObservable / makeAutoObservable代替。</strong>
+        <strong>
+          版本6之前的Mobx,不需要在构造函数中调用makeObservable(this)。在版本6中，为了让装饰器的实现更简单以及保证装饰器的兼容性，必须在构造函数中调用makeObservable(this)
+        </strong>
+        <br />
+        <em> <a href="https://zh.mobx.js.org/" >认准这个官网</a></em>
         <MobxTest store={appStore} />
         <Provider appstore={appStore}>
           <MobxContext />

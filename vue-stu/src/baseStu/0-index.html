@@ -21,9 +21,10 @@
 <body>
   <!-- mvvm 的 v层 -->
   <div id="app">
-    {{ message }}
+    {{ message }} -- {{$data}}  <span v-pre>{{ 里面可以访问vue实例的及原型上的任何属性 }} </span>
 
-    <!-- 如果不想让vue编辑{{}} 使用v-pre -->
+    <hr/>
+    <!-- 如果不想让vue编译{{}} 使用v-pre -->
     <span v-pre>{{ message }} </span>
 
     <!-- 作用在 HTML attribute 上，遇到这种情况应该使用 v-bind 指令：代表后面的字符串是js表达式 -->

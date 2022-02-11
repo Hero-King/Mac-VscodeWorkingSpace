@@ -14,9 +14,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
 import './assets/global.css'
 
-Vue.use(vuex)
-
-axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1/'
 // 挂载常用工具到原型上
 Vue.prototype.$http = axios
 Vue.prototype.$moment = moment
@@ -25,14 +22,13 @@ Vue.prototype.$moment = moment
 // Vue.prototype.$message = ElementUI.Message
 
 Vue.use(ElementUI)
+Vue.use(vuex)
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
   router,
-  components: { App },
   store,
-  template: '<App/>'
-})
+  render: h => h(App)
+}).$mount('#app')

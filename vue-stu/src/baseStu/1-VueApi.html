@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../assets/vue.js"></script>
+</head>
+
+<body>
+    <a href="https://www.bilibili.com/video/BV1Zy4y1K7SH?p=11&spm_id_from=pageDriver" >学习视频</a>
+    <div id="root"></div>
+    <script>
+        // Vue.config 是一个对象，包含 Vue 的全局配置。可以在启动应用之前修改下列 property
+        console.log("Vue.config 初始配合: ", Vue.config);
+        // Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data() {
+                return {
+                    message: 'message',
+                    a: 1
+                }
+            },
+            computed: {
+                // 仅读取
+                aDouble: function () {
+                    return this.a * 2
+                },
+                // 读取和设置
+                aPlus: {
+                    get: function () {
+                        return this.a + 1
+                    },
+                    set: function (v) {
+                        this.a = v - 1
+                    }
+                }
+            }
+        })
+
+        console.log("vm实例: ", vm);    // 实例创建之后，可以通过 vm.$data 访问原始数据对象。Vue 实例也代理了 data 对象上所有的 property，因此访问 vm.a 等价于访问 vm.$data.a。
+
+        // Object.defineproperty
+        let obj = {name: "张三", key: "1"}
+        Object.defineProperty(obj, "age", {
+            value: 20
+        })
+    </script>
+
+</body>
+
+</html>
