@@ -7,6 +7,7 @@
           <el-menu-item index="/home/form">form</el-menu-item>
           <el-menu-item index="/home/hello">hello</el-menu-item>
           <el-menu-item index="/home/datePicker">datePicker</el-menu-item>
+          <el-menu-item index="/home/checkbox">checkbox</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-menu"></i>懒加载</template>

@@ -6,6 +6,7 @@ import Home from '../components/Home.vue'
 import Form from '../components/form.vue'
 import DraggableStu from '../components/draggable-stu'
 import LoadingStu from '../components/loadingstu'
+import CheckboxStu from '../components/checkbox-stu'
 import NProgress from 'nprogress'
 
 Vue.use(Router)
@@ -65,6 +66,10 @@ const router = new Router({
         {
           path: 'form',
           component: Form
+        },
+        {
+          path: 'checkbox',
+          component: CheckboxStu
         },
         {
           path: 'hello',
