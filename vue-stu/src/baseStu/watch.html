@@ -18,7 +18,7 @@
 
     <script src="../assets/vue.js"></script>
     <script>
-        const vue = new Vue({
+        const vm = new Vue({
             el: "#root",
             data: {
                 count: 0,
@@ -52,7 +52,7 @@
                     },
                     // count2是对象, 如果不加下面的不会递归所有属性
                     deep: true,
-                    immediate: true // handler回调将会在侦听开始之后被立即调用
+                    immediate: true // handler回调将会在侦听开始之后被立即调用一次
                 },
                 // watch vm.e.f's value: {g: 5}
                 'count3.value': function (val, oldVal) {
@@ -66,7 +66,7 @@
                 }
             }
         });
-        vue.$watch('count', function (n, o) {
+        vm.$watch('count', function (n, o) {
             console.log("$watch监听")
         })
     </script>

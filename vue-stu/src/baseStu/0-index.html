@@ -13,6 +13,10 @@
     .blue {
       color: blue
     }
+
+    .loading{
+      opacity: .5;
+    }
   </style>
 
   <title>入门vue</title>
@@ -37,6 +41,8 @@
 
     <p v-if="seen">现在你看到我了</p>
     <button v-on:click="reverseMessage">反转消息</button>
+
+    <button @click="loading =!loading" :class="{loading}">loading</button>
 
     <input v-model="message">
     <!-- v-bind 只能实现单向的绑定  -->
@@ -106,6 +112,7 @@
       data: {
         message: 'Hello Vue!',
         seen: false,
+        loading: false,
         rawHtml: '<span style="color: red">This should be red.</span>',
         attributeName: "href"
       },

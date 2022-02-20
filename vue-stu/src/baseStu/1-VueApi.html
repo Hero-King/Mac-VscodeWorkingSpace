@@ -9,17 +9,89 @@
 </head>
 
 <body>
-    <a href="https://www.bilibili.com/video/BV1Zy4y1K7SH?p=11&spm_id_from=pageDriver">学习视频</a>
-    <div id="root"></div>
+    <a href="https://www.bilibili.com/video/BV1Zy4y1K7SH">学习视频</a>
+
+    <div id="root">
+        <Hello></Hello>
+        <div>插件推荐</div>
+        <ul>
+            <li> vue 3 snippets</li>
+        </ul>
+        <div>爱好</div>
+        <ul>
+            <li v-for="h in hobby" :key="h">{{h}}</li>
+        </ul>
+        <input type="text" @change.enter="addHobby">
+        <button @click="hobby[0] = '和娃哈哈'">调整第一个爱好为: 和娃哈哈 (页面并不能跟着刷新,
+            因为数组里面的数据只有对象类型数据才被observe,可以使用Vue.set(vm.XXX.hobby,0,"喝娃哈哈"), 同时变动数组长度只能用那些数组方法 原理是包装数组的常规方法, hobby.push
+            !== Array.prototype.push)
+        </button>
+
+        <br>
+
+        测试props是对象时候更改属性  -->  组件会重新渲染  但是不推荐使用
+        <ul>
+            <li v-for="p in list" :key="p.id">
+                <input type="checkbox" :checked="p.isDelete" @change="p.isDelete = !p.isDelete"/>
+                <!-- <input type="checkbox" v-model="p.isDelete" /> -->
+                {{p.name}} -- {{p.age}}
+            </li>
+        </ul>
+
+    </div>
+    <script>
+        const Hello = Vue.extend({
+            name: "Hello",
+            template: `
+                <div>Hello Vue</div>
+            `,
+        })
+        const Hello2 = Vue.extend({
+            name: "Hello2",
+            template: `
+            <div>Hello Vue 2</div>
+            `,
+        })
+        console.log("不同组件的Vue.extend返回的构造函数是同一个引用吗?", Hello2 === Hello);  // false
+        console.log("Hello组件构造函数: ", Hello);
+        // Hello 是 VueComponent 构造函数, 不同的组件Vue.extend返回的是不同的构造 模板中的<Hello/> 就是创建了一个实例
+
+        const List = Vue.extend({
+            template: `
+                
+            `
+        })
+    </script>
     <script>
         // Vue.config 是一个对象，包含 Vue 的全局配置。可以在启动应用之前修改下列 property
         console.log("Vue.config 初始配合: ", Vue.config);
         // Vue.config.productionTip = false
         const vm = new Vue({
             el: '#root',
+            components: { Hello },
             data: {
                 message: 'message',
-                a: 1
+                a: 1,
+                hobby: ['抽烟', '喝酒'],
+                list: [{ id: '001', name: 'wang', age: 20, isDelete: false }
+                    , { id: '002', name: 'li', age: 30, isDelete: true }],
+                add: {}
+            },
+            beforeCreate() {
+                // console.log(Vue.prototype.$bus);
+                // 注册全局事件总线   使用: 在某个XXX组件$on()   XXX组件卸载前注意$off('事件名')
+                Vue.prototype.$bus = this
+            },
+            methods: {
+                log() {
+                    console.log("------");
+                },
+                addHobby(e) {
+                    const v = e.target.value.trim()
+                    if (v.length == 0) return
+                    this.hobby.push(v)
+                    e.target.value = ''
+                }
             },
             computed: {
                 // 仅读取
@@ -39,6 +111,7 @@
         })
 
         console.log("vm实例: ", vm);    // 实例创建之后，可以通过 vm.$data 访问原始数据对象。Vue 实例也代理了 data 对象上所有的 property，因此访问 vm.a 等价于访问 vm.$data.a。
+        console.log("vm._data === vm.$data ? ", vm._data === vm.$data);
 
         // Object.defineproperty
         let obj = { name: "张三", key: "1" }
@@ -66,6 +139,40 @@
                 originObj.name = v
             }
         })
+
+
+        // vue 是把methods中的函数 通过bind 方式挂载在vm上
+        // computed 计算属性 get什么时候调用? 初次计算和所依赖的数据发生变化
+        // Vue自身可以监视对象内部值得改变(不管data里面的对象有多深,只要改变,页面就会响应),
+        // 但是Vue提供的watch默认是不可以的, computed和watch使用的是 观察者模式(https://www.cnblogs.com/llx1996/p/9839161.html) 事件中心使用的发布订阅  发布订阅与观察者区别: https://blog.csdn.net/xiaozidewawa/article/details/108381583
+        // 能用computed时候不用watch 但是异步操作等场景只能watch
+
+        // vm.$set 在已创建的vue实例中添加data内容
+        // vm.$set(vm.$data.add, "addAge", "我是后添加到Data中的属性")
+        vm.$set(vm.add, "addAge", "我是后添加到Data中的属性")   // Vue.set 注意对象不能是 Vue 实例，或者 Vue 实例的根数据对象。
+
+        // vue中的监听data变化原理是使用数据劫持 使用Object.defineProperty 写data的 setter和 getter
+        // v-module也是有修饰符的 .trim  .lazy .number
+
+        // 组件名和使用 单文件组件文件名命名
+        // 1.多个单词: xx-xx 或者 MyComponent
+        // 组件是VueComponent(vc)  vm实例管理着多个vc对象  就在vm.$children
+        // vc和vm的很多属性都相同,但是vc不能有el属性 vc的data必须是函数
+
+        // VueComponent.prototype.__proto__ === Vue.prototype 
+        console.log(Hello.prototype.__proto__ === Vue.prototype);
+
+        // vue.js 和 vue.runtime.js 前者是完整的vue包含vue核心和模板解析器 后者只有核心
+        // 后者导致创建Vue实例时候不能使用template属性,而是使用render(h) => h(App)
+
+        // 脚手架
+        // 查看脚手架默认打包配置  vue inspect
+        // 样式冲突依赖的原则是后来者居上, 也就是以最后导入的为主
+
+        // props 当props是对象的时候,更改对象属性值是没问题的, 而且还会触发组件重新渲染(对象是被observe的)
+
+        // 数据总线
+
     </script>
 
 </body>

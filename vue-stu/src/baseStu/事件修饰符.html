@@ -50,6 +50,14 @@
         </div>
 
         <br />
+
+        <div>
+            <input type="text" @keyup="log">
+            <input type="text" @keyup.enter="log">
+            <!-- Ctrl + Click -->
+            <input type="text" @keyup.ctrl.y="log('ctrl + y', $event)">  
+            <input v-on:keyup.page-down="log">
+        </div>
     </div>
 
     <script>
@@ -67,6 +75,9 @@
                 },
                 father: function () {
                     console.log("father click")
+                },
+                log(e){
+                    console.log(e);
                 }
             }
         })

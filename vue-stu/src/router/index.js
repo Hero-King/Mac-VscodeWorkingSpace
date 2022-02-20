@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
-import Login from '../components/login.vue'
+import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
-import Form from '../components/form.vue'
-import DraggableStu from '../components/draggable-stu'
-import LoadingStu from '../components/loadingstu'
-import CheckboxStu from '../components/checkbox-stu'
+import Form from '../components/FormStu.vue'
+import UploadStu from '../components/UploadStu.vue'
+import DraggableStu from '../components/DraggableStu'
+import LoadingStu from '../components/LoadingStu'
+import CheckboxStu from '../components/CheckboxStu'
 import NProgress from 'nprogress'
 
 Vue.use(Router)
@@ -47,7 +48,7 @@ const router = new Router({
       path: '/lazy',
       name: 'Lazy',
       // 异步组件 会生成单独的文件 路由到组件时候去请求加载
-      component: resolve => require(['../components/lazy.vue'], resolve)
+      component: resolve => require(['../components/Lazy.vue'], resolve)
     },
     {
       path: '/login',
@@ -70,6 +71,9 @@ const router = new Router({
         {
           path: 'checkbox',
           component: CheckboxStu
+        }, {
+          path: 'upload',
+          component: UploadStu
         },
         {
           path: 'hello',
@@ -81,7 +85,7 @@ const router = new Router({
         },
         {
           path: 'datePicker',
-          component: resolve => require(['../components/datePickerStu.vue'], resolve)
+          component: resolve => require(['../components/DatePickerStu.vue'], resolve)
         }, {
           path: 'loadingstu',
           component: LoadingStu

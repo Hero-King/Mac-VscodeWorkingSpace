@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../assets/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <com1></com1>
+        <button @click="myAlert('你好啊')">点我输出信息</button>
+    </div>
+
+    <script>
+
+        const plugin = {
+            install(Vue) {
+                Vue.config.productionTip = false
+                Vue.mixin({
+                    mounted: function () {
+                        console.log(this.$options.name, "组件mounted");
+                    }
+                })
+                Vue.prototype.myAlert = function (msg){
+                    alert(msg)
+                }
+
+            }
+        }
+
+        Vue.use(plugin)
+
+        var vm = new Vue({
+            el: '#app',
+            name: 'App',
+            data: {
+                count: 0
+            },
+            components: {
+                com1: {
+                    name: 'Component1',
+                    template: '<div>com1</div>'
+                }
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>

@@ -10,6 +10,8 @@
         <div class="messag" v-show="show">{{message}}</div>
         <div class="messag" v-if="show">{{message}}</div>
         <button @click="toggle">切换显示隐藏</button>
+
+        <!-- 模板里面不要出现 this 直接访问实例上的属性即可 -->
         <button @click="show=!show">切换显示隐藏2</button>
     </div>
 

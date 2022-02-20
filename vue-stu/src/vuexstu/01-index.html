@@ -27,6 +27,7 @@
     <ul>
       <li>通过Vuex.store创建Store实例 注册到vue实例中</li>
       <li>在根实例中注册 store 选项，该 store 实例会注入到根组件下的所有子组件中，且子组件能通过 this.$store 访问到。</li>
+      <li>我们通过提交 mutation 的方式，而非直接改变 store.state.count，是因为我们想要更明确地追踪到状态的变化。</li>
     </ul>
 
     <h3>Getter</h3>

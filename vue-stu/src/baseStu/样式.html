@@ -25,7 +25,7 @@
     <div id="root">
         class样式 VUE在你命令他不能解析时候，就会渲染不出来
         <input type="button" v-model="button" @click.stop="changeBool">
-        <div :class="redClass">哈哈哈哈</div>
+        <div :class="redClass" class="common">哈哈哈哈</div>
         <!-- <div :class="redClass blueClass">这样是不能解析的</div> -->
         <div :class="[redClass, blueClass,'reddd']">多个样式使用数组</div>
         <div :class="[redClass, button ? blueClass : null]">数组中可以使用三元运算</div>

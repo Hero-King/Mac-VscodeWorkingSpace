@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import myh2 from './myh2.vue'
+import myh2 from './BaseH2.vue'
 export default {
   components: { myh2 },
   name: 'HelloWorld',

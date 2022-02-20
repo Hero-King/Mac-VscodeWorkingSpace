@@ -12,8 +12,12 @@
     <div id="root">
         <!-- 可以用过属性绑定的形式,把参数传递给子组件 通过事件绑定的方式把方法传递给子组件 -->
         {{msg}}
+
+        <!-- 自定义事件 适用于子组件传递数据给父组件 -->
         <com1 :name="msg" @parentlog="logmsg" mytitle="我是title props" ></com1>
 
+        <!-- 对于绑定在自定义组件上面的原生事件比如click 只能使用 $emit('')去触发, 如果想要就是原生的方式去触发 需要添加.native修饰符 -->
+        <!-- 你可能有很多次想要在一个组件的根元素上直接监听一个原生事件。这时，你可以使用 v-on 的 .native 修饰符： -->
         <com2 @click="logmsg"  ref="mycom2"></com2>
 
         <div ref="mydiv">使用ref</div>
@@ -25,7 +29,7 @@
 
     <script>
         Vue.config.devtools = true;
-        const vue = new Vue({
+        const vm = new Vue({
             el: "#root",
             methods:{
                 // 父组件的回调事件可以通过$event接受子组件的参数
@@ -38,6 +42,14 @@
             },
             data: {
                 msg: "我是父组件数据"
+            },
+
+            mounted() {
+                // $on 绑定事件  $once绑定的事件只触发一次
+                this.$refs.mycom2.$on('dididi', this.logmsg)    // 通过这种方式绑定事件的时候,回调指向触发事件的实例对象,使用前面的方式注册回调或者使用箭头函数
+                setTimeout(() => {
+                    this.$refs.mycom2.$emit('dididi', "自定义事件被触发")
+                }, 2000);
             },
             components: {
                 com1: {
