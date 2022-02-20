@@ -66,7 +66,7 @@ app.delete('/user', function (req, res) {
     console.log('服务器已启动，监听3000端口');
 }) */
 
-var server = app.listen(80, function () {
+var server = app.listen(8090, function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log('服务器已启动，http://%s:%s', host, port) //这里的%s 和c语言差不多，代表字符串输出，%d代表十进制输出 Mysql中的占位符：_代表单个字符，%代表>=0个字符  like 和not like    JSP 中JSTL表达式用${}取值    JSX中在书写html代码时，在{}中书写JS代码。
