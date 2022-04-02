@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld'
 import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 import CheckboxStu from '../components/CheckboxStu'
@@ -12,6 +11,8 @@ import DraggableStu from '../components/DraggableStu'
 import Bar from '../components/echart/Bar'
 import LoadingStu from '../components/LoadingStu'
 import NProgress from 'nprogress'
+// 路由懒加载
+const HelloWorld = () => import(/* webpackChunkName: "hello" */ '../components/HelloWorld.vue')
 
 Vue.use(Router)
 console.log(process.env);
@@ -34,7 +35,6 @@ const router = new Router({
   scrollBehavior(to, from, savedPosition) {
     // return 期望滚动到哪个的位置
     // 第三个参数 savedPosition 当且仅当 popstate 导航 (通过浏览器的 前进/后退 按钮触发) 时才可用。
-    console.log(arguments)
     return { y: 0, x: 0 }
   },
   routes: [
@@ -42,7 +42,7 @@ const router = new Router({
       path: '/hello',
       name: 'HelloWorld', // 命名路由
       props: { author: 'wangjj' }, // 传递props给路由组件
-      component: () => import(/* webpackChunkName: "hello" */ '../components/HelloWorld.vue'),
+      component: HelloWorld,
       // 定义路由元信息 在路由信息中就会有meta字段
       meta: {
         requiresAuth: true
@@ -58,26 +58,26 @@ const router = new Router({
         next()
       },
     },
-    // 大屏
-    {
-      path: '/deliveryMonitor',
-      component: (resolve) => require(['@/views/screen-monitor/delivery-monitor/index'], resolve),
-      hidden: true
-    },
-    {
-      path: '/planMonitor',
-      component: (resolve) => require(['@/views/screen-monitor/plan-monitor/index'], resolve),
-      hidden: true
-    },
-    {
-      path: '/EfficiencyMonitor',
-      component: (resolve) => require(['@/views/screen-monitor/efficiency-monitor/index'], resolve),
-      hidden: true
-    },
     {
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    // 大屏
+    {
+      path: '/deliveryMonitor',
+      component: () => import(/* webpackChunkName: "Monitor" */ '@/views/screen-monitor/delivery-monitor/index'),
+      hidden: true
+    },
+    {
+      path: '/planMonitor',
+      component:  () => import(/* webpackChunkName: "Monitor" */'@/views/screen-monitor/plan-monitor/index'),
+      hidden: true
+    },
+    {
+      path: '/EfficiencyMonitor',
+      component:  () => import(/* webpackChunkName: "Monitor" */'@/views/screen-monitor/efficiency-monitor/index'),
+      hidden: true
     },
     {
       path: '/',
@@ -117,7 +117,7 @@ const router = new Router({
         },
         {
           path: 'hello',
-          component: () => import(/* webpackChunkName: "hello" */ '../components/HelloWorld.vue')
+          component: HelloWorld
         },
         {
           path: 'draggable',
