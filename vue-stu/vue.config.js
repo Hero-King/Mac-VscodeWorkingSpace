@@ -31,7 +31,7 @@ const config = {
     devServer: {
         host: "0.0.0.0",
         disableHostCheck: true,
-        open: true,
+        open: isRemote ? false : true,
         hot: true,
         port,
         // https://www.webpackjs.com/configuration/dev-server/#devserver-public 解决sockPath远程环境总是指向本机IP的问题
@@ -48,9 +48,9 @@ const config = {
     },
 
 }
-if(isRemote){
+if (isRemote) {
     config.devServer.public = `https://code.heroking.top${publicPath}`
-    config.devServer.sockPath = `${publicPath}/sockjs-node` 
+    config.devServer.sockPath = `${publicPath}sockjs-node`
 }
 
 module.exports = config
