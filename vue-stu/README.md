@@ -95,6 +95,10 @@ vue-cli-service serve 命令会启动一个开发服务器 (基于 webpack-dev-s
 
 查看所有命令 npx vue-cli-service help
 
+### env文件
+会根据--mode 指定的环境去匹配 `.env` `.env.[mode]` `.env.[mode].local` 环境变量文件
+前端也可以访问环境变量process.env: {BASE_URL: "XXX", NODE_ENV: "XXX",VUE_APP_***: "啥啥啥"}
+
 ### CLI 插件
 
 CLI 插件是向你的 Vue 项目提供可选功能的 npm 包,例如 Babel/TypeScript 转译、ESLint 集成、单元测试和 end-to-end 测试等。Vue CLI 插件的名字以 @vue/cli-plugin- (内建插件) 或 vue-cli-plugin- (社区插件) 开头，非常容易使用。

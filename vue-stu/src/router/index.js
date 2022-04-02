@@ -14,12 +14,13 @@ import LoadingStu from '../components/LoadingStu'
 import NProgress from 'nprogress'
 
 Vue.use(Router)
-
+console.log(process.env);
 const router = new Router({
   // https://router.vuejs.org/zh/api/#router-%E6%9E%84%E5%BB%BA%E9%80%89%E9%A1%B9
   mode: 'history', // 配置路由模式 "hash" | "history" | "abstract"
   // base: '/app', // 应用的基路径。例如，如果整个单页应用服务在 /app/ 下，然后 base 就应该设为 "/app/"
-  base: '/absproxy/8000/',
+  // base: '/absproxy/8000/',
+  base: process.env.BASE_URL,
 
   /**
    * 滚动行为
@@ -46,16 +47,16 @@ const router = new Router({
       meta: {
         requiresAuth: true
       },
-      beforeEnter: (to, from) => {
-        console.log("route beforeEnter")
-        return true
-      }
     },
     {
       path: '/lazy',
       name: 'Lazy',
       // 异步组件 会生成单独的文件 路由到组件时候去请求加载
-      component: resolve => require(['../components/Lazy.vue'], resolve)
+      component: resolve => require(['../components/Lazy.vue'], resolve),
+      beforeEnter: (to, from,next) => {
+        console.log("lazy route beforeEnter")
+        next()
+      },
     },
     // 大屏
     {
@@ -86,6 +87,10 @@ const router = new Router({
       path: '/home',
       name: 'Home',
       component: Home,
+      beforeEnter: (to, from, next) => {
+        console.log("route beforeEnter")
+        next()
+      },
       children: [
         {
           path: 'form',
@@ -143,13 +148,14 @@ const router = new Router({
 //   NProgress.done()
 // })
 
-router.beforeEach((to,form) => {
-  console.log("router.beforeEach");
-  return true
+// 从/home -> /lazy 看路由钩子的顺序
+router.beforeEach((to, from, next) => {
+  console.log("router.beforeEach", "from", from, ";", "to:", to);
+  next()
 })
 
-router.afterEach((to, from) => { 
-  console.log("router.afterEach");
+router.afterEach((to, from) => {
+  console.log("router.afterEach", "from", from, ";", "to:", to);
 })
 
 export default router

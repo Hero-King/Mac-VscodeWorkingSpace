@@ -5,13 +5,14 @@ function resolve(dir) {
 }
 const ip = require('ip');
 const port = process.env.PORT || 8000
+const publicPath = process.env.PublicPath;
 
 const address = ip.address()
 const isRemote = address.startsWith('172');
 
-module.exports = {
+const config = {
     // 这个值也可以被设置为空字符串 ('') 或是相对路径 ('./')，这样所有的资源都会被链接为相对路径，这样打出来的包可以被部署在任意路径，也可以用在类似 Cordova hybrid 应用的文件系统中。
-    publicPath: isRemote ? `/absproxy/${port}` : '/',
+    publicPath,
 
     outputDir: "dist",
 
@@ -30,10 +31,12 @@ module.exports = {
     devServer: {
         host: "0.0.0.0",
         disableHostCheck: true,
+        open: true,
+        hot: true,
         port,
         // https://www.webpackjs.com/configuration/dev-server/#devserver-public 解决sockPath远程环境总是指向本机IP的问题
-        public: isRemote ? `https://code.heroking.top/absproxy/${port}/` : '',
-        sockPath: isRemote ? `absproxy/${port}/sockjs-node` : "sockjs-node",
+        // public: isRemote ? `https://code.heroking.top/absproxy/${port}/` : `http://localhost:${port}/absproxy/${port}`,
+        // sockPath: isRemote ? `absproxy/${port}/sockjs-node` : "sockjs-node",
     },
 
     configureWebpack: {
@@ -45,3 +48,9 @@ module.exports = {
     },
 
 }
+if(isRemote){
+    config.devServer.public = `https://code.heroking.top${publicPath}`
+    config.devServer.sockPath = `${publicPath}/sockjs-node` 
+}
+
+module.exports = config
