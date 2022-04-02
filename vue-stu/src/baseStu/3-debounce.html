@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Debounce</title>
+    <script src="../assets/vue.js"></script>
+    <script src="../assets/underscore.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <p>
+            Ask a yes/no question:
+            <input v-model="question">
+        </p>
+        <p>{{ answer }}</p>
+        <p>
+            Test
+            <!-- <input @input="hanldeChange"/> -->
+            <!-- <input @input="hanldeChange(1212)"/> -->
+            <input @input="hanldeChange(1212,$event)"/>
+        </p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#root",
+            data() {
+                return {
+                    question: '',
+                    name: "wang",
+                    answer: 'I cannot give you an answer until you ask a question!'
+                }
+            },
+            computed: {
+
+            },
+            watch: {
+                // 如果 `question` 发生改变，这个函数就会运行
+                question: function (newQuestion, oldQuestion) {
+                    this.answer = 'Waiting for you to stop typing...'
+                    this.debouncedGetAnswer(newQuestion)
+                }
+            },
+            created: function () {
+                // `_.debounce` 是一个通过 Lodash 限制操作频率的函数。
+                // 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率
+                // AJAX 请求直到用户输入完毕才会发出。想要了解更多关于
+                // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
+                // 请参考：https://lodash.com/docs#debounce
+                this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+                this.hanldeChange = _.debounce(this._hanldeChange,200)
+            },
+            methods: {
+                getAnswer: function () {
+                    console.log(arguments); // 获取参数需要调用的时候传递参数
+                    if (this.question.indexOf('?') === -1) {
+                        this.answer = 'Questions usually contain a question mark. ;-)'
+                        return
+                    }
+                    this.answer = 'Thinking...'
+                    var vm = this
+                    setTimeout(() => {
+                        vm.answer = '咯咯哒'
+                    }, 200);
+                },
+                _hanldeChange(){
+                    console.log(arguments,"argumnes");
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

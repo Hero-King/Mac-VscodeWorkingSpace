@@ -1,3 +1,8 @@
+const path = require('path')
+
+function resolve(dir) {
+    return path.join(__dirname, dir)
+}
 const ip = require('ip');
 const port = process.env.PORT || 8000
 
@@ -29,6 +34,14 @@ module.exports = {
         // https://www.webpackjs.com/configuration/dev-server/#devserver-public 解决sockPath远程环境总是指向本机IP的问题
         public: isRemote ? `https://code.heroking.top/absproxy/${port}/` : '',
         sockPath: isRemote ? `absproxy/${port}/sockjs-node` : "sockjs-node",
-    }
+    },
+
+    configureWebpack: {
+        resolve: {
+            alias: {
+                '@': resolve('src')
+            }
+        }
+    },
 
 }

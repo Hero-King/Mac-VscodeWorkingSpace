@@ -12,7 +12,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 // 配置axios
 import axios from 'axios'
-import './assets/global.css'
+import './assets/global.scss'
 
 // 挂载常用工具到原型上
 Vue.prototype.$http = axios

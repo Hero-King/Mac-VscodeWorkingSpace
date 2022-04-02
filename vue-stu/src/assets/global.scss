@@ -1,0 +1,79 @@
+/* 全局样式表 */
+* {
+  box-sizing: border-box;
+}
+html,body,#app{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.module{
+  padding: 10px 10vw;
+  border: 1px solid red;
+  margin: 20px;
+}
+
+.w100{
+  width: 100%;
+}
+
+.h100{
+  height: 100%;
+}
+
+.flex1{
+  flex: 1;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+}
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body {
+  .spaceAround{
+    justify-content: space-around;
+  }
+  .spaceBetween{
+    justify-content: space-between;
+  }
+}
+.w100 {
+  width: 100%;
+}
+.h100 {
+  height: 100%;
+}
+@function px2vh($value) {
+  @return $value/1080 * 100vh;
+}
+#app {
+  // 大屏表格统一样式
+  .monitor-small-table {
+    .el-table__header {
+      tr > th {
+        height: px2vh(30);
+        padding: 0;
+        .cell {
+          height: px2vh(30);
+          line-height: px2vh(30);
+          font-size: px2vh(18);
+          padding: 0;
+        }
+      }
+    }
+    .monitor-table-row {
+      > td {
+        height: px2vh(30);
+        font-size: px2vh(18);
+        line-height: px2vh(30);
+      }
+    }
+  }
+}

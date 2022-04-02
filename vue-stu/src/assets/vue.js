@@ -1033,6 +1033,13 @@
     }
 
     var childOb = !shallow && observe(val);
+    console.log(key,dep.id)
+    if(!window.deps){
+      window.deps = []
+    }
+    window.deps.push({
+      key,dep
+    })
     Object.defineProperty(obj, key, {
       enumerable: true,
       configurable: true,
@@ -5160,6 +5167,7 @@
       var Sub = function VueComponent (options) {
         this._init(options);
       };
+      // 子类继承父类
       Sub.prototype = Object.create(Super.prototype);
       Sub.prototype.constructor = Sub;
       Sub.cid = cid++;
@@ -5461,6 +5469,7 @@
     // components with in Weex's multi-instance scenarios.
     Vue.options._base = Vue;
 
+    // 给Vue.options添加内容: 通过这种方式添加内置的组件和指令等,然后mergeOptions 合并到vm实例的options中
     extend(Vue.options.components, builtInComponents);
 
     initUse(Vue);

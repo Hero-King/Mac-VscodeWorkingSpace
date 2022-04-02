@@ -4,10 +4,13 @@ import Router from 'vue-router'
 import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 import CheckboxStu from '../components/CheckboxStu'
-import Form from '../components/form.vue'
+import Form from '../components/FormStu.vue'
 import UploadStu from '../components/uploadStu.vue'
-import DraggableStu from '../components/draggable-stu'
-import LoadingStu from '../components/loadingstu'
+import SelectStu from '../components/SelectStu.vue'
+import ScssStu from '../components/ScssStu.vue'
+import DraggableStu from '../components/DraggableStu'
+import Bar from '../components/echart/Bar'
+import LoadingStu from '../components/LoadingStu'
 import NProgress from 'nprogress'
 
 Vue.use(Router)
@@ -42,6 +45,10 @@ const router = new Router({
       // 定义路由元信息 在路由信息中就会有meta字段
       meta: {
         requiresAuth: true
+      },
+      beforeEnter: (to, from) => {
+        console.log("route beforeEnter")
+        return true
       }
     },
     {
@@ -49,6 +56,22 @@ const router = new Router({
       name: 'Lazy',
       // 异步组件 会生成单独的文件 路由到组件时候去请求加载
       component: resolve => require(['../components/Lazy.vue'], resolve)
+    },
+    // 大屏
+    {
+      path: '/deliveryMonitor',
+      component: (resolve) => require(['@/views/screen-monitor/delivery-monitor/index'], resolve),
+      hidden: true
+    },
+    {
+      path: '/planMonitor',
+      component: (resolve) => require(['@/views/screen-monitor/plan-monitor/index'], resolve),
+      hidden: true
+    },
+    {
+      path: '/EfficiencyMonitor',
+      component: (resolve) => require(['@/views/screen-monitor/efficiency-monitor/index'], resolve),
+      hidden: true
     },
     {
       path: '/login',
@@ -67,6 +90,18 @@ const router = new Router({
         {
           path: 'form',
           component: Form
+        },
+        {
+          path: 'select',
+          component: SelectStu
+        },
+        {
+          path: 'bar',
+          component: Bar
+        },
+        {
+          path: 'ScssStu',
+          component: ScssStu
         },
         {
           path: 'checkbox',
@@ -89,6 +124,9 @@ const router = new Router({
         }, {
           path: 'loadingstu',
           component: LoadingStu
+        }, {
+          path: 'VueStu',
+          component: resolve => require(['@/views/vuestu/'], resolve)
         }
       ]
     }
@@ -105,6 +143,13 @@ const router = new Router({
 //   NProgress.done()
 // })
 
-router.afterEach((to, from) => { })
+router.beforeEach((to,form) => {
+  console.log("router.beforeEach");
+  return true
+})
+
+router.afterEach((to, from) => { 
+  console.log("router.afterEach");
+})
 
 export default router
