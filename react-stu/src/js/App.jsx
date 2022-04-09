@@ -3,6 +3,7 @@ import { BrowserRouter, Link, Redirect, Route, Switch } from "react-router-dom";
 import Decorator from "../components/decorator/index.jsx";
 import Mobx from "../components/mobx/mobx.jsx";
 import Test from "../components/test/test.jsx";
+import TestChildren from "../components/children.jsx";
 export default class App extends React.Component {
   render() {
     return (
@@ -27,12 +28,16 @@ export default class App extends React.Component {
             <div>
               <Link to="/test">Test</Link>
             </div>
+            <div>
+              <Link to="/TestChildren">Test</Link>
+            </div>
           </aside>
           <section style={{flex: 1}}>
             <Switch>
               <Route path="/decorator" component={Decorator} />
               <Route path="/mobx" component={Mobx} />
               <Route path="/test" component={Test} />
+              <Route path="/TestChildren" component={TestChildren} />
               <Redirect to="/decorator" />
             </Switch>
           </section>
