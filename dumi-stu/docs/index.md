@@ -1,6 +1,6 @@
 
 ## Hello
-dumi，中文发音嘟米，是一款为组件开发场景而生的文档工具，与 father 一起为开发者提供一站式的组件开发体验，father 负责构建，而 dumi 负责组件开发及组件文档生成。
+dumi，中文发音嘟米，是一款为组件开发场景而生的文档工具，与 father 一起为开发者提供一站式的组件开发体验，father 负责构建，而 dumi 负责`组件开发`及`组件文档`生成。
 
 ## 搭建
 ```bash
@@ -26,3 +26,8 @@ npm start
 
 ## 自定义导航、分组和标题
 如果希望控制导航/分组/页面标题的生成，可以通过在 Markdown 文件顶部编写 FrontMatter 实现
+
+## npm包创建步骤
+- 注册npm仓库账号, 比如`npmjs.com`,打包发布时候请切换同仓库,建议使用nrm 管理仓库
+- 组件库打包管理工具: father Webpack Rollup(react vue redux都是用的这) create-react-app类似的脚手架等
+- 打包输出的模块格式 commonjs(包目录一般为lib) ES UMD(兼容各种模式)
