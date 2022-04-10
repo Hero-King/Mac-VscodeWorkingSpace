@@ -8,6 +8,7 @@ import UploadStu from '../components/uploadStu.vue'
 import SelectStu from '../components/SelectStu.vue'
 import ScssStu from '../components/ScssStu.vue'
 import DraggableStu from '../components/DraggableStu'
+import SheetJsStu from '../components/SheetJsStu'
 import Bar from '../components/echart/Bar'
 import LoadingStu from '../components/LoadingStu'
 import NProgress from 'nprogress'
@@ -122,6 +123,10 @@ const router = new Router({
         {
           path: 'draggable',
           component: DraggableStu
+        },
+        {
+          path: 'sheetjs',
+          component: SheetJsStu
         },
         {
           path: 'datePicker',

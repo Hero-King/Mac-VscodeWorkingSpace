@@ -23,7 +23,7 @@
           <template slot="title"><i class="el-icon-setting"></i>工具组件学习</template>
           <el-menu-item index="/home/draggable">draggable</el-menu-item>
           <el-menu-item index="/home/loadingstu">LoadingStu</el-menu-item>
-          <el-menu-item index="3-2">选项2</el-menu-item>
+          <el-menu-item index="/home/SheetJs">SheetJsStu</el-menu-item>
           <el-menu-item index="3-3">选项3</el-menu-item>
         </el-submenu>
         <el-submenu index="4">
