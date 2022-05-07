@@ -1,4 +1,5 @@
 const path = require('path')
+const resolve = (dir) => path.resolve(__dirname,dir)
 const htmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   entry: './src/js/index3-counter.js',
@@ -8,12 +9,16 @@ module.exports = {
       filename: 'index.js'
   }*/
   devServer: {
-    open: true,
     port: 8000,
+    host: "0.0.0.0",
     hot: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    disableHostCheck: true
   },
   resolve: {
+    alias: {
+      'src': resolve("src")
+    },
     extensions:['.js','.jsx','.json'],	//表示在import 文件时文件后缀名可以不写
   },
   plugins: [

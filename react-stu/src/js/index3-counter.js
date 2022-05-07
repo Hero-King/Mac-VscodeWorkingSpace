@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
-import Counter from '../components/Counter.jsx'
-import Father from '../components/Father.jsx'
+import Counter from '../pages/Counter.jsx'
+import Father from '../pages/Father.jsx'
 import { BrowserRouter } from "react-router-dom";
-import Mobx from '../components/mobx/mobx.jsx'
+import Mobx from '../pages/mobx/mobx.jsx'
 import App from './App.jsx'
 $(function () {
     ReactDOM.render(

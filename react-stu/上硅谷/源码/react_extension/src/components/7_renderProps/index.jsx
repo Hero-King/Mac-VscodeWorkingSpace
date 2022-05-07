@@ -27,7 +27,7 @@ class A extends Component {
 	}
 }
 
-class B extends Component {
+class C extends Component {
 	render() {
 		console.log('B--render');
 		return (

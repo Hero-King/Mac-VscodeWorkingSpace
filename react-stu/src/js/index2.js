@@ -2,7 +2,7 @@
 import $ from 'jquery'
 import React from 'react'
 import ReactDom from 'react-dom'
-import Comment from '../components/comments.jsx'
+import Comment from '../pages/comments.jsx'
 
 $(function () {
     ReactDom.render(<Comment></Comment>, document.getElementById('div1'))

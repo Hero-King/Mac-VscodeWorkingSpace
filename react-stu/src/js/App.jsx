@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter, Link, Redirect, Route, Switch } from "react-router-dom";
-import Decorator from "../components/decorator/index.jsx";
-import Mobx from "../components/mobx/mobx.jsx";
-import Test from "../components/test/test.jsx";
-import TestChildren from "../components/children.jsx";
+import Decorator from "../pages/decorator/index.jsx";
+import Mobx from "../pages/mobx/mobx.jsx";
+import Test from "../pages/test/test.jsx";
+import TestChildren from "../pages/TestChildren.jsx";
+// import FormTableDemo from "../pages/FormTableDemo.jsx";
 export default class App extends React.Component {
   render() {
     return (
@@ -38,6 +39,7 @@ export default class App extends React.Component {
               <Route path="/mobx" component={Mobx} />
               <Route path="/test" component={Test} />
               <Route path="/TestChildren" component={TestChildren} />
+              {/* <Route path="/FormTableDemo" component={FormTableDemo} /> */}
               <Redirect to="/decorator" />
             </Switch>
           </section>
