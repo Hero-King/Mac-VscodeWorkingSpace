@@ -9,6 +9,9 @@ import SelectStu from '../components/SelectStu.vue'
 import ScssStu from '../components/ScssStu.vue'
 import DraggableStu from '../components/DraggableStu'
 import SheetJsStu from '../components/SheetJsStu'
+import PerfectScrollBar from '../components/PerfectScrollBar'
+import DayjsStu from '../components/DayjsStu'
+import RenderStu from '../components/RenderStu'
 import Bar from '../components/echart/Bar'
 import LoadingStu from '../components/LoadingStu'
 import NProgress from 'nprogress'
@@ -127,6 +130,18 @@ const router = new Router({
         {
           path: 'sheetjs',
           component: SheetJsStu
+        },
+        {
+          path: 'PerfectScrollBar',
+          component: PerfectScrollBar
+        },
+        {
+          path: 'DayjsStu',
+          component: DayjsStu
+        },
+        {
+          path: 'RenderStu',
+          component: RenderStu
         },
         {
           path: 'datePicker',

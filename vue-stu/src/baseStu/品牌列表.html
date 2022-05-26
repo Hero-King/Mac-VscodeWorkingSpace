@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../assets/bootstrap-3.3.7.css">
+
+    <style>
+        .table-border {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        .table-border tr td,th{
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,7 +41,8 @@
                 </div>
             </div>
 
-            <table class="table table-bordered table-striped table-hover">
+            <!-- <table class="table table-bordered table-striped table-hover"> -->
+            <table class="table-border ">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -89,8 +100,8 @@
             el.style.backgroundColor = binding.value
         })
 
-        Vue.directive("fontsize",function (el, binding) {
-            console.log(binding.value,"fontSize bindvalue")
+        Vue.directive("fontsize", function (el, binding) {
+            console.log(binding.value, "fontSize bindvalue")
             el.style.fontSize = parseInt(binding.value) + "px"
         })
 

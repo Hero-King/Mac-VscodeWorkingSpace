@@ -11,6 +11,7 @@
           <el-menu-item index="/home/upload">upload</el-menu-item>
           <el-menu-item index="/home/select">Select</el-menu-item>
           <el-menu-item index="/home/ScssStu">ScssStu</el-menu-item>
+          <el-menu-item index="/home/RenderStu">RenderStu</el-menu-item>
           <el-menu-item index="/home/bar">Bar</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
@@ -24,7 +25,8 @@
           <el-menu-item index="/home/draggable">draggable</el-menu-item>
           <el-menu-item index="/home/loadingstu">LoadingStu</el-menu-item>
           <el-menu-item index="/home/SheetJs">SheetJsStu</el-menu-item>
-          <el-menu-item index="3-3">选项3</el-menu-item>
+          <el-menu-item index="/home/PerfectScrollBar">PerfectScrollBar</el-menu-item>
+          <el-menu-item index="/home/DayjsStu">dayjs</el-menu-item>
         </el-submenu>
         <el-submenu index="4">
           <template slot="title"><i class="el-icon-message"></i>Vue知识点</template>
@@ -40,6 +42,7 @@
 </template>
 
 <script>
+import request from '../utils/request'
 export default {
   name: 'Home',
   data() {

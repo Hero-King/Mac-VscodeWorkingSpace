@@ -10,9 +10,10 @@
 </head>
 
 <body>
-    <div id="root">
+    <div id="root" >
         <!-- {{name}} -->
         {{newName}}
+        <button @click="handleClick">点我</button>
     </div>
     <script>
         // 创建了Vue构造函数;在原型上添加常用方法;初始化Vue类静态属性和静态方法(其中Vue.options上面有内置的components,directives,filters,_base)
@@ -47,6 +48,11 @@ Watcher 和 Dep 的关系 watcher 中实例化了 dep 并向 dep.subs 中添加�
                 return {
                     name: "wang",
                     age: 20
+                }
+            },
+            methods: {
+                handleClick(){
+                    console.log('div#root click',vm)
                 }
             },
             computed: {

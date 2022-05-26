@@ -37,6 +37,19 @@ const config = {
         // https://www.webpackjs.com/configuration/dev-server/#devserver-public 解决sockPath远程环境总是指向本机IP的问题
         // public: isRemote ? `https://code.heroking.top/absproxy/${port}/` : `http://localhost:${port}/absproxy/${port}`,
         // sockPath: isRemote ? `absproxy/${port}/sockjs-node` : "sockjs-node",
+        // proxy: {
+        //     '/api': {
+        //         // target: 'http://localhost:7001',
+        //         target: 'https://www.heroking.top:9999',
+        //         // target: 'http://10.46.34.60:7002',
+        //         ws: false,
+        //         secure: false,
+        //         changeOrigin: true,
+        //         // pathRewrite: {
+        //         //   '^/prod-api': ''
+        //         // }
+        //       }
+        // }
     },
 
     configureWebpack: {
