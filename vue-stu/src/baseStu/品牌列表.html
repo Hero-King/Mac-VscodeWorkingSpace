@@ -1,160 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../assets/bootstrap-3.3.7.css">
+    <link rel="stylesheet" href="../assets/bootstrap-3.3.7.css" />
 
     <style>
-        .table-border {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-        .table-border tr td,th{
-            border: 1px solid #ccc;
-        }
+      .table-border {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      .table-border tr td,
+      th {
+        border: 1px solid #ccc;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="root">
-        <div class="container">
-            <div v-color="'#ccc'">test v-color</div>
-            <div v-color="testcolor" v-fontsize="20">test v-color</div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">添加品牌</h3>
-                </div>
-                <div class="panel-body form-inline">
-                    <label>
-                        Id： <input type="text" v-model="id" />
-                    </label>
-                    <label>
-                        Name: <input type="text" v-model="name" @keyup.enter="add" v-focus />
-                    </label>
-                    <input type="button" :class="['btn', 'btn-primary']" value="添加" @click.stop="add">
-                    <label>
-                        搜索: <input type="text" v-model="keyword" />
-                    </label>
-                </div>
-            </div>
-
-            <!-- <table class="table table-bordered table-striped table-hover"> -->
-            <table class="table-border ">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Ctime</th>
-                        <th>Operation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- 使用的是search过滤后的数组 -->
-                    <tr v-for="(item, index) in search(keyword)" :key="item.id">
-                        <td>{{item.id}}</td>
-                        <td>{{item.name}}</td>
-                        <td>{{item.ctime | dateFormat}}</td>
-                        <td><a @click="deleteById(item.id)">删除</a></td>
-                    </tr>
-                </tbody>
-            </table>
+      <div class="container">
+        <div v-color="'#ccc'">test v-color</div>
+        <div v-color="testcolor" v-fontsize="20">test v-color</div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">添加品牌</h3>
+          </div>
+          <div class="panel-body form-inline">
+            <label> Id： <input type="text" v-model="id" /> </label>
+            <label> Name: <input type="text" v-model="name" @keyup.enter="add" v-focus /> </label>
+            <input type="button" :class="['btn', 'btn-primary']" value="添加" @click.stop="add" />
+            <label> 搜索: <input type="text" v-model="keyword" /> </label>
+          </div>
         </div>
+
+        <!-- <table class="table table-bordered table-striped table-hover"> -->
+        <table class="table-border">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Ctime</th>
+              <th>Operation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 使用的是search过滤后的数组 -->
+            <tr v-for="(item, index) in search(keyword)" :key="item.id">
+              <td>{{item.id}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.ctime | dateFormat}}</td>
+              <td><a @click="deleteById(item.id)">删除</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <script src="../assets/vue.js"></script>
     <script>
-        // 自定义键盘码
-        // Vue.config.keyCode
+      // 自定义键盘码
+      // Vue.config.keyCode
 
-        // Vue.config.devtools = true
+      // Vue.config.devtools = true
 
-        Vue.filter("dateFormat", function (dateStr) {
-            const date = new Date(dateStr);
-            const y = date.getFullYear()
-            const m = (date.getMonth() + 1).toString().padStart(2, "0");
-            const d = (date.getDate() + 1).toString().padStart(2, "0");
-            const h = date.getHours();
-            const min = date.getMinutes();
-            const se = date.getSeconds();
-            return `${y}-${m}-${d}`
-        })
+      Vue.filter('dateFormat', function (dateStr) {
+        const date = new Date(dateStr)
+        const y = date.getFullYear()
+        const m = (date.getMonth() + 1).toString().padStart(2, '0')
+        const d = (date.getDate() + 1).toString().padStart(2, '0')
+        const h = date.getHours()
+        const min = date.getMinutes()
+        const se = date.getSeconds()
+        return `${y}-${m}-${d}`
+      })
 
-        Vue.directive("focus", {
+      Vue.directive('focus', {
+        bind(el, binding) {
+          console.log('bind', el, binding)
+        },
+        inserted(el) {
+          console.log('inserted')
+          el.focus()
+        },
+        update(el) {
+          console.log('updated')
+        }
+      })
+
+      // 在很多时候，你可能想在 bind 和 update 时触发相同行为，而不关心其它的钩子。比如这样写：
+      Vue.directive('color-swatch', function (el, binding) {
+        el.style.backgroundColor = binding.value
+      })
+
+      Vue.directive('fontsize', function (el, binding) {
+        console.log(binding.value, 'fontSize bindvalue')
+        el.style.fontSize = parseInt(binding.value) + 'px'
+      })
+
+      const root = new Vue({
+        el: '#root',
+        data: {
+          id: null,
+          name: '',
+          keyword: '',
+          list: [
+            {
+              id: 1,
+              name: '奔驰',
+              ctime: new Date()
+            }
+          ],
+          testcolor: '#ccf'
+        },
+        methods: {
+          add() {
+            if (this.list.findIndex((i) => i.id == this.id) !== -1) {
+              return
+            }
+            let newData = { id: this.id, name: this.name, ctime: new Date() }
+            this.list.push(newData)
+            this.id = this.name = ''
+          },
+          deleteById(id) {
+            let index = this.list.findIndex((i) => i.id == id)
+            index >= 0 && this.list.splice(index, 1)
+          },
+          search(keyword) {
+            let result = []
+            this.list.forEach((element) => {
+              if (element.name.indexOf(keyword) !== -1) {
+                result.push(element)
+              }
+            })
+            return result
+          }
+        },
+        directives: {
+          color: {
             bind(el, binding) {
-                console.log("bind", el, binding)
+              // 一般样式指令在bind阶段赋值
+              el.style.color = binding.value
             },
-            inserted(el) {
-                console.log("inserted");
-                el.focus();
-            },
-            update(el) {
-                console.log("updated")
-            }
-        })
-
-        // 在很多时候，你可能想在 bind 和 update 时触发相同行为，而不关心其它的钩子。比如这样写：
-        Vue.directive('color-swatch', function (el, binding) {
-            el.style.backgroundColor = binding.value
-        })
-
-        Vue.directive("fontsize", function (el, binding) {
-            console.log(binding.value, "fontSize bindvalue")
-            el.style.fontSize = parseInt(binding.value) + "px"
-        })
-
-        const root = new Vue({
-            el: "#root",
-            data: {
-                id: null,
-                name: "",
-                keyword: "",
-                list: [{
-                    id: 1,
-                    name: "奔驰",
-                    ctime: new Date()
-                }],
-                testcolor: "#ccf"
-            },
-            methods: {
-                add() {
-                    if (this.list.findIndex(i => i.id == this.id) !== -1) { return }
-                    let newData = { id: this.id, name: this.name, ctime: new Date() }
-                    this.list.push(newData);
-                    this.id = this.name = "";
-                },
-                deleteById(id) {
-                    let index = this.list.findIndex(i => i.id == id);
-                    index >= 0 && this.list.splice(index, 1)
-                },
-                search(keyword) {
-                    let result = []
-                    this.list.forEach(element => {
-                        if (element.name.indexOf(keyword) !== -1) {
-                            result.push(element)
-                        }
-                    });
-                    return result;
-                }
-            },
-            directives: {
-                color: {
-                    bind(el, binding) {
-                        // 一般样式指令在bind阶段赋值
-                        el.style.color = binding.value
-                    },
-                    inserted() {
-
-                    },
-                    update() {
-
-                    }
-                },
-            }
-        })
+            inserted() {},
+            update() {}
+          }
+        }
+      })
     </script>
-</body>
-
+  </body>
 </html>

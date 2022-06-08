@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h2>
-      datePicker 选中之后默认返回的值是 Date对象 Mon Aug 02 2021 00:00:00 GMT+0800 (中国标准时间)
-    </h2>
+    <h2>datePicker 选中之后默认返回的值是 Date对象 Mon Aug 02 2021 00:00:00 GMT+0800 (中国标准时间)</h2>
     <div class="module">
       <el-date-picker v-model="value1" type="date" placeholder="选择日期"> </el-date-picker>
     </div>
@@ -14,38 +12,22 @@
       Date.now
       <el-date-picker v-model="value3" type="date" placeholder="选择日期"> </el-date-picker>
       2020/02/05
-      <el-date-picker @change="logValue" v-model="value4" type="date" placeholder="选择日期">
-      </el-date-picker>
+      <el-date-picker @change="logValue" v-model="value4" type="date" placeholder="选择日期"> </el-date-picker>
       Tue Feb 11 2020 00:00:00 GMT+0800 (中国标准时间)
-      <el-date-picker @change="logValue" v-model="value5" type="date" placeholder="选择日期">
-      </el-date-picker>
+      <el-date-picker @change="logValue" v-model="value5" type="date" placeholder="选择日期"> </el-date-picker>
       moment对象
-      <el-date-picker @change="logValue" v-model="value6" type="date" placeholder="选择日期">
-      </el-date-picker>
+      <el-date-picker @change="logValue" v-model="value6" type="date" placeholder="选择日期"> </el-date-picker>
     </div>
 
     <h2>format 和 value-format</h2>
     <div class="module">
       <div>
         format格式化组件显示的样式
-        <el-date-picker
-          v-model="value10"
-          format="yyyy 年 MM 月 dd 日"
-          type="date"
-          placeholder="选择日期"
-        >
-        </el-date-picker>
+        <el-date-picker v-model="value10" format="yyyy 年 MM 月 dd 日" type="date" placeholder="选择日期"> </el-date-picker>
       </div>
       <div>
         value-format 将组件返回的值指定格式
-        <el-date-picker
-          v-model="value11"
-          value-format="yyyy-MM-dd"
-          format="yyyy 年 MM 月 dd 日"
-          type="date"
-          placeholder="选择日期"
-        >
-        </el-date-picker>
+        <el-date-picker v-model="value11" value-format="yyyy-MM-dd" format="yyyy 年 MM 月 dd 日" type="date" placeholder="选择日期"> </el-date-picker>
       </div>
     </div>
   </div>

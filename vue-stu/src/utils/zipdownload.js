@@ -13,8 +13,8 @@ export function downLoadZip(str, filename) {
     method: 'get',
     url: url,
     responseType: 'blob',
-    headers: { 'Authorization': 'Bearer ' + getToken() }
-  }).then(res => {
+    headers: { Authorization: 'Bearer ' + getToken() }
+  }).then((res) => {
     resolveBlob(res, mimeMap.zip)
   })
 }
@@ -37,6 +37,6 @@ export function resolveBlob(res, mimeType) {
   aLink.setAttribute('download', fileName) // 设置下载文件名称
   document.body.appendChild(aLink)
   aLink.click()
-  URL.revokeObjectURL(aLink.href);//清除引用
-  document.body.removeChild(aLink);
+  URL.revokeObjectURL(aLink.href) //清除引用
+  document.body.removeChild(aLink)
 }

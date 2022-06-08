@@ -4,30 +4,30 @@
 
 <script>
 export default {
-  name: "Dot",
+  name: 'Dot',
   computed: {
     _width() {
-      if (typeof this.width === "number") {
-        return this.width + "px";
+      if (typeof this.width === 'number') {
+        return this.width + 'px'
       }
-      return this.width;
+      return this.width
     },
     dotStyle() {
       return {
         width: this._width,
         height: this._width,
         backgroundColor: this.color
-      };
-    },
+      }
+    }
   },
   props: {
     width: [String, Number],
     color: {
       type: String,
-      default: "#000",
-    },
-  },
-};
+      default: '#000'
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

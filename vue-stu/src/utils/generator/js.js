@@ -13,7 +13,6 @@ const inheritAttrs = {
   dialog: 'inheritAttrs: false,'
 }
 
-
 export function makeUpJs(conf, type) {
   confGlobal = conf = JSON.parse(JSON.stringify(conf))
   const dataList = []
@@ -23,7 +22,7 @@ export function makeUpJs(conf, type) {
   const methodList = mixinMethod(type)
   const uploadVarList = []
 
-  conf.fields.forEach(el => {
+  conf.fields.forEach((el) => {
     buildAttributes(el, dataList, ruleList, optionsList, methodList, propsList, uploadVarList)
   })
 
@@ -70,46 +69,48 @@ function buildAttributes(el, dataList, ruleList, optionsList, methodList, propsL
   }
 
   if (el.children) {
-    el.children.forEach(el2 => {
+    el.children.forEach((el2) => {
       buildAttributes(el2, dataList, ruleList, optionsList, methodList, propsList, uploadVarList)
     })
   }
 }
 
 function mixinMethod(type) {
-  const list = []; const
-    minxins = {
-      file: confGlobal.formBtns ? {
-        submitForm: `submitForm() {
+  const list = []
+  const minxins = {
+    file: confGlobal.formBtns
+      ? {
+          submitForm: `submitForm() {
         this.$refs['${confGlobal.formRef}'].validate(valid => {
           if(!valid) return
           // TODO 提交表单
         })
       },`,
-        resetForm: `resetForm() {
+          resetForm: `resetForm() {
         this.$refs['${confGlobal.formRef}'].resetFields()
       },`
-      } : null,
-      dialog: {
-        onOpen: 'onOpen() {},',
-        onClose: `onClose() {
+        }
+      : null,
+    dialog: {
+      onOpen: 'onOpen() {},',
+      onClose: `onClose() {
         this.$refs['${confGlobal.formRef}'].resetFields()
       },`,
-        close: `close() {
+      close: `close() {
         this.$emit('update:visible', false)
       },`,
-        handelConfirm: `handelConfirm() {
+      handelConfirm: `handelConfirm() {
         this.$refs['${confGlobal.formRef}'].validate(valid => {
           if(!valid) return
           this.close()
         })
       },`
-      }
     }
+  }
 
   const methods = minxins[type]
   if (methods) {
-    Object.keys(methods).forEach(key => {
+    Object.keys(methods).forEach((key) => {
       list.push(methods[key])
     })
   }
@@ -120,7 +121,7 @@ function mixinMethod(type) {
 function buildData(conf, dataList) {
   if (conf.vModel === undefined) return
   let defaultValue
-  if (typeof (conf.defaultValue) === 'string' && !conf.multiple) {
+  if (typeof conf.defaultValue === 'string' && !conf.multiple) {
     defaultValue = `'${conf.defaultValue}'`
   } else {
     defaultValue = `${JSON.stringify(conf.defaultValue)}`
@@ -133,13 +134,13 @@ function buildRules(conf, ruleList) {
   const rules = []
   if (trigger[conf.tag]) {
     if (conf.required) {
-      const type = isArray(conf.defaultValue) ? 'type: \'array\',' : ''
+      const type = isArray(conf.defaultValue) ? "type: 'array'," : ''
       let message = isArray(conf.defaultValue) ? `请至少选择一个${conf.vModel}` : conf.placeholder
       if (message === undefined) message = `${conf.label}不能为空`
       rules.push(`{ required: true, ${type} message: '${message}', trigger: '${trigger[conf.tag]}' }`)
     }
     if (conf.regList && isArray(conf.regList)) {
-      conf.regList.forEach(item => {
+      conf.regList.forEach((item) => {
         if (item.pattern) {
           rules.push(`{ pattern: ${eval(item.pattern)}, message: '${item.message}', trigger: '${trigger[conf.tag]}' }`)
         }
@@ -151,7 +152,9 @@ function buildRules(conf, ruleList) {
 
 function buildOptions(conf, optionsList) {
   if (conf.vModel === undefined) return
-  if (conf.dataType === 'dynamic') { conf.options = [] }
+  if (conf.dataType === 'dynamic') {
+    conf.options = []
+  }
   const str = `${conf.vModel}Options: ${JSON.stringify(conf.options)},`
   optionsList.push(str)
 }
@@ -167,8 +170,10 @@ function buildProps(conf, propsList) {
 }
 
 function buildBeforeUpload(conf) {
-  const unitNum = units[conf.sizeUnit]; let rightSizeCode = ''; let acceptCode = ''; const
-    returnList = []
+  const unitNum = units[conf.sizeUnit]
+  let rightSizeCode = ''
+  let acceptCode = ''
+  const returnList = []
   if (conf.fileSize) {
     rightSizeCode = `let isRightSize = file.size / ${unitNum} < ${conf.fileSize}
     if(!isRightSize){

@@ -30,18 +30,19 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: h => h(App, {
-    'class': {
-      foo: true,
-      bar: false
-    },
-    style: {
-      // color: 'red',
-      fontSize: '14px'
-    },
-    // 普通的 HTML attribute
-    attrs: {
-      title: 'render函数生成'
-    },
-  })
+  render: (h) =>
+    h(App, {
+      class: {
+        foo: true,
+        bar: false
+      },
+      style: {
+        // color: 'red',
+        fontSize: '14px'
+      },
+      // 普通的 HTML attribute
+      attrs: {
+        title: 'render函数生成'
+      }
+    })
 }).$mount('#app')

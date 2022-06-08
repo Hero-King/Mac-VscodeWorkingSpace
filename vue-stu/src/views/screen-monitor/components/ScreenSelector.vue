@@ -23,44 +23,44 @@
 
 <script>
 export default {
-  name: "ScreenSelector",
+  name: 'ScreenSelector',
   props: {
     size: {
-      type: String,
+      type: String
     },
     value: [String, Object, Array],
     multiple: {
       type: Boolean,
-      default: false,
+      default: false
     },
     returnSelectItem: {
       type: Boolean,
-      default: false,
+      default: false
     },
     options: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     labelKey: {
       type: String,
-      default: "label",
+      default: 'label'
     },
     valueKey: {
       type: String,
-      default: "value",
-    },
+      default: 'value'
+    }
   },
   methods: {
     handleChange(value) {
-      this.$emit("input", value);
-      this.$emit("onChange", value);
+      this.$emit('input', value)
+      this.$emit('onChange', value)
     },
     px2vh(px) {
-      return (px / 1080) * 100 + "vh";
-    },
+      return (px / 1080) * 100 + 'vh'
+    }
   },
-  mounted() {},
-};
+  mounted() {}
+}
 </script>
 
 <style lang="scss" scoped>

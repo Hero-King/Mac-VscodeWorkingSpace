@@ -95,9 +95,10 @@ vue-cli-service serve 命令会启动一个开发服务器 (基于 webpack-dev-s
 
 查看所有命令 npx vue-cli-service help
 
-### env文件
+### env 文件
+
 会根据--mode 指定的环境去匹配 `.env` `.env.[mode]` `.env.[mode].local` 环境变量文件
-前端也可以访问环境变量process.env: {BASE_URL: "XXX", NODE_ENV: "XXX",VUE_APP_***: "啥啥啥"}
+前端也可以访问环境变量 process.env: {BASE*URL: "XXX", NODE_ENV: "XXX",VUE_APP*\*\*\*: "啥啥啥"}
 
 ### CLI 插件
 
@@ -125,18 +126,22 @@ npm run build --report
 ```
 
 ## package.json
-### 依赖版本指定: 
-- 指定版本：比如1.2.2，遵循“大版本.次要版本.小版本”的格式规定，安装时只安装指定版本。
-- 波浪号（tilde）+指定版本：比如~1.2.2，表示安装1.2.x的最新版本（不低于1.2.2），但是不安装1.3.x，也就是说安装时不改变大版本号和次要版本号。
-- 插入号（caret）+指定版本：比如ˆ1.2.2，表示安装1.x.x的最新版本（不低于1.2.2），但是不安装2.x.x，也就是说安装时不改变大版本号。需要注意的是，如果大版本号为0，则插入号的行为与波浪号相同，这是因为此时处于开发阶段，即使是次要版本号变动，也可能带来程序的不兼容。
+
+### 依赖版本指定:
+
+- 指定版本：比如 1.2.2，遵循“大版本.次要版本.小版本”的格式规定，安装时只安装指定版本。
+- 波浪号（tilde）+指定版本：比如~1.2.2，表示安装 1.2.x 的最新版本（不低于 1.2.2），但是不安装 1.3.x，也就是说安装时不改变大版本号和次要版本号。
+- 插入号（caret）+指定版本：比如 ˆ1.2.2，表示安装 1.x.x 的最新版本（不低于 1.2.2），但是不安装 2.x.x，也就是说安装时不改变大版本号。需要注意的是，如果大版本号为 0，则插入号的行为与波浪号相同，这是因为此时处于开发阶段，即使是次要版本号变动，也可能带来程序的不兼容。
 - latest：安装最新版本。
 
 ### peerDependencies
+
 你安装的依赖他所依赖的包
-stylus-loader:^6.2.0 peerDependencies webpack是v5 但是本项目的webpack`cat node_modules/webpack/package.json  | grep version` 是4.46.0 所以需要降低stylus-loader版本；找到 <a href="https://github.com/webpack-contrib/stylus-loader">stylus-loader github网站</a> 查看不同版本的package.json 例如：4.3.3是支持webpack4的
+stylus-loader:^6.2.0 peerDependencies webpack 是 v5 但是本项目的 webpack`cat node_modules/webpack/package.json | grep version` 是 4.46.0 所以需要降低 stylus-loader 版本；找到 <a href="https://github.com/webpack-contrib/stylus-loader">stylus-loader github 网站</a> 查看不同版本的 package.json 例如：4.3.3 是支持 webpack4 的
 
-less-loader: 最新版本也是不支持webpack4的  锁定7.3.0
+less-loader: 最新版本也是不支持 webpack4 的 锁定 7.3.0
 
-### flex布局子项目里面放el-table
+### flex 布局子项目里面放 el-table
+
 出现了表格长度无限增长的问题
-可以在子项目中添加属性oveflow:auto
+可以在子项目中添加属性 oveflow:auto

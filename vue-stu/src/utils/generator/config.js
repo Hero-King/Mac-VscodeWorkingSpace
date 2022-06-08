@@ -119,13 +119,16 @@ export const selectComponents = [
     required: true,
     filterable: false,
     multiple: false,
-    options: [{
-      label: '选项一',
-      value: 1
-    }, {
-      label: '选项二',
-      value: 2
-    }],
+    options: [
+      {
+        label: '选项一',
+        value: 1
+      },
+      {
+        label: '选项二',
+        value: 2
+      }
+    ],
     regList: [],
     changeTag: true,
     document: 'https://element.eleme.cn/#/zh-CN/component/select'
@@ -149,16 +152,20 @@ export const selectComponents = [
     clearable: true,
     filterable: false,
     required: true,
-    options: [{
-      id: 1,
-      value: 1,
-      label: '选项1',
-      children: [{
-        id: 2,
-        value: 2,
-        label: '选项1-1'
-      }]
-    }],
+    options: [
+      {
+        id: 1,
+        value: 1,
+        label: '选项1',
+        children: [
+          {
+            id: 2,
+            value: 2,
+            label: '选项1-1'
+          }
+        ]
+      }
+    ],
     dataType: 'dynamic',
     labelKey: 'label',
     valueKey: 'value',
@@ -181,13 +188,16 @@ export const selectComponents = [
     size: 'medium',
     disabled: false,
     required: true,
-    options: [{
-      label: '选项一',
-      value: 1
-    }, {
-      label: '选项二',
-      value: 2
-    }],
+    options: [
+      {
+        label: '选项一',
+        value: 1
+      },
+      {
+        label: '选项二',
+        value: 2
+      }
+    ],
     regList: [],
     changeTag: true,
     document: 'https://element.eleme.cn/#/zh-CN/component/radio'
@@ -205,13 +215,16 @@ export const selectComponents = [
     size: 'medium',
     disabled: false,
     required: true,
-    options: [{
-      label: '选项一',
-      value: 1
-    }, {
-      label: '选项二',
-      value: 2
-    }],
+    options: [
+      {
+        label: '选项一',
+        value: 1
+      },
+      {
+        label: '选项二',
+        value: 2
+      }
+    ],
     regList: [],
     changeTag: true,
     document: 'https://element.eleme.cn/#/zh-CN/component/checkbox'

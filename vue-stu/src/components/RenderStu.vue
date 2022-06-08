@@ -17,10 +17,10 @@ export default {
   //   render(h) {
   //     return h(BaseH2,'slot内容')
   //   },
-  
+
   // JSX 语法书写render  依赖 npm install @vue/babel-preset-jsx @vue/babel-helper-vue-jsx-merge-props 插件
   render(h) {
-    return <BaseH2 >JSX语法</BaseH2>
+    return <BaseH2>JSX语法</BaseH2>
   },
   // render: function (createElement) {
   //   return createElement(

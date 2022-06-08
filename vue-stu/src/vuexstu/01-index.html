@@ -1,123 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>学习vuex</title>
-  <script src="../assets/vue.js"></script>
-  <script src="../assets/vuex.js"></script>
-  <style>
-    .module {
-      margin: 10vh;
-      border: 2px solid red;
-      min-height: 10vh;
-    }
-  </style>
-</head>
-
-<body>
-  <h2>学习vuex状态管理</h2>
-  <h3>安装</h3>
-  <div>
-    npm install vuex --save
-
-    <h3>Store</h3>
-    <ul>
-      <li>通过Vuex.store创建Store实例 注册到vue实例中</li>
-      <li>在根实例中注册 store 选项，该 store 实例会注入到根组件下的所有子组件中，且子组件能通过 this.$store 访问到。</li>
-      <li>我们通过提交 mutation 的方式，而非直接改变 store.state.count，是因为我们想要更明确地追踪到状态的变化。</li>
-    </ul>
-
-    <h3>Getter</h3>
-    <ul>
-      <li>Vuex 允许我们在 store 中定义“getter”（可以认为是 store 的计算属性）。就像计算属性一样，getter 的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。
-
-        Getter 接受 state 作为其第一个参数：</li>
-    </ul>
-
-    <h3>Mutation</h3>
-
-    <h3>Action</h3>
-    <ul>
-      <li>Action 提交的是 mutation，而不是直接变更状态。
-        Action 可以包含任意异步操作。</li>
-    </ul>
-  </div>
-
-  <div id="app" class="module">
-    <count1></count1>
-    <count2></count2>
-  </div>
-
-  <script>
-    const store = new Vuex.Store({
-      state: {
-        count: 0,
-        todos: [
-          { id: 1, text: '...', done: true },
-          { id: 2, text: '...', done: false }
-        ]
-      },
-      // 使得获取state里面的某属性更方便点 不会改变store里面的数据
-      getters: {
-        doneTodos: state => {
-          return state.todos.filter(todo => todo.done)
-        },
-        // 可以传入getters 访问里面的数据
-        doneTodosCount: (state, getters) => {
-          return getters.doneTodos.length
-        },
-        // 可以返回函数, 来实现给 getter 传参。
-        getTodoById: (state) => (id) => {
-          return state.todos.find(todo => todo.id === id)
-        }
-      },
-      mutations: {
-        increment(state) {
-          state.count++
-        }
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>学习vuex</title>
+    <script src="../assets/vue.js"></script>
+    <script src="../assets/vuex.js"></script>
+    <style>
+      .module {
+        margin: 10vh;
+        border: 2px solid red;
+        min-height: 10vh;
       }
-    })
-    var app = new Vue({
-      el: '#app',
-      name: 'App',
-      store,
-      components: {
-        count1: {
-          data() {
-            return {
-              count: 0
-            }
+    </style>
+  </head>
+
+  <body>
+    <h2>学习vuex状态管理</h2>
+    <h3>安装</h3>
+    <div>
+      npm install vuex --save
+
+      <h3>Store</h3>
+      <ul>
+        <li>通过Vuex.store创建Store实例 注册到vue实例中</li>
+        <li>在根实例中注册 store 选项，该 store 实例会注入到根组件下的所有子组件中，且子组件能通过 this.$store 访问到。</li>
+        <li>我们通过提交 mutation 的方式，而非直接改变 store.state.count，是因为我们想要更明确地追踪到状态的变化。</li>
+      </ul>
+
+      <h3>Getter</h3>
+      <ul>
+        <li>
+          Vuex 允许我们在 store 中定义“getter”（可以认为是 store 的计算属性）。就像计算属性一样，getter
+          的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。 Getter 接受 state 作为其第一个参数：
+        </li>
+      </ul>
+
+      <h3>Mutation</h3>
+
+      <h3>Action</h3>
+      <ul>
+        <li>Action 提交的是 mutation，而不是直接变更状态。 Action 可以包含任意异步操作。</li>
+      </ul>
+    </div>
+
+    <div id="app" class="module">
+      <count1></count1>
+      <count2></count2>
+    </div>
+
+    <script>
+      const store = new Vuex.Store({
+        state: {
+          count: 0,
+          todos: [
+            { id: 1, text: '...', done: true },
+            { id: 2, text: '...', done: false }
+          ]
+        },
+        // 使得获取state里面的某属性更方便点 不会改变store里面的数据
+        getters: {
+          doneTodos: (state) => {
+            return state.todos.filter((todo) => todo.done)
           },
-          template: `<div>
+          // 可以传入getters 访问里面的数据
+          doneTodosCount: (state, getters) => {
+            return getters.doneTodos.length
+          },
+          // 可以返回函数, 来实现给 getter 传参。
+          getTodoById: (state) => (id) => {
+            return state.todos.find((todo) => todo.id === id)
+          }
+        },
+        mutations: {
+          increment(state) {
+            state.count++
+          }
+        }
+      })
+      var app = new Vue({
+        el: '#app',
+        name: 'App',
+        store,
+        components: {
+          count1: {
+            data() {
+              return {
+                count: 0
+              }
+            },
+            template: `<div>
               count: {{count}}
               storeCount: {{ $store.state.count }}
               <button @click='count++'> + </button>
               </div>`
-        },
-        count2: {
-          mounted() {
-            console.log(this.$store)
-            const { doneTodosCount, doneTodos } = this.$store.getters;
-            console.log(doneTodos, doneTodosCount)
           },
-          template: `<div>
+          count2: {
+            mounted() {
+              console.log(this.$store)
+              const { doneTodosCount, doneTodos } = this.$store.getters
+              console.log(doneTodos, doneTodosCount)
+            },
+            template: `<div>
             storeCount: {{ $store.state.count }}
             getter: {{ $store.getters.doneTodos[0].text}} {{doneTodosCount}}
             <button @click="$store.commit('increment')""> + </button>
             </div>
           `,
-          computed: {
-            doneTodosCount() {
-              return this.$store.getters.doneTodosCount
+            computed: {
+              doneTodosCount() {
+                return this.$store.getters.doneTodosCount
+              }
             }
           }
         }
-      }
-    })
-  </script>
-</body>
-
+      })
+    </script>
+  </body>
 </html>

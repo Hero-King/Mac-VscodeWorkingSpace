@@ -56,7 +56,7 @@ export default {
   },
   beforeDestroy() {
     clearInterval(this.intervalId)
-  },
+  }
 }
 </script>
 

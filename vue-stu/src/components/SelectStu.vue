@@ -2,55 +2,23 @@
   <div>
     <h2>普通 Select value是字符串</h2>
     <div class="module">
-      <el-select
-        v-model="selectValue"
-        :multiple="multiple"
-        placeholder="请选择"
-        @change="handleChange"
-        :popper-append-to-body="false"
-      >
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        >
-        </el-option>
+      <el-select v-model="selectValue" :multiple="multiple" placeholder="请选择" @change="handleChange" :popper-append-to-body="false">
+        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
       </el-select>
     </div>
 
     <h2>多选 Select value是数组</h2>
     <div class="module">
       <button @click="collapseTags = !collapseTags">多选选中后显示Tag?</button> {{ collapseTags }}
-      <el-select
-        v-model="multipleValue"
-        :collapse-tags="false"
-        :multiple="true"
-        placeholder="请选择"
-        @change="handleChange"
-        :popper-append-to-body="false"
-      >
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        >
-        </el-option>
+      <el-select v-model="multipleValue" :collapse-tags="false" :multiple="true" placeholder="请选择" @change="handleChange" :popper-append-to-body="false">
+        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
       </el-select>
     </div>
 
     <h2>Select option是对象</h2>
     <div class="module">
-      <el-select
-        v-model="selectItem"
-        placeholder="请选择"
-        @change="handleChange"
-        :popper-append-to-body="false"
-        value-key="value"
-      >
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item">
-        </el-option>
+      <el-select v-model="selectItem" placeholder="请选择" @change="handleChange" :popper-append-to-body="false" value-key="value">
+        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item"> </el-option>
       </el-select>
     </div>
 
@@ -68,8 +36,7 @@
         :multiple="true"
         :style="selectStyle"
       >
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item">
-        </el-option>
+        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item"> </el-option>
       </el-select>
       <el-input :style="{ width: '200px' }" />
     </div>
@@ -200,4 +167,3 @@ export default {
   }
 }
 </style>
-

@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        .reddiv {
-            border: 2px solid red;
-            margin-top: 20px;
-        }
+      .reddiv {
+        border: 2px solid red;
+        margin-top: 20px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <!-- slot 是对组件的扩展，通过slot插槽向组件内部指定位置传递内容，通过slot可以父子传参；
     正常情况下,<Child><span style=”color:red;”>hello world</span></Child>在组件标签Child中的span标签会
     被组件模板template内容替换掉，当想让组件标签Child中内容传递给组件时需要使用slot插槽；
@@ -22,91 +20,88 @@
     -->
 
     <div id="root">
-        <reddiv>121</reddiv>
+      <reddiv>121</reddiv>
 
-        <!-- 在向具名插槽提供内容的时候，我们可以在一个 <template> 元素上使用 v-slot 指令，并以 v-slot 的参数的形式提供其名称 -->
-        <reddiv>
-            <template v-slot:header>
-                <h1>我是header </h1>
-            </template>
-        </reddiv>
+      <!-- 在向具名插槽提供内容的时候，我们可以在一个 <template> 元素上使用 v-slot 指令，并以 v-slot 的参数的形式提供其名称 -->
+      <reddiv>
+        <template v-slot:header>
+          <h1>我是header</h1>
+        </template>
+      </reddiv>
 
-        <!-- 中间不传入数据 会默认使用slot标签提供的默认数据 -->
-        <reddiv1></reddiv1>
+      <!-- 中间不传入数据 会默认使用slot标签提供的默认数据 -->
+      <reddiv1></reddiv1>
 
-        <!-- 默认只能访问父组件(当前组件)的data数据 -->
-        <reddiv2>
-            <!-- 访问子组件的数据域  -> 访问不到  怎么办? -->
-            <!-- {{name}}     -->
+      <!-- 默认只能访问父组件(当前组件)的data数据 -->
+      <reddiv2>
+        <!-- 访问子组件的数据域  -> 访问不到  怎么办? -->
+        <!-- {{name}}     -->
 
-
-            <!-- 访问当前组件的数据域 可以 -->
-            <!-- {{count}}     -->
-            <template v-slot:default="slotProps">
-                <span>哈哈哈哈 你多大啦?</span>
-                <span> {{ slotProps.childdata }} </span>
-                <input v-model="slotProps.childdata" />
-            </template>
-        </reddiv2>
+        <!-- 访问当前组件的数据域 可以 -->
+        <!-- {{count}}     -->
+        <template v-slot:default="slotProps">
+          <span>哈哈哈哈 你多大啦?</span>
+          <span> {{ slotProps.childdata }} </span>
+          <input v-model="slotProps.childdata" />
+        </template>
+      </reddiv2>
     </div>
 
     <template id="reddiv">
-        <div class="reddiv">
-            <!-- slot占位符  相当于react中的props.children  一个不带 name 的 <slot> 出口会带有隐含的名字“default”。 -->
-            <slot></slot>
+      <div class="reddiv">
+        <!-- slot占位符  相当于react中的props.children  一个不带 name 的 <slot> 出口会带有隐含的名字“default”。 -->
+        <slot></slot>
 
-            <hr />
-            <slot name="header"></slot>
-        </div>
+        <hr />
+        <slot name="header"></slot>
+      </div>
     </template>
 
     <!-- 后备内容 (子组件<slot> </slot>设置默认值) -->
     <template id="reddiv1">
-        <div class="reddiv">
-            <slot>我是默认内容</slot>
-        </div>
+      <div class="reddiv">
+        <slot>我是默认内容</slot>
+      </div>
     </template>
 
     <!-- 作用域插槽 ( 父组件 在子组件 <slot> </slot> 处使用子组件 data) -->
     <template id="reddiv2">
-        <div class="reddiv">
-            <!-- {{name}} -->
-            <!-- <slot>{{ name }}</slot> -->
+      <div class="reddiv">
+        <!-- {{name}} -->
+        <!-- <slot>{{ name }}</slot> -->
 
-            <!-- 在子组件里面  往父组件传递参数 -->
-            <slot :childdata="age"></slot>
-        </div>
+        <!-- 在子组件里面  往父组件传递参数 -->
+        <slot :childdata="age"></slot>
+      </div>
     </template>
 
     <script src="../assets/vue.js"></script>
     <script>
-        const vue = new Vue({
-            el: "#root",
-            data: {
-                count: 0
+      const vue = new Vue({
+        el: '#root',
+        data: {
+          count: 0
+        },
+        components: {
+          reddiv: {
+            template: '#reddiv'
+          },
+          reddiv1: {
+            template: '#reddiv1'
+          },
+          reddiv2: {
+            template: '#reddiv2',
+            data() {
+              return { name: 'child data name ', age: 10 }
             },
-            components: {
-                reddiv: {
-                    template: "#reddiv"
-                },
-                reddiv1: {
-                    template: "#reddiv1"
-                },
-                reddiv2: {
-                    template: "#reddiv2",
-                    data() {
-                        return { name: "child data name ", age: 10 }
-                    },
-                    watch: {
-                        "age":function(newValue, old){
-                            console.log("old",old)
-                        }
-                    }
-                },
+            watch: {
+              age: function (newValue, old) {
+                console.log('old', old)
+              }
             }
-        });
-
+          }
+        }
+      })
     </script>
-</body>
-
+  </body>
 </html>

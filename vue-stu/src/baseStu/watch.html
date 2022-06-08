@@ -1,75 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="root">
-        <p>计数器: {{ count }}</p>
-        <p>计数器1: {{ count1 }}</p>
-        <p>计数器2: {{ count2 }}</p>
-        <p>计数器3: {{ count3 }}</p>
-        <input type="button" @click="count++,count1++, count2.value++, count3.value++" value="计数器++" />
+      <p>计数器: {{ count }}</p>
+      <p>计数器1: {{ count1 }}</p>
+      <p>计数器2: {{ count2 }}</p>
+      <p>计数器3: {{ count3 }}</p>
+      <input type="button" @click="count++,count1++, count2.value++, count3.value++" value="计数器++" />
     </div>
 
     <script src="../assets/vue.js"></script>
     <script>
-        const vm = new Vue({
-            el: "#root",
-            data: {
-                count: 0,
-                count1: 0,
-                count2: {
-                    value: 0
-                },
-                count3: {
-                    value: 0
-                },
-            },
-            methods: {
-                handleCountChange(newValue, oldValue) {
-                    // console.log(arguments)
-                    console.log(newValue, oldValue)
-                }
-            },
-            // 用于监听某个数据的变化,执行自定义的回调函数  在 watch 中，可以监听当前 vm 实例上所有的属性变化,
-            // 不应该使用箭头函数来定义 watcher 函数 watch里面需要this指向vue实例
-            watch: {
-                "count": function (newValue, oldValue) {
-                    console.log(newValue, oldValue);
-                },
+      const vm = new Vue({
+        el: '#root',
+        data: {
+          count: 0,
+          count1: 0,
+          count2: {
+            value: 0
+          },
+          count3: {
+            value: 0
+          }
+        },
+        methods: {
+          handleCountChange(newValue, oldValue) {
+            // console.log(arguments)
+            console.log(newValue, oldValue)
+          }
+        },
+        // 用于监听某个数据的变化,执行自定义的回调函数  在 watch 中，可以监听当前 vm 实例上所有的属性变化,
+        // 不应该使用箭头函数来定义 watcher 函数 watch里面需要this指向vue实例
+        watch: {
+          count: function (newValue, oldValue) {
+            console.log(newValue, oldValue)
+          },
 
-                // 可以指定函数, count变化后自动调用指定的函数
-                count1: 'handleCountChange',
+          // 可以指定函数, count变化后自动调用指定的函数
+          count1: 'handleCountChange',
 
-                count2: {
-                    handler: function (val, oldVal) {
-                        console.log('count2计数器变化了')
-                    },
-                    // count2是对象, 如果不加下面的不会递归所有属性
-                    deep: true,
-                    immediate: true // handler回调将会在侦听开始之后被立即调用一次
-                },
-                // watch vm.e.f's value: {g: 5}
-                'count3.value': function (val, oldVal) {
-                    console.log('count3的 value属性变化了')
-                },
-                '$data': {
-                    handler: function (val, oldVal) {
-                        console.log(val)
-                    },
-                    deep: true
-                }
-            }
-        });
-        vm.$watch('count', function (n, o) {
-            console.log("$watch监听")
-        })
+          count2: {
+            handler: function (val, oldVal) {
+              console.log('count2计数器变化了')
+            },
+            // count2是对象, 如果不加下面的不会递归所有属性
+            deep: true,
+            immediate: true // handler回调将会在侦听开始之后被立即调用一次
+          },
+          // watch vm.e.f's value: {g: 5}
+          'count3.value': function (val, oldVal) {
+            console.log('count3的 value属性变化了')
+          },
+          $data: {
+            handler: function (val, oldVal) {
+              console.log(val)
+            },
+            deep: true
+          }
+        }
+      })
+      vm.$watch('count', function (n, o) {
+        console.log('$watch监听')
+      })
     </script>
-</body>
-
+  </body>
 </html>

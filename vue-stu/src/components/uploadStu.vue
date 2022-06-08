@@ -19,7 +19,6 @@
   </div>
 </template>
 
-
 <script>
 export default {
   name: 'UploadStu',
@@ -47,7 +46,7 @@ export default {
       if (this.isUploadExceed) {
         e.preventDefault()
         e.stopPropagation()
-        this.$message.error("单文件上传哦")
+        this.$message.error('单文件上传哦')
       }
     },
     handleSuccess(response, file, fileList) {
@@ -61,11 +60,7 @@ export default {
       console.log(file)
     },
     handleExceed(files, fileList) {
-      this.$message.warning(
-        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
-          files.length + fileList.length
-        } 个文件`
-      )
+      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
     },
     beforeRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`)

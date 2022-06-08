@@ -1,74 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="root">
-        <app></app>
+      <app></app>
 
-        <br/>
-        <a @click="flag=true">登录</a>
-        <a @click="flag=false">注册</a>
-        <login v-if="flag"></login>
-        <register v-else></register>
+      <br />
+      <a @click="flag=true">登录</a>
+      <a @click="flag=false">注册</a>
+      <login v-if="flag"></login>
+      <register v-else></register>
 
-        <br/>
-        <!-- vue提供组件占位符 is属性指定要展示的组件名称 -->
-        <component :is="'login'"></component>
-        <!-- <component :is="变量名"></component> -->  
-        <!-- component标签通过属性is的值可以渲染不同的组件。 -->
+      <br />
+      <!-- vue提供组件占位符 is属性指定要展示的组件名称 -->
+      <component :is="'login'"></component>
+      <!-- <component :is="变量名"></component> -->
+      <!-- component标签通过属性is的值可以渲染不同的组件。 -->
     </div>
 
     <template id="app">
-        <span>
-            <button @click="count++">你已经点击了{{ count }}次</button>
-            <!-- 在 vue中 事件处理函数加不加()都可以 -->
-            <button @click="increment">你已经点击了{{ count }}次.  </button>
-            <button @click="increment(123,$event)">你已经点击了{{ count }}次. increment(increment方法获取原生对象使用$event)</button>
-        </span>
+      <span>
+        <button @click="count++">你已经点击了{{ count }}次</button>
+        <!-- 在 vue中 事件处理函数加不加()都可以 -->
+        <button @click="increment">你已经点击了{{ count }}次.</button>
+        <button @click="increment(123,$event)">你已经点击了{{ count }}次. increment(increment方法获取原生对象使用$event)</button>
+      </span>
     </template>
 
     <script src="../assets/vue.js"></script>
     <script>
+      // 组件可以有自己的data, 但是必须是个方法,返回数据对象
+      Vue.component('app', {
+        template: '#app',
+        data() {
+          return {
+            count: 0
+          }
+        },
+        methods: {
+          increment(e, event) {
+            this.count++
+            console.log(e && e.target)
+            event && console.log(event.target)
+          }
+        }
+      })
 
-        // 组件可以有自己的data, 但是必须是个方法,返回数据对象 
-        Vue.component("app", {
-            template: "#app",
-            data() {
-                return {
-                    count: 0
-                }
-            },
-            methods: {
-                increment(e,event) {
-                    this.count++;
-                    console.log(e && e.target);
-                    event && console.log(event.target);
-                }
-            }
-        })
-
-        const vue = new Vue({
-            el: "#root",
-            data: {
-                flag: true
-            },
-            components: {
-                login: {
-                    template: "<h3>登录组件</h3>"
-                },
-                register: {
-                    template: "<h3>注册组件</h3>"
-                }
-            }
-
-        })
+      const vue = new Vue({
+        el: '#root',
+        data: {
+          flag: true
+        },
+        components: {
+          login: {
+            template: '<h3>登录组件</h3>'
+          },
+          register: {
+            template: '<h3>注册组件</h3>'
+          }
+        }
+      })
     </script>
-</body>
-
+  </body>
 </html>

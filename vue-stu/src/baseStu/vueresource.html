@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="../assets/vue.js"></script>
 
@@ -14,45 +13,43 @@
 
     -->
     <script>
-        // debugger
-        // console.log(Vue) 
+      // debugger
+      // console.log(Vue)
     </script>
     <script src="../assets/vue-resource.js"></script>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div id="root">
-        <input type="button" value="ajax" @click="get">
+      <input type="button" value="ajax" @click="get" />
     </div>
 
     <script>
-        // console.log(Vue) // 挂载了http方法
-        const root = new Vue({
-            el: "#root",
-            data: {
+      // console.log(Vue) // 挂载了http方法
+      const root = new Vue({
+        el: '#root',
+        data: {},
+        methods: {
+          get() {
+            this.$http
+              .get('/package.json')
+              .then((result) => {
+                console.log(result.data)
+              })
+              .catch((err) => {
+                alert(err)
+              })
+          }
+        }
+      })
 
-            },
-            methods: {
-                get(){
-                    this.$http.get("/package.json").then((result) => {
-                        console.log(result.data)
-                    }).catch((err) => {
-                        alert(err)
-                    });
-                }
-            }
-        })
+      // 基于全局Vue对象使用http
+      // Vue.http.get('/someUrl', [options]).then(successCallback, errorCallback);
+      // Vue.http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
 
-
-        // 基于全局Vue对象使用http
-        // Vue.http.get('/someUrl', [options]).then(successCallback, errorCallback);
-        // Vue.http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
-
-        // 在一个Vue实例内使用$http
-        // this.$http.get('/someUrl', [options]).then(successCallback, errorCallback);
-        // this.$http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
+      // 在一个Vue实例内使用$http
+      // this.$http.get('/someUrl', [options]).then(successCallback, errorCallback);
+      // this.$http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
     </script>
-</body>
-
+  </body>
 </html>

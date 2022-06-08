@@ -25,8 +25,8 @@
 
 <script>
 export default {
-  name: "ScreenHeader",
-};
+  name: 'ScreenHeader'
+}
 </script>
 
 <style lang="scss" scoped>
@@ -45,7 +45,7 @@ export default {
     }
   }
   .head-center {
-    background-image: url("../img/centerHead.png");
+    background-image: url('../img/centerHead.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     width: 836px;
@@ -63,7 +63,7 @@ export default {
       background-color: #0a6abb;
       overflow: hidden;
       &::after {
-        content: " ";
+        content: ' ';
         position: absolute;
         height: 100%;
         width: 100%;
@@ -82,11 +82,11 @@ export default {
   .head-right {
     width: 543px;
     .right-title {
-      .rightTitle-body{
+      .rightTitle-body {
         position: absolute;
         width: 100%;
         z-index: 100;
-        height: 100%
+        height: 100%;
       }
       // background-color: #0A6ABB;
       .rightTitle-line-wrap {
@@ -101,7 +101,7 @@ export default {
         width: 100%;
         height: 100%;
         &::after {
-          content: " ";
+          content: ' ';
           position: absolute;
           height: 100%;
           width: 100%;

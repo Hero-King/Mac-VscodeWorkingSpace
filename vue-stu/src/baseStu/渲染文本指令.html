@@ -1,90 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style>
+      .red {
+        color: red;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <style>
-    .red {
-      color: red;
-    }
+      .blue {
+        color: blue;
+      }
 
-    .blue {
-      color: blue
-    }
+      [v-cloak] {
+        display: none;
+      }
+    </style>
 
-    [v-cloak] {
-      display: none;
-    }
-  </style>
+    <title>入门vue</title>
+  </head>
 
-  <title>入门vue</title>
-</head>
+  <body>
+    <div id="app">
+      <input type="button" value="start" @click="lang" />
+      <input type="button" value="stop" @click="stop" />
+      <p v-cloak>++++ {{ msg }} ++++</p>
 
-<body>
-  <div id="app">
-    <input type="button" value="start" @click="lang">
-    <input type="button" value="stop" @click="stop">
-    <p v-cloak>++++ {{ msg }} ++++ </p>
-
-    <!-- 不会有网速慢闪烁的问题 会替换h3里面的文本节点内容-->
-    <h3 v-text="msg" :title="msg + '123'"></h3>
-  </div>
-
-  <div id="appvfor">
-    <p v-for="( t, index) in arr">{{ t }}</p>
-    <!-- v-for迭代数字的话  从1开始  指定好key-->
-    <span v-for="i in 10" :style="{marginRight: '10px' }" :key="i">{{ i}}</span>  
-    <div v-for="user in objArr">
-      <label>姓名：<input :value="user.name"></label>
+      <!-- 不会有网速慢闪烁的问题 会替换h3里面的文本节点内容-->
+      <h3 v-text="msg" :title="msg + '123'"></h3>
     </div>
-  </div>
 
-  <script src="../assets/vue.min.js"></script>
-  <script>
-    // vue.js充当MVVM 的VM调度者   M model层（数据） VM（调度层）   V层（视图）
-    // 可以使用 v-cloak 指令设置样式，这些样式会在 Vue 实例编译结束时，从绑定的 HTML 元素上被移除. 当网络较慢，网页还在加载 Vue.js ，而导致 Vue 来不及渲染，这时页面就会显示出 Vue 源代码。我们可以使用 v-cloak 指令来解决这一问题。
-    // vue语法使用v开头， 后面的字符串是 js表达式！！
-    var app = new Vue({
-      el: "#app",
-      data: {
-        msg: "大家郎起来～",
-        interval: null
-      },
-      methods: {
-        lang: function () {
-          if (this.interval !== null) {
-            return;
-          }
-          this.interval = setInterval(() => {
-            let start = this.msg.substring(0, 1)
-            let end = this.msg.substring(1)
-            this.msg = end + start;
-          }, 400)
+    <div id="appvfor">
+      <p v-for="( t, index) in arr">{{ t }}</p>
+      <!-- v-for迭代数字的话  从1开始  指定好key-->
+      <span v-for="i in 10" :style="{marginRight: '10px' }" :key="i">{{ i}}</span>
+      <div v-for="user in objArr">
+        <label>姓名：<input :value="user.name" /></label>
+      </div>
+    </div>
+
+    <script src="../assets/vue.min.js"></script>
+    <script>
+      // vue.js充当MVVM 的VM调度者   M model层（数据） VM（调度层）   V层（视图）
+      // 可以使用 v-cloak 指令设置样式，这些样式会在 Vue 实例编译结束时，从绑定的 HTML 元素上被移除. 当网络较慢，网页还在加载 Vue.js ，而导致 Vue 来不及渲染，这时页面就会显示出 Vue 源代码。我们可以使用 v-cloak 指令来解决这一问题。
+      // vue语法使用v开头， 后面的字符串是 js表达式！！
+      var app = new Vue({
+        el: '#app',
+        data: {
+          msg: '大家郎起来～',
+          interval: null
         },
-        stop() {
-          clearInterval(this.interval)
-          this.interval = null
+        methods: {
+          lang: function () {
+            if (this.interval !== null) {
+              return
+            }
+            this.interval = setInterval(() => {
+              let start = this.msg.substring(0, 1)
+              let end = this.msg.substring(1)
+              this.msg = end + start
+            }, 400)
+          },
+          stop() {
+            clearInterval(this.interval)
+            this.interval = null
+          }
         }
-      }
-    })
+      })
 
-    var appvfor = new Vue({
-      el: "#appvfor",
-      data: {
-        arr: [1, 2, 3, 4, 5],
-        objArr: [{
-          name: 'wang', age: 1
-        },{
-          name: "jun", age: 2
-        },{
-          name: "jie", age: 3
-        }]
-      }
-    })
-
-  </script>
-</body>
-
+      var appvfor = new Vue({
+        el: '#appvfor',
+        data: {
+          arr: [1, 2, 3, 4, 5],
+          objArr: [
+            {
+              name: 'wang',
+              age: 1
+            },
+            {
+              name: 'jun',
+              age: 2
+            },
+            {
+              name: 'jie',
+              age: 3
+            }
+          ]
+        }
+      })
+    </script>
+  </body>
 </html>

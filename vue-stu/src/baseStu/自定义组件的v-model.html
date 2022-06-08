@@ -1,45 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="root">
-        <myinput v-model="input"></myinput>
+      <myinput v-model="input"></myinput>
     </div>
 
     <template id="myinput">
-        <label>请输入文本:
-            <input type="text" :value="value" @input="e => this.$emit('input',e.target.value)"/>
-            <input type="text" :value="value" @input="handleInput"/>
-            <input type="text" :value="value" @input="$emit('input',$event.target.value)"/>
-        </label>
+      <label
+        >请输入文本:
+        <input type="text" :value="value" @input="e => this.$emit('input',e.target.value)" />
+        <input type="text" :value="value" @input="handleInput" />
+        <input type="text" :value="value" @input="$emit('input',$event.target.value)" />
+      </label>
     </template>
     <script src="../assets/vue.js"></script>
     <script>
-        const vue = new Vue({
-            el: "#root",
-            data:{
-                input: "100"
-            },
-            components: {
-                myinput:{
-                    props: ['value'],
-                    template: "#myinput",
-                    methods: {
-                        handleInput(e){
-                            console.log(e)
-                            this.$emit('input',e.target.value)
-                        }
-                    }
-                }
+      const vue = new Vue({
+        el: '#root',
+        data: {
+          input: '100'
+        },
+        components: {
+          myinput: {
+            props: ['value'],
+            template: '#myinput',
+            methods: {
+              handleInput(e) {
+                console.log(e)
+                this.$emit('input', e.target.value)
+              }
             }
-        })
+          }
+        }
+      })
     </script>
-</body>
-
+  </body>
 </html>

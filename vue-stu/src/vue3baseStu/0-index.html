@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue3学习</title>
+  </head>
+  <body>
+    <div id="root">Counter: {{ counter }} count: {{count}} computedCount2 {{count2}}</div>
+    <script src="../assets/vue3.global.js"></script>
+    <script>
+      console.log('Vue3 Vue构造', Vue)
+      ;(function () {
+        // ref 为我们的值创建了一个响应式引用。 ref接受参数并返回它包装在一个带有value属性的对象中，然后可以使用该属性访问或改变反应变量的值
+        const { ref } = Vue
+
+        const counter = ref(0)
+
+        console.log(counter) // { value: 0 }
+        console.log(counter.value) // 0
+
+        counter.value++
+        console.log(counter.value) // 1
+      })()
+    </script>
+    <script>
+      const { createApp, onMounted, ref, watch, computed, toRefs, reactive } = Vue
+      const App = {
+        data() {
+          return {
+            counter: 0
+          }
+        },
+        mounted() {
+          setInterval(() => {
+            this.counter++
+          }, 1000)
+        },
+
+        // setup位于created 和beforeCreated之前,用于代替created 和beforeCreated,但是在setup函数里不能访问到this,另外setup内可以通过以下hook操作整个生命周期
+        // onBeforeMount,onMounted,onBeforeUpdate,onUpdated,onBeforeUnmount,onUnmounted,onErrorCaptured,onRenderTracked,onRenderTriggered
+        setup(props, context) {
+          // 如果需要解构 prop，可以在 setup 函数中使用 toRefs 函数来完成此操作：
+          const { title } = toRefs(props)
+          // context 是一个普通的 JavaScript 对象，也就是说，它不是响应式的，这意味着你可以安全地对 context 使用 ES6 解构。
+
+          console.log(props, context) // { user: '' }
+
+          onMounted(() => {
+            console.log('onMounted')
+          })
+
+          // setup使用ref对数据进行响应式绑定
+          //创建定时器增加count值
+          // let count = 1  // 视图不会变化
+          let count = ref(1)
+          setInterval(() => {
+            count.value++
+            console.log(vm)
+          }, 1000)
+
+          watch(count, (newValue, oldValue) => {
+            console.log(newValue, oldValue)
+            console.log(count.value)
+          })
+
+          let count2 = computed(() => count.value * 2)
+
+          return {
+            count,
+            count2
+          } // 这里返回的任何内容都可以用于组件的其余部分
+        }
+      }
+
+      // 每个 Vue 应用都是通过用 createApp 函数创建一个新的应用实例开始
+      const vm = createApp(App).mount('#root')
+
+      // 从 Vue 3 开始，我们的响应性现在可以在一个独立包中使用。将 $data 包裹在一个代理中的函数被称为 reactive。我们可以自己直接调用这个函数，允许我们在不需要使用组件的情况下将一个对象包裹在一个响应式代理中。
+      const proxy = reactive({
+        val1: 2,
+        val2: 3
+      })
+      console.log(proxy, '----')
+    </script>
+  </body>
+</html>

@@ -1,31 +1,25 @@
 <template>
   <div class="screen-date-picker">
-    <el-date-picker
-      v-model="_value"
-      v-bind="$attrs"
-      class="datepickerclass"
-      popper-class="datepicker-poper-class"
-      @change="$emit('onChange', $event)"
-    >
+    <el-date-picker v-model="_value" v-bind="$attrs" class="datepickerclass" popper-class="datepicker-poper-class" @change="$emit('onChange', $event)">
     </el-date-picker>
   </div>
 </template>
 
 <script>
 export default {
-  name: "ScreenDatePicker",
+  name: 'ScreenDatePicker',
   computed: {
     _value: {
       get() {
-        return this.value;
+        return this.value
       },
       set(val) {
-        this.$emit("input", val);
-      },
-    },
+        this.$emit('input', val)
+      }
+    }
   },
-  props: ["value"],
-};
+  props: ['value']
+}
 </script>
 
 <style lang="scss">
@@ -41,7 +35,7 @@ export default {
   text-align: center;
   box-shadow: inset 0px 0px 15px 0px rgb(2 90 215 / 66%);
   font-size: px2vh(24);
-  &.el-popper[x-placement^="bottom"] {
+  &.el-popper[x-placement^='bottom'] {
     margin-top: 0;
   }
   .el-date-picker__header {

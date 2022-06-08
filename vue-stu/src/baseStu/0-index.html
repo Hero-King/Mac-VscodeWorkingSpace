@@ -1,187 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style>
+      .red {
+        color: red;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <style>
-    .red {
-      color: red;
-    }
+      .blue {
+        color: blue;
+      }
 
-    .blue {
-      color: blue
-    }
+      .loading {
+        opacity: 0.5;
+      }
+    </style>
 
-    .loading{
-      opacity: .5;
-    }
-  </style>
+    <title>入门vue</title>
+  </head>
 
-  <title>入门vue</title>
-</head>
+  <body>
+    <!-- mvvm 的 v层 -->
+    <div id="app">
+      {{ message }} -- {{$data}} <span v-pre>{{ 里面可以访问vue实例的及原型上的任何属性 }} </span>
 
-<body>
-  <!-- mvvm 的 v层 -->
-  <div id="app">
-    {{ message }} -- {{$data}}  <span v-pre>{{ 里面可以访问vue实例的及原型上的任何属性 }} </span>
+      <hr />
+      <!-- 如果不想让vue编译{{}} 使用v-pre -->
+      <span v-pre>{{ message }} </span>
 
-    <hr/>
-    <!-- 如果不想让vue编译{{}} 使用v-pre -->
-    <span v-pre>{{ message }} </span>
+      <!-- 作用在 HTML attribute 上，遇到这种情况应该使用 v-bind 指令：代表后面的字符串是js表达式 -->
+      <span v-bind:title="message"> 鼠标悬停几秒钟查看此处动态绑定的提示信息！ </span>
 
-    <!-- 作用在 HTML attribute 上，遇到这种情况应该使用 v-bind 指令：代表后面的字符串是js表达式 -->
-    <span v-bind:title="message">
-      鼠标悬停几秒钟查看此处动态绑定的提示信息！
-    </span>
+      <!-- v-bind简写 -->
+      <span :title="message">简写方式赋予属性title</span>
 
-    <!-- v-bind简写 -->
-    <span :title="message">简写方式赋予属性title</span>
+      <p v-if="seen">现在你看到我了</p>
+      <button v-on:click="reverseMessage">反转消息</button>
 
-    <p v-if="seen">现在你看到我了</p>
-    <button v-on:click="reverseMessage">反转消息</button>
+      <button @click="loading =!loading" :class="{loading}">loading</button>
 
-    <button @click="loading =!loading" :class="{loading}">loading</button>
-
-    <input v-model="message">
-    <!-- v-bind 只能实现单向的绑定  -->
-    <!-- Vue 还提供了 v-model 指令，它能轻松实现表单输入和应用状态之间的双向绑定。也只有这一个指令能实现双向绑定 
+      <input v-model="message" />
+      <!-- v-bind 只能实现单向的绑定  -->
+      <!-- Vue 还提供了 v-model 指令，它能轻松实现表单输入和应用状态之间的双向绑定。也只有这一个指令能实现双向绑定 
       v-model 只能在表单元素中使用
     -->
 
-    <!-- 双大括号会将数据解释为普通文本，而非 HTML 代码。为了输出真正的 HTML，你需要使用 v-html -->
-    <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+      <!-- 双大括号会将数据解释为普通文本，而非 HTML 代码。为了输出真正的 HTML，你需要使用 v-html -->
+      <p>Using v-html directive: <span v-html="rawHtml"></span></p>
 
-    <!-- Vue.js 都提供了完全的 JavaScript 表达式支持。 -->
-    {{ message ? "yes" : "no" }}
+      <!-- Vue.js 都提供了完全的 JavaScript 表达式支持。 -->
+      {{ message ? "yes" : "no" }}
 
-    <!--
+      <!--
 注意，参数表达式的写法存在一些约束，如之后的“对动态参数表达式的约束”章节所述。
 -->
-    <!-- <a v-bind:[attributeName]="url"> ... </a> -->
+      <!-- <a v-bind:[attributeName]="url"> ... </a> -->
 
-    <!-- v-on简写 -->
-    <!-- 完整语法 -->
-    <a v-on:click="doSomething">完整语法</a>
+      <!-- v-on简写 -->
+      <!-- 完整语法 -->
+      <a v-on:click="doSomething">完整语法</a>
 
-    <!-- 缩写 -->
-    <a @click="doSomething">v-on简写</a>
+      <!-- 缩写 -->
+      <a @click="doSomething">v-on简写</a>
 
-    <!-- 动态参数的缩写 (2.6.0+) -->
-    <a @[event]="doSomething">动态参数的缩写</a>
-  </div>
+      <!-- 动态参数的缩写 (2.6.0+) -->
+      <a @[event]="doSomething">动态参数的缩写</a>
+    </div>
 
-  <hr />
-  <div id="class">class和style绑定
-    <!-- 参数是对象 是否有red class -->
-    <span :class="{red: true}">对象语法</span>
-    <div :class="genderClass">对象语法+ data</div>
-    <!-- <div class="active text-danger"></div> -->
-    <div v-bind:class="[activeClass, errorClass]">数组语法</div>
+    <hr />
+    <div id="class">
+      class和style绑定
+      <!-- 参数是对象 是否有red class -->
+      <span :class="{red: true}">对象语法</span>
+      <div :class="genderClass">对象语法+ data</div>
+      <!-- <div class="active text-danger"></div> -->
+      <div v-bind:class="[activeClass, errorClass]">数组语法</div>
 
+      <!-- v-if 和 v-show 只有一个作用,就是根据指定的标识符,切换元素的显示和隐藏状态 -->
 
-    <!-- v-if 和 v-show 只有一个作用,就是根据指定的标识符,切换元素的显示和隐藏状态 -->
+      <!-- v-if 是实时的创建或移除元素,从而达到元素的显示和隐藏 -->
+      <!-- v-show 是通过为元素 添加或移除 display:none 来实现 隐藏 和 显示的 -->
 
-    <!-- v-if 是实时的创建或移除元素,从而达到元素的显示和隐藏 -->
-    <!-- v-show 是通过为元素 添加或移除 display:none 来实现 隐藏 和 显示的 -->
+      <!-- 如果 元素 需要经常的切换显示和隐藏的状态,此时,使用 v-show 更合适一些; -->
+      <!-- 如果元素 被创建出来之后,可能不会进行状态的切换,此时,适合使用 v-if -->
 
-    <!-- 如果 元素 需要经常的切换显示和隐藏的状态,此时,使用 v-show 更合适一些; -->
-    <!-- 如果元素 被创建出来之后,可能不会进行状态的切换,此时,适合使用 v-if -->
-
-    <!-- 过滤器 -->
-    <!-- Vue.js 允许你自定义过滤器，可被用作一些常见的文本格式化。过滤器可以用在两个地方：mustache 插值和
+      <!-- 过滤器 -->
+      <!-- Vue.js 允许你自定义过滤器，可被用作一些常见的文本格式化。过滤器可以用在两个地方：mustache 插值和
      v-bind 表达式。过滤器应该被添加在 JavaScript 表达式的尾部，由“管道”符指示； -->
-    <!-- 注意： 使用Vue中过滤器，并不会修改原数据，只是在展示数据的时候，做了一层包装而已； -->
-    <div>{{ activeClass | strrepeat}}</div>
-    <!-- 输出: activeactive -->
+      <!-- 注意： 使用Vue中过滤器，并不会修改原数据，只是在展示数据的时候，做了一层包装而已； -->
+      <div>{{ activeClass | strrepeat}}</div>
+      <!-- 输出: activeactive -->
 
-    <!-- 全局过滤器 -->
-    <div>{{ activeClass | stringfilter}}</div>
+      <!-- 全局过滤器 -->
+      <div>{{ activeClass | stringfilter}}</div>
 
-    <!-- 接收参数 -->
-    <!-- {{ message | stringfilter(arg1,1rg2) }} -->
-    <!-- 这里的字符串缸gl 和arg2 将分别传给过滤器的第二个和第三个参数，因为第一个是数据本身。 -->
+      <!-- 接收参数 -->
+      <!-- {{ message | stringfilter(arg1,1rg2) }} -->
+      <!-- 这里的字符串缸gl 和arg2 将分别传给过滤器的第二个和第三个参数，因为第一个是数据本身。 -->
+    </div>
 
-  </div>
-
-  <script src="../assets/vue.min.js"></script>
-  <script>
-    var app = new Vue({
-      el: '#app',
-      data: {
-        message: 'Hello Vue!',
-        seen: false,
-        loading: false,
-        rawHtml: '<span style="color: red">This should be red.</span>',
-        attributeName: "href"
-      },
-      // methods对象里面定义了实例上面所有可以调用的方法
-      methods: {
-        reverseMessage: function () {
-          this.message = this.message.split('').reverse().join('')
+    <script src="../assets/vue.min.js"></script>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue!',
+          seen: false,
+          loading: false,
+          rawHtml: '<span style="color: red">This should be red.</span>',
+          attributeName: 'href'
         },
-        // 这里不可以使用箭头函数,函数里面的this是指向app实例 箭头函数会把this指向改变
-        doSomething: function () {
-          alert("i am doSomething, i am this.message: " + this.message);
-        }
-      },
-      // 计算属性  通过app.reversedMessage调用  这里我们声明了一个计算属性 reversedMessage。
-      // 我们提供的函数将用作 property app.reversedMessage 的 getter 函数：
-      // 你可以像绑定普通 property 一样在模板中绑定计算属性。Vue 知道 app.reversedMessage 依赖于 app.message，
-      // 因此当 app.message 发生改变时，所有依赖 app.reversedMessage 的绑定也会更新。
-      // 而且最妙的是我们已经以声明的方式创建了这种依赖关系：计算属性的 getter 函数是没有副作用 (side effect) 
-      // 的，这使它更易于测试和理解。   
-      // 重要 相当于react.useMemo  计算属性是基于它们的响应式依赖进行缓存的。只在相关响应式依赖发生改变时它们才会重新求值。这就意味着只要 message 还没有发生改变，多次访问 reversedMessage 计算属性会立即返回之前的计算结果，而不必再次执行函数。
-      computed: {
-        // 计算属性的 getter
-        reversedMessage: function () {
-          // `this` 指向 app 实例
-          return this.message.split('').reverse().join('')
-        }
-        // 计算属性默认只有 getter，不过在需要时你也可以提供一个 setter：
-      },
-
-      // Vue 通过 watch 选项提供了一个更通用的方法，来响应数据的变化。当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的。
-      watch: {
-        // 如果 `question` 发生改变，这个函数就会运行
-        question: function (newQuestion, oldQuestion) {
-          this.answer = 'Waiting for you to stop typing...'
-        }
-      },
-    })
-    // 看起来这跟渲染一个字符串模板非常类似，但是 Vue 在背后做了大量工作。 现在数据和 DOM 已经被建立了关联
-    // 你看到的 v-bind attribute 被称为指令。指令带有前缀 v-，以表示它们是 Vue 提供的特殊 attribute。
-    // 除了数据属性，Vue 实例还提供了一些有用的实例属性与方法。它们都有前缀 $，以便与用户定义的属性区分开来
-    // Vue.js 使用了基于 HTML 的模板语法
-
-    console.log(app.reversedMessage);
-
-    // new出来的实例就是mvvm 中 vm调度者  data是mvvm中的 m 专门用来保存每个页面的数据
-    var cls = new Vue({
-      el: "#class",
-      data: {
-        genderClass: {
-          red: false,
-          blue: true
+        // methods对象里面定义了实例上面所有可以调用的方法
+        methods: {
+          reverseMessage: function () {
+            this.message = this.message.split('').reverse().join('')
+          },
+          // 这里不可以使用箭头函数,函数里面的this是指向app实例 箭头函数会把this指向改变
+          doSomething: function () {
+            alert('i am doSomething, i am this.message: ' + this.message)
+          }
         },
-        activeClass: 'active',
-        errorClass: 'text-danger'
-      },
-      filters: {
-        strrepeat(input) {
-          return input + input + ""
+        // 计算属性  通过app.reversedMessage调用  这里我们声明了一个计算属性 reversedMessage。
+        // 我们提供的函数将用作 property app.reversedMessage 的 getter 函数：
+        // 你可以像绑定普通 property 一样在模板中绑定计算属性。Vue 知道 app.reversedMessage 依赖于 app.message，
+        // 因此当 app.message 发生改变时，所有依赖 app.reversedMessage 的绑定也会更新。
+        // 而且最妙的是我们已经以声明的方式创建了这种依赖关系：计算属性的 getter 函数是没有副作用 (side effect)
+        // 的，这使它更易于测试和理解。
+        // 重要 相当于react.useMemo  计算属性是基于它们的响应式依赖进行缓存的。只在相关响应式依赖发生改变时它们才会重新求值。这就意味着只要 message 还没有发生改变，多次访问 reversedMessage 计算属性会立即返回之前的计算结果，而不必再次执行函数。
+        computed: {
+          // 计算属性的 getter
+          reversedMessage: function () {
+            // `this` 指向 app 实例
+            return this.message.split('').reverse().join('')
+          }
+          // 计算属性默认只有 getter，不过在需要时你也可以提供一个 setter：
+        },
+
+        // Vue 通过 watch 选项提供了一个更通用的方法，来响应数据的变化。当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的。
+        watch: {
+          // 如果 `question` 发生改变，这个函数就会运行
+          question: function (newQuestion, oldQuestion) {
+            this.answer = 'Waiting for you to stop typing...'
+          }
         }
-      }
+      })
+      // 看起来这跟渲染一个字符串模板非常类似，但是 Vue 在背后做了大量工作。 现在数据和 DOM 已经被建立了关联
+      // 你看到的 v-bind attribute 被称为指令。指令带有前缀 v-，以表示它们是 Vue 提供的特殊 attribute。
+      // 除了数据属性，Vue 实例还提供了一些有用的实例属性与方法。它们都有前缀 $，以便与用户定义的属性区分开来
+      // Vue.js 使用了基于 HTML 的模板语法
 
-    })
+      console.log(app.reversedMessage)
 
-    // 第一个参数是管道进来的数据,第二个参数才是调用stringfilter函数的参数 
-    Vue.filter("stringfilter", function (params, pattern = '') {
-      return params.toString()
-    })
+      // new出来的实例就是mvvm 中 vm调度者  data是mvvm中的 m 专门用来保存每个页面的数据
+      var cls = new Vue({
+        el: '#class',
+        data: {
+          genderClass: {
+            red: false,
+            blue: true
+          },
+          activeClass: 'active',
+          errorClass: 'text-danger'
+        },
+        filters: {
+          strrepeat(input) {
+            return input + input + ''
+          }
+        }
+      })
 
-  </script>
-</body>
-
+      // 第一个参数是管道进来的数据,第二个参数才是调用stringfilter函数的参数
+      Vue.filter('stringfilter', function (params, pattern = '') {
+        return params.toString()
+      })
+    </script>
+  </body>
 </html>

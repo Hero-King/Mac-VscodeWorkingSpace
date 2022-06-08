@@ -3,166 +3,158 @@
 </template>
 
 <script>
-import * as echarts from "echarts";
-import echartMixins from "./echartsMixin";
+import * as echarts from 'echarts'
+import echartMixins from './echartsMixin'
 export default {
-  name: "MixLineBar",
+  name: 'MixLineBar',
   mixins: [echartMixins],
   data() {
-    return {};
+    return {}
   },
   props: {
     gridConfig: {
       type: Object,
-      default: {},
+      default: {}
     },
     data: {
       type: Array,
-      default: [],
+      default: []
     },
     xAxisKey: {
       type: String,
-      required: true,
+      required: true
     },
     xAxisRotate: {
       type: Number,
-      default: 0,
+      default: 0
     },
     leftYAxisNumber: {
       type: Boolean,
-      default: true,
+      default: true
     },
     rightSpiltLine: {
       type: Boolean,
-      default: false,
+      default: false
     },
     rightPercent: {
       type: Boolean,
-      default: true,
+      default: true
     },
     leftPercent: {
       type: Boolean,
-      default: false,
+      default: false
     },
     seriesConfig: {
       type: Array,
-      default: [],
-    },
+      default: []
+    }
   },
   methods: {
     initChart() {
       if (!this.echartInstance) {
-        this.echartInstance = echarts.init(this.$el);
+        this.echartInstance = echarts.init(this.$el)
       }
 
       const option = {
         tooltip: {
-          trigger: "axis",
+          trigger: 'axis',
           axisPointer: {
-            type: "cross",
+            type: 'cross',
             crossStyle: {
-              color: "#999",
-            },
-          },
+              color: '#999'
+            }
+          }
         },
         legend: {
-          top: "5%",
-          left: "center",
+          top: '5%',
+          left: 'center',
           textStyle: {
-            color: "#FFFFFF",
-            fontSize: this.getFontSize(16),
-          },
+            color: '#FFFFFF',
+            fontSize: this.getFontSize(16)
+          }
         },
         xAxis: [
           {
-            type: "category",
+            type: 'category',
             data: this._xData,
             axisLabel: {
               margin: this.xAxisRotate ? 10 : 6,
-              color: "#FFFFFF",
+              color: '#FFFFFF',
               fontSize: this.getFontSize(18),
-              rotate: this.xAxisRotate,
+              rotate: this.xAxisRotate
             },
             axisPointer: {
-              type: "shadow",
+              type: 'shadow'
             },
             axisTick: {
               show: false
             }
-          },
+          }
         ],
         grid: {
           containLabel: true,
-          ...this.gridConfig,
+          ...this.gridConfig
         },
         yAxis: [
           {
-            type: "value",
-            name: "",
+            type: 'value',
+            name: '',
             nameTextStyle: {
-              color: "#FFFFFF",
-              fontSize: this.getFontSize(16),
+              color: '#FFFFFF',
+              fontSize: this.getFontSize(16)
             },
             axisLine: {
-              show: true,
+              show: true
             },
             axisLabel: {
-              color: "#FFFFFF",
+              color: '#FFFFFF',
               fontSize: this.getFontSize(16),
               formatter: (value) => {
                 if (value >= 10000 && value < 10000000) {
-                  value = value / 10000 + "万";
+                  value = value / 10000 + '万'
                 } else if (value >= 10000000) {
-                  value = value / 10000000 + "千万";
+                  value = value / 10000000 + '千万'
                 }
-                return this.leftPercent ? value + "%" : value;
-              },
-            },
+                return this.leftPercent ? value + '%' : value
+              }
+            }
           },
           {
-            type: "value",
-            name: "",
+            type: 'value',
+            name: '',
             min: (value) => {
-              const commonMin = this.rightPercent
-                ? 0
-                : Math.floor(value.min) - 1 > 0
-                ? Math.floor(value.min) - 1
-                : 0;
-              return commonMin;
+              const commonMin = this.rightPercent ? 0 : Math.floor(value.min) - 1 > 0 ? Math.floor(value.min) - 1 : 0
+              return commonMin
             },
             max: (value) => {
-              const commonMax =
-                this.rightPercent && Math.ceil(value.max) < 100
-                  ? 100
-                  : Math.ceil(value.max);
-              return commonMax;
+              const commonMax = this.rightPercent && Math.ceil(value.max) < 100 ? 100 : Math.ceil(value.max)
+              return commonMax
             },
             splitLine: {
-              show: this.rightSpiltLine,
+              show: this.rightSpiltLine
             },
             axisLabel: {
-              color: "#FFFFFF",
+              color: '#FFFFFF',
               fontSize: this.getFontSize(16),
               formatter: (value) => {
-                return this.rightPercent ? value + "%" : value;
-              },
-            },
-          },
+                return this.rightPercent ? value + '%' : value
+              }
+            }
+          }
         ],
         series: this.seriesConfig.map((i) => ({
           name: i.name,
           data: this.data.map((item) => item[i.valueKey] || 0),
           barMaxWidth: 80,
           ...i,
-          type: i.type,
-        })),
-      };
-      console.log(option, "optionoptionoption");
-      this.echartInstance.setOption(option);
-    },
-  },
-};
+          type: i.type
+        }))
+      }
+      console.log(option, 'optionoptionoption')
+      this.echartInstance.setOption(option)
+    }
+  }
+}
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

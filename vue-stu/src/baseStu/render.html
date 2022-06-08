@@ -1,34 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="root"></div>
     <div id="app"></div>
 
     <script src="../assets/vue.js"></script>
     <script>
-        const vue = new Vue({
-            el: "#root",
-            data:{
-
-            },
-            components: {
-                login: {
-                    template: `
+      const vue = new Vue({
+        el: '#root',
+        data: {},
+        components: {
+          login: {
+            template: `
                     <div>我是login组件</div>
                     `
-                }
-            },
-            // render 函数，会把之前的内容清除掉，然后页面上只能显示这个被 render 的组件；不能有其它内容和这个组件并存,就是el: #root完全被替换了 该渲染函数接收一个 createElement 方法作为第一个参数用来创建 VNode。
-            render: c => c('login')
-        })
+          }
+        },
+        // render 函数，会把之前的内容清除掉，然后页面上只能显示这个被 render 的组件；不能有其它内容和这个组件并存,就是el: #root完全被替换了 该渲染函数接收一个 createElement 方法作为第一个参数用来创建 VNode。
+        render: (c) => c('login')
+      })
     </script>
-</body>
-
+  </body>
 </html>

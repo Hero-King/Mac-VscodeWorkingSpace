@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>flex布局下的echarts  resize</h2>
+    <h2>flex布局下的echarts resize</h2>
     <div class="module">
       <div class="chart-wrap flex w100 h100">
         <!-- 可以正常resize 左右两个都是echart实例时候就resize失败 -->
@@ -34,7 +34,7 @@ export default {
   mounted() {
     this.initChart()
     window.addEventListener('resize', () => {
-        // 必须在dom更新结束后resize
+      // 必须在dom更新结束后resize
       this.$nextTick(() => {
         this.rightChart.resize()
         this.leftChart.resize()

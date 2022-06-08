@@ -56,26 +56,14 @@
 
     <h2>dragClass 拖动时候元素的样式</h2>
     <div class="module">
-      <draggable
-        v-model="myArray"
-        tag="p"
-        chosen-class="chosen"
-        drag-class="dragging"
-        :force-fallback="true"
-      >
+      <draggable v-model="myArray" tag="p" chosen-class="chosen" drag-class="dragging" :force-fallback="true">
         <div class="mover" v-for="element in myArray" :key="element.id">{{ element.name }}</div>
         <button slot="header" @click="handleAdd">Add</button>
       </draggable>
     </div>
 
     <div class="module">
-      <draggable
-        tag="p"
-        chosen-class="chosen"
-        handle=".mover"
-        drag-class="dragging"
-        :force-fallback="true"
-      >
+      <draggable tag="p" chosen-class="chosen" handle=".mover" drag-class="dragging" :force-fallback="true">
         <div>
           <div>{{ 1 }}</div>
           <div class="mover">{{ 3 }}</div>

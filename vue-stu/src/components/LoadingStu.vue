@@ -13,26 +13,13 @@
       组件内容...
     </div>
 
-    <div
-      class="module"
-      v-loading.body="loading3"
-      element-loading-text="加载中..."
-      @click="loading3 = !loading3"
-    >
+    <div class="module" v-loading.body="loading3" element-loading-text="加载中..." @click="loading3 = !loading3">
       <h4>通过添加body修饰符，可以使遮罩插入至 DOM 中的 body 上 那么隐藏loading效果就要考虑好</h4>
       组件内容...
     </div>
 
-    <div
-      class="module"
-      v-loading.fullscreen.lock="loading4"
-      element-loading-text="加载中..."
-      @click="loading4 = !loading4"
-    >
-      <h4>
-        全屏遮罩需要添加fullscreen修饰符（遮罩会插入至 body
-        上），此时若需要锁定屏幕的滚动，可以使用lock修饰符；
-      </h4>
+    <div class="module" v-loading.fullscreen.lock="loading4" element-loading-text="加载中..." @click="loading4 = !loading4">
+      <h4>全屏遮罩需要添加fullscreen修饰符（遮罩会插入至 body 上），此时若需要锁定屏幕的滚动，可以使用lock修饰符；</h4>
       组件内容...
     </div>
 
@@ -40,9 +27,7 @@
       <h4>校验loading效果</h4>
       <el-button
         type="text"
-        :icon="
-          checkSuccess === true ? 'el-icon-check' : checkSuccess === false ? 'el-icon-error' : ''
-        "
+        :icon="checkSuccess === true ? 'el-icon-check' : checkSuccess === false ? 'el-icon-error' : ''"
         :loading="loading"
         @click="handleCheck"
         >加载中</el-button

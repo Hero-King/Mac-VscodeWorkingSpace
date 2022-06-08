@@ -2,7 +2,7 @@
   <div class="percent-board-wrap font-source-han-sans" v-show="isBoardVisible">
     <div class="right-percent-wrap">
       <div class="bg-box">
-        <div class="percent-number">{{ percentCtx.value + "%" }}</div>
+        <div class="percent-number">{{ percentCtx.value + '%' }}</div>
 
         <div class="process-box" ref="processRef"></div>
       </div>
@@ -22,76 +22,76 @@
   </div>
 </template>
 <script>
-import * as echarts from "echarts";
-import echartMixins from "./echartsMixin";
+import * as echarts from 'echarts'
+import echartMixins from './echartsMixin'
 export default {
   mixins: [echartMixins],
   props: {
     numTopCtx: {
       type: Object,
       default: () => ({
-        value: "",
-        label: "",
-      }),
+        value: '',
+        label: ''
+      })
     },
     numBottomCtx: {
       type: Object,
       default: () => ({
-        value: "",
-        label: "",
-      }),
+        value: '',
+        label: ''
+      })
     },
     percentCtx: {
       type: Object,
       default: () => ({
-        value: "",
-        label: "",
-      }),
-    },
+        value: '',
+        label: ''
+      })
+    }
   },
   methods: {
     initCircle() {
-      this.echartInstance = echarts.init(this.$refs.processRef);
+      this.echartInstance = echarts.init(this.$refs.processRef)
       const option = {
         series: [
           {
-            name: "Indicator",
-            type: "gauge",
+            name: 'Indicator',
+            type: 'gauge',
             detail: {
-              show: false,
+              show: false
             },
             data: [
               {
-                value: Number(this.percentCtx.value),
-              },
+                value: Number(this.percentCtx.value)
+              }
             ],
             splitLine: {
-              show: false,
+              show: false
             },
             axisLine: {
-              show: false,
+              show: false
             },
             axisTick: {
-              show: false,
+              show: false
             },
             axisLabel: {
-              show: false,
+              show: false
             },
             pointer: {
-              show: false,
+              show: false
             },
             anchor: {
-              show: false,
+              show: false
             },
             title: {
-              show: false,
+              show: false
             },
             progress: {
               show: true,
               width: 12,
               itemStyle: {
                 color: {
-                  type: "linear",
+                  type: 'linear',
                   x: 1,
                   y: 1,
                   x2: 1,
@@ -99,46 +99,44 @@ export default {
                   colorStops: [
                     {
                       offset: 0,
-                      color: "#8160F5", // 0% 处的颜色
+                      color: '#8160F5' // 0% 处的颜色
                     },
                     {
                       offset: 1,
-                      color: "#73FAF6", // 100% 处的颜色
-                    },
+                      color: '#73FAF6' // 100% 处的颜色
+                    }
                   ],
-                  global: false, // 缺省为 false
-                },
-              },
+                  global: false // 缺省为 false
+                }
+              }
             },
-            radius: "79%",
+            radius: '79%',
             startAngle: 225,
             endAngle: -45,
-            center: ["50%", "60%"],
-          },
-        ],
-      };
-      this.echartInstance.setOption(option);
-    },
+            center: ['50%', '60%']
+          }
+        ]
+      }
+      this.echartInstance.setOption(option)
+    }
   },
   computed: {
     isBoardVisible() {
-      return (
-        this.numTopCtx.value && this.numBottomCtx.value && this.percentCtx.value
-      );
-    },
+      return this.numTopCtx.value && this.numBottomCtx.value && this.percentCtx.value
+    }
   },
   watch: {
-    ["percentCtx"]: {
+    ['percentCtx']: {
       deep: true,
       // immediate: true,
       handler(val, oldVal) {
         if (val && val.value !== oldVal.value) {
-          this.initCircle();
+          this.initCircle()
         }
-      },
-    },
-  },
-};
+      }
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 @function px2vh($value) {
@@ -178,7 +176,7 @@ export default {
       width: px2vh(158);
       height: px2vh(174);
       background-size: 100% 100%;
-      background-image: url("../img/bg-dial-one.png");
+      background-image: url('../img/bg-dial-one.png');
       position: relative;
       .percent-number {
         position: absolute;

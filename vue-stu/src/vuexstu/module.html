@@ -1,107 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>学习vuex</title>
+    <script src="../assets/vue.js"></script>
+    <script src="../assets/vuex.js"></script>
+    <style>
+      .module {
+        margin: 10vh;
+        border: 2px solid red;
+        min-height: 10vh;
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>学习vuex</title>
-  <script src="../assets/vue.js"></script>
-  <script src="../assets/vuex.js"></script>
-  <style>
-    .module {
-      margin: 10vh;
-      border: 2px solid red;
-      min-height: 10vh;
-    }
-  </style>
-</head>
-
-<body>
-  <h2>学习vuex状态管理</h2>
-  <div>
-
-    <h3>Module</h3>
-    <ul>
-      <li>解决根store臃肿的问题提出来的</li>
-      <li>Vuex 允许我们将 store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter、</li>>
-
-    </ul>
-
-  </div>
-
-  <div id="app" class="module">
+  <body>
+    <h2>学习vuex状态管理</h2>
     <div>
-      模块化A的count {{$store.state.a.count}} <button @click="$store.commit('add')">+</button>
+      <h3>Module</h3>
+      <ul>
+        <li>解决根store臃肿的问题提出来的</li>
+        <li>Vuex 允许我们将 store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter、</li>
+        >
+      </ul>
     </div>
-    <div>
-      store根上面的count {{$store.state.rootCount}} <button @click="$store.commit('increase')">+</button>
-    </div>
-    <!-- 启用了命名空间的模块C -->
-    <div>
-      模块化C上面的count {{$store.state.c.cCount}} <button @click="$store.commit('c/add')">+</button>
-    </div>
-  </div>
 
-  <script>
-    const storeA = {
-      state: {
-        count: 0
-      },
-      mutations: {
-        add(state) {
-          // 这里的 `state` 对象是模块的局部状态
-          state.count++
+    <div id="app" class="module">
+      <div>模块化A的count {{$store.state.a.count}} <button @click="$store.commit('add')">+</button></div>
+      <div>store根上面的count {{$store.state.rootCount}} <button @click="$store.commit('increase')">+</button></div>
+      <!-- 启用了命名空间的模块C -->
+      <div>模块化C上面的count {{$store.state.c.cCount}} <button @click="$store.commit('c/add')">+</button></div>
+    </div>
+
+    <script>
+      const storeA = {
+        state: {
+          count: 0
+        },
+        mutations: {
+          add(state) {
+            // 这里的 `state` 对象是模块的局部状态
+            state.count++
+          }
         }
       }
-    }
-    const storeB = {
-      state: {
-        todos: [
-          { id: 1, text: '...', done: true },
-          { id: 2, text: '...', done: false }
-        ]
-      }
-    }
-    const storeC = {
-      namespaced: true,
-      state: {
-        cCount: 0
-      },
-      mutations: {
-        add(state){
-          state.cCount ++
+      const storeB = {
+        state: {
+          todos: [
+            { id: 1, text: '...', done: true },
+            { id: 2, text: '...', done: false }
+          ]
         }
       }
-    }
-    /** 
-     * storeA 被挂载在 $store.a下  modules只能把store模块化,降低冲突的可能; 不能减少mutation等冲突的可能 那就需要使用命名空间
-    */
-    const store = new Vuex.Store({
-      modules: {
-        a: storeA,
-        b: storeB,
-        c: storeC
-      },
-      state: {
-        rootCount: 0,
-      },
-      mutations: {
-        increase(state) {
-          state.rootCount += 10
+      const storeC = {
+        namespaced: true,
+        state: {
+          cCount: 0
+        },
+        mutations: {
+          add(state) {
+            state.cCount++
+          }
         }
       }
-    })
-    var app = new Vue({
-      el: '#app',
-      name: 'App',
-      store,
-      mounted() {
-        console.log(`this.$store === store`, this.$store === store)  // true
-        console.log(this.$store)
-      },
-    })
-  </script>
-</body>
-
+      /**
+       * storeA 被挂载在 $store.a下  modules只能把store模块化,降低冲突的可能; 不能减少mutation等冲突的可能 那就需要使用命名空间
+       */
+      const store = new Vuex.Store({
+        modules: {
+          a: storeA,
+          b: storeB,
+          c: storeC
+        },
+        state: {
+          rootCount: 0
+        },
+        mutations: {
+          increase(state) {
+            state.rootCount += 10
+          }
+        }
+      })
+      var app = new Vue({
+        el: '#app',
+        name: 'App',
+        store,
+        mounted() {
+          console.log(`this.$store === store`, this.$store === store) // true
+          console.log(this.$store)
+        }
+      })
+    </script>
+  </body>
 </html>

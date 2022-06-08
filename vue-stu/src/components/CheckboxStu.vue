@@ -6,7 +6,7 @@
     </el-checkbox>
   </el-checkbox-group>
 </template>
-    
+
 <script>
 export default {
   name: 'CheckboxStu',

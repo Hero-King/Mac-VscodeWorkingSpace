@@ -19,7 +19,7 @@ import NProgress from 'nprogress'
 const HelloWorld = () => import(/* webpackChunkName: "hello" */ '../components/HelloWorld.vue')
 
 Vue.use(Router)
-console.log(process.env);
+
 const router = new Router({
   // https://router.vuejs.org/zh/api/#router-%E6%9E%84%E5%BB%BA%E9%80%89%E9%A1%B9
   mode: 'history', // 配置路由模式 "hash" | "history" | "abstract"
@@ -50,17 +50,17 @@ const router = new Router({
       // 定义路由元信息 在路由信息中就会有meta字段
       meta: {
         requiresAuth: true
-      },
+      }
     },
     {
       path: '/lazy',
       name: 'Lazy',
       // 异步组件 会生成单独的文件 路由到组件时候去请求加载
-      component: resolve => require(['../components/Lazy.vue'], resolve),
-      beforeEnter: (to, from,next) => {
-        console.log("lazy route beforeEnter")
+      component: (resolve) => require(['../components/Lazy.vue'], resolve),
+      beforeEnter: (to, from, next) => {
+        console.log('lazy route beforeEnter')
         next()
-      },
+      }
     },
     {
       path: '/login',
@@ -75,12 +75,12 @@ const router = new Router({
     },
     {
       path: '/planMonitor',
-      component:  () => import(/* webpackChunkName: "Monitor" */'@/views/screen-monitor/plan-monitor/index'),
+      component: () => import(/* webpackChunkName: "Monitor" */ '@/views/screen-monitor/plan-monitor/index'),
       hidden: true
     },
     {
       path: '/EfficiencyMonitor',
-      component:  () => import(/* webpackChunkName: "Monitor" */'@/views/screen-monitor/efficiency-monitor/index'),
+      component: () => import(/* webpackChunkName: "Monitor" */ '@/views/screen-monitor/efficiency-monitor/index'),
       hidden: true
     },
     {
@@ -92,7 +92,7 @@ const router = new Router({
       name: 'Home',
       component: Home,
       beforeEnter: (to, from, next) => {
-        console.log("route beforeEnter")
+        console.log('route beforeEnter')
         next()
       },
       children: [
@@ -115,7 +115,8 @@ const router = new Router({
         {
           path: 'checkbox',
           component: CheckboxStu
-        }, {
+        },
+        {
           path: 'upload',
           component: UploadStu
         },
@@ -145,13 +146,15 @@ const router = new Router({
         },
         {
           path: 'datePicker',
-          component: resolve => require(['../components/DatePickerStu.vue'], resolve)
-        }, {
+          component: (resolve) => require(['../components/DatePickerStu.vue'], resolve)
+        },
+        {
           path: 'loadingstu',
           component: LoadingStu
-        }, {
+        },
+        {
           path: 'VueStu',
-          component: resolve => require(['@/views/vuestu/'], resolve)
+          component: (resolve) => require(['@/views/vuestu/'], resolve)
         }
       ]
     }
@@ -170,12 +173,12 @@ const router = new Router({
 
 // 从/home -> /lazy 看路由钩子的顺序
 router.beforeEach((to, from, next) => {
-  console.log("router.beforeEach", "from", from, ";", "to:", to);
+  console.log('router.beforeEach', 'from', from, ';', 'to:', to)
   next()
 })
 
 router.afterEach((to, from) => {
-  console.log("router.afterEach", "from", from, ";", "to:", to);
+  console.log('router.afterEach', 'from', from, ';', 'to:', to)
 })
 
 export default router

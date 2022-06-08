@@ -2,75 +2,75 @@
   <div class="pie-chart-box"></div>
 </template>
 <script>
-import * as echarts from "echarts";
-import echartMixins from "./echartsMixin";
+import * as echarts from 'echarts'
+import echartMixins from './echartsMixin'
 export default {
-  name: "RadiusPie",
+  name: 'RadiusPie',
   mixins: [echartMixins],
   props: {
     data: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     pieName: {
       type: String,
-      required: true,
+      required: true
     },
     gridConfig: {
       type: Object,
-      default: {},
-    },
+      default: {}
+    }
   },
   methods: {
     initChart() {
       if (!this.echartInstance) {
-        this.echartInstance = echarts.init(this.$el);
+        this.echartInstance = echarts.init(this.$el)
       }
 
       const option = {
         tooltip: {
-          trigger: "item",
-          formatter: "{b} : {c} ({d}%)",
+          trigger: 'item',
+          formatter: '{b} : {c} ({d}%)'
         },
         grid: {
-          ...this.gridConfig,
+          ...this.gridConfig
         },
         legend: {
-          type: "scroll",
-          top: "center",
-          right: "5%",
+          type: 'scroll',
+          top: 'center',
+          right: '5%',
           // 图例间隔
           itemGap: this.getFontSize(20),
-          orient: "vertical",
+          orient: 'vertical',
           textStyle: {
-            color: "#fff",
-            fontSize: this.getFontSize(20),
+            color: '#fff',
+            fontSize: this.getFontSize(20)
           },
           formatter: function (name) {
-            if (!name) return "";
+            if (!name) return ''
             if (name.length > 8) {
-              name = name.slice(0, 6) + "...";
+              name = name.slice(0, 6) + '...'
             }
-            return name;
+            return name
           },
           tooltip: {
             show: true,
             textStyle: {
-              fontSize: this.getFontSize(20),
-            },
-          },
+              fontSize: this.getFontSize(20)
+            }
+          }
         },
         series: [
           {
             name: this.pieName,
-            type: "pie",
-            radius: ["50%", "75%"],
+            type: 'pie',
+            radius: ['50%', '75%'],
             avoidLabelOverlap: true,
-            center: ["40%", "50%"],
+            center: ['40%', '50%'],
             itemStyle: {
               borderRadius: 10,
-              borderColor: "#fff",
-              borderWidth: 2,
+              borderColor: '#fff',
+              borderWidth: 2
             },
             label: {
               show: true,
@@ -87,14 +87,14 @@ export default {
                 width: 2
               }
             },
-            data: this.data,
-          },
-        ],
-      };
-      this.echartInstance.setOption(option);
-    },
-  },
-};
+            data: this.data
+          }
+        ]
+      }
+      this.echartInstance.setOption(option)
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .pie-chart-box {

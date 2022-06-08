@@ -2,11 +2,7 @@
   <div class="child">
     <label>
       {{ label }}
-      <input
-        v-bind="$attrs"
-        v-bind:value="value"
-        v-on:input="$emit('input', $event.target.value)"
-      />
+      <input v-bind="$attrs" v-bind:value="value" v-on:input="$emit('input', $event.target.value)" />
     </label>
   </div>
 </template>

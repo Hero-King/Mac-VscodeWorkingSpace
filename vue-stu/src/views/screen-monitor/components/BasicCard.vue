@@ -8,15 +8,15 @@
 </template>
 <script>
 export default {
-  name: "BasicCard",
+  name: 'BasicCard',
   props: {
     width: {
       type: Number,
-      default: 800,
+      default: 800
     },
-    title: String,
-  },
-};
+    title: String
+  }
+}
 </script>
 <style lang="scss" scoped>
 @function px2vh($value) {
@@ -26,7 +26,7 @@ export default {
 .basic-card {
   padding: px2vh(30);
   padding-bottom: 10px;
-  background-image: url("../img/leftLine.png");
+  background-image: url('../img/leftLine.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   position: relative;

@@ -1,36 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vue 源码</title>
     <script src="../assets/vue.js"></script>
-</head>
+  </head>
 
-<body>
-    <div id="root" >
-        <!-- {{name}} -->
-        {{newName}}
-        <button @click="handleClick">点我</button>
+  <body>
+    <div id="root">
+      <!-- {{name}} -->
+      {{newName}}
+      <button @click="handleClick">点我</button>
     </div>
     <script>
-        // 创建了Vue构造函数;在原型上添加常用方法;初始化Vue类静态属性和静态方法(其中Vue.options上面有内置的components,directives,filters,_base)
-        console.log(Vue);
-        // debugger
-        // 一切就绪之后,创建VM实例,执行_init方法,给实例初始化state lifestyle initRender initState(给响应式数据data props等中每一个key 重置set get方法) ;执行$mount方法(里面会编译模板,生成_render函数,创建视图更新Watcher并立即执行里面的getter vm._update(vm._render(), hydrating); render()生成虚拟DOM,这时候会读取到页面中使用的响应式数据,执行get方法进行依赖收集; update方法执行DIFF更新视图,)
+      // 创建了Vue构造函数;在原型上添加常用方法;初始化Vue类静态属性和静态方法(其中Vue.options上面有内置的components,directives,filters,_base)
+      console.log(Vue)
+      // debugger
+      // 一切就绪之后,创建VM实例,执行_init方法,给实例初始化state lifestyle initRender initState(给响应式数据data props等中每一个key 重置set get方法) ;执行$mount方法(里面会编译模板,生成_render函数,创建视图更新Watcher并立即执行里面的getter vm._update(vm._render(), hydrating); render()生成虚拟DOM,这时候会读取到页面中使用的响应式数据,执行get方法进行依赖收集; update方法执行DIFF更新视图,)
 
-        // Vue 是双向绑定模型；数据驱动采用的是观察者模式 Dep（被观察的对象） 和 Watcher（被观察的对象变更后的处理）
-        // 每一个响应对象的key都有dep实例，响应对象的getter中dep实例收集watcher setter中dep实例通知watchers更新 getter中 dep实例的subs至少有一个（更新视图功能的）watcher :
-        //  updateComponent = function () {
-        //      vm._update(vm._render(), hydrating);
-        //  };  // 是在$mount的时候创建出来的, 挂载在vm._watcher
-        // vm._watchers 保存vm创建出来的所有watcher实例(因为在Watcher构造中有vm._watchers.push(this);)
+      // Vue 是双向绑定模型；数据驱动采用的是观察者模式 Dep（被观察的对象） 和 Watcher（被观察的对象变更后的处理）
+      // 每一个响应对象的key都有dep实例，响应对象的getter中dep实例收集watcher setter中dep实例通知watchers更新 getter中 dep实例的subs至少有一个（更新视图功能的）watcher :
+      //  updateComponent = function () {
+      //      vm._update(vm._render(), hydrating);
+      //  };  // 是在$mount的时候创建出来的, 挂载在vm._watcher
+      // vm._watchers 保存vm创建出来的所有watcher实例(因为在Watcher构造中有vm._watchers.push(this);)
 
-        // Dep.target 是一个watcher,Vue里面watcher要执行getter作为返回值 每一时刻只可能在计算一个watcher的值（比如computed watcher、user watcher、render watcher） 当前的watcher用Dep.target表示，watcher求值过程中依赖其他某个属性就会调用其他某个属性XX的getter 这时候，这个Dep.target watcher就被放入属性XX的dep实例subs中
+      // Dep.target 是一个watcher,Vue里面watcher要执行getter作为返回值 每一时刻只可能在计算一个watcher的值（比如computed watcher、user watcher、render watcher） 当前的watcher用Dep.target表示，watcher求值过程中依赖其他某个属性就会调用其他某个属性XX的getter 这时候，这个Dep.target watcher就被放入属性XX的dep实例subs中
 
-        /**
+      /**
          * 核心实现类: Observer : 它的作用是给对象的属性添加 getter 和 setter，用于依赖收集和派发更新
 
 Dep : 用于收集当前响应式对象的依赖关系,每个响应式对象包括子对象都拥有一个 Dep 实例（里面 subs 是 Watcher 实例数组）,当数据有变更时,会通过 dep.notify()通知各个 watcher。
@@ -41,27 +40,26 @@ Watcher 和 Dep 的关系 watcher 中实例化了 dep 并向 dep.subs 中添加�
          * 
         */
 
-        var vm = new Vue({
-            el: "#root",
-            props: ['value'],
-            data() {
-                return {
-                    name: "wang",
-                    age: 20
-                }
-            },
-            methods: {
-                handleClick(){
-                    console.log('div#root click',vm)
-                }
-            },
-            computed: {
-                newName() {
-                    return this.name + "new"
-                }
-            },
-        })
+      var vm = new Vue({
+        el: '#root',
+        props: ['value'],
+        data() {
+          return {
+            name: 'wang',
+            age: 20
+          }
+        },
+        methods: {
+          handleClick() {
+            console.log('div#root click', vm)
+          }
+        },
+        computed: {
+          newName() {
+            return this.name + 'new'
+          }
+        }
+      })
     </script>
-</body>
-
+  </body>
 </html>
