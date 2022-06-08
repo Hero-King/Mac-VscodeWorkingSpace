@@ -2,20 +2,24 @@
   <div>
     <div class="module">
       <h2>Perfect ScrollBar</h2>
-      <div id="container" class="redBorder" ref="container">
+      <div
+        id="container"
+        ref="container"
+        class="redBorder"
+      >
         <div style="width: 300px; height: 400px">
           112121
-          <hr />
+          <hr>
           112121
-          <hr />
+          <hr>
           112121
-          <hr />
+          <hr>
           112121
-          <hr />
+          <hr>
           112121
-          <hr />
+          <hr>
           112121
-          <hr />
+          <hr>
         </div>
       </div>
     </div>

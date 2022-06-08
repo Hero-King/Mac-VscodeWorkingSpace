@@ -1,15 +1,37 @@
 <template>
-  <VisualTable :tableData="data" height="100%" class="division-table-wrap" v-bind="$attrs">
-    <el-table-column :prop="rowKey" align="center">
+  <VisualTable
+    :table-data="data"
+    height="100%"
+    class="division-table-wrap"
+    v-bind="$attrs"
+  >
+    <el-table-column
+      :prop="rowKey"
+      align="center"
+    >
       <template slot="header">
-        <div v-show="data.length > 0" ref="cutHead" class="flex h100 spaceAround">
+        <div
+          v-show="data.length > 0"
+          ref="cutHead"
+          class="flex h100 spaceAround"
+        >
           <span class="rowtitle">{{ rowTitle }}</span>
           <span class="coltitle">{{ colTitle }}</span>
         </div>
-        <div v-show="data.length > 0" ref="rotateDiv" class="w100 h100 cutline"></div>
+        <div
+          v-show="data.length > 0"
+          ref="rotateDiv"
+          class="w100 h100 cutline"
+        />
       </template>
     </el-table-column>
-    <el-table-column v-for="i in columns" :key="i" :label="i" :prop="i" align="center">
+    <el-table-column
+      v-for="i in columns"
+      :key="i"
+      :label="i"
+      :prop="i"
+      align="center"
+    >
       <template slot-scope="scope">
         <div :class="[scope.row[i] >= 100 ? 'bggreen' : [scope.row[i]] > 90 ? 'bgyellow' : 'bgred']">
           {{ scope.row[i] }}
@@ -61,14 +83,6 @@ export default {
       columns: []
     }
   },
-  updated() {
-    setTimeout(() => {
-      const { rotateDiv, cutHead } = this.$refs
-      if (cutHead.clientWidth !== 0) {
-        rotateDiv.style.transform = `rotate(${(Math.atan(cutHead.clientHeight / cutHead.clientWidth) * 180) / Math.PI}deg)`
-      }
-    }, 50)
-  },
   watch: {
     tableData: {
       deep: false,
@@ -92,6 +106,14 @@ export default {
         this.columns = Array.from(columnsT)
       }
     }
+  },
+  updated() {
+    setTimeout(() => {
+      const { rotateDiv, cutHead } = this.$refs
+      if (cutHead.clientWidth !== 0) {
+        rotateDiv.style.transform = `rotate(${(Math.atan(cutHead.clientHeight / cutHead.clientWidth) * 180) / Math.PI}deg)`
+      }
+    }, 50)
   }
 }
 </script>

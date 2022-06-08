@@ -1,5 +1,5 @@
 <template>
-  <div class="pie-chart-box"></div>
+  <div class="pie-chart-box" />
 </template>
 <script>
 import * as echarts from 'echarts'

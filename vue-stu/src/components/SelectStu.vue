@@ -2,23 +2,59 @@
   <div>
     <h2>普通 Select value是字符串</h2>
     <div class="module">
-      <el-select v-model="selectValue" :multiple="multiple" placeholder="请选择" @change="handleChange" :popper-append-to-body="false">
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+      <el-select
+        v-model="selectValue"
+        :multiple="multiple"
+        placeholder="请选择"
+        :popper-append-to-body="false"
+        @change="handleChange"
+      >
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
       </el-select>
     </div>
 
     <h2>多选 Select value是数组</h2>
     <div class="module">
-      <button @click="collapseTags = !collapseTags">多选选中后显示Tag?</button> {{ collapseTags }}
-      <el-select v-model="multipleValue" :collapse-tags="false" :multiple="true" placeholder="请选择" @change="handleChange" :popper-append-to-body="false">
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+      <button @click="collapseTags = !collapseTags">
+        多选选中后显示Tag?
+      </button> {{ collapseTags }}
+      <el-select
+        v-model="multipleValue"
+        :collapse-tags="false"
+        :multiple="true"
+        placeholder="请选择"
+        :popper-append-to-body="false"
+        @change="handleChange"
+      >
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
       </el-select>
     </div>
 
     <h2>Select option是对象</h2>
     <div class="module">
-      <el-select v-model="selectItem" placeholder="请选择" @change="handleChange" :popper-append-to-body="false" value-key="value">
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item"> </el-option>
+      <el-select
+        v-model="selectItem"
+        placeholder="请选择"
+        :popper-append-to-body="false"
+        value-key="value"
+        @change="handleChange"
+      >
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item"
+        />
       </el-select>
     </div>
 
@@ -30,13 +66,18 @@
         popper-class="select-dropdown-box"
         placeholder="请选择"
         :collapse-tags="false"
-        @change="handleChange"
         :popper-append-to-body="false"
         value-key="value"
         :multiple="true"
         :style="selectStyle"
+        @change="handleChange"
       >
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item"> </el-option>
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item"
+        />
       </el-select>
       <el-input :style="{ width: '200px' }" />
     </div>
@@ -86,20 +127,20 @@ export default {
       return { width: ((width > 300 ? width : 310) / 1080) * 100 + 'vh' }
     }
   },
-  methods: {
-    handleChange() {
-      console.log(arguments, '---')
-    },
-    logValue() {
-      console.log(arguments)
-    }
-  },
   watch: {
     $data: {
       handler: function (newV, oldV) {
         console.log('$data数据变化了,:', newV)
       },
       deep: true
+    }
+  },
+  methods: {
+    handleChange() {
+      console.log(arguments, '---')
+    },
+    logValue() {
+      console.log(arguments)
     }
   }
 }

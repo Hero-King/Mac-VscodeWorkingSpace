@@ -1,5 +1,5 @@
 <template>
-  <div class="line-bar w100 h100"></div>
+  <div class="line-bar w100 h100" />
 </template>
 
 <script>
@@ -8,9 +8,6 @@ import echartMixins from './echartsMixin'
 export default {
   name: 'MixLineBar',
   mixins: [echartMixins],
-  data() {
-    return {}
-  },
   props: {
     gridConfig: {
       type: Object,
@@ -48,6 +45,9 @@ export default {
       type: Array,
       default: []
     }
+  },
+  data() {
+    return {}
   },
   methods: {
     initChart() {

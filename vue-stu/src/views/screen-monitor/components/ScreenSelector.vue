@@ -3,21 +3,20 @@
     :value="value"
     :multiple="multiple"
     placeholder="请选择"
-    @change="handleChange"
     :popper-append-to-body="false"
     :value-key="valueKey"
     :class="['selectclass', multiple ? 'multiple-select' : '']"
     popper-class="select-dropdown-box"
     :size="size || 'medium'"
     v-bind="$attrs"
+    @change="handleChange"
   >
     <el-option
       v-for="item in options"
       :key="item[valueKey] ? item[valueKey] : item"
       :label="item[labelKey] ? item[labelKey] : item"
       :value="returnSelectItem ? item : item[valueKey] ? item[valueKey] : item"
-    >
-    </el-option>
+    />
   </el-select>
 </template>
 
@@ -50,6 +49,7 @@ export default {
       default: 'value'
     }
   },
+  mounted() {},
   methods: {
     handleChange(value) {
       this.$emit('input', value)
@@ -58,8 +58,7 @@ export default {
     px2vh(px) {
       return (px / 1080) * 100 + 'vh'
     }
-  },
-  mounted() {}
+  }
 }
 </script>
 

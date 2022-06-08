@@ -1,6 +1,13 @@
 <template>
-  <ul class="month-select" @click="handleSelect">
-    <li v-for="label in labels" :key="label" :class="{ selected: selected == label }">
+  <ul
+    class="month-select"
+    @click="handleSelect"
+  >
+    <li
+      v-for="label in labels"
+      :key="label"
+      :class="{ selected: selected == label }"
+    >
       {{ label }}
     </li>
   </ul>
@@ -9,11 +16,32 @@
 <script>
 export default {
   name: 'TimeSelect',
+  props: {
+    value: {},
+    defaultSelect: {
+      type: String
+    },
+    labels: {
+      type: Array,
+      default: ['月', '季度', '年']
+    },
+    type: {
+      type: String,
+      default: 'labelselect',
+      validator: function (value) {
+        // 这个值必须匹配下列字符串中的一个
+        return ['monthselect', 'labelselect'].indexOf(value) !== -1
+      }
+    }
+  },
   data() {
     return {
       selected: this.defaultSelect || this.labels[0],
       returnValue: ''
     }
+  },
+  created() {
+    this.boundReturnValue()
   },
   methods: {
     handleSelect(e) {
@@ -53,27 +81,6 @@ export default {
       }
       this.$emit('input', this.returnValue)
     }
-  },
-  props: {
-    value: {},
-    defaultSelect: {
-      type: String
-    },
-    labels: {
-      type: Array,
-      default: ['月', '季度', '年']
-    },
-    type: {
-      type: String,
-      default: 'labelselect',
-      validator: function (value) {
-        // 这个值必须匹配下列字符串中的一个
-        return ['monthselect', 'labelselect'].indexOf(value) !== -1
-      }
-    }
-  },
-  created() {
-    this.boundReturnValue()
   }
 }
 </script>

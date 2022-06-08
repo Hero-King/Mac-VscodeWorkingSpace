@@ -1,13 +1,19 @@
 <template>
   <div class="screen-date-picker">
-    <el-date-picker v-model="_value" v-bind="$attrs" class="datepickerclass" popper-class="datepicker-poper-class" @change="$emit('onChange', $event)">
-    </el-date-picker>
+    <el-date-picker
+      v-model="_value"
+      v-bind="$attrs"
+      class="datepickerclass"
+      popper-class="datepicker-poper-class"
+      @change="$emit('onChange', $event)"
+    />
   </div>
 </template>
 
 <script>
 export default {
   name: 'ScreenDatePicker',
+  props: ['value'],
   computed: {
     _value: {
       get() {
@@ -17,8 +23,7 @@ export default {
         this.$emit('input', val)
       }
     }
-  },
-  props: ['value']
+  }
 }
 </script>
 

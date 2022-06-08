@@ -2,6 +2,19 @@
 import BaseH2 from './BaseH2.vue'
 export default {
   name: 'RenderStu',
+  // render: function (createElement) {
+  //   return createElement(
+  //     'h' + this.level, // 标签名称
+  //     // this.$slots.default // 子节点数组
+  //     '1212'
+  //   )
+  // },
+  props: {
+    level: {
+      type: Number,
+      default: 2
+    }
+  },
   //   render: (h) => {
   //     return h('h2', '1111111111111')
   //   },
@@ -21,19 +34,6 @@ export default {
   // JSX 语法书写render  依赖 npm install @vue/babel-preset-jsx @vue/babel-helper-vue-jsx-merge-props 插件
   render(h) {
     return <BaseH2>JSX语法</BaseH2>
-  },
-  // render: function (createElement) {
-  //   return createElement(
-  //     'h' + this.level, // 标签名称
-  //     // this.$slots.default // 子节点数组
-  //     '1212'
-  //   )
-  // },
-  props: {
-    level: {
-      type: Number,
-      default: 2
-    }
   }
 }
 </script>

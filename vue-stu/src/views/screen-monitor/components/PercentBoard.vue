@@ -1,22 +1,40 @@
 <template>
-  <div class="percent-board-wrap font-source-han-sans" v-show="isBoardVisible">
+  <div
+    v-show="isBoardVisible"
+    class="percent-board-wrap font-source-han-sans"
+  >
     <div class="right-percent-wrap">
       <div class="bg-box">
-        <div class="percent-number">{{ percentCtx.value + '%' }}</div>
+        <div class="percent-number">
+          {{ percentCtx.value + '%' }}
+        </div>
 
-        <div class="process-box" ref="processRef"></div>
+        <div
+          ref="processRef"
+          class="process-box"
+        />
       </div>
-      <div class="label-text">{{ percentCtx.label }}</div>
+      <div class="label-text">
+        {{ percentCtx.label }}
+      </div>
     </div>
     <div class="left-number-wrap">
       <div class="number-box">
-        <div class="number-text">{{ numTopCtx.value }}</div>
-        <div class="label-text">{{ numTopCtx.label }}</div>
+        <div class="number-text">
+          {{ numTopCtx.value }}
+        </div>
+        <div class="label-text">
+          {{ numTopCtx.label }}
+        </div>
       </div>
 
       <div class="number-box">
-        <div class="number-text danger-text">{{ numBottomCtx.value }}</div>
-        <div class="label-text">{{ numBottomCtx.label }}</div>
+        <div class="number-text danger-text">
+          {{ numBottomCtx.value }}
+        </div>
+        <div class="label-text">
+          {{ numBottomCtx.label }}
+        </div>
       </div>
     </div>
   </div>
@@ -47,6 +65,22 @@ export default {
         value: '',
         label: ''
       })
+    }
+  },
+  computed: {
+    isBoardVisible() {
+      return this.numTopCtx.value && this.numBottomCtx.value && this.percentCtx.value
+    }
+  },
+  watch: {
+    ['percentCtx']: {
+      deep: true,
+      // immediate: true,
+      handler(val, oldVal) {
+        if (val && val.value !== oldVal.value) {
+          this.initCircle()
+        }
+      }
     }
   },
   methods: {
@@ -118,22 +152,6 @@ export default {
         ]
       }
       this.echartInstance.setOption(option)
-    }
-  },
-  computed: {
-    isBoardVisible() {
-      return this.numTopCtx.value && this.numBottomCtx.value && this.percentCtx.value
-    }
-  },
-  watch: {
-    ['percentCtx']: {
-      deep: true,
-      // immediate: true,
-      handler(val, oldVal) {
-        if (val && val.value !== oldVal.value) {
-          this.initCircle()
-        }
-      }
     }
   }
 }

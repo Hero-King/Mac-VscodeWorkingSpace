@@ -1,5 +1,10 @@
 <template>
-  <h2 @click="log" class="myh2"><slot>这是我自己定义的h2组件,点击会打印</slot></h2>
+  <h2
+    class="myh2"
+    @click="log"
+  >
+    <slot>这是我自己定义的h2组件,点击会打印</slot>
+  </h2>
 </template>
 
 <script>

@@ -1,6 +1,12 @@
 <template>
-  <el-table class="s-visual-table-wrap" :data="tableData" stripe border v-bind="$attrs">
-    <slot></slot>
+  <el-table
+    class="s-visual-table-wrap"
+    :data="tableData"
+    stripe
+    border
+    v-bind="$attrs"
+  >
+    <slot />
   </el-table>
 </template>
 <script>

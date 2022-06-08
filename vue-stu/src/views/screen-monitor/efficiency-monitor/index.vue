@@ -6,34 +6,40 @@
       </template>
       <template v-slot:centerTitle>
         <div class="flex spaceAround w100 h100 center-content">
-          <Selector class="center-select" v-model="formParam.factory" :options="allFactory" :multiple="false" @onChange="handleFactoryChange"></Selector>
           <Selector
+            v-model="formParam.factory"
             class="center-select"
+            :options="allFactory"
+            :multiple="false"
+            @onChange="handleFactoryChange"
+          />
+          <Selector
             v-model="formParam.line"
+            class="center-select"
             :options="allLine"
-            valueKey="base_name"
-            labelKey="base_name"
+            value-key="base_name"
+            label-key="base_name"
             :collapse-tags="true"
             :multiple="false"
             @onChange="handleLineChange"
-          ></Selector>
+          />
           <Selector
-            class="center-select"
             v-model="formParam.product"
+            class="center-select"
             :options="allProductType"
-            valueKey="product_type"
-            labelKey="product_type"
+            value-key="product_type"
+            label-key="product_type"
             :multiple="true"
             @onChange="handleSelectChange"
-          ></Selector>
+          />
         </div>
       </template>
       <template v-slot:rightTitle>
         <div class="flex h100 spaceAround">
           <ScreenDatePicker
+            v-model="formParam.year"
             size="mini"
             :editable="false"
-            v-model="formParam.year"
             type="year"
             :clearable="false"
             format="yyyy年"
@@ -42,8 +48,8 @@
             @onChange="handleSelectChange"
           />
           <ScreenDatePicker
-            :editable="false"
             v-model="formParam.month"
+            :editable="false"
             type="month"
             :clearable="false"
             size="mini"
@@ -60,73 +66,160 @@
     <!-- body部分 -->
     <div class="efficiency-body">
       <div class="body-line">
-        <BasicCard title="近12月产线生产趋势" class="body-line-card">
+        <BasicCard
+          title="近12月产线生产趋势"
+          class="body-line-card"
+        >
           <MixLineBar
-            :gridConfig="barGridConfig"
+            :grid-config="barGridConfig"
             :data="EfficiencyTrend"
-            xAxisKey="month_code"
-            :xAxisRotate="45"
-            :seriesConfig="efficiencyTrendSeriesConfig"
-            :rightPercent="true"
-            :rightSpiltLine="false"
+            x-axis-key="month_code"
+            :x-axis-rotate="45"
+            :series-config="efficiencyTrendSeriesConfig"
+            :right-percent="true"
+            :right-spilt-line="false"
           />
         </BasicCard>
-        <BasicCard title="近12月综合良率&OEE趋势" class="body-line-card">
+        <BasicCard
+          title="近12月综合良率&OEE趋势"
+          class="body-line-card"
+        >
           <MixLineBar
-            :gridConfig="barGridConfig"
+            :grid-config="barGridConfig"
             :data="RecentlyYieldOee"
-            xAxisKey="month_code"
-            :xAxisRotate="40"
-            :seriesConfig="recentlyYieldOeeSeriesConfig"
-            :rightPercent="true"
-            :leftPercent="true"
-            :rightSpiltLine="false"
+            x-axis-key="month_code"
+            :x-axis-rotate="40"
+            :series-config="recentlyYieldOeeSeriesConfig"
+            :right-percent="true"
+            :left-percent="true"
+            :right-spilt-line="false"
           />
         </BasicCard>
       </div>
       <div class="body-line">
-        <BasicCard :title="`瓶颈工序(${procedureNameSet.join('|')})监控`" class="body-line-card">
+        <BasicCard
+          :title="`瓶颈工序(${procedureNameSet.join('|')})监控`"
+          class="body-line-card"
+        >
           <MixLineBar
-            :gridConfig="barGridConfig"
+            :grid-config="barGridConfig"
             :data="EfficiencyBottleneck"
-            xAxisKey="month_code"
-            :xAxisRotate="40"
-            :seriesConfig="efficiencyBottleneckSeriesConfig"
-            :rightPercent="true"
-            :rightSpiltLine="false"
+            x-axis-key="month_code"
+            :x-axis-rotate="40"
+            :series-config="efficiencyBottleneckSeriesConfig"
+            :right-percent="true"
+            :right-spilt-line="false"
           />
         </BasicCard>
-        <BasicCard :title="formParam.month + `月工序排名`" class="body-line-card table-wrap">
+        <BasicCard
+          :title="formParam.month + `月工序排名`"
+          class="body-line-card table-wrap"
+        >
           <div class="flex w100 spaceBetween">
             <div class="table-item">
-              <VisualTable class="monitor-small-table" row-class-name="monitor-table-row" :tableData="EfficiencyStepTableData" height="100%">
-                <el-table-column label="工序" prop="procedure_code" min-width="15%" align="center"> </el-table-column>
-                <el-table-column prop="good_rate_parent" label="良率" align="center" show-overflow-tooltip min-width="15%"> </el-table-column>
-                <el-table-column label="环比" min-width="15%" align="center" show-overflow-tooltip>
+              <VisualTable
+                class="monitor-small-table"
+                row-class-name="monitor-table-row"
+                :table-data="EfficiencyStepTableData"
+                height="100%"
+              >
+                <el-table-column
+                  label="工序"
+                  prop="procedure_code"
+                  min-width="15%"
+                  align="center"
+                />
+                <el-table-column
+                  prop="good_rate_parent"
+                  label="良率"
+                  align="center"
+                  show-overflow-tooltip
+                  min-width="15%"
+                />
+                <el-table-column
+                  label="环比"
+                  min-width="15%"
+                  align="center"
+                  show-overflow-tooltip
+                >
                   <template slot-scope="scope">
-                    <img class="arrow-img" :src="scope.row['isGoodRateUp'] ? UpArrowImg : DownArrowImg" alt="" srcset="" height="18px" />
-                    <span></span>
+                    <img
+                      class="arrow-img"
+                      :src="scope.row['isGoodRateUp'] ? UpArrowImg : DownArrowImg"
+                      alt=""
+                      srcset=""
+                      height="18px"
+                    >
+                    <span />
                   </template>
                 </el-table-column>
               </VisualTable>
             </div>
             <div class="table-item">
-              <VisualTable class="monitor-small-table" row-class-name="monitor-table-row" :tableData="EfficiencyStepTableData" height="100%">
-                <el-table-column label="工序" prop="procedure_code" min-width="15%" align="center"> </el-table-column>
-                <el-table-column prop="oee_oee" label="OEE" align="center" show-overflow-tooltip min-width="15%"> </el-table-column>
-                <el-table-column label="环比" min-width="15%" align="center">
+              <VisualTable
+                class="monitor-small-table"
+                row-class-name="monitor-table-row"
+                :table-data="EfficiencyStepTableData"
+                height="100%"
+              >
+                <el-table-column
+                  label="工序"
+                  prop="procedure_code"
+                  min-width="15%"
+                  align="center"
+                />
+                <el-table-column
+                  prop="oee_oee"
+                  label="OEE"
+                  align="center"
+                  show-overflow-tooltip
+                  min-width="15%"
+                />
+                <el-table-column
+                  label="环比"
+                  min-width="15%"
+                  align="center"
+                >
                   <template slot-scope="scope">
-                    <img class="arrow-img" :src="scope.row['isOeeRateUp'] ? UpArrowImg : DownArrowImg" alt="" srcset="" height="18px" />
-                    <span></span>
+                    <img
+                      class="arrow-img"
+                      :src="scope.row['isOeeRateUp'] ? UpArrowImg : DownArrowImg"
+                      alt=""
+                      srcset=""
+                      height="18px"
+                    >
+                    <span />
                   </template>
                 </el-table-column>
               </VisualTable>
             </div>
             <div class="table-item">
-              <VisualTable class="monitor-small-table" row-class-name="monitor-table-row" :tableData="EfficiencyStepTableData" height="100%">
-                <el-table-column label="工序" prop="procedure_code" min-width="15%" align="center"> </el-table-column>
-                <el-table-column prop="act_jp" label="实际节拍" align="center" show-overflow-tooltip min-width="15%"> </el-table-column>
-                <el-table-column prop="theory_jp" label="理论节拍" min-width="15%" align="center" show-overflow-tooltip> </el-table-column>
+              <VisualTable
+                class="monitor-small-table"
+                row-class-name="monitor-table-row"
+                :table-data="EfficiencyStepTableData"
+                height="100%"
+              >
+                <el-table-column
+                  label="工序"
+                  prop="procedure_code"
+                  min-width="15%"
+                  align="center"
+                />
+                <el-table-column
+                  prop="act_jp"
+                  label="实际节拍"
+                  align="center"
+                  show-overflow-tooltip
+                  min-width="15%"
+                />
+                <el-table-column
+                  prop="theory_jp"
+                  label="理论节拍"
+                  min-width="15%"
+                  align="center"
+                  show-overflow-tooltip
+                />
               </VisualTable>
             </div>
           </div>

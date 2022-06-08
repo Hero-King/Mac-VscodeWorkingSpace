@@ -1,41 +1,51 @@
 <template lang="">
-    <div>
-        <div class="module">
-            <h2>使用表格数据</h2>
-            <el-table
-            :data="tableData"
-            style="width: 100%">
-            <el-table-column
-                prop="date"
-                label="日期"
-                width="180">
-            </el-table-column>
-            <el-table-column
-                prop="name"
-                label="姓名"
-                width="180">
-            </el-table-column>
-            <el-table-column
-                prop="address"
-                label="地址">
-            </el-table-column>
-            </el-table>
-            <button @click="handleTableToExcel">下载 </button>
-        </div>
-
-        <div class="module">
-            <h2>使用JSON数据</h2>
-            <button @click="handleJsonToExcel">下载 </button>
-        </div>
-        <div class="module">
-            <h2>使用二维数组</h2>
-            <button @click="handleAoAToExcel">下载 </button>
-        </div>
-        <div class="module">
-            <h2>导入excel</h2>
-            <input @change="handleImport" type="file"></input>
-        </div>
+  <div>
+    <div class="module">
+      <h2>使用表格数据</h2>
+      <el-table
+        :data="tableData"
+        style="width: 100%"
+      >
+        <el-table-column
+          prop="date"
+          label="日期"
+          width="180"
+        />
+        <el-table-column
+          prop="name"
+          label="姓名"
+          width="180"
+        />
+        <el-table-column
+          prop="address"
+          label="地址"
+        />
+      </el-table>
+      <button @click="handleTableToExcel">
+        下载
+      </button>
     </div>
+
+    <div class="module">
+      <h2>使用JSON数据</h2>
+      <button @click="handleJsonToExcel">
+        下载
+      </button>
+    </div>
+    <div class="module">
+      <h2>使用二维数组</h2>
+      <button @click="handleAoAToExcel">
+        下载
+      </button>
+    </div>
+    <div class="module">
+      <h2>导入excel</h2>
+      <input
+        type="file"
+        @change="handleImport"
+      ></input>
+    </div>
+  </div>
 </template>
 
 <script>

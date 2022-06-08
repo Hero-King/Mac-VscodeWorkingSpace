@@ -2383,7 +2383,7 @@ var Vue = (function (exports) {
     let root = result
     let setRoot = undefined
     if (result.patchFlag > 0 && result.patchFlag & 2048 /* DEV_ROOT_FRAGMENT */) {
-      ;[root, setRoot] = getChildRoot(result)
+      [root, setRoot] = getChildRoot(result)
     }
     if (fallthroughAttrs && inheritAttrs !== false) {
       const keys = Object.keys(fallthroughAttrs)
@@ -2509,7 +2509,7 @@ var Vue = (function (exports) {
     let res
     for (const key in attrs) {
       if (key === 'class' || key === 'style' || isOn(key)) {
-        ;(res || (res = {}))[key] = attrs[key]
+        (res || (res = {}))[key] = attrs[key]
       }
     }
     return res
@@ -2602,7 +2602,7 @@ var Vue = (function (exports) {
     el // HostNode
   ) {
     while (parent && parent.subTree === vnode) {
-      ;(vnode = parent.vnode).el = el
+      (vnode = parent.vnode).el = el
       parent = parent.parent
     }
   }
@@ -4745,7 +4745,7 @@ var Vue = (function (exports) {
           if (!needCastKeys || !needCastKeys.includes(camelKey)) {
             props[camelKey] = value
           } else {
-            ;(rawCastValues || (rawCastValues = {}))[camelKey] = value
+            (rawCastValues || (rawCastValues = {}))[camelKey] = value
           }
         } else if (!isEmitListener(instance.emitsOptions, key)) {
           if (!(key in attrs) || value !== attrs[key]) {
@@ -5897,7 +5897,7 @@ var Vue = (function (exports) {
       }
     }
     const mountStaticNode = (n2, container, anchor, isSVG) => {
-      ;[n2.el, n2.anchor] = hostInsertStaticContent(n2.children, container, anchor, isSVG, n2.el, n2.anchor)
+      [n2.el, n2.anchor] = hostInsertStaticContent(n2.children, container, anchor, isSVG, n2.el, n2.anchor)
     }
     /**
      * Dev / HMR only
@@ -6978,7 +6978,7 @@ var Vue = (function (exports) {
     let hydrate
     let hydrateNode
     if (createHydrationFns) {
-      ;[hydrate, hydrateNode] = createHydrationFns(internals)
+      [hydrate, hydrateNode] = createHydrationFns(internals)
     }
     return {
       render,
@@ -9588,7 +9588,7 @@ var Vue = (function (exports) {
           this.shadowRoot.appendChild(s)
           // record for HMR
           {
-            ;(this._styles || (this._styles = [])).push(s)
+            (this._styles || (this._styles = [])).push(s)
           }
         })
       }

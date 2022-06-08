@@ -2,21 +2,21 @@
   <div class="screen-header">
     <div class="header-item head-left">
       <div class="left-title head-title">
-        <slot name="leftTitle"></slot>
+        <slot name="leftTitle" />
       </div>
     </div>
     <div class="header-item head-center">
       <div class="center-title">
-        <slot name="centerTitle"></slot>
+        <slot name="centerTitle" />
       </div>
     </div>
     <div class="header-item head-right">
       <div class="head-title right-title">
         <div class="rightTitle-body">
-          <slot name="rightTitle"></slot>
+          <slot name="rightTitle" />
         </div>
         <div class="rightTitle-line-wrap">
-          <div class="rightTitle-line"></div>
+          <div class="rightTitle-line" />
         </div>
       </div>
     </div>

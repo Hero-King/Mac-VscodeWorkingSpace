@@ -6,97 +6,164 @@
       </template>
       <template v-slot:centerTitle>
         <div class="flex spaceAround w100 h100 center-content">
-          <ScreenDatePicker v-model="formParam.year" type="year" format="yyyy年" value-format="yyyy" placeholder="请选择" @onChange="handleSelectChange" />
+          <ScreenDatePicker
+            v-model="formParam.year"
+            type="year"
+            format="yyyy年"
+            value-format="yyyy"
+            placeholder="请选择"
+            @onChange="handleSelectChange"
+          />
           <Selector
-            class="center-multiple-select"
             v-model="formParam.base"
-            :options="allBase"
-            valueKey="base_name"
-            labelKey="base_name"
-            :collapse-tags="true"
-            :multiple="true"
-            @onChange="handleSelectChange"
-          ></Selector>
-          <Selector
             class="center-multiple-select"
-            v-model="formParam.factory"
-            :options="allFactory"
-            valueKey="factory_name"
-            labelKey="factory_code"
+            :options="allBase"
+            value-key="base_name"
+            label-key="base_name"
             :collapse-tags="true"
             :multiple="true"
             @onChange="handleSelectChange"
-          ></Selector>
+          />
+          <Selector
+            v-model="formParam.factory"
+            class="center-multiple-select"
+            :options="allFactory"
+            value-key="factory_name"
+            label-key="factory_code"
+            :collapse-tags="true"
+            :multiple="true"
+            @onChange="handleSelectChange"
+          />
           <Selector
             v-model="formParam.product"
             :options="allProductType"
-            valueKey="product_type"
-            labelKey="product_type"
+            value-key="product_type"
+            label-key="product_type"
             @onChange="handleSelectChange"
-          ></Selector>
+          />
         </div>
       </template>
       <template v-slot:rightTitle>
         <TimeSelect
+          v-model="formParam['time_type']"
           type="labelselect"
           :labels="['周', '月', '季度', '年']"
-          defaultSelect="月"
-          v-model="formParam['time_type']"
+          default-select="月"
           @onChange="handleSelectChange"
-        ></TimeSelect>
+        />
       </template>
     </ScreenHeader>
     <!-- body部分 -->
     <div class="plan-body flex">
       <div class="left-wrap h100 flexCol">
-        <BasicCard title="生产总览" class="body-line-card left-card">
-          <PercentBoard :percentCtx="productionPreview.qty.rate" :numBottomCtx="productionPreview.qty.act" :numTopCtx="productionPreview.qty.plan" />
-          <PercentBoard :percentCtx="productionPreview.cap.rate" :numBottomCtx="productionPreview.cap.act" :numTopCtx="productionPreview.cap.plan" />
-        </BasicCard>
-        <BasicCard title="工厂计划完成率" class="body-line-card">
-          <MixLineBar
-            :gridConfig="barGridConfig"
-            :data="ProductByFactory"
-            xAxisKey="dim_factory_factory_name"
-            :seriesConfig="factoryProductSeriesConfig"
-            :rightPercent="true"
-            :rightSpiltLine="false"
+        <BasicCard
+          title="生产总览"
+          class="body-line-card left-card"
+        >
+          <PercentBoard
+            :percent-ctx="productionPreview.qty.rate"
+            :num-bottom-ctx="productionPreview.qty.act"
+            :num-top-ctx="productionPreview.qty.plan"
+          />
+          <PercentBoard
+            :percent-ctx="productionPreview.cap.rate"
+            :num-bottom-ctx="productionPreview.cap.act"
+            :num-top-ctx="productionPreview.cap.plan"
           />
         </BasicCard>
-        <BasicCard title="产品计划完成率" class="body-line-card">
+        <BasicCard
+          title="工厂计划完成率"
+          class="body-line-card"
+        >
           <MixLineBar
-            :gridConfig="barGridConfig"
+            :grid-config="barGridConfig"
+            :data="ProductByFactory"
+            x-axis-key="dim_factory_factory_name"
+            :series-config="factoryProductSeriesConfig"
+            :right-percent="true"
+            :right-spilt-line="false"
+          />
+        </BasicCard>
+        <BasicCard
+          title="产品计划完成率"
+          class="body-line-card"
+        >
+          <MixLineBar
+            :grid-config="barGridConfig"
             :data="ProductByModel"
-            xAxisKey="dim_product_source_code_product_source_code"
-            :seriesConfig="factoryProductSeriesConfig"
-            :rightPercent="true"
-            :rightSpiltLine="false"
+            x-axis-key="dim_product_source_code_product_source_code"
+            :series-config="factoryProductSeriesConfig"
+            :right-percent="true"
+            :right-spilt-line="false"
           />
         </BasicCard>
       </div>
       <div class="right-wrap h100 flexCol">
-        <BasicCard title="基地计划完成监控率" class="body-line-card table-wrap">
+        <BasicCard
+          title="基地计划完成监控率"
+          class="body-line-card table-wrap"
+        >
           <DivisionTable
             class="monitor-small-table"
             row-class-name="monitor-table-row"
-            :tableData="ProductByBase"
-            rowKey="dim_base_base_name"
-            cellKey="act_qty_rate"
-            colKey="show_col"
-            rowTitle="基地"
-            colTitle="时间"
-          >
-          </DivisionTable>
+            :table-data="ProductByBase"
+            row-key="dim_base_base_name"
+            cell-key="act_qty_rate"
+            col-key="show_col"
+            row-title="基地"
+            col-title="时间"
+          />
         </BasicCard>
-        <BasicCard title="计划完成率明细" class="body-line-card table-wrap">
-          <VisualTable class="monitor-small-table" row-class-name="monitor-table-row" :tableData="ProductMaterialdetail" height="100%">
-            <el-table-column label="工厂" prop="dim_factory_factory_name" min-width="10%" align="center"> </el-table-column>
-            <el-table-column prop="dim_product_source_code_product_source_code" label="产品编码" align="center" show-overflow-tooltip min-width="8%">
-            </el-table-column>
-            <el-table-column prop="dim_product_product_code" label="产品名称" min-width="15%" align="center" show-overflow-tooltip> </el-table-column>
-            <el-table-column prop="plan_qty" label="计划生产" min-width="12%" show-overflow-tooltip align="center"> </el-table-column>
-            <el-table-column prop="act_qty" label="实际生产" min-width="12%" align="center" show-overflow-tooltip> </el-table-column>
-            <el-table-column prop="act_qty_rate" label="计划完成率" min-width="10%" align="center"> </el-table-column>
+        <BasicCard
+          title="计划完成率明细"
+          class="body-line-card table-wrap"
+        >
+          <VisualTable
+            class="monitor-small-table"
+            row-class-name="monitor-table-row"
+            :table-data="ProductMaterialdetail"
+            height="100%"
+          >
+            <el-table-column
+              label="工厂"
+              prop="dim_factory_factory_name"
+              min-width="10%"
+              align="center"
+            />
+            <el-table-column
+              prop="dim_product_source_code_product_source_code"
+              label="产品编码"
+              align="center"
+              show-overflow-tooltip
+              min-width="8%"
+            />
+            <el-table-column
+              prop="dim_product_product_code"
+              label="产品名称"
+              min-width="15%"
+              align="center"
+              show-overflow-tooltip
+            />
+            <el-table-column
+              prop="plan_qty"
+              label="计划生产"
+              min-width="12%"
+              show-overflow-tooltip
+              align="center"
+            />
+            <el-table-column
+              prop="act_qty"
+              label="实际生产"
+              min-width="12%"
+              align="center"
+              show-overflow-tooltip
+            />
+            <el-table-column
+              prop="act_qty_rate"
+              label="计划完成率"
+              min-width="10%"
+              align="center"
+            />
           </VisualTable>
         </BasicCard>
       </div>

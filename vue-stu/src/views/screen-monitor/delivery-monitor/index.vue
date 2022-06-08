@@ -7,78 +7,144 @@
       <template v-slot:centerTitle>
         <div class="center-content">
           <Selector
+            v-model="formParam.factory"
             class="center-multiple-select"
             :multiple="true"
-            v-model="formParam.factory"
             :options="allBase"
-            valueKey="base_name"
-            labelKey="base_name"
+            value-key="base_name"
+            label-key="base_name"
             :collapse-tags="true"
             @onChange="handleSelectChange"
-          ></Selector>
+          />
           <Selector
             v-model="formParam.product"
             :options="allProductType"
-            valueKey="product_type"
-            labelKey="product_type"
+            value-key="product_type"
+            label-key="product_type"
             @onChange="handleSelectChange"
-          ></Selector>
+          />
         </div>
       </template>
       <template v-slot:rightTitle>
-        <TimeSelect type="monthselect" v-model="formParam" @onChange="handleSelectChange" :labels="['月', '季度', '年']"></TimeSelect>
+        <TimeSelect
+          v-model="formParam"
+          type="monthselect"
+          :labels="['月', '季度', '年']"
+          @onChange="handleSelectChange"
+        />
       </template>
     </ScreenHeader>
     <!-- body部分 -->
     <div class="delivery-body flexCol">
       <div class="body-line">
-        <BasicCard title="交付纵览" class="body-line-card left-card">
-          <PercentBoard :percentCtx="deliveryPreview.qty.rate" :numBottomCtx="deliveryPreview.qty.act" :numTopCtx="deliveryPreview.qty.plan" />
-          <PercentBoard :percentCtx="deliveryPreview.cap.rate" :numBottomCtx="deliveryPreview.cap.act" :numTopCtx="deliveryPreview.cap.plan" />
+        <BasicCard
+          title="交付纵览"
+          class="body-line-card left-card"
+        >
+          <PercentBoard
+            :percent-ctx="deliveryPreview.qty.rate"
+            :num-bottom-ctx="deliveryPreview.qty.act"
+            :num-top-ctx="deliveryPreview.qty.plan"
+          />
+          <PercentBoard
+            :percent-ctx="deliveryPreview.cap.rate"
+            :num-bottom-ctx="deliveryPreview.cap.act"
+            :num-top-ctx="deliveryPreview.cap.plan"
+          />
         </BasicCard>
-        <BasicCard title="产品交付占比" class="body-line-card right-card">
-          <RadiusPie :data="pieData" pieName="已交付数量" :gridConfig="pieGridConfig" />
-          <RadiusPie :data="customerPieData" pieName="按客户已交付数量" :gridConfig="pieGridConfig" />
+        <BasicCard
+          title="产品交付占比"
+          class="body-line-card right-card"
+        >
+          <RadiusPie
+            :data="pieData"
+            pie-name="已交付数量"
+            :grid-config="pieGridConfig"
+          />
+          <RadiusPie
+            :data="customerPieData"
+            pie-name="按客户已交付数量"
+            :grid-config="pieGridConfig"
+          />
         </BasicCard>
       </div>
       <div class="body-line">
-        <BasicCard title="基地交付计划完成率" class="body-line-card left-card">
+        <BasicCard
+          title="基地交付计划完成率"
+          class="body-line-card left-card"
+        >
           <MixLineBar
-            :gridConfig="barGridConfig"
+            :grid-config="barGridConfig"
             :data="DeliveryDetailByFactory"
-            xAxisKey="dim_base_base_name"
-            :seriesConfig="factoryDeliverySeriesConfig"
-            :rightPercent="true"
-            :rightSpiltLine="false"
+            x-axis-key="dim_base_base_name"
+            :series-config="factoryDeliverySeriesConfig"
+            :right-percent="true"
+            :right-spilt-line="false"
           />
         </BasicCard>
-        <BasicCard title="交付缺口占比" class="body-line-card table-wrap right-card">
-          <VisualTable class="monitor-small-table" row-class-name="monitor-table-row" :tableData="DeliveryDetailByFactoryAndProduction" height="100%">
-            <el-table-column prop="dim_base_base_name" label="工厂" min-width="18%" align="center"> </el-table-column>
-            <el-table-column prop="dim_product_source_code_product_source_code" label="产品" align="center" min-width="18%"> </el-table-column>
-            <el-table-column prop="wait_delivery_qty" label="待交付" min-width="20%" align="center" show-overflow-tooltip>
+        <BasicCard
+          title="交付缺口占比"
+          class="body-line-card table-wrap right-card"
+        >
+          <VisualTable
+            class="monitor-small-table"
+            row-class-name="monitor-table-row"
+            :table-data="DeliveryDetailByFactoryAndProduction"
+            height="100%"
+          >
+            <el-table-column
+              prop="dim_base_base_name"
+              label="工厂"
+              min-width="18%"
+              align="center"
+            />
+            <el-table-column
+              prop="dim_product_source_code_product_source_code"
+              label="产品"
+              align="center"
+              min-width="18%"
+            />
+            <el-table-column
+              prop="wait_delivery_qty"
+              label="待交付"
+              min-width="20%"
+              align="center"
+              show-overflow-tooltip
+            >
               <template slot-scope="scope">
                 <span>{{ scope.row['wait_delivery_qty'] | parseNum }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="stock_qty" label="当前库存" align="center" min-width="20%" show-overflow-tooltip>
+            <el-table-column
+              prop="stock_qty"
+              label="当前库存"
+              align="center"
+              min-width="20%"
+              show-overflow-tooltip
+            >
               <template slot-scope="scope">
                 <span>{{ scope.row['stock_qty'] | parseNum }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="缺口" align="center" min-width="25%" prop="gap_delivery_qty" show-overflow-tooltip>
+            <el-table-column
+              label="缺口"
+              align="center"
+              min-width="25%"
+              prop="gap_delivery_qty"
+              show-overflow-tooltip
+            >
               <template slot-scope="scope">
                 <div class="flex spaceAround">
                   <span>{{ scope.row['gap_delivery_qty'] | parseNum }}</span>
                   <Dot
-                    width="2.4vh"
                     v-show="scope.row['gap_delivery_qty'] && scope.row['gap_delivery_qty'].toString().length > 0"
+                    width="2.4vh"
                     :color="
                       scope.row['stock_qty'] >= scope.row['wait_delivery_qty']
                         ? '#1AF476'
                         : scope.row['stock_qty'] / scope.row['wait_delivery_qty'] > 0.9
-                        ? '#F5A210'
-                        : '#F53010'
+                          ? '#F5A210'
+                          : '#F53010'
                     "
                   />
                 </div>
@@ -88,43 +154,94 @@
         </BasicCard>
       </div>
       <div class="body-line">
-        <BasicCard title="产品交付计划完成率" class="body-line-card left-card">
+        <BasicCard
+          title="产品交付计划完成率"
+          class="body-line-card left-card"
+        >
           <MixLineBar
-            :gridConfig="barGridConfig"
+            :grid-config="barGridConfig"
             :data="DeliveryDetailByProduction"
-            xAxisKey="dim_product_source_code_product_source_code"
-            :seriesConfig="productDeliverySeriesConfig"
-            :rightPercent="true"
-            :rightSpiltLine="false"
+            x-axis-key="dim_product_source_code_product_source_code"
+            :series-config="productDeliverySeriesConfig"
+            :right-percent="true"
+            :right-spilt-line="false"
           />
         </BasicCard>
-        <BasicCard class="body-line-card table-wrap right-card" title="交付完成率明细">
-          <VisualTable class="monitor-small-table" :tableData="DeliveryDetailByFactoryAndProduction" height="100%" row-class-name="monitor-table-row">
-            <el-table-column label="基地名称" prop="dim_base_base_name" min-width="10%" align="center"> </el-table-column>
-            <el-table-column prop="dim_product_type_product_type_name" label="产品类型" min-width="10%" align="center"> </el-table-column>
-            <el-table-column prop="dim_product_source_code_product_source_code" label="产品编码" align="center" show-overflow-tooltip min-width="10%">
-            </el-table-column>
-            <el-table-column prop="plan_delivery_qty" label="计划交付数量" min-width="10%" align="center">
+        <BasicCard
+          class="body-line-card table-wrap right-card"
+          title="交付完成率明细"
+        >
+          <VisualTable
+            class="monitor-small-table"
+            :table-data="DeliveryDetailByFactoryAndProduction"
+            height="100%"
+            row-class-name="monitor-table-row"
+          >
+            <el-table-column
+              label="基地名称"
+              prop="dim_base_base_name"
+              min-width="10%"
+              align="center"
+            />
+            <el-table-column
+              prop="dim_product_type_product_type_name"
+              label="产品类型"
+              min-width="10%"
+              align="center"
+            />
+            <el-table-column
+              prop="dim_product_source_code_product_source_code"
+              label="产品编码"
+              align="center"
+              show-overflow-tooltip
+              min-width="10%"
+            />
+            <el-table-column
+              prop="plan_delivery_qty"
+              label="计划交付数量"
+              min-width="10%"
+              align="center"
+            >
               <template slot-scope="scope">
                 <span>{{ scope.row['plan_delivery_qty'] | parseNum }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="plan_delivery_cap" label="计划交付(GWH)" min-width="15%" align="center">
+            <el-table-column
+              prop="plan_delivery_cap"
+              label="计划交付(GWH)"
+              min-width="15%"
+              align="center"
+            >
               <template slot-scope="scope">
                 <span>{{ scope.row['plan_delivery_cap'] | parseNum }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="act_delivery_qty" label="实际交付数量" min-width="10%" align="center">
+            <el-table-column
+              prop="act_delivery_qty"
+              label="实际交付数量"
+              min-width="10%"
+              align="center"
+            >
               <template slot-scope="scope">
                 <span>{{ scope.row['act_delivery_qty'] | parseNum }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="act_delivery_cap" label="实际交付(GWH)" min-width="15%" align="center">
+            <el-table-column
+              prop="act_delivery_cap"
+              label="实际交付(GWH)"
+              min-width="15%"
+              align="center"
+            >
               <template slot-scope="scope">
                 <span>{{ scope.row['act_delivery_cap'] | parseNum }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="delivery_rate" label="计划完成率" min-width="10%" align="center"> </el-table-column>
+            <el-table-column
+              prop="delivery_rate"
+              label="计划完成率"
+              min-width="10%"
+              align="center"
+            />
           </VisualTable>
         </BasicCard>
       </div>
@@ -325,6 +442,17 @@ export default {
       return res
     }
   },
+  created() {
+    this.handleSelectChange = debounce(this._handleSelectChange, 100)
+    this.initData()
+  },
+  mounted() {
+    this.getData()
+    // setTimeout(() => {
+    //   this.param.start_month = "202102";
+    //   this.handleSelectChange();
+    // }, 1000 * 3);
+  },
   methods: {
     getData() {
       if (!this.validParam()) {
@@ -435,17 +563,6 @@ export default {
           this.msgError(err.errMsg || err)
         })
     }
-  },
-  created() {
-    this.handleSelectChange = debounce(this._handleSelectChange, 100)
-    this.initData()
-  },
-  mounted() {
-    this.getData()
-    // setTimeout(() => {
-    //   this.param.start_month = "202102";
-    //   this.handleSelectChange();
-    // }, 1000 * 3);
   }
 }
 </script>

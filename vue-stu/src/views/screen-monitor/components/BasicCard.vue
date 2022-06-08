@@ -1,7 +1,10 @@
 <template>
   <div class="basic-card">
-    <slot></slot>
-    <div class="basic-card-title" v-if="title">
+    <slot />
+    <div
+      v-if="title"
+      class="basic-card-title"
+    >
       {{ title }}
     </div>
   </div>
