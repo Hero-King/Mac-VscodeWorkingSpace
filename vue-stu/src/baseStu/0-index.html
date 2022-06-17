@@ -24,6 +24,7 @@
   <body>
     <!-- mvvm 的 v层 -->
     <div id="app">
+      测试对象引用变化是否刷新页面 {{obj}} 结论:会的 <br/>
       {{ message }} -- {{$data}} <span v-pre>{{ 里面可以访问vue实例的及原型上的任何属性 }} </span>
 
       <hr />
@@ -110,7 +111,13 @@
           seen: false,
           loading: false,
           rawHtml: '<span style="color: red">This should be red.</span>',
-          attributeName: 'href'
+          attributeName: 'href',
+          obj: {
+
+          }
+        },
+        updated() {
+          console.log("vm updated")
         },
         // methods对象里面定义了实例上面所有可以调用的方法
         methods: {

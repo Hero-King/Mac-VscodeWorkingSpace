@@ -4,7 +4,7 @@ import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 import CheckboxStu from '../components/CheckboxStu'
 import Form from '../components/FormStu.vue'
-import UploadStu from '../components/uploadStu.vue'
+import UploadStu from '../components/UploadStu.vue'
 import SelectStu from '../components/SelectStu.vue'
 import ScssStu from '../components/ScssStu.vue'
 import DraggableStu from '../components/DraggableStu'
@@ -14,7 +14,9 @@ import DayjsStu from '../components/DayjsStu'
 import RenderStu from '../components/RenderStu'
 import Bar from '../components/echart/Bar'
 import LoadingStu from '../components/LoadingStu'
+import TableStu from '../components/TableStu'
 import NProgress from 'nprogress'
+
 // 路由懒加载
 const HelloWorld = () => import(/* webpackChunkName: "hello" */ '../components/HelloWorld.vue')
 
@@ -151,6 +153,10 @@ const router = new Router({
         {
           path: 'loadingstu',
           component: LoadingStu
+        },
+        {
+          path: 'tableStu',
+          component: TableStu
         },
         {
           path: 'VueStu',
