@@ -9,6 +9,7 @@
 export default {
   name: 'App',
   mounted() {
+    window.app = this
     console.log(this)
   }
 }

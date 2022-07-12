@@ -15,6 +15,7 @@ import RenderStu from '../components/RenderStu'
 import Bar from '../components/echart/Bar'
 import LoadingStu from '../components/LoadingStu'
 import TableStu from '../components/TableStu'
+import ExpandTableExample from '../components/expandtable/TableExample'
 import NProgress from 'nprogress'
 
 // 路由懒加载
@@ -157,6 +158,10 @@ const router = new Router({
         {
           path: 'tableStu',
           component: TableStu
+        },
+        {
+          path: 'ExpandTableExample',
+          component: ExpandTableExample
         },
         {
           path: 'VueStu',

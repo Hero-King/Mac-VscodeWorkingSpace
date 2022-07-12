@@ -1,5 +1,6 @@
 <script>
 import BaseH2 from './BaseH2.vue'
+import TestJsRender from './jsrender/TestJsRender.vue'
 export default {
   name: 'RenderStu',
   // render: function (createElement) {
@@ -33,7 +34,12 @@ export default {
 
   // JSX 语法书写render  依赖 npm install @vue/babel-preset-jsx @vue/babel-helper-vue-jsx-merge-props 插件
   render(h) {
-    return <BaseH2>JSX语法</BaseH2>
+    return (
+      <div>
+        <BaseH2>JSX语法</BaseH2>
+        <TestJsRender />
+      </div>
+    )
   }
 }
 </script>

@@ -1033,13 +1033,6 @@
     }
 
     var childOb = !shallow && observe(val);
-    console.log(key,dep.id)
-    if(!window.deps){
-      window.deps = []
-    }
-    window.deps.push({
-      key,dep
-    })
     Object.defineProperty(obj, key, {
       enumerable: true,
       configurable: true,

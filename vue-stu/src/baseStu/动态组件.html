@@ -22,6 +22,11 @@
         </div>
 
         <div>
+          <span>给component代表的组件传参数</span>
+          <component :is="currentView" :name="currentView"></component>
+        </div>
+
+        <div>
           <span>动画</span>
           <transition>
             <component :is="currentView"></component>

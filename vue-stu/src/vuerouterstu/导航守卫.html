@@ -22,6 +22,8 @@
       <p>
         <router-link to="/foo">Go to Foo)</router-link>
         <router-link to="/bar">Go to Bar</router-link>
+        <router-link to="/index">Go to Index</router-link>
+        <router-link to="/index/11">Go to IndexId</router-link>
       </p>
       <div>
         <h5>router组件内容区</h5>
@@ -38,6 +40,43 @@
         template: '<div>foo</div>'
       }
       const Bar = { template: '<div>bar</div>' }
+      const Index = {
+        template: '<div>Index <router-view></router-view></div>',
+        name: 'Index',
+        beforeRouteEnter(to, from, next) {
+          console.log('Index', ' beforeRouteEnter')
+          next()
+        },
+        beforeRouteUpdate(to, from, next) {
+          console.log('Index', ' beforeRouteUpdate')
+          next()
+        },
+        beforeRouteLeave(to, from, next) {
+          console.log(this.$options.name, ' beforeRouteLeave')
+          next()
+        }
+      }
+      const IndexId = {
+        name: 'IndexId',
+        template: '<div>Index {{id}}</div>',
+        computed: {
+          id() {
+            return this.$route.params.id
+          }
+        },
+        beforeRouteEnter(to, from, next) {
+          console.log('IndexId', ' beforeRouteEnter')
+          next()
+        },
+        beforeRouteUpdate(to, from, next) {
+          console.log('IndexId', ' beforeRouteUpdate')
+          next()
+        },
+        beforeRouteLeave(to, from, next) {
+          console.log(this.$options.name, ' beforeRouteLeave')
+          next()
+        }
+      }
 
       // 2. 定义路由
       // 每个路由应该映射一个组件。 其中"component" 可以是
@@ -46,7 +85,22 @@
       // 我们晚点再讨论嵌套路由。
       const routes = [
         { path: '/foo', component: Foo },
-        { path: '/bar', component: Bar }
+        { path: '/bar', component: Bar },
+        {
+          path: '/index',
+          component: Index,
+          beforeEnter: (to, from, next) => {
+            console.log('route.beforeEnter from', from)
+            console.log('route.beforeEnter to', to)
+            next()
+          },
+          children: [
+            {
+              path: ':id',
+              component: IndexId
+            }
+          ]
+        }
       ]
 
       // 3. 创建 router 实例，然后传 `routes` 配置
@@ -65,8 +119,8 @@
        * next: Function: 一定要调用该方法来 resolve 这个钩子。
        * */
       router.beforeEach((to, from, next) => {
-        console.log('to:', to)
-        console.log('from:', from)
+        console.log(' router.beforeEach from:', from)
+        console.log('router.beforeEach to:', to)
         next()
       })
 

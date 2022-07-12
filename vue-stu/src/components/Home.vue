@@ -30,6 +30,9 @@
           <el-menu-item index="/home/TableStu">
             TableStu
           </el-menu-item>
+          <el-menu-item index="/home/ExpandTableExample">
+            ExpandTableExample
+          </el-menu-item>
           <el-menu-item index="/home/ScssStu">
             ScssStu
           </el-menu-item>

@@ -10,8 +10,12 @@
 
   <body>
     <div id="app">
+      number {{num}} msg: {{msg}}
+      <br />
       <button @click="num++">点我++</button>
-      <child></child>
+      <child @click="num++" :rootnum="num" value="num" other="other" title="a title"></child>
+      <child-two @click="num++" :rootnum="num" value="num" other="other" title="two title"></child-two>
+      <child-three></child-three>
     </div>
 
     <script>
@@ -19,7 +23,8 @@
         el: '#app',
         data() {
           return {
-            num: 0
+            num: 0,
+            msg: ''
           }
         },
         provide() {
@@ -27,14 +32,33 @@
             // 不是响应式数据,想要响应式 ==> Vue3
             label: 'labellabel',
             name: 'rootname',
-            num: this.num
+            num: this.num,
+            root: this
+          }
+        },
+        methods: {
+          say() {
+            console.log('vm say method call')
           }
         },
         components: {
           child: {
-            template: '<div><Sun></Sun></div>',
+            // inheritAttrs: false, // default: true // 默认情况下父作用域的不被认作 props 的 attribute 绑定 (attribute bindings) 将会“回退”且作为普通的 HTML attribute 应用在子组件的根元素上。当撰写包裹一个目标元素或另一个组件的组件时，这可能不会总是符合预期行为。通过设置 inheritAttrs 到 false，这些默认行为将会被去掉。
+
+            // $listeners 可以把父 事件响应 一直传递到需要绑定的孩子/孙子组件中
+            template: '<div><Sun v-on="$listeners" v-bind="$attrs"></Sun></div>',
+            props: ['rootnum', 'value'],
+            created() {
+              console.log(this.$attrs, 'child组件$attrs')
+              console.log(this.$listeners, 'Child组件$listeners')
+            },
             components: {
               Sun: {
+                inheritAttrs: false,
+                created() {
+                  console.log(this.$attrs, 'Sun组件$attrs')
+                  console.log(this.$listeners, 'Sun组件$listeners')
+                },
                 inject: {
                   label: {
                     from: 'label',
@@ -43,7 +67,43 @@
                   name: { default: 'defaultName' },
                   num: { form: 'num' }
                 },
-                template: `<div>孙子组件{{name}}--{{label}}--{{num}}</div>`
+                template: `<div>孙子组件{{name}}--{{label}}--{{num}}<button @click="$listeners.click"> $listeners </button>
+                  <button v-on="$listeners"> button v-on="事件对象" </button> 
+                  </div>`
+              }
+            }
+          },
+          ChildTwo: {
+            template: '<div><ChildTwoSun></ChildTwoSun></div>',
+            created() {
+              console.log(this.$attrs, 'ChildTwo组件$attrs')
+              console.log(this.$listeners, 'ChildTwo组件$listeners')
+            },
+            components: {
+              ChildTwoSun: {
+                methods: {
+                  click(e) {
+                    console.log(e, this.root.num++)
+                  }
+                },
+                inject: ['label', 'name', 'num', 'root'],
+                template: `<div  @click="click">child2 孙子组件{{name}}--{{label}}--{{num}}</div>`
+              }
+            }
+          },
+          ChildThree: {
+            template: '<div>ChildThree <ChildThreeSun></ChildThreeSun></div>',
+            components: {
+              ChildThreeSun: {
+                methods: {
+                  click(e) {
+                    console.log('ChildThree', 'inject进来的vm实例: ', this.root)
+                    console.log('this instanceof Vue', this instanceof Vue);
+                    this.root.say()
+                  }
+                },
+                inject: ['root'],
+                template: `<span  @click="click">child3 孙子组件</span>`
               }
             }
           }
