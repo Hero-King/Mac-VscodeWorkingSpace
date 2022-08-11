@@ -485,6 +485,7 @@
 
   /**
    * Check if a string starts with $ or _
+   * 首字符是$, _的字符串
    */
   function isReserved (str) {
     var c = (str + '').charCodeAt(0);
@@ -3516,6 +3517,7 @@
     // args order: tag, data, children, normalizationType, alwaysNormalize
     // internal version is used by render functions compiled from templates
     vm._c = function (a, b, c, d) { return createElement(vm, a, b, c, d, false); };
+    // _c和$createElement 两者的唯一区别仅仅是最后一个参数的不同。通过模板生成的render方法可以保证子节点都是Vnode，而手写的render需要一些检验和转换。
     // normalization is always applied for the public version, used in
     // user-written render functions.
     vm.$createElement = function (a, b, c, d) { return createElement(vm, a, b, c, d, true); };
@@ -4079,6 +4081,9 @@
       };
     } else {
       updateComponent = function () {
+        /**
+         * vm._render()方法是如何将render函数转化为Virtual DOM的。
+         */
         vm._update(vm._render(), hydrating);
       };
     }
@@ -4973,6 +4978,7 @@
 
   function initMixin (Vue) {
     Vue.prototype._init = function (options) {
+      console.log("new Vue options", options, "---------");
       var vm = this;
       // a uid
       vm._uid = uid$3++;
@@ -4986,6 +4992,7 @@
       }
 
       // a flag to avoid this being observed
+      // 标记位, 防止被observe 变成响应式
       vm._isVue = true;
       // merge options
       if (options && options._isComponent) {
@@ -4994,14 +5001,23 @@
         // internal component options needs special treatment.
         initInternalComponent(vm, options);
       } else {
+        // 合并父options到$options中 有多种合并策略,可以Vue.config指定,否则执行默认合并策略,这里面会格式化Props Inject Directives data对象转成函数式
         vm.$options = mergeOptions(
-          resolveConstructorOptions(vm.constructor),
+          /**
+           * 拿到构造函数上面的静态属性 比如 Vue.options 
+              components: {KeepAlive: {…}, Transition: {…}, TransitionGroup: {…}}
+              directives: {model: {…}, show: {…}}
+              filters: {}
+              _base: ƒ Vue(options)
+           */
+          resolveConstructorOptions(vm.constructor), 
           options || {},
           vm
         );
       }
       /* istanbul ignore else */
       {
+        // 如果浏览器支持Proxy对象, 代理对象vm并绑定到vm._renderProxy上,将在执行_render时候(在执行with语句的过程)使用代理对象: 过滤掉模板访问的data中定义的_ 和 $开头的非法对象 和访问到未定义的属性时被proxy拦截，并定义为不合法的变量使用  如果浏览器不支持proxy 那么使用_开头的变量依旧会 报错，但是它变成了js语言层面的错误，(因为initData中不对非法数据进行代理),
         initProxy(vm);
       }
       // expose real self
@@ -5092,6 +5108,8 @@
     this._init(options);
   }
 
+  // TODO start
+  debugger
   initMixin(Vue);
   stateMixin(Vue);
   eventsMixin(Vue);
@@ -5459,6 +5477,7 @@
 
     // this is used to identify the "base" constructor to extend all plain-object
     // components with in Weex's multi-instance scenarios.
+    // 标记位 _base 指向Vue构造
     Vue.options._base = Vue;
 
     extend(Vue.options.components, builtInComponents);

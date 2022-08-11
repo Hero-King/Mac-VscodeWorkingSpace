@@ -92,7 +92,9 @@ export default {
     return {
       collapseTags: false,
       selectValue: '',
-      selectItem: {},
+      selectItem: {
+        value: '选项2'
+      },
       multipleValue: [],
       multiple: false,
       options: [
