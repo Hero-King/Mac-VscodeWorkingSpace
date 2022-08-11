@@ -57,7 +57,7 @@
         },
         props: {
           value: {
-            type: 'String',
+            type: String,
             default: 'defaultVale'
           }
         },
@@ -66,6 +66,14 @@
             return this.age * 2
           }
         },
+        /**
+         * render函数 
+         * function anonymous() {
+with(this){return _c('div',[_v("Hello Vue "+_s(age)+" -- double "+_s(doubleAge)+" "),_c('br'),_v(" "),_c('h3',[_v("子组件实例中可以使用$root直接访问到vm实例 (但是不推荐使用,全局状态管理可以使用vuex)")]),_v("\n                    vm实例中的data.a 为: "+_s($root.a)+"    \n                    "),_c('button',{on:{"click":function($event){$root.a ++}}},[_v("点我")]),_v(" "),_c('h3',[_v("子组件访问父组件实例对象")]),_v("\n                    $parent 不推荐使用, 不要拿实例对象!!\n                    "),_c('h3',[_v("父组件访问子组件实例对象: ref")])])}
+}
+         * 
+         *
+         */
         template: `
                 <div>Hello Vue {{age}} -- double {{doubleAge}} <br/>
                     <h3>子组件实例中可以使用$root直接访问到vm实例 (但是不推荐使用,全局状态管理可以使用vuex)</h3>
@@ -107,6 +115,14 @@
           }
         }
       }
+
+      Vue.component("common-component",{
+        name: 'CommonComponent',
+        render(h) {
+          return h('div', {title: 'i am div'}, "common component")
+        },
+      })
+
       const vm = new Vue({
         el: '#root',
         components: { Hello },

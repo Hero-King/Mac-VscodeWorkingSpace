@@ -33,6 +33,7 @@
 
   /**
    * Check if value is primitive.
+   * // 判断是否基础类型
    */
   function isPrimitive (value) {
     return (
@@ -1411,12 +1412,14 @@
   }
 
   function validateComponentName (name) {
+    // 正则判断检测是否为非法的标签
     if (!new RegExp(("^[a-zA-Z][\\-\\.0-9_" + (unicodeRegExp.source) + "]*$")).test(name)) {
       warn(
         'Invalid component name: "' + name + '". Component names ' +
         'should conform to valid custom element name in html5 specification.'
       );
     }
+    // 不能使用Vue自身自定义的组件名，如slot, component,不能使用html的保留标签，如 h1, svg等
     if (isBuiltInTag(name) || config.isReservedTag(name)) {
       warn(
         'Do not use built-in or reserved HTML elements as component ' +
@@ -2358,9 +2361,11 @@
   // normalization is needed - if any child is an Array, we flatten the whole
   // thing with Array.prototype.concat. It is guaranteed to be only 1-level deep
   // because functional components already normalize their own children.
+  // 处理编译生成的render 函数
   function simpleNormalizeChildren (children) {
     for (var i = 0; i < children.length; i++) {
       if (Array.isArray(children[i])) {
+         // 子节点为数组时，进行开平操作，压成一维数组。
         return Array.prototype.concat.apply([], children)
       }
     }
@@ -2371,7 +2376,9 @@
   // e.g. <template>, <slot>, v-for, or when the children is provided by user
   // with hand-written render functions / JSX. In such cases a full normalization
   // is needed to cater to all possible types of children values.
+  // 处理用户定义的render函数
   function normalizeChildren (children) {
+    // 递归调用，直到子节点是基础类型，则调用创建文本节点Vnode
     return isPrimitive(children)
       ? [createTextVNode(children)]
       : Array.isArray(children)
@@ -3364,18 +3371,20 @@
   // wrapper function for providing a more flexible interface
   // without getting yelled at by flow
   function createElement (
-    context,
-    tag,
-    data,
-    children,
+    context, // vm 实例
+    tag, // 标签
+    data, // 节点相关数据，属性
+    children, // 子节点
     normalizationType,
-    alwaysNormalize
+    alwaysNormalize // 区分内部编译生成的render还是手写render
   ) {
+     // 对传入参数做处理，如果没有data，则将第三个参数作为第四个参数使用，往上类推。
     if (Array.isArray(data) || isPrimitive(data)) {
       normalizationType = children;
       children = data;
       data = undefined;
     }
+     // 根据是alwaysNormalize 区分是内部编译使用的，还是用户手写render使用的
     if (isTrue(alwaysNormalize)) {
       normalizationType = ALWAYS_NORMALIZE;
     }
@@ -3389,22 +3398,25 @@
     children,
     normalizationType
   ) {
+    // 1. 数据对象不能是定义在Vue data属性中的响应式数据。
     if (isDef(data) && isDef((data).__ob__)) {
       warn(
         "Avoid using observed data object as vnode data: " + (JSON.stringify(data)) + "\n" +
         'Always create fresh vnode data objects in each render!',
         context
       );
-      return createEmptyVNode()
+      return createEmptyVNode() // 返回注释节点
     }
     // object syntax in v-bind
     if (isDef(data) && isDef(data.is)) {
       tag = data.is;
     }
     if (!tag) {
+       // 防止动态组件 :is 属性设置为false时，需要做特殊处理
       // in case of component :is set to falsy value
       return createEmptyVNode()
     }
+    // 2. key值只能为string，number这些原始数据类型
     // warn against non-primitive key
     if (isDef(data) && isDef(data.key) && !isPrimitive(data.key)
     ) {
@@ -3425,8 +3437,10 @@
       children.length = 0;
     }
     if (normalizationType === ALWAYS_NORMALIZE) {
+       // 用户定义render函数
       children = normalizeChildren(children);
     } else if (normalizationType === SIMPLE_NORMALIZE) {
+      // 模板编译生成的的render函数
       children = simpleNormalizeChildren(children);
     }
     var vnode, ns;
@@ -3958,11 +3972,14 @@
       vm._vnode = vnode;
       // Vue.prototype.__patch__ is injected in entry points
       // based on the rendering backend used.
+       // 通过是否有旧节点判断是初次渲染还是数据更新
       if (!prevVnode) {
         // initial render
+        // 初次渲染
         vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */);
       } else {
         // updates
+         // 数据更新
         vm.$el = vm.__patch__(prevVnode, vnode);
       }
       restoreActiveInstance();
@@ -4865,6 +4882,11 @@
     }
   }
 
+  /**
+   * 校验methods方法命名是否冲突, 将方法内部this指定为vm实例
+   * @param {Object} vm vue实例
+   * @param {Object} methods 
+   */
   function initMethods (vm, methods) {
     var props = vm.$options.props;
     for (var key in methods) {
@@ -5109,7 +5131,6 @@
   }
 
   // TODO start
-  debugger
   initMixin(Vue);
   stateMixin(Vue);
   eventsMixin(Vue);
@@ -5255,15 +5276,20 @@
         } else {
           /* istanbul ignore if */
           if (type === 'component') {
+            // 验证component组件名字是否合法
             validateComponentName(id);
           }
           if (type === 'component' && isPlainObject(definition)) {
+            // 组件名称设置 优先使用组件定义中的name属性
             definition.name = definition.name || id;
+            // // Vue.extend() 创建子组件，返回子类构造器
             definition = this.options._base.extend(definition);
           }
           if (type === 'directive' && typeof definition === 'function') {
             definition = { bind: definition, update: definition };
           }
+          // 为Vue.options 上的component属性添加将子类构造器
+          // 全局注册组件就是Vue实例化前创建一个基于Vue的子类构造器，并将组件的信息加载到实例options.components对象中。
           this.options[type + 's'][id] = definition;
           return definition
         }
@@ -11998,6 +12024,7 @@
           comments: options.comments
         }, this);
         var render = ref.render;
+        console.log("compileToFunctions", ref);
         var staticRenderFns = ref.staticRenderFns;
         options.render = render;
         options.staticRenderFns = staticRenderFns;
