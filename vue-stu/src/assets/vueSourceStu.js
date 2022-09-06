@@ -920,11 +920,13 @@
    * object. Once attached, the observer converts the target
    * object's property keys into getter/setters that
    * collect dependencies and dispatch updates.
+   * 使得value对象变成响应式对象, 重写getter setter 并进行依赖收集和派发更新
    */
   var Observer = function Observer (value) {
     this.value = value;
     this.dep = new Dep();
     this.vmCount = 0;
+    // 将__ob__属性设置成不可枚举属性。外部无法通过遍历获取。
     def(value, '__ob__', this);
     if (Array.isArray(value)) {
       if (hasProto) {
@@ -1020,8 +1022,17 @@
     customSetter,
     shallow
   ) {
+    // 每个数据实例化一个Dep类，创建一个依赖的管理
     var dep = new Dep();
 
+     // Test
+     if(!obj.__deps__){
+      obj.__deps__ = {}
+     }
+     Array.isArray(obj.__deps__[key]) ? obj.__deps__[key].push(dep) : obj.__deps__[key] = [dep]
+     // Test end
+
+    // 属性必须满足可配置
     var property = Object.getOwnPropertyDescriptor(obj, key);
     if (property && property.configurable === false) {
       return
@@ -1034,6 +1045,7 @@
       val = obj[key];
     }
 
+    // 这一部分的逻辑是针对深层次的对象，如果对象的属性是一个对象，则会递归调用实例化Observe类，让其属性值也转换为响应式对象
     var childOb = !shallow && observe(val);
     Object.defineProperty(obj, key, {
       enumerable: true,
@@ -1041,7 +1053,9 @@
       get: function reactiveGetter () {
         var value = getter ? getter.call(obj) : val;
         if (Dep.target) {
+          // 为当前watcher添加dep数据
           dep.depend();
+          // getter如果遇到属性值为对象时，会为该对象的每个值收集依赖
           if (childOb) {
             childOb.dep.depend();
             if (Array.isArray(value)) {
@@ -1314,6 +1328,10 @@
    * When a vm is present (instance creation), we need to do
    * a three-way merge between constructor options, instance
    * options and parent options.
+   * 
+   'component',
+   'directive',
+   'filter' options合并策略
    */
   function mergeAssets (
     parentVal,
@@ -1575,6 +1593,7 @@
    * Resolve an asset.
    * This function is used because child instances need access
    * to assets defined in its ancestor chain.
+   * 需要明确组件是否已经被注册
    */
   function resolveAsset (
     options,
@@ -1582,12 +1601,14 @@
     id,
     warnMissing
   ) {
+    // 标签为字符串
     /* istanbul ignore if */
     if (typeof id !== 'string') {
       return
     }
     var assets = options[type];
     // check local registration variations first
+    // // 这里的分支分别支持大小写，驼峰的命名规范
     if (hasOwn(assets, id)) { return assets[id] }
     var camelizedId = camelize(id);
     if (hasOwn(assets, camelizedId)) { return assets[camelizedId] }
@@ -1601,6 +1622,7 @@
         options
       );
     }
+    // 最终返回子类的构造器
     return res
   }
 
@@ -3200,19 +3222,21 @@
 
   var hooksToMerge = Object.keys(componentVNodeHooks);
 
+  // 创建子组件过程
   function createComponent (
-    Ctor,
+    Ctor, // 子类构造器
     data,
-    context,
-    children,
-    tag
+    context, // vm实例
+    children,  // 子节点
+    tag // 子组件占位符
   ) {
     if (isUndef(Ctor)) {
       return
     }
-
+    // Vue构造器
     var baseCtor = context.$options._base;
 
+    // 针对局部组件注册场景 如果是Object 转换成子类构造器
     // plain options object: turn it into a constructor
     if (isObject(Ctor)) {
       Ctor = baseCtor.extend(Ctor);
@@ -3230,7 +3254,9 @@
     // async component
     var asyncFactory;
     if (isUndef(Ctor.cid)) {
+      // 异步工厂函数
       asyncFactory = Ctor;
+      // 创建异步组件函数
       Ctor = resolveAsyncComponent(asyncFactory, baseCtor);
       if (Ctor === undefined) {
         // return a placeholder node for async component, which is rendered
@@ -3250,6 +3276,7 @@
 
     // resolve constructor options in case global mixins are applied after
     // component constructor creation
+    // 构造器配置合并
     resolveConstructorOptions(Ctor);
 
     // transform component v-model data into props & events
@@ -3285,6 +3312,7 @@
     }
 
     // install component management hooks onto the placeholder node
+    // 挂载组件钩子
     installComponentHooks(data);
 
     // return a placeholder vnode
@@ -3447,6 +3475,7 @@
     if (typeof tag === 'string') {
       var Ctor;
       ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag);
+      // 子节点的标签为普通的html标签，直接创建Vnode
       if (config.isReservedTag(tag)) {
         // platform built-in elements
         if (isDef(data) && isDef(data.nativeOn) && data.tag !== 'component') {
@@ -3459,6 +3488,7 @@
           config.parsePlatformTagName(tag), data, children,
           undefined, undefined, context
         );
+        // 子节点标签为注册过的组件标签名，则子组件Vnode的创建过程
       } else if ((!data || !data.pre) && isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
         // component
         vnode = createComponent(Ctor, data, context, children, tag);
@@ -4670,14 +4700,20 @@
   function initState (vm) {
     vm._watchers = [];
     var opts = vm.$options;
+    // 初始化props
     if (opts.props) { initProps(vm, opts.props); }
+    // 初始化methods
     if (opts.methods) { initMethods(vm, opts.methods); }
+      // 初始化data
     if (opts.data) {
       initData(vm);
     } else {
+      // 如果没有定义data，则创建一个空对象，并设置为响应式
       observe(vm._data = {}, true /* asRootData */);
     }
+    // 初始化computed
     if (opts.computed) { initComputed(vm, opts.computed); }
+     // 初始化watch
     if (opts.watch && opts.watch !== nativeWatch) {
       initWatch(vm, opts.watch);
     }
@@ -4752,6 +4788,7 @@
     while (i--) {
       var key = keys[i];
       {
+        // 命名不能和方法重复
         if (methods && hasOwn(methods, key)) {
           warn(
             ("Method \"" + key + "\" has already been defined as a data property."),
@@ -4759,6 +4796,7 @@
           );
         }
       }
+      // 命名不能和props重复
       if (props && hasOwn(props, key)) {
         warn(
           "The data property \"" + key + "\" is already declared as a prop. " +
@@ -4766,10 +4804,11 @@
           vm
         );
       } else if (!isReserved(key)) {
+        // 数据代理，用户可直接通过vm实例返回data数据
         proxy(vm, "_data", key);
       }
     }
-    // observe data
+    // observe data observe具体的行为是将数据对象添加一个不可枚举的属性__ob__，标志对象是一个响应式对象，并且拿到每个对象的属性值，重写getter,setter方法，使得每个属性值都是响应式数据。
     observe(data, true /* asRootData */);
   }
 
@@ -4797,6 +4836,7 @@
     for (var key in computed) {
       var userDef = computed[key];
       var getter = typeof userDef === 'function' ? userDef : userDef.get;
+      // computed属性为对象时，要保证有getter方法
       if (getter == null) {
         warn(
           ("Getter is missing for computed property \"" + key + "\"."),
@@ -4818,6 +4858,7 @@
       // component prototype. We only need to define computed properties defined
       // at instantiation here.
       if (!(key in vm)) {
+        // 设置为响应式数据
         defineComputed(vm, key, userDef);
       } else {
         if (key in vm.$data) {

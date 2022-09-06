@@ -45,6 +45,8 @@
           {{p.name}} -- {{p.age}}
         </li>
       </ul>
+
+      vm.add.number: {{add.number}}
     </div>
     <div id="app"></div>
     <script>
@@ -60,6 +62,9 @@
             type: String,
             default: 'defaultVale'
           }
+        },
+        created() {
+          console.log("Hello 组件 created")
         },
         computed: {
           doubleAge() {
@@ -116,6 +121,12 @@ with(this){return _c('div',[_v("Hello Vue "+_s(age)+" -- double "+_s(doubleAge)+
         }
       }
 
+      /**
+       * 局部注册和全局注册的区别?
+       * 
+       * 1.局部注册添加的对象配置是在某个组件下，而全局注册添加的子组件是在根实例下。 局部注册在createComponent时候生成子类构造器
+       * 2.局部注册添加的是一个子组件的配置对象，而全局注册添加的是一个子类构造器。
+      */
       Vue.component("common-component",{
         name: 'CommonComponent',
         render(h) {
@@ -135,7 +146,9 @@ with(this){return _c('div',[_v("Hello Vue "+_s(age)+" -- double "+_s(doubleAge)+
             { id: '001', name: 'wang', age: 20, isDelete: false },
             { id: '002', name: 'li', age: 30, isDelete: true }
           ],
-          add: {}
+          add: {
+            number: 1
+          }
         },
         beforeCreate() {
           // console.log(Vue.prototype.$bus);
@@ -143,6 +156,7 @@ with(this){return _c('div',[_v("Hello Vue "+_s(age)+" -- double "+_s(doubleAge)+
           Vue.prototype.$bus = this
         },
         mounted() {
+          console.log("Vm mounted");
           window.addEventListener('resize', this.handleResize)
           // 在这里注册hook, 组件销毁前会判断组件本身 hashookEvents, 有就会替我们emit -> vue.js源码: callHook callHook(vm, 'beforeDestroy'); 每一个实例都有事件发布订阅,保存在vm/vc._events属性中,因此也可以在父组件订阅子组件的生命周期事件回调函数
 
