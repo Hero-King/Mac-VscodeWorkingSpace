@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue router学习</title>
+    <script src="../assets/vue.js"></script>
+    <script src="../assets/vue-router.js"></script>
+    <style>
+      #app a {
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <h3>{{ message }}</h3>
+      <p>
+        <router-link to="/user/0">Go to User</router-link>
+        <router-link to="/userOld/12">Go to UserOld</router-link>
+        <router-link to="/search?q=aaaa">Go to SearchUser</router-link>
+      </p>
+      <div>
+        <h5>router组件内容区</h5>
+        <!-- 路由出口 -->
+        <!-- 路由匹配到的组件将渲染在这里 -->
+        <router-view></router-view>
+      </div>
+    </div>
+
+    <script>
+      const UserOld = {
+        template: '<div>UserOld {{ $route.params.id }}</div>'
+      }
+      //使用props解耦 props支持 boolean 对象类型 函数类型
+      const User = {
+        props: ['id'],
+        template: '<div>User {{ id }}</div>'
+      }
+
+      const SearchUser = {
+        props: ['query'],
+        template: '<div>{{query}}  </div>'
+      }
+
+      const routes = [
+        { path: '/user/:id', component: User, props: true }, // 如果 props 被设置为 true，route.params 将会被设置为组件属性。
+        { path: '/userOld/:id', component: UserOld },
+        {
+          path: '/search',
+          component: SearchUser,
+          props: (route) => ({ query: route.query.q })
+        }
+      ]
+
+      const router = new VueRouter({
+        routes
+      })
+
+      var app = new Vue({
+        el: '#app',
+        data: {
+          message: '学习vue router'
+        },
+        router
+      })
+    </script>
+  </body>
+</html>
