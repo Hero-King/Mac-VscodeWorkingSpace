@@ -12,7 +12,7 @@
       <li><a href="https://www.bilibili.com/video/BV1Zy4y1K7SH">学习视频</a></li>
       <li><a href="https://www.cnblogs.com/llx1996/p/9839161.html">Vue观察者模式</a></li>
       <li><a href="https://ustbhuangyi.github.io/vue-analysis/">Vue技术揭秘</a></li>
-      <li><a href="https://book.penblog.cn/">深入剖析Vue源码</a></li>
+      <li><a href="https://ocean1509.github.io/In-depth-analysis-of-Vue/">深入剖析Vue源码</a></li>
       <li><a href="https://book.penblog.cn/">mini-vue vue3源码</a></li>
       ebook: 《Vue.js设计与实现》
       <!-- 生命周期 -->
@@ -64,7 +64,7 @@
           }
         },
         created() {
-          console.log("Hello 组件 created")
+          console.log('Hello 组件 created')
         },
         computed: {
           doubleAge() {
@@ -123,15 +123,15 @@ with(this){return _c('div',[_v("Hello Vue "+_s(age)+" -- double "+_s(doubleAge)+
 
       /**
        * 局部注册和全局注册的区别?
-       * 
+       *
        * 1.局部注册添加的对象配置是在某个组件下，而全局注册添加的子组件是在根实例下。 局部注册在createComponent时候生成子类构造器
        * 2.局部注册添加的是一个子组件的配置对象，而全局注册添加的是一个子类构造器。
-      */
-      Vue.component("common-component",{
+       */
+      Vue.component('common-component', {
         name: 'CommonComponent',
         render(h) {
-          return h('div', {title: 'i am div'}, "common component")
-        },
+          return h('div', { title: 'i am div' }, 'common component')
+        }
       })
 
       const vm = new Vue({
@@ -156,7 +156,7 @@ with(this){return _c('div',[_v("Hello Vue "+_s(age)+" -- double "+_s(doubleAge)+
           Vue.prototype.$bus = this
         },
         mounted() {
-          console.log("Vm mounted");
+          console.log('Vm mounted')
           window.addEventListener('resize', this.handleResize)
           // 在这里注册hook, 组件销毁前会判断组件本身 hashookEvents, 有就会替我们emit -> vue.js源码: callHook callHook(vm, 'beforeDestroy'); 每一个实例都有事件发布订阅,保存在vm/vc._events属性中,因此也可以在父组件订阅子组件的生命周期事件回调函数
 

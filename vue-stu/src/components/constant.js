@@ -8,3 +8,5 @@ export const deepObj = [
   { name: 'wang', config: { face: true } },
   { name: 'jun', config: { face: false } }
 ]
+
+export const constArr = [{ id: 1, bool: true }]
