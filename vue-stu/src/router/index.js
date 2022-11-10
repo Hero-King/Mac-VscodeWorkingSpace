@@ -16,6 +16,8 @@ import Bar from '../components/echart/Bar'
 import LoadingStu from '../components/LoadingStu'
 import TableStu from '../components/TableStu'
 import ExpandTableExample from '../components/expandtable/TableExample'
+import KeepAliveTest from '../components/KeepAliveTest.vue'
+import KeepAliveTestItem from '../components/KeepAliveTestItem.vue'
 import NProgress from 'nprogress'
 
 // 路由懒加载
@@ -166,6 +168,18 @@ const router = new Router({
         {
           path: 'VueStu',
           component: (resolve) => require(['@/views/vuestu/'], resolve)
+        },
+        {
+          path: 'keepalive',
+          component: KeepAliveTest,
+          redirect: 'keepalive/1',
+          children: [
+            {
+              path: ':id',
+              component: KeepAliveTestItem,
+              props: true
+            }
+          ]
         }
       ]
     }

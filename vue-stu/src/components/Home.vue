@@ -1,95 +1,49 @@
 <template>
   <el-container style="height: 100%; border: 1px solid #eee">
     <el-aside width="200px">
-      <el-menu
-        :default-openeds="['1']"
-        router
-      >
+      <el-menu router>
         <el-submenu index="1">
-          <template slot="title">
-            <i class="el-icon-message" />Element UI 组件学习
-          </template>
-          <el-menu-item index="/home/form">
-            form
-          </el-menu-item>
-          <el-menu-item index="/home/hello">
-            hello
-          </el-menu-item>
-          <el-menu-item index="/home/datePicker">
-            datePicker
-          </el-menu-item>
-          <el-menu-item index="/home/checkbox">
-            checkbox
-          </el-menu-item>
-          <el-menu-item index="/home/upload">
-            upload
-          </el-menu-item>
-          <el-menu-item index="/home/select">
-            Select
-          </el-menu-item>
-          <el-menu-item index="/home/TableStu">
-            TableStu
-          </el-menu-item>
-          <el-menu-item index="/home/ExpandTableExample">
-            ExpandTableExample
-          </el-menu-item>
-          <el-menu-item index="/home/ScssStu">
-            ScssStu
-          </el-menu-item>
-          <el-menu-item index="/home/RenderStu">
-            RenderStu
-          </el-menu-item>
-          <el-menu-item index="/home/bar">
-            Bar
-          </el-menu-item>
+          <template slot="title"> Element UI 组件学习 </template>
+          <el-menu-item index="/home/form"> form </el-menu-item>
+          <el-menu-item index="/home/hello"> hello </el-menu-item>
+          <el-menu-item index="/home/datePicker"> datePicker </el-menu-item>
+          <el-menu-item index="/home/checkbox"> checkbox </el-menu-item>
+          <el-menu-item index="/home/upload"> upload </el-menu-item>
+          <el-menu-item index="/home/select"> Select </el-menu-item>
+          <el-menu-item index="/home/TableStu"> TableStu </el-menu-item>
+          <el-menu-item index="/home/ExpandTableExample"> ExpandTableExample </el-menu-item>
+          <el-menu-item index="/home/ScssStu"> ScssStu </el-menu-item>
+          <el-menu-item index="/home/RenderStu"> RenderStu </el-menu-item>
+          <el-menu-item index="/home/bar"> Bar </el-menu-item>
         </el-submenu>
         <el-submenu index="2">
-          <template slot="title">
-            <i class="el-icon-menu" />懒加载
-          </template>
-          <el-menu-item index="/lazy">
-            lazy
-          </el-menu-item>
-          <el-menu-item index="2-3">
-            选项3
-          </el-menu-item>
-          <el-menu-item index="2-4">
-            选项4
-          </el-menu-item>
+          <template slot="title"> <i class="el-icon-menu" />懒加载 </template>
+          <el-menu-item index="/lazy"> lazy </el-menu-item>
+          <el-menu-item index="2-3"> 选项3 </el-menu-item>
+          <el-menu-item index="2-4"> 选项4 </el-menu-item>
         </el-submenu>
         <el-submenu index="3">
-          <template slot="title">
-            <i class="el-icon-setting" />工具组件学习
-          </template>
-          <el-menu-item index="/home/draggable">
-            draggable
-          </el-menu-item>
-          <el-menu-item index="/home/loadingstu">
-            LoadingStu
-          </el-menu-item>
-          <el-menu-item index="/home/SheetJs">
-            SheetJsStu
-          </el-menu-item>
-          <el-menu-item index="/home/PerfectScrollBar">
-            PerfectScrollBar
-          </el-menu-item>
-          <el-menu-item index="/home/DayjsStu">
-            dayjs
-          </el-menu-item>
+          <template slot="title"> <i class="el-icon-setting" />工具组件学习 </template>
+          <el-menu-item index="/home/draggable"> draggable </el-menu-item>
+          <el-menu-item index="/home/loadingstu"> LoadingStu </el-menu-item>
+          <el-menu-item index="/home/SheetJs"> SheetJsStu </el-menu-item>
+          <el-menu-item index="/home/PerfectScrollBar"> PerfectScrollBar </el-menu-item>
+          <el-menu-item index="/home/DayjsStu"> dayjs </el-menu-item>
         </el-submenu>
         <el-submenu index="4">
-          <template slot="title">
-            <i class="el-icon-message" />Vue知识点
-          </template>
-          <el-menu-item index="/home/VueStu">
-            VueStu
-          </el-menu-item>
+          <template slot="title"> <i class="el-icon-message" />Vue知识点 </template>
+          <el-menu-item index="/home/VueStu"> VueStu </el-menu-item>
+          <el-menu-item index="/home/keepalive"> keepalive </el-menu-item>
         </el-submenu>
       </el-menu>
     </el-aside>
 
     <el-main>
-      <router-view />
+      <transition name="fade">
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
+      </transition>
     </el-main>
   </el-container>
 </template>
