@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 import CheckboxStu from '../components/CheckboxStu'
+import InputStu from '../components/InputStu.vue'
 import Form from '../components/FormStu.vue'
 import UploadStu from '../components/UploadStu.vue'
 import SelectStu from '../components/SelectStu.vue'
@@ -120,6 +121,10 @@ const router = new Router({
         {
           path: 'checkbox',
           component: CheckboxStu
+        },
+        {
+          path: 'input',
+          component: InputStu
         },
         {
           path: 'upload',

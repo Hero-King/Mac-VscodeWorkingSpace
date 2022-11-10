@@ -8,6 +8,7 @@
           <el-menu-item index="/home/hello"> hello </el-menu-item>
           <el-menu-item index="/home/datePicker"> datePicker </el-menu-item>
           <el-menu-item index="/home/checkbox"> checkbox </el-menu-item>
+          <el-menu-item index="/home/input"> input </el-menu-item>
           <el-menu-item index="/home/upload"> upload </el-menu-item>
           <el-menu-item index="/home/select"> Select </el-menu-item>
           <el-menu-item index="/home/TableStu"> TableStu </el-menu-item>
