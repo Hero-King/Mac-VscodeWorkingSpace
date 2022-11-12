@@ -9,11 +9,11 @@
     <!-- <router-view :key="$route.path"></router-view> -->
 
     <!-- 可以缓存KeepAliveTestItem的状态 -->
-    <transition name="fade">
+    <!-- <transition name="fade">
       <keep-alive :include="['KeepAliveTestItem']">
         <router-view :key="$route.path"></router-view>
       </keep-alive>
-    </transition>
+    </transition> -->
 
     <!-- 也可以缓存下来 无beforeRouteUpdate钩子-->
     <!-- <transition name="fade">
@@ -21,6 +21,9 @@
         <KeepAliveTestItem :key="$route.path"></KeepAliveTestItem>
       </keep-alive>
     </transition> -->
+
+    <!-- <KeepAliveTestItem :id="$route.path"></KeepAliveTestItem> -->
+    <router-view></router-view>
   </div>
 </template>
 <script>
@@ -32,6 +35,24 @@ export default {
   },
   data() {
     return {}
+  },
+  created() {
+    console.log(this.$options.name, 'created', this._uid)
+  },
+  updated() {
+    console.log(this.$options.name, 'updated', this._uid)
+  },
+  beforeRouteEnter(to, from, next) {
+    console.log('KeepAliveTest', 'beforeRouteEnter')
+    next()
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log(this.$options.name, 'beforeRouteLeave', this._uid)
+    next()
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log(this.name)
+    next()
   },
   methods: {
     click() {

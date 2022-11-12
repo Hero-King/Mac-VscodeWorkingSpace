@@ -10,7 +10,7 @@
 
   <body>
     <div id="app">
-      number {{num}} msg: {{msg}}
+      number {{num}} msg: {{msg}} baz.name: <input v-model="baz.name" />
       <br />
       <button @click="num++">点我++</button>
       <child @click="num++" :rootnum="num" value="num" other="other" title="a title"></child>
@@ -24,16 +24,20 @@
         data() {
           return {
             num: 0,
-            msg: ''
+            msg: '',
+            baz: {
+              name: 'hello'
+            }
           }
         },
         provide() {
           return {
-            // 不是响应式数据,想要响应式 ==> Vue3
+            // 不是响应式数据,想要响应式 ==> Vue3 或者传入了一个可监听的对象 baz的name是可响应的
             label: 'labellabel',
             name: 'rootname',
-            num: this.num,
-            root: this
+            num: this.num, //普通类型 直接取值传递
+            root: this,
+            baz: this.baz // 引用类型, 传递指针
           }
         },
         methods: {
@@ -86,8 +90,8 @@
                     console.log(e, this.root.num++)
                   }
                 },
-                inject: ['label', 'name', 'num', 'root'],
-                template: `<div  @click="click">child2 孙子组件{{name}}--{{label}}--{{num}}</div>`
+                inject: ['label', 'name', 'num', 'root', 'baz'],
+                template: `<div  @click="click">child2 孙子组件{{name}}--{{label}}--{{num}} <input :value="baz.name" /></div>`
               }
             }
           },
@@ -98,7 +102,7 @@
                 methods: {
                   click(e) {
                     console.log('ChildThree', 'inject进来的vm实例: ', this.root)
-                    console.log('this instanceof Vue', this instanceof Vue);
+                    console.log('this instanceof Vue', this instanceof Vue)
                     this.root.say()
                   }
                 },

@@ -42,7 +42,7 @@
     <el-main>
       <transition name="fade">
         <keep-alive>
-          <router-view></router-view>
+          <router-view :key="$route.path"></router-view>
         </keep-alive>
       </transition>
     </el-main>
