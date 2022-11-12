@@ -7,7 +7,10 @@
     <title>Vue3学习</title>
   </head>
   <body>
-    <div id="root">Counter: {{ counter }} count: {{count}} computedCount2 {{count2}}</div>
+    <div id="root">
+      Counter: {{ counter }} count: {{count}} computedCount2 {{count2}}
+      <h2>reactive {{state.count}}</h2>
+    </div>
     <script src="../assets/vue3.global.js"></script>
     <script>
       console.log('Vue3 Vue构造', Vue)
@@ -15,13 +18,15 @@
         // ref 为我们的值创建了一个响应式引用。 ref接受参数并返回它包装在一个带有value属性的对象中，然后可以使用该属性访问或改变反应变量的值
         const { ref } = Vue
 
-        const counter = ref(0)
+        let counter = ref(0)
 
         console.log(counter) // { value: 0 }
         console.log(counter.value) // 0
 
         counter.value++
         console.log(counter.value) // 1
+        counter++
+        console.log(counter.value) //undefined
       })()
     </script>
     <script>
@@ -40,6 +45,7 @@
 
         // setup位于created 和beforeCreated之前,用于代替created 和beforeCreated,但是在setup函数里不能访问到this,另外setup内可以通过以下hook操作整个生命周期
         // onBeforeMount,onMounted,onBeforeUpdate,onUpdated,onBeforeUnmount,onUnmounted,onErrorCaptured,onRenderTracked,onRenderTriggered
+        // `setup` 是一个专门用于组合式 API 的特殊钩子函数, 如果使用构建工具书写vue单文件组件,可以使用 <script setup> 来大幅度地简化代码。 https://cn.vuejs.org/guide/essentials/reactivity-fundamentals.html#script-setup
         setup(props, context) {
           // 如果需要解构 prop，可以在 setup 函数中使用 toRefs 函数来完成此操作：
           const { title } = toRefs(props)
@@ -51,13 +57,23 @@
             console.log('onMounted')
           })
 
-          // setup使用ref对数据进行响应式绑定
+          // reactive 函数创建一个响应式对象或数组 声明响应式状态, 是深层响应性 shallowReactive() 和 reactive() 不同，这里没有深层级的转换：一个浅层响应式对象里只有根级别的属性是响应式的。属性的值会被原样存储和暴露，这也意味着值为 ref 的属性不会被自动解包了。 浅层数据结构应该只用于组件中的根级状态。请避免将其嵌套在深层次的响应式对象中，因为它创建的树具有不一致的响应行为，这可能很难理解和调试。
+          const state = reactive({ count: 0 })
+
+          // setup使用ref对数据进行响应式绑定, ref方法来允许我们创建可以使用任何值类型的响应式 ref
           //创建定时器增加count值
           // let count = 1  // 视图不会变化
           let count = ref(1)
           setInterval(() => {
             count.value++
-            console.log(vm)
+            // state.count++
+
+            // n 是一个局部变量，同 state.count 数值类型传递
+            // 失去响应性连接
+            // console.log(typeof state.count) // number
+            let n = state.count
+            // 不影响原始的 state.count
+            n++
           }, 1000)
 
           watch(count, (newValue, oldValue) => {
@@ -67,10 +83,12 @@
 
           let count2 = computed(() => count.value * 2)
 
+          //  暴露 state 到模板 也可以暴露方法等 这里返回的任何内容都可以用于组件的其余部分
           return {
             count,
-            count2
-          } // 这里返回的任何内容都可以用于组件的其余部分
+            count2,
+            state
+          }
         }
       }
 
