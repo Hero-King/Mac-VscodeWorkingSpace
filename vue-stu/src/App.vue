@@ -10,7 +10,29 @@ export default {
   name: 'App',
   mounted() {
     window.app = this
-    console.log(this)
+  },
+  beforeCreate() {
+    console.log(this.$options.name, 'beforeCreate', this._uid)
+  },
+  created() {
+    console.log(this.$options.name, 'created', this._uid)
+  },
+  updated() {
+    console.log(this.$options.name, 'updated', this._uid)
+  },
+  beforeRouteEnter(to, from, next) {
+    console.log('App', 'beforeRouteEnter')
+    next(function (vm) {
+      console.log(vm._uid, 'App beforeRouteEnter 中next')
+    })
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log(this.$options.name, 'beforeRouteLeave', this._uid)
+    next()
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log(this.$options.name, 'beforeRouteUpdate', this._uid)
+    next()
   }
 }
 </script>

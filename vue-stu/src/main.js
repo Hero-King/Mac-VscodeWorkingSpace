@@ -6,13 +6,16 @@ import vuex from 'vuex'
 import router from './router'
 import store from './store'
 import moment from 'moment'
-
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import './assets/global.scss'
+
+// import 'element-ui/lib/theme-chalk/index.css'
+// import DrOcto from 'dr-octo/lib/index'
+// import 'dr-octo/lib/index/style.css'
+// Vue.use(DrOcto) // 正确 在initDesign后调用
 
 // 配置axios
 import axios from 'axios'
-import './assets/global.scss'
 
 // 挂载常用工具到原型上
 Vue.prototype.$http = axios

@@ -16,8 +16,6 @@ export default {
   beforeRouteEnter(to, from, next) {
     console.log('KeepAliveTestItem beforeRouteEnter')
     next(function (vm) {
-      // 对于keep-alive 缓存的组件, 如果使用key=$route.path去强制在渲染时候创建同组件名的多组件实例,在这里的vm只能拿到第一次组件实例;
-      // 也就是说第二次创建出来的组件实例在这里拿不到
       console.log(vm._uid, 'beforeRouteEnter 中next')
     })
   },
