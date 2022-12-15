@@ -21,9 +21,16 @@
         <!-- <input @input="hanldeChange"/> -->
         <!-- <input @input="hanldeChange(1212)"/> -->
         <input @input="hanldeChange(1212,$event)" />
+        <textarea @input="inputChangeMethod"></textarea>
       </p>
     </div>
     <script>
+      /**
+       * Vue中使用debounce 原则是找个地方保存debounce返回的方法 同时避免多次创建debounce消耗性能
+       * [1] 在组件created中保存debounce返回的方法
+       * [2] 组件methods中定义一个方法直接接收debounce返回
+       *
+       */
       var vm = new Vue({
         el: '#root',
         data() {
@@ -65,7 +72,10 @@
           },
           _hanldeChange() {
             console.log(arguments, 'argumnes')
-          }
+          },
+          inputChangeMethod: _.debounce(function (e) {
+            console.log(e.target.value)
+          }, 300)
         }
       })
     </script>

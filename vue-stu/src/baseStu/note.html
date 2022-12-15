@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue note</title>
+  </head>
+  <body>
+    <h3>记录Vue使用过程中一些注意事项</h3>
+
+    <h4>插槽</h4>
+    <ul>
+      <li>v-slot属性只能在template上使用，但在只有默认插槽时可以在组件标签上使用</li>
+      <li>具名插槽缩使用# 时候,default关键字不能省略</li>
+      <li>作用域插槽中: 子组件通过给slot组件传递props参数, 父组件通过#default="slotProps"接收props, 可以给slotProps对象解构</li>
+    </ul>
+
+    <h4>事件</h4>
+    <ul>
+      <li>Vue中原生事件是绑定在dom元素上的, 自定义事件在_events中</li>
+      <li>
+        Vue中自定义事件就是事件总线, 在父组件中给子组件@XXX="handle" == 子组件的_events中添加XXX事件的回调, 子组件$emit XXX 触发事件总线中的回调执行
+        (可参见组件通信.html)
+      </li>
+      <li>给组件根元素绑定原生事件,使用.native修饰符</li>
+    </ul>
+
+    <h4>引用问题</h4>
+    <ul>
+      <li>
+        对于.js被import引入后,是会被webpack打包成一个模块,定义成webpack变量, 当打包文件index.js被V8引擎执行时,模块代码被加载执行,
+        也就是说.js文件中定义的对象会被程序的执行修改掉!!!,因此代码编写时应避免操作.js中的变量
+      </li>
+    </ul>
+  </body>
+</html>

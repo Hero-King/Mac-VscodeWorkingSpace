@@ -50,7 +50,18 @@
 
       <br />
 
+      <!-- mouseenter事件不支持冒泡 -->
+      <div class="father" @mouseenter="mouseEnter('father')" @mouseleave="mouseLeave('father')" :title="fatherTitle">
+        <div class="child" @mouseenter="mouseEnter('child')" @mouseleave="mouseLeave('child')">mouseEnter</div>
+        <div>res:</div>
+        <div>mouseEnter father</div>
+        <div>mouseEnter child</div>
+        <div>mouseLeave child</div>
+        <div>mouseLeave father</div>
+      </div>
+
       <div>
+        <!-- element-ui中都用的keydown -->
         <input type="text" @keyup="log" />
         <input type="text" @keyup.enter="log" />
         <!-- Ctrl + Click -->
@@ -77,6 +88,12 @@
           },
           log(e) {
             console.log(e)
+          },
+          mouseEnter(type) {
+            console.log('mouseEnter', type)
+          },
+          mouseLeave(type) {
+            console.log('mouseLeave', type)
           }
         }
       })
