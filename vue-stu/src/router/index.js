@@ -19,6 +19,7 @@ import TableStu from '../components/TableStu'
 import ExpandTableExample from '../components/expandtable/TableExample'
 import KeepAliveTest from '../components/KeepAliveTest.vue'
 import KeepAliveTestItem from '../components/KeepAliveTestItem.vue'
+import EditTableDemo from '../views/demo/EditTableDemo/index.vue'
 import NProgress from 'nprogress'
 
 // 路由懒加载
@@ -185,6 +186,17 @@ const router = new Router({
               props: true
             }
           ]
+        }
+      ]
+    },
+    {
+      path: '/demo',
+      name: 'Demo',
+      component: Home,
+      children: [
+        {
+          path: 'editTableDemo',
+          component: EditTableDemo
         }
       ]
     }

@@ -36,6 +36,10 @@
           <el-menu-item index="/home/VueStu"> VueStu </el-menu-item>
           <el-menu-item index="/home/keepalive"> keepalive </el-menu-item>
         </el-submenu>
+        <el-submenu index="5">
+          <template slot="title"> 组件封装 </template>
+          <el-menu-item index="/demo/editTableDemo"> EditTable </el-menu-item>
+        </el-submenu>
       </el-menu>
     </el-aside>
 
