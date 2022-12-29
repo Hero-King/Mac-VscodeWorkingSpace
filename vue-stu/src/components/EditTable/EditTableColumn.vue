@@ -2,7 +2,7 @@
   <el-table-column :prop="prop" :label="label" :width="width">
     <template slot-scope="scope">
       <el-form-item v-if="scope.row.isEdit" :prop="prop" label="" v-bind="formItemConfig">
-        <component :is="fieldType" v-model="scope.row[prop]" v-bind="$attrs" v-on="$listeners">
+        <component :is="fieldType" v-bind="$attrs" v-on="$listeners">
           <slot v-bind="scope"></slot>
         </component>
       </el-form-item>

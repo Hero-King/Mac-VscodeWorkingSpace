@@ -27,12 +27,13 @@ export default {
   data() {
     return {
       deleteLoading: false,
-      saveLoading: false,
-      form: {},
-      editRows: {}
+      saveLoading: false
     }
   },
   props: {
+    form: {
+      type: Object
+    },
     data: {
       type: Array,
       required: true
@@ -58,9 +59,11 @@ export default {
     }
   },
   methods: {
+    resetForm() {
+      this.$emit('update:form', {})
+    },
     refreshTableList() {
-      this.editRows = {}
-      this.form = {}
+      this.resetForm()
       console.log('refreshTableList')
     },
     handleAdd() {
@@ -77,13 +80,9 @@ export default {
     },
     handleEdit(row, column, $index) {
       this.$set(row, 'isEdit', true)
-      this.$set(this.editRows, row[this.id], this._.cloneDeep(row))
-      this.form = row
+      this.$emit('update:form', this._.cloneDeep(row))
     },
     handleDelete(row, column, $index) {
-      // this.$set(row, 'isDeleted', true)
-      this.$delete(this.editRows, row[this.id])
-      this.form = {}
       if (this.deleteLoading) {
         return
       }
@@ -116,6 +115,7 @@ export default {
           })
           .finally(() => {
             this.deleteLoading = false
+            this.resetForm()
           })
       })
     },
@@ -128,10 +128,6 @@ export default {
         )
         return
       }
-      Object.keys(row).forEach((key) => {
-        row[key] = this.editRows[row[this.id]][key]
-      })
-      this.$delete(this.editRows, row[this.id])
       this.$set(row, 'isEdit', false)
     },
     handleSave(row, column, $index) {
@@ -140,6 +136,11 @@ export default {
           if (this.saveLoading) {
             return
           }
+          Object.keys(this.form).forEach((i) => {
+            row[i] = this.form[i]
+          })
+          this.resetForm()
+
           // this.saveLoading = true
           this.$set(row, 'isEdit', false)
           // 调用接口
