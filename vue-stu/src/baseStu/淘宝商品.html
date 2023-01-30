@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>模仿淘宝商品</title>
+    <script src="../assets/vue.js"></script>
+    <style>
+      .item {
+        display: inline-block;
+        padding: 10px;
+        font-size: 18px;
+        background-color: #ccc;
+        margin-right: 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+      }
+      .item.active {
+        border-color: red;
+      }
+      .price {
+        font-size: 20px;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <h2>请选择商品属性</h2>
+
+      <h4>颜色</h4>
+      <div v-for="item in json1[0]" :class=" ['item',{active : item === color}] " @click="color = item">{{item}}</div>
+      <h4>尺码</h4>
+      <div v-for="item in json1[1]" :class=" ['item',{active : item === size}] " @click="size = item">{{item}}</div>
+      <h4>材质</h4>
+      <div v-for="item in json1[2]" :class=" ['item',{active : item === material}] " @click="material = item">{{item}}</div>
+
+      <h3>价格1</h3>
+      <div class="price">{{price1}}</div>
+      <h3>价格2</h3>
+      <div class="price">{{price2}}</div>
+    </div>
+
+    <script>
+      const result = {
+        json1: [
+          ['红色', '黄色', '蓝色'],
+          ['S', 'M'],
+          ['棉的', '涤纶']
+        ],
+        json2: [
+          {
+            color: '红色',
+            type: 'S',
+            mianliao: '棉的',
+            price: 100
+          },
+          {
+            color: '红色',
+            type: 'M',
+            mianliao: '棉的',
+            price: 200
+          },
+          {
+            color: '红色',
+            type: 'S',
+            mianliao: '涤纶',
+            price: 300
+          },
+          {
+            color: '红色',
+            type: 'M',
+            mianliao: '涤纶',
+            price: 400
+          },
+          {
+            color: '黄色',
+            type: 'S',
+            mianliao: '棉的',
+            price: 500
+          },
+          {
+            color: '黄色',
+            type: 'M',
+            mianliao: '棉的',
+            price: 600
+          },
+          {
+            color: '黄色',
+            type: 'S',
+            mianliao: '涤纶',
+            price: 700
+          },
+          {
+            color: '黄色',
+            type: 'M',
+            mianliao: '涤纶',
+            price: 800
+          },
+          {
+            color: '蓝色',
+            type: 'S',
+            mianliao: '棉的',
+            price: 900
+          },
+          {
+            color: '蓝色',
+            type: 'M',
+            mianliao: '棉的',
+            price: 1000
+          },
+          {
+            color: '蓝色',
+            type: 'S',
+            mianliao: '涤纶',
+            price: 1100
+          },
+          {
+            color: '蓝色',
+            type: 'M',
+            mianliao: '涤纶',
+            price: 1200
+          }
+        ]
+      }
+
+      var vm = new Vue({
+        el: '#root',
+        data() {
+          this.json1 = result.json1
+          this.json2 = result.json2
+
+          return {
+            color: this.json1[0][0],
+            size: this.json1[1][0],
+            material: this.json1[2][0]
+          }
+        },
+        computed: {
+          // 方式一
+          price1() {
+            return this.json2.find((i) => i.color === this.color && i.type === this.size && i.mianliao === this.material)?.price || 0
+          },
+          //   方式二
+          obj() {
+            let obj = {}
+            this.json2.forEach((item) => {
+              obj[`${item.color}_${item.type}_${item.mianliao}`] = item
+            })
+            console.log('computed obj')
+            return obj
+          },
+          price2() {
+            const { color, size, material } = this
+            return this.obj[`${color}_${size}_${material}`]
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
