@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue-data-dict</title>
+
+    <script src="../assets/vue.js"></script>
+    <script src="../assets/vue-data-dict.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/Mock.js/1.0.0/mock.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.5/axios.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        dict1
+        <div v-for="item in dict.dict.dict1" :key="item.value">{{ item.label }}</div>
+      </div>
+      <hr />
+      <button @click="toLoadDict">点击加载字典3</button>
+      dict3
+      <div v-for="item in dict.dict.dict3" :key="item.value">{{ item.label }}</div>
+      <hr />
+      <button @click="toRegisterDict">点击加载字典4</button>
+      dict4
+      <div v-for="item in dict.dict.dict4" :key="item.value">{{ item.label }}</div>
+    </div>
+
+    <script>
+      // promise可以一直then
+      var promise = new Promise((res, rej) => {
+        setTimeout(() => {
+          res(1)
+        }, 2000)
+      })
+      promise
+        .then((res) => res * 4)
+        .then((t) => {
+          console.log('res * 4 :', t)
+          return t * t
+        })
+        .then((res) => {
+          console.log('res * res', res)
+        })
+    </script>
+
+    <script>
+      console.log(Vue, VueDataDict, Mock)
+
+      const getDictUrl = '/api/getDict'
+      //   Mockjs
+      Mock.mock(getDictUrl, 'post', {
+        'content|1-10': [
+          {
+            label: '@cname',
+            value: '@name',
+            id: '@id'
+          }
+        ]
+      })
+
+      Vue.use(VueDataDict, {
+        onCreated(dict) {
+          console.log('dict created: %o', dict)
+        },
+        onReady(dict) {
+          console.log('dict ready: %o', dict)
+        },
+        metas: {
+          // 详细配置项参考DictMeta构造 metas会合并到dicts:[option1, option2]中的每一个option 生成DictMeta对象
+          '*': {
+            // 字典请求，方法签名为function(dictMeta: DictMeta): Promise | Array
+            request(dictMeta) {
+              // get data from remote server
+              return axios
+                .post(getDictUrl, {
+                  data: {
+                    type: dictMeta.type
+                  }
+                })
+                .then((res) => res.data)
+            }
+            // 字典响应数据转换器，方法签名为function(response: Object, dictMeta: DictMeta): DictData
+            // responseConverter(response, dictMeta) {
+            //   console.log(response)
+            //   // you can use "VueDataDict.DictConverter({ ... }, dictMeta)" to convert Object to DictData
+            //   return [] // Array.<DictData>
+            // }
+          }
+        }
+      })
+
+      //   实例化
+      var vm = new Vue({
+        el: '#app',
+        name: 'Root',
+        dicts: [
+          'dict1', // only type name
+          {
+            // full dict meta
+            type: 'dict2',
+            lazy: true, // lazy load
+            request(dictMeta) {
+              // get dict2's data
+
+              return Promise
+            },
+            responseConverter(response, dictMeta) {
+              return [] // Array.<DictData>
+            }
+          },
+          {
+            type: 'dict3',
+            lazy: true // lazy load
+          }
+        ],
+        mounted() {
+            this.toLoadDict()
+        },
+        methods: {
+          onDictReady(dict) {
+            // dict ready event
+          },
+          toLoadDict() {
+            // 重新加载字典
+            this.dict.reload('dict3').then((dict) => {
+              // do something
+            })
+          },
+          toRegisterDict() {
+            // 创建字典元数据,并立即请求数据 {lazy}不能为true  
+            this.dict
+              .register({
+                type: 'dict4',
+                lazy: false,
+                labelField: 'id'
+              })
+              .then((dict) => {
+                // do something
+              })
+          },
+          toWaitDict() {
+            this.dict.wait('dict1').then((dict) => {
+              // do something
+            })
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

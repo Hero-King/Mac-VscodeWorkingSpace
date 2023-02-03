@@ -277,7 +277,6 @@ export default {
         line: '常州一期装配3产线',
         grouptype: 1,
         product: []
-        // TODO  mockdata
         // year: "",
         // month: "",
         // factory: "",

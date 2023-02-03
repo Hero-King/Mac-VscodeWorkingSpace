@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Crontab</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="../assets/vue.js"></script>
+    <script src="../assets/vcrontab.umd.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.12/index.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="box">
+        <el-input v-model="input" placeholder class="inp"></el-input>
+        <el-button type="primary" @click="showDialog">生成 cron</el-button>
+      </div>
+      <el-dialog title="生成 cron" :visible.sync="showCron">
+        <vcrontab @hide="showCron=false" @fill="crontabFill" :expression="expression"></vcrontab>
+      </el-dialog>
+    </div>
+
+    <script>
+      let vcrontab = window.vcrontab.default
+      Vue.use(vcrontab) // 注册为全局组件
+      var vm = new Vue({
+        el: '#app',
+        data() {
+          return {
+            input: '',
+            expression: '',
+            showCron: false
+          }
+        },
+        methods: {
+          crontabFill(value) {
+            //确定后回传的值
+            this.input = value
+          },
+          showDialog() {
+            this.expression = this.input //传入的 cron 表达式，可以反解析到 UI 上
+            this.showCron = true
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
