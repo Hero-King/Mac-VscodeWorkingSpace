@@ -1,19 +1,21 @@
-import test from "./test";
+import testToken from "./test";
 
 function render(template, data) {
-  console.log("render");
-  let res = parse(template);
-  console.log(res, "res");
-  return "";
+  let tokens = parse(template);
+  let domStr = renderTemplate(tokens, data);
+  return domStr;
 }
 
+// 将template字符串格式化成token
 // 普通字符串 ['text',''] 变量 ['name','']  循环 ['#','',[]]
-function genderArray(template, type) {}
-
 function parse(template) {
+  // 截取字符串的开始指针
   let start = 0;
+  // 最后一个"}}" 中第一个 "}" 的位置,用于判断是}}否是模板字符串的结尾
   let endFlag;
+  // {{#xxx}}后面的第一个字符的Index
   let arrInnerStart;
+  // {{/xxx}}钱面的第一个字符的Index
   let arrInnerEnd;
   let res = [];
 
@@ -57,22 +59,49 @@ function parse(template) {
   return res;
 }
 
+/**
+ * 可以在data中寻找连续.运算 ES obj[a.b.c]识别不了
+ * @param {object} obj
+ * @param {string} key
+ */
+function lookUp(obj, keyName) {
+  let splitKey = "";
+  for (let i = 0; i < keyName.length; i++) {
+    if (keyName[i] !== ".") {
+      splitKey += keyName[i];
+    } else {
+      obj = obj[splitKey];
+      splitKey = "";
+    }
+  }
+  return splitKey.length > 0 ? obj[splitKey] : obj;
+}
+
+/**
+ *
+ * @param {Array} tokens
+ * @param {object} data
+ */
+function renderTemplate(tokens, data) {
+  let resDomStr = "";
+  tokens.forEach((token, index) => {
+    if (token[0] === "text") {
+      resDomStr += token[1];
+    } else if (token[0] === "name") {
+      resDomStr += token[1] === "." ? data : lookUp(data,token[1]);
+    } else if (token[0] === "#") {
+      Array.isArray(lookUp(data,token[1])) &&
+        lookUp(data,token[1]).forEach((item) => {
+          resDomStr += renderTemplate(token[4], item);
+        });
+    }
+  });
+  return resDomStr;
+}
+
 window.myMustache = {
   render,
   parse,
 };
 
-test("我买了个{{thing}},好{{mood}}");
-test("<h1>我买了个{{thing}},好{{mood}}啊</h1>");
-test("<div><ul> {{#arr}} <li>{{.}}</li> {{/arr}} </ul> </div>");
-test(`<div>
-{{#nestArray}}
-    <p>{{name}}的爱好是
-      <ul>
-        {{#hobbies}}  
-          <li>{{.}}</li>
-        {{/hobbies}}
-      </ul>
-    </p>
-{{/nestArray}}
-</div>`);
+testToken();
