@@ -1,6 +1,7 @@
 ## Vue 源码解析系列课程
 
 > https://www.bilibili.com/video/BV1iX4y1K72v?p=1&vd_source=98a09dbe1ae09a78798aa64fe9580abc
+> 笔记和源码 下载链接：https://pan.baidu.com/s/1QLKyi8NsLf5touOePRfTYg ，提取码：c7zf
 
 ### 模板引擎
 

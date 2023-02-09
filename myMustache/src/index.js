@@ -1,3 +1,5 @@
+import test from "./test";
+
 function render(template, data) {
   console.log("render");
   let res = parse(template);
@@ -11,22 +13,21 @@ function genderArray(template, type) {}
 function parse(template) {
   let start = 0;
   let endFlag;
-  let arrStart;
-  let arrEnd;
-  let continueToIndex = 0;
+  let arrInnerStart;
+  let arrInnerEnd;
   let res = [];
 
   for (let i = 0; i < template.length; i++) {
-    if (i < continueToIndex) {
+    if (i < start) {
     } else {
       if (template[i] === "{" && template[i + 1] && template[i + 1] === "{") {
         let titleStr = template.substring(start, i);
-        res.push(["title", titleStr]);
+        res.push(["text", titleStr]);
         if (template[i + 2] && template[i + 2] === "#") {
-          arrStart = i + 2 + 1;
+          arrInnerStart = i + 2 + 1;
           start = i + 3;
         } else {
-          arrStart = null;
+          arrInnerStart = null;
           start = i + 2;
         }
       } else if (
@@ -35,15 +36,14 @@ function parse(template) {
         template[i + 1] === "}"
       ) {
         let nameStr = template.substring(start, i);
-        start = i + 2;
-        if (arrStart) {
+        if (arrInnerStart) {
           let arrEndStrIndex = template.lastIndexOf("/" + nameStr);
-          arrEnd = arrEndStrIndex - 2;
-          let centerStr = template.substring(start, arrEnd);
-          console.log(centerStr);
-          continueToIndex = arrEndStrIndex + nameStr.length + 1;
-          res.push(["#", nameStr, parse(centerStr)]);
+          arrInnerEnd = arrEndStrIndex - 2;
+          let centerStr = template.substring(i + 2, arrInnerEnd);
+          start = arrEndStrIndex + nameStr.length + 3;
+          res.push(["#", nameStr, null, null, parse(centerStr)]);
         } else {
+          start = i + 2;
           res.push(["name", nameStr]);
         }
         endFlag = start;
@@ -51,12 +51,28 @@ function parse(template) {
     }
   }
 
-  if (endFlag !== template.length - 1) {
-    res.push(["title", template.substring(endFlag, template.length)]);
+  if (endFlag < template.length - 1) {
+    res.push(["text", template.substring(endFlag, template.length)]);
   }
   return res;
 }
 
 window.myMustache = {
   render,
+  parse,
 };
+
+test("我买了个{{thing}},好{{mood}}");
+test("<h1>我买了个{{thing}},好{{mood}}啊</h1>");
+test("<div><ul> {{#arr}} <li>{{.}}</li> {{/arr}} </ul> </div>");
+test(`<div>
+{{#nestArray}}
+    <p>{{name}}的爱好是
+      <ul>
+        {{#hobbies}}  
+          <li>{{.}}</li>
+        {{/hobbies}}
+      </ul>
+    </p>
+{{/nestArray}}
+</div>`);

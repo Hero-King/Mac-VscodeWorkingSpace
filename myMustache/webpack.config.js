@@ -6,6 +6,7 @@ module.exports = {
     filename: "bundle.js",
   },
   devServer: {
+    open: true,
     contentBase: path.join(__dirname, "www"),
     compress: false,
     port: 8080,
