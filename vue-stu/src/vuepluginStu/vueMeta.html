@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue-meta</title>
+    <script src="../assets/vue.js"></script>
+    <script src="../assets/vue-router.js"></script>
+    <script src="https://unpkg.com/vue-meta/dist/vue-meta.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div>地址: <input type="text" v-model="url" @keyup.enter="go" /> <button @click="go">跳转</button></div>
+      <h3>
+        <router-view></router-view>
+      </h3>
+    </div>
+
+    <script>
+      const Home = {
+        name: 'Home',
+        template: '<div>Home</div>',
+        metaInfo: {
+          // title will be injected into parent titleTemplate
+          title: 'About Home'
+        }
+      }
+      const News = {
+        name: 'News',
+        template: '<div>News</div>',
+        metaInfo: {
+          title: 'My Awesome Webapp',
+          // override the parent template and just use the above title only
+          titleTemplate: null
+        }
+      }
+      const router = new VueRouter({
+        routes: [
+          {
+            path: '/home',
+            component: Home
+          },
+          {
+            path: '/news',
+            component: News
+          }
+        ]
+      })
+
+      /**
+       * Vue-meta stu
+       * 1. Defining metaInfo: You can define a [keyName] property in any of your components, by default this is metaInfo
+       *
+       *
+       *
+       * */
+      var vm = new Vue({
+        el: '#app',
+        name: 'App',
+        router,
+        metaInfo: {
+          // if no subcomponents specify a metaInfo.title, this title will be used
+          title: 'Default Title',
+          // all titles will be injected into this template
+          titleTemplate: '%s | My Awesome Webapp'
+        },
+        data() {
+          return {
+            url: ''
+          }
+        },
+        methods: {
+          go() {
+            this.$router.push(this.url)
+          }
+        },
+        components: {}
+      })
+    </script>
+  </body>
+</html>

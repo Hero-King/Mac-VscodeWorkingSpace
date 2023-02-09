@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/mustache.js/4.0.1/mustache.js"></script>
+  </head>
+  <body>
+    <script>
+      // mustache不能用正则表达式实现, 简单情况正则可以匹配, 复杂的循环情况不可以
+      // 简单情况 最简单的模板引擎机理, 利用正则的replace方法
+      const div = document.createElement('div')
+      const template = `
+       <p>我买了一个{{thing}}, 好{{mood}} </p>
+      `
+      const data = { thing: '手机', mood: '开心' }
+      div.innerHTML = Mustache.render(template, data)
+      document.body.appendChild(div)
+      
+      const replaceStr =  template.replace(/\{\{(\w+)\}\}/g,function (findStr,$1,c) {
+        console.log(findStr,$1,c);
+        // return '*'
+        return data[$1]
+      })
+      console.log(replaceStr);
+    </script>
+  </body>
+</html>

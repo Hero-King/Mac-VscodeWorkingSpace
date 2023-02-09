@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../assets/mustache.js"></script>
+  </head>
+  <body>
+    <img src="./mustache机理.jpg" alt="" srcset="" />
+    <img src="./mustache模板解析原理.jpg" alt="" />
+
+    <script>
+      /**
+       * tokens 是一个js的嵌套数组, 就是模板字符串的js表示
+       * 他是"抽象语法树(AST)" "虚拟节点" 的开山鼻祖
+       * 模板字符串: <h1>我买了个{{thing}},好{{mood}}啊</h1>
+       * tokens:  [
+       *  ['text','<h1>我买了个'],
+       *  ['name','thing'],
+       *  ['text',',好'],
+       *  ['name','mood'],
+       *  ['text','啊']
+       * ]
+       *
+       * 带嵌套循环模板: <div><ul> {{#arr}} <li>{{.}}</li> {{/arr}} </ul> </div>
+       * tokens: [
+       *    ['text','<div><ul>'],
+       *    ['#','arr',['text','<li>'],['name','.'],['text','</li>']],
+       *    ['text','</ul></div>']
+       * ]
+       * 可见tokens不区分换行等内容,只靠{{}} 区分
+       * 
+       * 插曲: Windows中powershell 下载文件: curl.exe -O fileurl
+       * mustache实现两个功能: 
+       *    1. 编译成tokens     源码中 parseTemplate函数return值
+       *    2. tokens结合data 转成dom字符串
+       * */
+    </script>
+  </body>
+</html>

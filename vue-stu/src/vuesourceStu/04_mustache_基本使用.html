@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mustache</title>
+    <script src="../assets/mustache.js"></script>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script>
+      console.log(Mustache)
+      // Mustache.render(template, data)
+
+      var arr = [
+        {
+          name: '小明',
+          age: 12,
+          sex: '男'
+        },
+        {
+          name: '小红',
+          age: 11,
+          sex: '女'
+        },
+        {
+          name: '小强',
+          age: 13,
+          sex: '男'
+        }
+      ]
+
+      var template = `
+      <ul id="list">
+        {{#arr}}
+        <li>
+            <div class='hd'> {{name}}的基本信息</div>
+            <p>姓名:{{name}} </p>
+            <p>年龄:{{age}}</p>
+            <p>性别:{{sex}}</p>
+        </li>
+        {{/arr}}
+      </ul>
+      `
+      const data = { arr }
+      const domStr = Mustache.render(template, data)
+      console.log(domStr)
+      document.getElementById('container').innerHTML = domStr
+    </script>
+
+    <script>
+      // 简单使用
+      let simpleDiv = document.createElement('div')
+      simpleDiv.innerHTML = Mustache.render('我买了个{{mobile}},好{{mood}}啊', { mobile: '华为', mood: '开心' })
+      document.body.appendChild(simpleDiv)
+
+      // 简单数组 . 代表遍历出来的item本身
+      let array = ['篮球', '足球', '羽毛球']
+      const templateDot = `
+        <div>
+            {{#array}}
+                <p>{{.}}</p>
+            {{/array}}
+        </div>
+      `
+      const simpleArrayDiv = document.createElement('div')
+      simpleArrayDiv.innerHTML = Mustache.render(templateDot, { array })
+      document.body.appendChild(simpleArrayDiv)
+
+      // 数组嵌套
+      let nestArray = [
+        {
+          name: '小明',
+          hobbies: ['游泳', '健身']
+        }
+      ]
+      const templateNest = `
+        <div>
+            {{#nestArray}}
+                <p>{{name}}的爱好是
+                  <ul>
+                    {{#hobbies}}  
+                      <li>{{.}}</li>
+                    {{/hobbies}}
+                  </ul>
+                </p>
+            {{/nestArray}}
+        </div>
+      `
+      const nestArrayDiv = document.createElement('div')
+      nestArrayDiv.innerHTML = Mustache.render(templateNest, { nestArray })
+      document.body.appendChild(nestArrayDiv)
+
+      // boolean
+      const boolDiv = document.createElement('div')
+      const boolTemplate = `
+        <div>
+          boolean测试
+          {{#bool}}
+            <p>bool为假时看不见我</p>
+          {{/bool}}
+        </div>
+      `
+      boolDiv.innerHTML = Mustache.render(boolTemplate, { bool: true })
+      document.body.appendChild(boolDiv)
+
+
+    </script>
+  </body>
+</html>
