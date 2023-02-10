@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://lib.baomitu.com/snabbdom/latest/snabbdom.js"></script>
+    <script>
+      var set = new Set(Object.keys(window))
+    </script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-8gDjDJzxvqg1FA1Y9AgdFo7r0B7jeYuwH+r8ryk7m9izeCCLJth22F5Rk17Gc7ze"
+      src="https://lib.baomitu.com/snabbdom/latest/snabbdom-style.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-8aqZdA5zmzx40JNH2n2f8erDmLgixmeGY8mYamFnkNafIlcUfrcgGVISgBO+3+OF"
+      src="https://lib.baomitu.com/snabbdom/latest/snabbdom-props.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-7IXyrLPuMtVMYZkX7xfMcGwR1HG0Qb5P9bWm5mCoF3XEKwH3yRPSyaNex9PdxlOd"
+      src="https://lib.baomitu.com/snabbdom/latest/snabbdom-class.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-kzNaK5pakSWoKrTaqDckuoljrV2j7cPLMVZkB1f7tYjN+eM4Gn2d8aeBPHXeHqSv"
+      src="https://lib.baomitu.com/snabbdom/latest/snabbdom-eventlisteners.js"
+    ></script>
+    <script>
+      Object.keys(window).forEach((i) => {
+        if (!set.has(i)) {
+          console.log(i)
+        }
+      })
+    </script>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script>
+      const { init, h } = snabbdom
+      const patch = init([
+        // 通过传入模块初始化 patch 函数
+        snabbdom_class.classModule, // 开启 classes 功能
+        snabbdom_props.propsModule, // 支持传入 props
+        snabbdom_style.styleModule, // 支持内联样式同时支持动画
+        snabbdom_eventlisteners.eventListenersModule // 添加事件监听
+      ])
+
+      const container = document.getElementById('container')
+
+      const vnode = h(
+        'div#container.two.classes',
+        {
+          on: {
+            click: function () {
+              console.log('click')
+            }
+          }
+        },
+        [
+          h('span', { style: { fontWeight: 'bold' } }, 'This is bold'),
+          ' and this is just normal text',
+          h('a', { props: { href: '/foo' } }, "I'll take you places!")
+        ]
+      )
+      // 传入一个空的元素节点 - 将产生副作用（修改该节点）
+      patch(container, vnode)
+
+      const newVnode = h(
+        'div#container.two.classes',
+        {
+          on: {
+            click: function () {
+              console.log('anotherEventHandler', 'click')
+            }
+          }
+        },
+        [
+          h('span', { style: { fontWeight: 'normal', fontStyle: 'italic' } }, 'This is now italic type'),
+          ' and this is still just normal text',
+          h('a', { props: { href: '/bar' } }, "I'll take you places!")
+        ]
+      )
+      // 再次调用 `patch`
+      patch(vnode, newVnode) // 将旧节点更新为新节点
+    </script>
+  </body>
+</html>

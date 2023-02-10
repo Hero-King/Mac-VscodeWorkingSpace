@@ -78,7 +78,7 @@ function lookUp(obj, keyName) {
 }
 
 /**
- *
+ * tokens + data 转成字符串
  * @param {Array} tokens
  * @param {object} data
  */

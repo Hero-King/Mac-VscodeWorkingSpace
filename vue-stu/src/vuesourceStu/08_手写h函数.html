@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class Vnode {
+        constructor(tag, data, children, text, elm) {
+          this.tag = tag
+          this.data = data
+          this.children = children
+          this.text = text
+          this.elm = elm
+          this.isVnode = true
+        }
+      }
+
+      function isPrimitive(s) {
+        return typeof s === 'string' || typeof s === 'number' || s instanceof String || s instanceof Number
+      }
+
+      function h(tag, data, children) {
+        if (isPrimitive(children)) {
+          return new Vnode(tag, data, undefined, children, undefined)
+        } else if (Array.isArray(children)) {
+          for (let index = 0; index < children.length; index++) {
+            const element = children[index]
+            if (isPrimitive(element)) {
+              children[index] = new Vnode(undefined, {}, undefined, element, undefined)
+            }
+          }
+          return new Vnode(tag, data, children, undefined, undefined)
+        }
+      }
+
+      console.log(h('div', { class: { test: true } }, ['哈哈哈哈', h('p', {}, '111')]))
+    </script>
+  </body>
+</html>
