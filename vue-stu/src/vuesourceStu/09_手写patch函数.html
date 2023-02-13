@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div><a href="https://juejin.cn/post/6844903607913938951">掘金文章 diff算法</a></div>
+    <button>点击</button>
+    <div id="root"></div>
+
+    <script>
+      var d = document
+      class Vnode {
+        constructor(tag, data, children, text, elm) {
+          this.tag = tag
+          this.data = data
+          this.children = children
+          this.text = text ?? null
+          this.elm = elm
+          this.key = data.key
+          this.isVnode = true
+        }
+      }
+
+      function isPrimitive(s) {
+        return typeof s === 'string' || typeof s === 'number' || s instanceof String || s instanceof Number
+      }
+
+      function h(tag, data, children) {
+        if (isPrimitive(children)) {
+          return new Vnode(tag, data, undefined, children, undefined)
+        } else if (Array.isArray(children)) {
+          for (let index = 0; index < children.length; index++) {
+            const element = children[index]
+            if (isPrimitive(element)) {
+              children[index] = new Vnode(undefined, {}, undefined, element, undefined)
+            }
+          }
+          return new Vnode(tag, data, children, undefined, undefined)
+        }
+      }
+
+      /**
+       * 根据Vnode对象创建表示的dom元素 放在vnode.elm属性上
+       * */
+      function createEle(vnode) {
+        let domNode
+        if (!vnode.tag) {
+          return (vnode.elm = document.createTextNode(vnode.text))
+        }
+        vnode.elm = domNode = document.createElement(vnode.tag)
+        if (vnode.text?.length > 0 && (vnode.children === undefined || vnode.children?.length === 0)) {
+          domNode.innerText = vnode.text
+        } else {
+          for (let index = 0; index < vnode.children.length; index++) {
+            const vnodeItem = vnode.children[index]
+            vnodeItem.elm = createEle(vnodeItem)
+            domNode.appendChild(vnodeItem.elm)
+          }
+        }
+        return vnode.elm
+      }
+
+      /**
+       * 精细化比较vdom
+       * */
+      function patchVnode(oldVnode, vnode) {
+        // 1. 如果新旧vdom对象是同一个, 返回
+        if (oldVnode === vnode) {
+          return
+        }
+        // 2. 如果新vdom对象有text属性 给到elm的innerText中
+        if (vnode.text !== null) {
+          if (oldVnode.text !== vnode.text) {
+            oldVnode.elm.innerText = vnode.text
+          }
+        } else {
+          //3.  如果新老vdom都有children
+          if (oldVnode.children?.length > 0) {
+            updateChildren(oldVnode.elm, oldVnode.children, vnode.children)
+          }
+          //4. 新的有children 老的没有children: 清空老节点dom innerText; 新vdom变成dom后全部添加到dom树中
+          else {
+            oldVnode.elm.innerHTML = ''
+            vnode.children.forEach((i) => {
+              oldVnode.elm.appendChild(createEle(i))
+            })
+          }
+        }
+      }
+
+      function sameVnode(a, b) {
+        return a.key === b.key && a.tag === b.tag
+      }
+
+      /**
+       * 子节点更新策略
+       * 对比方式是首位指针法,oldStart oldEnd newStart newEnd
+       * while(新前<=新后 && 旧前<= 旧后)时候执行命中(oldVnode.key === vnode.key && oldVnode.tag === vnode.tag)策略查找
+       * 首先尝试四种命中策略:
+       * 1. newStart和oldStart
+       * 2. newEnd和oldEnd
+       * 3. newEnd和oldStart 需要移动节点(给vnode设置成undefined,同时移动真实dom),移动新前指向的这个节点到老节点的旧后的后面
+       * 4. newStart和oldEnd 当新前与旧后命中时,此时要移动节点,移动新前指向的节点到旧前前面
+       * 如果都没命中 创建oldChildren 中key => index的map 在Map中查找节点 移动到oldStartNode之后 并将节点置null 在以后的遍历中遇到null 则跳过
+       * */
+      function updateChildren(parentElm, oldCh, newCh) {
+        let oldStartIdx = 0,
+          newStartIdx = 0
+        let oldEndIdx = oldCh.length - 1
+        let oldStartVnode = oldCh[0]
+        let oldEndVnode = oldCh[oldEndIdx]
+        let newEndIdx = newCh.length - 1
+        let newStartVnode = newCh[0]
+        let newEndVnode = newCh[newEndIdx]
+
+        let oldKeyToIdx
+        let idxInOld
+        let elmToMove
+        let before
+
+        while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+          // 首先对节点判断 如果是null 就说明四种命中方式没命中, 在最后的else中处理了, 这里跳过
+          if (oldStartVnode == null) {
+            oldStartVnode = oldCh[++oldStartIdx]
+          } else if (oldEndVnode == null) {
+            oldEndVnode = oldCh[--oldEndIdx]
+          } else if (newStartVnode == null) {
+            newStartVnode = newCh[++newStartIdx]
+          } else if (newEndVnode == null) {
+            newEndVnode = newCh[--newEndIdx]
+          } else if (sameVnode(newStartVnode, oldStartVnode)) {
+            patchVnode(oldStartVnode, newStartVnode)
+            oldStartVnode = oldCh[++oldStartIdx]
+            newStartVnode = newCh[++newStartIdx]
+          } else if (sameVnode(oldEndVnode, newEndVnode)) {
+            patchVnode(oldEndVnode, newEndVnode)
+            oldEndVnode = oldCh[--oldEndIdx]
+            newEndVnode = newCh[--newEndIdx]
+          } else if (sameVnode(oldStartVnode, newEndVnode)) {
+            patchVnode(oldStartVnode, newEndVnode)
+            parentElm.insertBefore(oldStartVnode.elm, oldEndVnode.elm.nextSibling)
+            oldStartVnode = oldCh[++oldStartIdx]
+            newEndVnode = newCh[--newEndIdx]
+          } else if (sameVnode(oldEndVnode, newStartVnode)) {
+            patchVnode(oldEndVnode, newStartVnode)
+            parentElm.insertBefore(oldEndVnode.elm, oldStartVnode.elm)
+            oldEndVnode = oldCh[--oldEndIdx]
+            newStartVnode = newCh[++newStartIdx]
+          } else {
+            // 都没有匹配到  创建key=> index 映射关系
+            if (oldKeyToIdx === undefined) {
+              oldKeyToIdx = {}
+              oldCh.forEach((i, index) => {
+                oldKeyToIdx[i.key] = index
+              })
+            }
+            idxInOld = oldKeyToIdx[newStartVnode.key]
+            if (!idxInOld) {
+              parentElm.insertBefore(createEle(newStartVnode), oldStartVnode.elm)
+              newStartVnode = newCh[++newStartIdx]
+            } else {
+              elmToMove = oldCh[idxInOld]
+              if (elmToMove.tag !== newStartVnode.tag) {
+                parentElm.insertBefore(createEle(newStartVnode), oldStartVnode.elm)
+              } else {
+                patchVnode(elmToMove, newStartVnode)
+                oldCh[idxInOld] = null
+                parentElm.insertBefore(elmToMove.elm, oldStartVnode.elm)
+              }
+              newStartVnode = newCh[++newStartIdx]
+            }
+          }
+        }
+
+        // 处理删除和新增节点
+        if (oldStartIdx > oldEndIdx) {
+          for (let i = newStartIdx; i <= newEndIdx; i++) {
+            const vnode = newCh[i]
+            parentElm.insertBefore(createEle(vnode), oldCh[oldStartIdx].elm)
+          }
+        } else if (newStartIdx > newEndIdx) {
+          for (let i = oldStartIdx; i <= oldEndIdx; i++) {
+            const oldVnode = oldCh[i]
+            parentElm.removeChild(oldVnode.elm)
+          }
+        }
+      }
+
+      function patch(oldVnode, vnode) {
+        // 1. 判断oldVnode是虚拟节点还是DOM元素, 转换成Vnode对象
+        if (!('tag' in oldVnode)) {
+          oldVnode = new Vnode(oldVnode.tagName.toLowerCase(), {}, [], undefined, oldVnode)
+        }
+        // 2. 判断是否是相同虚拟节点对象
+        if (sameVnode(oldVnode, vnode)) {
+          // diff 精细化比较
+          console.log('开始精细化比较')
+          patchVnode(oldVnode, vnode)
+        } else {
+          console.log('不是同一个节点,暴力删除旧的,插入新的')
+          const parentEle = oldVnode.elm.parentNode
+          createEle(vnode)
+          if (parentEle !== null) {
+            parentEle.insertBefore(vnode.elm, oldVnode.elm.nextSibling) // 将新元素添加进父元素
+            parentEle.removeChild(oldVnode.elm) // 移除以前的旧元素节点
+            oldVnode = null
+          }
+        }
+      }
+
+      const container = document.getElementById('root')
+      const btn = d.getElementsByTagName('button')[0]
+      const vNode = h('div', { class: { test: true } }, ['哈哈哈哈', h('p', {}, '111'), h('ul', {}, [h('li', {}, 'A'), h('li', {}, 'B')])])
+      const vNode1 = h('div', {}, '咯咯哒')
+      const vnodeChildren = h('ul', {}, [h('li', { key: 'B' }, 'B'), h('li', { key: 'C' }, 'C'),h('li',{key: 'E'},'E')])
+      patch(container, vnodeChildren)
+      btn.onclick = function () {
+        patch(
+          vnodeChildren,
+          h('ul', {}, [
+            h('li', { key: 'E' }, 'E'),
+            h('li', { key: 'A' }, 'A'),
+            h('li', { key: 'B' }, 'B'),
+            h('li', { key: 'D' }, 'D'),
+            h('li', { key: 'C' }, 'C')
+          ])
+        )
+      }
+    </script>
+  </body>
+</html>
