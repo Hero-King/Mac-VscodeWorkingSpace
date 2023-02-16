@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function def(obj, key, value, enumerable) {
+        Object.defineProperty(obj, key, {
+          value,
+          enumerable,
+          configurable: true,
+          writable: true
+        })
+      }
+
+      //   拦截数组方法
+      var arrayMethods = Object.create(Array.prototype)
+      const methodsNeedChange = ['push', 'pop', 'shift', 'unshift']
+      methodsNeedChange.forEach((method) => {
+        const original = Array.prototype[method]
+        def(
+          arrayMethods,
+          method,
+          function () {
+            // 类数组对象变成数组
+            var args = [],
+              len = arguments.length
+            while (len--) args[len] = arguments[len]
+
+            let result = original.apply(this, arguments)
+            // 如果是这三种方法, 需要把插入数组的数据变成响应式的
+            var ob = this.__ob__
+            var inserted
+            switch (method) {
+              case 'push':
+              case 'unshift':
+                inserted = args
+                break
+              case 'splice':
+                inserted = args.slice(2)
+                break
+            }
+            if (inserted) {
+              ob.observeArray(inserted)
+            }
+
+            return result
+          },
+          false
+        )
+      })
+    </script>
+    <script>
+      // 这里的value就是闭包,这个value变量被函数外部引用和改变
+      function defineReactive(obj, key, value) {
+        if (arguments.length === 2) {
+          value = obj[key]
+        }
+        // 子元素value是对象时, 要进行observe 至此形成了递归
+        let childOb = observe(value)
+        Object.defineProperty(obj, key, {
+          enumerable: true,
+          configurable: true,
+          get() {
+            console.log('get', key)
+            return value
+          },
+          set(newVal) {
+            console.log('set', key)
+            if (newVal == value) {
+              return
+            }
+            value = newVal
+            childOb = observe(newVal)
+          }
+        })
+      }
+
+      function observe(value) {
+        if (typeof value !== 'object') {
+          return
+        }
+
+        let ob
+        if (value.hasOwnProperty('__ob__')) {
+          ob = value['__ob__']
+        } else {
+          ob = new Observer(value)
+        }
+        console.log(ob)
+        return ob
+      }
+
+      class Observer {
+        constructor(value) {
+          this.value = value
+          def(value, '__ob__', this, false)
+          if (Array.isArray(value)) {
+            value['__proto__'] = arrayMethods
+            this.observeArray(value)
+          } else {
+            this.walk(value)
+          }
+        }
+
+        // 给对象第一层设置响应式
+        walk(obj) {
+          var keys = Object.keys(obj)
+          for (var i = 0; i < keys.length; i++) {
+            defineReactive(obj, keys[i])
+          }
+        }
+
+        observeArray(items) {
+          for (var i = 0, l = items.length; i < l; i++) {
+            observe(items[i])
+          }
+        }
+      }
+
+      var obj = { a: { b: { c: 10 } }, e: 20, arr: [1, 2, 3] }
+      observe(obj)
+      console.log(obj.a.b.c)
+      obj.arr.push(4)
+      console.log(obj.arr)
+    </script>
+  </body>
+</html>

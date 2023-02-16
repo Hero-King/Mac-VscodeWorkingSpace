@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+    
+    <script>
+      let arr = [1, 2, [3, [4, 5], 6], 7, [8, 9]]
+      function parse(child) {
+        let res = []
+        child.forEach((i) => {
+          let item
+          if (typeof i === 'number') {
+            item = { value: i }
+          } else {
+            item = {
+              children: parse(i)
+            }
+          }
+          res.push(item)
+        })
+        return res
+      }
+
+      console.log(parse(arr))
+
+      /**
+       * 
+       * 编写“智能重复”smartRepeat函数，实现：
+
+将 3[abc] 变为abcabcabc
+将 3[2[a]2[b]] 变为 aabbaabbaabb
+将 2[1[a]3[b]2[3[c]4[d]]] 变为abbbcccddddcccddddabbbcccddddcccdddd
+
+不用考虑输入字符串是非法的情况，比如：
+
+2[a3[b]]是错误的，应该补一个1，即2[1[a]3[b]]
+[abc]是错误的，应该补一个1，即1[abc]
+
+       * */
+      let test = '3[2[a]2[b]]'
+      function smartRepect(str) {
+        // 存放数字
+        let numStack = []
+        // 存放需要循环的字符
+        let strStack = []
+        let num = ''
+        for (let i = 0; i < str.length; i++) {
+          const char = str[i]
+          if (char === ']') {
+            // 将需要循环的字符放到strStack栈顶
+            if (num.length > 0) {
+              strStack[strStack.length - 1] = num
+            }
+            // 出栈 字符和数字
+            let strT = String(strStack.pop())
+            let numT = Number(numStack.pop())
+            if (numStack.length > 0) {
+              // 将循环后的结果放在字符栈顶
+              strStack[strStack.length - 1] += strT.repeat(numT)
+            } else {
+              res = strT.repeat(numT)
+            }
+            num = ''
+          } else if (char !== '[') {
+            num += char
+          } else {
+            // char为[时候,入栈
+            numStack.push(num)
+            strStack.push('')
+            num = ''
+          }
+        }
+        return res
+      }
+
+      console.log(smartRepect(test))
+    </script>
+    <script>
+      /**
+       * 抽象语法树AST 本质上是一个js对象,服务于模板编译
+       * vue模板语法 => 抽象语法树 => 生成h函数 => 创建vnode => diff patch后生成dom树
+       *
+       * vue底层对我们写的template代码 以字符串的视角一个一个字符解析为AST
+       * */
+
+       const temStr = `<div>
+        <h3>你好</h3>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+    </div>
+       `
+
+       function parseTem(templateStr) {
+
+       }
+
+       parseTem(temStr)
+    </script>
+  </body>
+</html>

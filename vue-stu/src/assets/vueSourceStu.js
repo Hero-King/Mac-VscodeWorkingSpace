@@ -730,6 +730,7 @@
 
   Dep.prototype.depend = function depend () {
     if (Dep.target) {
+      console.log(`dep实例${this.id}依赖收集到`,Dep.target);
       Dep.target.addDep(this);
     }
   };
@@ -924,7 +925,9 @@
    */
   var Observer = function Observer (value) {
     this.value = value;
+    // 给响应式对象创建依赖管理器,对象的每个key都有一个依赖管理器,但是有时候不引用到某个keu属性,只依赖到对象,也要收集
     this.dep = new Dep();
+    console.log('创建dep依赖管理器',this.dep.id,`缘由是observe(value)`,value);
     this.vmCount = 0;
     // 将__ob__属性设置成不可枚举属性。外部无法通过遍历获取。
     def(value, '__ob__', this);
@@ -1022,8 +1025,9 @@
     customSetter,
     shallow
   ) {
-    // 每个数据实例化一个Dep类，创建一个依赖的管理
+    // 为数据的每个key实例化一个Dep类，创建一个依赖管理
     var dep = new Dep();
+    console.log('创建dep依赖管理器',dep.id,`缘由是defineReactive(obj,key),obj:`,obj,`key是${key}`);
 
      // Test
      if(!obj.__deps__){
@@ -1053,7 +1057,7 @@
       get: function reactiveGetter () {
         var value = getter ? getter.call(obj) : val;
         if (Dep.target) {
-          // 为当前watcher添加dep数据
+          // 当前watcher读取了数据obj.xx, 触发了xx的getter xx的依赖收集器dep 将当前watch收集到dep中
           dep.depend();
           // getter如果遇到属性值为对象时，会为该对象的每个值收集依赖
           if (childOb) {

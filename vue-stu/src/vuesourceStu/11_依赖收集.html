@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       *  什么是依赖
+       * vue2中, 用到数据的组件 是 依赖
+       *
+       * 在getter中收集依赖(dep.depend()), 在setter中触发依赖(dep.notify)
+       *
+       * Dep类和watcher类(Watcher就是依赖)
+       * Dep : 将依赖收集的代码封装成一个Dep类 用于管理依赖,收集当前响应式对象的依赖关系,每个响应式对象包括子对象都拥有一个 Dep 实例（里面 subs 是 Watcher 实例数组）,当数据有变更时,会通过 dep.notify()通知各个 watcher。
+       * Watcher : 观察者对象 , 实例分为渲染 watcher (render watcher),计算属性 watcher (computed watcher),侦听器 watcher（user watcher）三种; 是一个中介,数据发生变化时通知watcher中转,通知组件更新
+       * Watcher 和 Dep 的关系 watcher 中实例化了 dep 并向 dep.subs 中添加了订阅者,dep 通过 notify 遍历了 dep.subs 通知每个 watcher 更新。
+       *
+       * new Dep() 存在于两个地方
+       * 1. observe函数中
+       * 2. defineReactive函数创建的闭包中
+       * 举例data为{ obj: {name: '11'}} 将会由observe(data)创建dep实例 data.__ob__.dep  observe(obj) 创建dep实例 obj.__ob__.dep  Object.defineProperty(data,obj)闭包中创建dep 等等
+       *
+       * Dep.target巧妙之处
+       * 为了方便决策某个watcher需要放到哪个dep中
+       * js执行时候,在某一个时刻只会是某一个watcher在执行(get) 此时Dep.target指向执行的这个watcher,执行过程中触发getter(有可能是多个getter,比如获取a.b.c时候), 此时dep把当前的watcher收集起来到subs中,
+       * */
+    </script>
+
+    <script>
+      var depId = 0
+      class Dep {
+        constructor() {
+          this.id = ++depId
+
+          //   存放watchers实例
+          this.subs = []
+        }
+
+        notify() {
+          var subs = this.subs.slice()
+          for (var i = 0, l = subs.length; i < l; i++) {
+            subs[i].update()
+          }
+        }
+
+        depend() {
+          if (Dep.target) {
+            this.addSub(Dep.target)
+          }
+        }
+
+        addSub(sub) {
+          this.subs.push(sub)
+        }
+      }
+
+      class Watcher {
+        constructor(props) {}
+      }
+    </script>
+    <script>
+      function def(obj, key, value, enumerable) {
+        Object.defineProperty(obj, key, {
+          value,
+          enumerable,
+          configurable: true,
+          writable: true
+        })
+      }
+
+      //   拦截数组方法
+      var arrayMethods = Object.create(Array.prototype)
+      const methodsNeedChange = ['push', 'pop', 'shift', 'unshift']
+      methodsNeedChange.forEach((method) => {
+        const original = Array.prototype[method]
+        def(
+          arrayMethods,
+          method,
+          function () {
+            // 类数组对象变成数组
+            var args = [],
+              len = arguments.length
+            while (len--) args[len] = arguments[len]
+
+            let result = original.apply(this, arguments)
+            // 如果是这三种方法, 需要把插入数组的数据变成响应式的
+            var ob = this.__ob__
+            var inserted
+            switch (method) {
+              case 'push':
+              case 'unshift':
+                inserted = args
+                break
+              case 'splice':
+                inserted = args.slice(2)
+                break
+            }
+            if (inserted) {
+              ob.observeArray(inserted)
+            }
+
+            // notify change
+            ob.dep.notify()
+
+            return result
+          },
+          false
+        )
+      })
+    </script>
+    <script>
+      // 这里的value就是闭包,这个value变量被函数外部引用和改变
+      function defineReactive(obj, key, value) {
+        if (arguments.length === 2) {
+          value = obj[key]
+        }
+        let dep = new Dep()
+
+        // 子元素value是对象时, 要进行observe 至此形成了递归
+        let childOb = observe(value)
+        Object.defineProperty(obj, key, {
+          enumerable: true,
+          configurable: true,
+          get() {
+            console.log('get', key)
+            return value
+          },
+          set(newVal) {
+            console.log('set', key)
+            if (newVal == value) {
+              return
+            }
+            value = newVal
+            childOb = observe(newVal)
+            dep.notify()
+          }
+        })
+      }
+
+      function observe(value) {
+        if (typeof value !== 'object') {
+          return
+        }
+
+        let ob
+        if (value.hasOwnProperty('__ob__')) {
+          ob = value['__ob__']
+        } else {
+          ob = new Observer(value)
+        }
+        console.log(ob)
+        return ob
+      }
+
+      class Observer {
+        constructor(value) {
+          this.value = value
+          this.dep = new Dep()
+          def(value, '__ob__', this, false)
+          if (Array.isArray(value)) {
+            value['__proto__'] = arrayMethods
+            this.observeArray(value)
+          } else {
+            this.walk(value)
+          }
+        }
+
+        // 给对象第一层设置响应式
+        walk(obj) {
+          var keys = Object.keys(obj)
+          for (var i = 0; i < keys.length; i++) {
+            defineReactive(obj, keys[i])
+          }
+        }
+
+        observeArray(items) {
+          for (var i = 0, l = items.length; i < l; i++) {
+            observe(items[i])
+          }
+        }
+      }
+
+      var obj = { a: { b: { c: 10 } }, e: 20, arr: [1, 2, 3] }
+      observe(obj)
+      obj.arr.push(4)
+      console.log(obj.arr)
+    </script>
+  </body>
+</html>
