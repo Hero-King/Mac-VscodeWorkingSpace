@@ -3226,7 +3226,7 @@
 
   var hooksToMerge = Object.keys(componentVNodeHooks);
 
-  // 创建子组件过程
+  // 创建子组件vnode过程
   function createComponent (
     Ctor, // 子类构造器
     data,
@@ -6032,6 +6032,7 @@
 
     var creatingElmInVPre = 0;
 
+    // vnode转成真是dom
     function createElm (
       vnode,
       insertedVnodeQueue,
@@ -6051,6 +6052,7 @@
       }
 
       vnode.isRootInsert = !nested; // for transition enter check
+      // vnode tag是组件时
       if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {
         return
       }
@@ -6103,7 +6105,9 @@
       var i = vnode.data;
       if (isDef(i)) {
         var isReactivated = isDef(vnode.componentInstance) && i.keepAlive;
+        // 是否有钩子函数可以作为判断是否为组件的唯一条件
         if (isDef(i = i.hook) && isDef(i = i.init)) {
+          // 执行init钩子函数
           i(vnode, false /* hydrating */);
         }
         // after calling the init hook, if the vnode is a child component

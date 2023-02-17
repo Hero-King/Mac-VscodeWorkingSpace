@@ -58,8 +58,37 @@
         }
       }
 
+      var watcherId = 0
+      // watcher是手动创建的,创建时去访问依赖,依赖收集当前实例
       class Watcher {
-        constructor(props) {}
+        constructor(vm, expression, callback) {
+          this.id = ++watcherId
+          this.vm = vm
+          this.expression = expression
+          this.callback = callback
+          this.value = this.get()
+        }
+
+        update() {
+          this.run()
+        }
+
+        get() {
+          // 触发依赖收集阶段
+          Dep.target = this
+          let val = this.vm[this.expression]
+          Dep.target = null
+          return val
+        }
+
+        run() {
+          let newVal = this.get()
+          let old = this.value
+          this.value = newVal
+          if (newVal !== old) {
+            this.callback(old, newVal)
+          }
+        }
       }
     </script>
     <script>
@@ -127,6 +156,10 @@
           configurable: true,
           get() {
             console.log('get', key)
+            dep.depend()
+            if (childOb) {
+              childOb.dep.notify()
+            }
             return value
           },
           set(newVal) {
@@ -152,7 +185,6 @@
         } else {
           ob = new Observer(value)
         }
-        console.log(ob)
         return ob
       }
 
@@ -186,8 +218,10 @@
 
       var obj = { a: { b: { c: 10 } }, e: 20, arr: [1, 2, 3] }
       observe(obj)
-      obj.arr.push(4)
-      console.log(obj.arr)
+      new Watcher(obj, 'e', function (old, newVal) {
+        console.log('change', arguments)
+      })
+      obj.e++
     </script>
   </body>
 </html>

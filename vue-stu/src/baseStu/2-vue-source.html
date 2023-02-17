@@ -13,6 +13,7 @@
       <!-- {{name}} -->
       <!-- {{newName}} -->
       {{testObj}}
+      {{count}}
       <button @click="handleClick">点我</button>
     </div>
     <script>
@@ -47,6 +48,7 @@ Watcher 和 Dep 的关系 watcher 中实例化了 dep 并向 dep.subs 中添加�
         data() {
           return {
             name: 'wang',
+            count: 0,
             obj: {
               age: 10
             }
@@ -54,6 +56,7 @@ Watcher 和 Dep 的关系 watcher 中实例化了 dep 并向 dep.subs 中添加�
         },
         methods: {
           handleClick() {
+            this.count++
             console.log('div#root click', vm)
           }
         },
@@ -61,14 +64,25 @@ Watcher 和 Dep 的关系 watcher 中实例化了 dep 并向 dep.subs 中添加�
           // newName() {
           //   return this.name + 'new'
           // }
-          testObj(){
+          testObj() {
             let tmp = this.obj
             return 'testObj'
           }
         }
       })
 
-      console.log(vm);
+      console.log(vm)
+
+      /**
+       * 实例挂载流程和模板编译
+       * 创建实例,执行_init方法,进行option的合并, 然后数据代理等一系列init操作 调用beforeCreated created钩子, 如果$options.el 执行$mount流程
+       * 判断$options.render 无则判断template, 无则获取el.getOuterHTML 至此有了render函数或者template
+       * 没有render函数 调用compileToFunctions生成, 内部主要是对模板编译compile(template) {
+       *  1. parse(template) 生成ast
+       *  2. generate(ast) 生成redner code
+       * } 对生成的render保存到cache对象中
+       * 创建 new Watcher(执行render函数, _update中调用__patch__上树)
+       * */
     </script>
   </body>
 </html>
