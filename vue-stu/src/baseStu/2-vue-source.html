@@ -11,9 +11,9 @@
   <body>
     <div id="root">
       <!-- {{name}} -->
-      <!-- {{newName}} -->
-      {{testObj}}
-      {{count}}
+      {{newName}}
+      <!-- {{testObj}} -->
+       <!-- {{count}} -->
       <button @click="handleClick">点我</button>
     </div>
     <script>
@@ -49,25 +49,26 @@ Watcher 和 Dep 的关系 watcher 中实例化了 dep 并向 dep.subs 中添加�
           return {
             name: 'wang',
             count: 0,
-            obj: {
-              age: 10
-            }
+            // obj: {
+            //   age: 10
+            // }
           }
         },
         methods: {
           handleClick() {
             this.count++
+            this.name += this.count
             console.log('div#root click', vm)
           }
         },
         computed: {
-          // newName() {
-          //   return this.name + 'new'
+          newName() {
+            return this.name + 'new'
+          },
+          // testObj() {
+          //   let tmp = this.obj
+          //   return 'testObj'
           // }
-          testObj() {
-            let tmp = this.obj
-            return 'testObj'
-          }
         }
       })
 
