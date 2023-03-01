@@ -163,9 +163,11 @@
    * Create a cached version of a pure function.
    */
   function cached (fn) {
+    // 创建空对象作为缓存对象
     var cache = Object.create(null);
     return (function cachedFn (str) {
       var hit = cache[str];
+      // 每次执行时缓存对象有值则不需要执行函数方法，没有则执行并缓存起来
       return hit || (cache[str] = fn(str))
     })
   }
@@ -174,7 +176,9 @@
    * Camelize a hyphen-delimited string.
    */
   var camelizeRE = /-(\w)/g;
+  // 缓存会保存每次进行驼峰转换的结果
   var camelize = cached(function (str) {
+    // 将诸如 'a-b'的写法统一处理成驼峰写法'aB'
     return str.replace(camelizeRE, function (_, c) { return c ? c.toUpperCase() : ''; })
   });
 
@@ -1263,8 +1267,10 @@
           ? parentVal.call(vm, vm)
           : parentVal;
         if (instanceData) {
+          // 当实例中传递data选项时，将实例的data对象和Vm构造函数上的data属性选项合并
           return mergeData(instanceData, defaultData)
         } else {
+          // 当实例中不传递data时，默认返回Vm构造函数上的data属性选项
           return defaultData
         }
       }
@@ -1276,6 +1282,7 @@
     childVal,
     vm
   ) {
+    // vm代表是否为Vue创建的实例，否则是子父类的关系
     if (!vm) {
       if (childVal && typeof childVal !== 'function') {
         warn(
@@ -1289,17 +1296,21 @@
       }
       return mergeDataOrFn(parentVal, childVal)
     }
-
+    // vue实例时需要传递vm作为函数的第三个参数
     return mergeDataOrFn(parentVal, childVal, vm)
   };
 
   /**
    * Hooks and props are merged as arrays.
+   * // 生命周期钩子选项合并策略
    */
   function mergeHook (
     parentVal,
     childVal
   ) {
+    // 1.如果子类和父类都拥有钩子选项，则将子类选项和父类选项合并, 
+    // 2.如果父类不存在钩子选项，子类存在时，则以数组形式返回子类钩子选项，
+    // 3.当子类不存在钩子选项时，则以父类选项返回。
     var res = childVal
       ? parentVal
         ? parentVal.concat(childVal)
@@ -1311,7 +1322,7 @@
       ? dedupeHooks(res)
       : res
   }
-
+  // 防止多个组件实例钩子选项相互影响
   function dedupeHooks (hooks) {
     var res = [];
     for (var i = 0; i < hooks.length; i++) {
@@ -1332,7 +1343,7 @@
    * When a vm is present (instance creation), we need to do
    * a three-way merge between constructor options, instance
    * options and parent options.
-   * 
+   * // 资源选项自定义合并策略
    'component',
    'directive',
    'filter' options合并策略
@@ -1343,9 +1354,12 @@
     vm,
     key
   ) {
+     // 创建一个空对象，其原型指向父类的资源选项。
     var res = Object.create(parentVal || null);
     if (childVal) {
+      // components,filters,directives选项必须为对象
       assertObjectType(key, childVal, vm);
+      // 子类选项赋值给空对象
       return extend(res, childVal)
     } else {
       return res
@@ -1368,20 +1382,26 @@
     vm,
     key
   ) {
+    //火狐浏览器在Object的原型上拥有watch方法，这里对这一现象做了兼容
+    // var nativeWatch = ({}).watch;
     // work around Firefox's Object.prototype.watch...
     if (parentVal === nativeWatch) { parentVal = undefined; }
     if (childVal === nativeWatch) { childVal = undefined; }
+    // 没有子，则默认用父选项
     /* istanbul ignore if */
     if (!childVal) { return Object.create(parentVal || null) }
     {
+      // 保证watch选项是一个对象
       assertObjectType(key, childVal, vm);
     }
+     // 没有父则直接用子选项
     if (!parentVal) { return childVal }
     var ret = {};
     extend(ret, parentVal);
     for (var key$1 in childVal) {
       var parent = ret[key$1];
       var child = childVal[key$1];
+      // 父的选项先转换成数组
       if (parent && !Array.isArray(parent)) {
         parent = [parent];
       }
@@ -1407,10 +1427,13 @@
     if (childVal && "development" !== 'production') {
       assertObjectType(key, childVal, vm);
     }
+    // 父类不存在该选项，则返回子类的选项
     if (!parentVal) { return childVal }
     var ret = Object.create(null);
     extend(ret, parentVal);
-    if (childVal) { extend(ret, childVal); }
+    if (childVal) {
+      // 子类选项会覆盖父类选项的值
+      extend(ret, childVal); }
     return ret
   };
   strats.provide = mergeDataOrFn;
@@ -1434,7 +1457,7 @@
   }
 
   function validateComponentName (name) {
-    // 正则判断检测是否为非法的标签
+    // 正则判断检测是否为非法的标签 例如数字开头
     if (!new RegExp(("^[a-zA-Z][\\-\\.0-9_" + (unicodeRegExp.source) + "]*$")).test(name)) {
       warn(
         'Invalid component name: "' + name + '". Component names ' +
@@ -1453,18 +1476,21 @@
   /**
    * Ensure all props option syntax are normalized into the
    * Object-based format.
+   * props规范校验
    */
   function normalizeProps (options, vm) {
     var props = options.props;
     if (!props) { return }
     var res = {};
     var i, val, name;
+     // props选项数据有两种形式，一种是['a', 'b', 'c'],一种是{ a: { type: 'String', default: 'hahah' }}
     if (Array.isArray(props)) {
       i = props.length;
       while (i--) {
         val = props[i];
         if (typeof val === 'string') {
           name = camelize(val);
+          // 默认将数组形式的props转换为对象形式。
           res[name] = { type: null };
         } else {
           warn('props must be strings when using array syntax.');
@@ -1497,9 +1523,11 @@
     var normalized = options.inject = {};
     if (Array.isArray(inject)) {
       for (var i = 0; i < inject.length; i++) {
+        // from: 属性是在可用的注入内容中搜索用的 key (字符串或 Symbol)
         normalized[inject[i]] = { from: inject[i] };
       }
     } else if (isPlainObject(inject)) {
+      // 对象的处理
       for (var key in inject) {
         var val = inject[key];
         normalized[key] = isPlainObject(val)
@@ -1565,6 +1593,7 @@
     // but only if it is a raw options object that isn't
     // the result of another mergeOptions call.
     // Only merged options has the _base property.
+    // 针对extends扩展的子类构造器
     if (!child._base) {
       if (child.extends) {
         parent = mergeOptions(parent, child.extends, vm);
@@ -1587,7 +1616,9 @@
       }
     }
     function mergeField (key) {
+      //  拿到各个选择指定的选项配置，如果没有则用默认的配置
       var strat = strats[key] || defaultStrat;
+      // 执行各自的合并策略
       options[key] = strat(parent[key], child[key], vm, key);
     }
     return options
@@ -1950,6 +1981,7 @@
     pending = false;
     var copies = callbacks.slice(0);
     callbacks.length = 0;
+    // 取出callbacks数组的每一个任务，执行任务
     for (var i = 0; i < copies.length; i++) {
       copies[i]();
     }
@@ -2022,6 +2054,7 @@
 
   function nextTick (cb, ctx) {
     var _resolve;
+    // callbacks是维护微任务的数组。
     callbacks.push(function () {
       if (cb) {
         try {
@@ -2035,8 +2068,10 @@
     });
     if (!pending) {
       pending = true;
+      // 将维护的队列推到微任务队列中维护
       timerFunc();
     }
+    // nextTick没有传递参数，且浏览器支持Promise,则返回一个promise对象
     // $flow-disable-line
     if (!cb && typeof Promise !== 'undefined') {
       return new Promise(function (resolve) {
@@ -3171,10 +3206,12 @@
         var mountedNode = vnode; // work around flow
         componentVNodeHooks.prepatch(mountedNode, mountedNode);
       } else {
+         // 实例化
         var child = vnode.componentInstance = createComponentInstanceForVnode(
           vnode,
           activeInstance
         );
+        // 挂载
         child.$mount(hydrating ? vnode.elm : undefined, hydrating);
       }
     },
@@ -3348,6 +3385,7 @@
       options.render = inlineTemplate.render;
       options.staticRenderFns = inlineTemplate.staticRenderFns;
     }
+    // 实例化Vue子组件实例
     return new vnode.componentOptions.Ctor(options)
   }
 
@@ -4131,6 +4169,7 @@
         measure(("vue " + name + " patch"), startTag, endTag);
       };
     } else {
+      // 定义updateComponent方法，在watch回调时调用。
       updateComponent = function () {
         /**
          * vm._render()方法是如何将render函数转化为Virtual DOM的。
@@ -4767,6 +4806,7 @@
       }
     };
 
+    // 遍历props，执行loop设置为响应式数据。
     for (var key in propsOptions) loop( key );
     toggleObserving(true);
   }
@@ -4849,6 +4889,7 @@
       }
 
       if (!isSSR) {
+        // 针对computed的每个属性，要创建一个监听的依赖，也就是实例化一个watcher,watcher的定义，可以暂时理解为数据使用的依赖本身，一个watcher实例代表多了一个需要被监听的数据依赖。
         // create internal watcher for the computed property.
         watchers[key] = new Watcher(
           vm,
@@ -4862,7 +4903,7 @@
       // component prototype. We only need to define computed properties defined
       // at instantiation here.
       if (!(key in vm)) {
-        // 设置为响应式数据
+        // 设置为响应式数据 
         defineComputed(vm, key, userDef);
       } else {
         if (key in vm.$data) {
@@ -4956,6 +4997,7 @@
           );
         }
       }
+       // 直接挂载到实例的属性上,可以通过vm[method]访问。
       vm[key] = typeof methods[key] !== 'function' ? noop : bind(methods[key], vm);
     }
   }
@@ -5048,6 +5090,7 @@
       console.log("new Vue options", options, "---------");
       var vm = this;
       // a uid
+      // 记录实例化多少个vue对象
       vm._uid = uid$3++;
 
       var startTag, endTag;
@@ -5167,7 +5210,9 @@
     return modified
   }
 
+  // Vue构造器
   function Vue (options) {
+    // 保证了无法直接通过Vue()去调用，只能通过new的方式去创建实例
     if (!(this instanceof Vue)
     ) {
       warn('Vue is a constructor and should be called with the `new` keyword');
@@ -5176,10 +5221,15 @@
   }
 
   // TODO start
+  // 定义Vue原型上的init方法(内部方法)
   initMixin(Vue);
+  // 定义原型上跟数据相关的属性方法
   stateMixin(Vue);
+   //定义原型上跟事件相关的属性方法
   eventsMixin(Vue);
+   // 定义原型上跟生命周期相关的方法
   lifecycleMixin(Vue);
+   // 定义渲染相关的函数
   renderMixin(Vue);
 
   /*  */
@@ -5506,7 +5556,7 @@
     KeepAlive: KeepAlive
   };
 
-  /*  */
+  /* 初始化构造器的api */
 
   function initGlobalAPI (Vue) {
     // config
@@ -5541,6 +5591,7 @@
       return obj
     };
 
+    // 构造函数的默认选项默认为components,directive,filter, _base
     Vue.options = Object.create(null);
     ASSET_TYPES.forEach(function (type) {
       Vue.options[type + 's'] = Object.create(null);
@@ -5555,6 +5606,8 @@
 
     initUse(Vue);
     initMixin$1(Vue);
+    // 定义extend扩展子类构造器的方法
+    // Vue.extend()
     initExtend(Vue);
     initAssetRegisters(Vue);
   }
@@ -5866,6 +5919,7 @@
     node.setAttribute(scopeId, '');
   }
 
+  // 将操作dom对象的方法合集做冻结操作
   var nodeOps = /*#__PURE__*/Object.freeze({
     createElement: createElement$1,
     createElementNS: createElementNS,
@@ -11977,10 +12031,14 @@
     template,
     options
   ) {
+    // 1. 进行模板解析，并将结果保存为 AST
     var ast = parse(template.trim(), options);
+    // 没有禁用静态优化的话 会对Ast语法树进行优化
     if (options.optimize !== false) {
+      // 2. 就遍历 AST，并找出静态节点并标记
       optimize(ast, options);
     }
+    // 3. 生成渲染函数
     var code = generate(ast, options);
     return {
       ast: ast,
@@ -12024,6 +12082,7 @@
   ) {
     el = el && query(el);
 
+    // 挂载元素不能为跟节点
     /* istanbul ignore if */
     if (el === document.body || el === document.documentElement) {
       warn(
@@ -12033,6 +12092,8 @@
     }
 
     var options = this.$options;
+     // 需要编译 or 不需要编译
+  // render选项不存在，代表是template模板的形式，此时需要进行模板的编译过程
     // resolve template/el and convert to render function
     if (!options.render) {
       var template = options.template;
@@ -12085,6 +12146,7 @@
         }
       }
     }
+    // 无论是template模板还是手写render函数最终调用缓存的$mount方法
     return mount.call(this, el, hydrating)
   };
 
