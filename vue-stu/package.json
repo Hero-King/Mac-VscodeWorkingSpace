@@ -19,6 +19,7 @@
     ]
   },
   "dependencies": {
+    "@smallwei/avue": "^2.10.9",
     "axios": "^0.25.0",
     "core-js": "^3.6.5",
     "dayjs": "^1.11.2",

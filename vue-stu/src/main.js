@@ -8,6 +8,7 @@ import store from './store'
 import moment from 'moment'
 import ElementUI from 'element-ui'
 import _ from 'lodash'
+import Avue from '@smallwei/avue'
 import './mockjs/index'
 import './assets/global.scss'
 
@@ -43,6 +44,8 @@ Vue.prototype._ = _
 
 Vue.use(ElementUI)
 Vue.use(vuex)
+
+Vue.use(Avue, { axios })
 
 Vue.config.productionTip = false
 
