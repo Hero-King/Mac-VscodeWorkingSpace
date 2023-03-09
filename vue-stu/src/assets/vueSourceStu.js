@@ -360,6 +360,7 @@
 
   var SSR_ATTR = 'data-server-rendered';
 
+  // 指令,组件,过滤器 注册
   var ASSET_TYPES = [
     'component',
     'directive',

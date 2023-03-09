@@ -34,7 +34,7 @@
 
       <hr />
       <el-button @click="openBox(0)">原生el样式弹窗</el-button>
-      <el-dialog title="提示" v-dialogDrag :visible.sync="type0" width="40%">
+      <el-dialog title="提示" v-dialog-drag :visible.sync="type0" width="40%">
         <span>这是一段信息</span>
         <span slot="footer">
           <el-button @click="type0=false">取 消</el-button>
