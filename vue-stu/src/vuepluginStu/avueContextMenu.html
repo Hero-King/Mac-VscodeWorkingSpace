@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>avue contextmenu</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@smallwei/avue/lib/index.css" />
+    <!-- <link rel="stylesheet" href="../assets/element-ui.css" /> -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" />
+    <!-- 引入相关JS 文件 -->
+    <script src="../assets/vue.js"></script>
+    <script src="../assets/element-ui.js"></script>
+    <script src="../assets/avue.js"></script>
+    <script src="../assets/axios.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <!-- v-contextmenu="{id: '右键菜单的id必须',value:给事件回调传的参数 , event: '右击后的回调函数, 参数是(value,打开弹框函数)'}"  -->
+        <li v-for="(item,index) in list" :key="index" class="el-dropdown-menu__item" v-contextmenu="{id:'dialog',event:handleEvent,value:item}">
+          {{item.name}}
+        </li>
+      </ul>
+
+      <ul class="el-dropdown-menu el-popper" id="dialog" style="display: none">
+        <li class="el-dropdown-menu__item" @click="handleClick1"><i class="el-icon-eleme"></i>菜单1</li>
+        <li class="el-dropdown-menu__item" @click="handleClick2"><i class="el-icon-user"></i>菜单2</li>
+        <li class="el-dropdown-menu__item" @click="handleClick3"><i class="el-icon-goods"></i>菜单3</li>
+        <li class="el-dropdown-menu__item el-dropdown-menu__item--divided" @click="handleClick4"><i class="el-icon-circle-check"></i>菜单4</li>
+        <li class="el-dropdown-menu__item" @click="handleClick4">菜单5</li>
+      </ul>
+
+      <hr />
+      <el-button @click="openBox(0)">原生el样式弹窗</el-button>
+      <el-dialog title="提示" v-dialogDrag :visible.sync="type0" width="40%">
+        <span>这是一段信息</span>
+        <span slot="footer">
+          <el-button @click="type0=false">取 消</el-button>
+          <el-button @click="type0=false" type="primary">确 定</el-button>
+        </span>
+      </el-dialog>
+    </div>
+
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data() {
+          return {
+            type0: false,
+            form: {},
+            list: [
+              {
+                name: '张三'
+              },
+              {
+                name: '李四'
+              },
+              {
+                name: '王五'
+              }
+            ]
+          }
+        },
+        methods: {
+          handleEvent(row, done) {
+            this.form = row
+            done()
+            this.$message.success('回调信息' + JSON.stringify(row))
+          },
+          handleClick1() {
+            this.$message.success('菜单1' + JSON.stringify(this.form))
+          },
+          handleClick2() {
+            this.$message.success('菜单2' + JSON.stringify(this.form))
+          },
+          handleClick3() {
+            this.$message.success('菜单3' + JSON.stringify(this.form))
+          },
+          handleClick4() {
+            this.$message.success('菜单4' + JSON.stringify(this.form))
+          },
+          openBox(index) {
+            this['type' + index] = true
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

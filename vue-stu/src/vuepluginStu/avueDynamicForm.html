@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>avue 子表单</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@smallwei/avue/lib/index.css" />
+    <!-- <link rel="stylesheet" href="../assets/element-ui.css" /> -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" />
+    <!-- 引入相关JS 文件 -->
+    <script src="../assets/vue.js"></script>
+    <script src="../assets/element-ui.js"></script>
+    <script src="../assets/avue.js"></script>
+    <script src="../assets/axios.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <avue-form :option="option" v-model="form"></avue-form>
+    </div>
+
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data() {
+          return {
+            form: {
+              dynamic: [
+                {
+                  input: 1,
+                  select: 1
+                },
+                {
+                  input: 2,
+                  select: 2
+                }
+              ]
+            },
+            option: {
+              column: [
+                {
+                  label: '子表单',
+                  prop: 'dynamic',
+                  type: 'dynamic',
+                  span: 24,
+                  children: {
+                    align: 'center',
+                    headerAlign: 'center',
+                    rowAdd: (done) => {
+                      this.$message.success('新增回调')
+                      done({
+                        input: '默认值'
+                      })
+                    },
+                    rowDel: (row, done) => {
+                      this.$message.success('删除回调' + JSON.stringify(row))
+                      done()
+                    },
+                    column: [
+                      {
+                        width: 200,
+                        label: '输入框',
+                        prop: 'input'
+                      },
+                      {
+                        label: '选择框',
+                        prop: 'select',
+                        type: 'select',
+                        dicData: [
+                          {
+                            label: '测试1',
+                            value: 1
+                          },
+                          {
+                            label: '测试2',
+                            value: 2
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

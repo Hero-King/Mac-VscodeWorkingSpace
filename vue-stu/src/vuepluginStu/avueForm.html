@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avue</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@smallwei/avue/lib/index.css" />
+    <!-- <link rel="stylesheet" href="../assets/element-ui.css" /> -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" />
+    <!-- 引入相关JS 文件 -->
+    <script src="../assets/vue.js"></script>
+    <script src="../assets/element-ui.js"></script>
+    <script src="../assets/avue.js"></script>
+    <script src="../assets/axios.js"></script>
+  </head>
+  <body>
+    <p>使用 JSON 配置来生成页面，可以减少页面开发工作量</p>
+    主要优点
+    <ul>
+      <li>不需要懂前端</li>
+      <li>不受前端技术更新的影响</li>
+    </ul>
+    缺点
+    <ul>
+      <li>大量定制 UI</li>
+      <li>极为复杂或特殊的交互</li>
+    </ul>
+
+    <div id="app">
+      <div>form</div>
+      <avue-form :option="option" v-model="form"></avue-form>
+    </div>
+
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data() {
+          return {
+            form: {
+              title: '我是头部标题',
+              title1: '我是尾部标题'
+            },
+            option: {
+              size: 'medium',
+              labelWidth: '100',
+              labelPosition: 'right',
+              labelSuffix: '::',
+              column: [
+                {
+                  label: '输入框',
+                  prop: 'input',
+                  type: 'input',
+                  value: '默认值'
+                },
+
+                {
+                  label: '密码框',
+                  prop: 'input2',
+                  type: 'password',
+                  showPassword: true
+                },
+                {
+                  label: '输入框',
+                  span: 24,
+                  prop: 'input1'
+                },
+                {
+                  label: '文本域',
+                  prop: 'input3',
+                  type: 'textarea',
+                  minRows: 3,
+                  maxRows: 5
+                },
+                {
+                  label: '输入框',
+                  prop: 'input4',
+                  prepend: 'HTTP',
+                  append: 'COM'
+                },
+                {
+                  label: '输入框',
+                  prop: 'input5',
+                  suffixIcon: 'el-icon-date',
+                  prefixIcon: 'el-icon-search'
+                },
+                {
+                  label: '多文本框',
+                  prop: 'textarea',
+                  type: 'textarea',
+                  maxlength: 20,
+                  minRows: 3,
+                  maxRows: 5,
+                  span: 24,
+                  showWordLimit: true
+                },
+                {
+                  label: '下拉框',
+                  prop: 'select',
+                  type: 'select',
+                  //   value: 0,
+                  dicData: [
+                    {
+                      label: '字典1',
+                      value: 0
+                    },
+                    {
+                      label: '字典2',
+                      value: 1
+                    }
+                  ]
+                },
+                {
+                  label: '网络字典',
+                  prop: 'select2',
+                  type: 'select',
+                  props: {
+                    label: 'name',
+                    value: 'code'
+                  },
+                  dicUrl: 'https://cli.avuejs.com/api/area/getProvince'
+                },
+                {
+                  label: 'label标题',
+                  labelWidth: 80,
+                  type: 'title',
+                  prop: 'title',
+                  display: true,
+                  styles: {
+                    color: 'red',
+                    fontSize: '24px'
+                  }
+                },
+                {
+                  label: '数组框',
+                  prop: 'array',
+                  type: 'array',
+                  value: [0, 1]
+                },
+                {
+                  label: '超链接框',
+                  prop: 'arrayLink',
+                  type: 'url',
+                  value: ['http://avuejs.com']
+                },
+                {
+                  label: '单个超链接框',
+                  prop: 'arrayLink1',
+                  alone: true,
+                  type: 'url',
+                  value: ['http://avuejs.com']
+                },
+                {
+                  label: '图片框',
+                  prop: 'arrayImg',
+                  type: 'img',
+                  value: ['/images/logo-bg.jpg']
+                },
+                {
+                  label: '单个图片框',
+                  prop: 'arrayImgAlone',
+                  alone: true,
+                  type: 'img',
+                  value: ['/images/logo-bg.jpg']
+                },
+                {
+                  label: '图标',
+                  prop: 'icon',
+                  type: 'icon',
+                  value: 'el-icon-user',
+                  iconList: [
+                    {
+                      label: '符号图标',
+                      list: ['el-icon-plus', 'el-icon-minus', 'el-icon-close', 'el-icon-check']
+                    }
+                  ]
+                },
+                {
+                  label: '表格选择器',
+                  prop: 'table',
+                  type: 'table',
+                  children: {
+                    border: true,
+                    column: [
+                      {
+                        label: '姓名',
+                        width: 120,
+                        search: true,
+                        searchSpan: 24,
+                        prop: 'name'
+                      },
+                      {
+                        label: '性别',
+                        prop: 'sex'
+                      }
+                    ]
+                  },
+                  formatter: (row) => {
+                    if (!row.name) return ''
+                    return row.name + '-' + row.sex
+                  },
+                  onLoad: ({ page, value, data }, callback) => {
+                    //首次加载去查询对应的值
+                    if (value) {
+                      this.$message.success('首次查询' + value)
+                      callback({
+                        id: '0',
+                        name: '张三',
+                        sex: '男',
+                        age: 18
+                      })
+                      return
+                    }
+                    if (data) {
+                      this.$message.success('搜索查询参数' + JSON.stringify(data))
+                    }
+                    if (page) {
+                      this.$message.success('分页参数' + JSON.stringify(page))
+                    }
+                    //分页查询信息
+                    callback({
+                      total: 2,
+                      data: [
+                        {
+                          id: '0',
+                          name: '张三',
+                          sex: '男',
+                          age: 18
+                        },
+                        {
+                          id: '1',
+                          name: '李四',
+                          sex: '女',
+                          age: 18
+                        }
+                      ]
+                    })
+                  },
+                  props: {
+                    label: 'name',
+                    value: 'id'
+                  }
+                },
+
+                {
+                  label: '树型选择框',
+                  prop: 'tree',
+                  type: 'tree',
+                  dicData: [
+                    {
+                      label: '字典1',
+                      value: 0,
+                      children: [
+                        {
+                          label: '字典3',
+                          value: 2
+                        }
+                      ]
+                    },
+                    {
+                      label: '字典2',
+                      value: 1
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
