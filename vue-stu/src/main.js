@@ -8,6 +8,7 @@ import store from './store'
 import moment from 'moment'
 import ElementUI from 'element-ui'
 import Storage from 'vue-ls';
+import VueLazyload from 'vue-lazyload'
 import _ from 'lodash'
 import Avue from '@smallwei/avue'
 import './mockjs/index'
@@ -56,6 +57,8 @@ const options = {
 // Vue plugin for work with local storage, session storage and memory storage from Vue context
 Vue.use(Storage, options);
 
+// Vue module for lazyloading images in your applications. 
+Vue.use(VueLazyload,{})
 
 Vue.config.productionTip = false
 

@@ -5,7 +5,6 @@
 export default {
   name: 'VueLs',
   mounted() {
-    debugger
     this.$ls.set('foo', 'boo')
     //Set expire for item
     this.$ls.set('foo', 'boo', 60 * 60 * 1000) //expiry 1 hour
