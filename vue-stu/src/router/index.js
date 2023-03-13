@@ -15,6 +15,7 @@ import DayjsStu from '../components/DayjsStu'
 import RenderStu from '../components/RenderStu'
 import Bar from '../components/echart/Bar'
 import LoadingStu from '../components/LoadingStu'
+import VueLs from '@/views/home/VueLs'
 import TableStu from '../components/TableStu'
 import ExpandTableExample from '../components/expandtable/TableExample'
 import KeepAliveTest from '../components/KeepAliveTest.vue'
@@ -150,6 +151,10 @@ const router = new Router({
         {
           path: 'DayjsStu',
           component: DayjsStu
+        },
+        {
+          path: 'VueLs',
+          component: VueLs
         },
         {
           path: 'RenderStu',

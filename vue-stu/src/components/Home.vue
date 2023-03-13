@@ -30,6 +30,7 @@
           <el-menu-item index="/home/SheetJs"> SheetJsStu </el-menu-item>
           <el-menu-item index="/home/PerfectScrollBar"> PerfectScrollBar </el-menu-item>
           <el-menu-item index="/home/DayjsStu"> dayjs </el-menu-item>
+          <el-menu-item index="/home/VueLs"> vue-ls </el-menu-item>
         </el-submenu>
         <el-submenu index="4">
           <template slot="title"> <i class="el-icon-message" />Vue知识点 </template>

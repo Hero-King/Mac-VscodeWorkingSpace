@@ -7,6 +7,7 @@ import router from './router'
 import store from './store'
 import moment from 'moment'
 import ElementUI from 'element-ui'
+import Storage from 'vue-ls';
 import _ from 'lodash'
 import Avue from '@smallwei/avue'
 import './mockjs/index'
@@ -46,6 +47,15 @@ Vue.use(ElementUI)
 Vue.use(vuex)
 
 Vue.use(Avue, { axios })
+
+const options = {
+  namespace: 'vuejs__', // key prefix
+  name: 'ls', // name variable Vue.[ls] or this.[$ls],
+  storage: 'local', // storage name session, local, memory
+};
+// Vue plugin for work with local storage, session storage and memory storage from Vue context
+Vue.use(Storage, options);
+
 
 Vue.config.productionTip = false
 
