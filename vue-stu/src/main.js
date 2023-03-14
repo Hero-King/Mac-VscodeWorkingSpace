@@ -11,6 +11,7 @@ import Storage from 'vue-ls';
 import VueLazyload from 'vue-lazyload'
 import _ from 'lodash'
 import Avue from '@smallwei/avue'
+import VueClipboard from 'vue-clipboard2'
 import './mockjs/index'
 import './assets/global.scss'
 
@@ -63,6 +64,9 @@ Vue.use(Storage, options);
 // 注册指令lazy/lazy-container
 // 原型添加$Lazyload方法
 Vue.use(VueLazyload)
+
+// 复制 
+Vue.use(VueClipboard)
 
 Vue.config.productionTip = false
 

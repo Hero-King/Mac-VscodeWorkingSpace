@@ -33,6 +33,7 @@
           <el-menu-item index="/home/VueLs"> vue-ls </el-menu-item>
           <el-menu-item index="/home/EchartStu"> echart </el-menu-item>
           <el-menu-item index="/home/VueLazyLoad"> VueLazyLoad </el-menu-item>
+          <el-menu-item index="/home/VueClipboard"> VueClipboard </el-menu-item>
         </el-submenu>
         <el-submenu index="4">
           <template slot="title"> <i class="el-icon-message" />Vue知识点 </template>

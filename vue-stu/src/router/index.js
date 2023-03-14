@@ -19,6 +19,7 @@ import VueLs from '@/views/home/VueLs'
 import TableStu from '../components/TableStu'
 import EchartStu from '@/views/home/echart/'
 import VueLazyLoad from '@/views/home/VueLazyLoad'
+import VueClipboard from '@/views/home/VueClipboard'
 import ExpandTableExample from '../components/expandtable/TableExample'
 import KeepAliveTest from '../components/KeepAliveTest.vue'
 import KeepAliveTestItem from '../components/KeepAliveTestItem.vue'
@@ -161,6 +162,10 @@ const router = new Router({
         {
           path: 'VueLazyLoad',
           component: VueLazyLoad
+        },
+        {
+          path: 'VueClipboard',
+          component: VueClipboard
         },
         {
           path: 'EchartStu',
