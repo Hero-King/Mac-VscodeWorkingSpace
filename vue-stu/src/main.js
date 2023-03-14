@@ -55,10 +55,14 @@ const options = {
   storage: 'local', // storage name session, local, memory
 };
 // Vue plugin for work with local storage, session storage and memory storage from Vue context
+// 注册Vus.ls 和 this.$ls
 Vue.use(Storage, options);
 
 // Vue module for lazyloading images in your applications. 
-Vue.use(VueLazyload,{})
+// 注册组件lazyComponent/lazyImage 
+// 注册指令lazy/lazy-container
+// 原型添加$Lazyload方法
+Vue.use(VueLazyload)
 
 Vue.config.productionTip = false
 

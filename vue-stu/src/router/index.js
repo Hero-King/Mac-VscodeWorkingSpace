@@ -18,6 +18,7 @@ import LoadingStu from '../components/LoadingStu'
 import VueLs from '@/views/home/VueLs'
 import TableStu from '../components/TableStu'
 import EchartStu from '@/views/home/echart/'
+import VueLazyLoad from '@/views/home/VueLazyLoad'
 import ExpandTableExample from '../components/expandtable/TableExample'
 import KeepAliveTest from '../components/KeepAliveTest.vue'
 import KeepAliveTestItem from '../components/KeepAliveTestItem.vue'
@@ -156,6 +157,10 @@ const router = new Router({
         {
           path: 'VueLs',
           component: VueLs
+        },
+        {
+          path: 'VueLazyLoad',
+          component: VueLazyLoad
         },
         {
           path: 'EchartStu',
