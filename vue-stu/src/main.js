@@ -7,9 +7,10 @@ import router from './router'
 import store from './store'
 import moment from 'moment'
 import ElementUI from 'element-ui'
-import Storage from 'vue-ls';
+import Storage from 'vue-ls'
 import VueLazyload from 'vue-lazyload'
 import _ from 'lodash'
+import i18n from './i18n'
 import Avue from '@smallwei/avue'
 import VueClipboard from 'vue-clipboard2'
 import './mockjs/index'
@@ -53,19 +54,19 @@ Vue.use(Avue, { axios })
 const options = {
   namespace: 'vuejs__', // key prefix
   name: 'ls', // name variable Vue.[ls] or this.[$ls],
-  storage: 'local', // storage name session, local, memory
-};
+  storage: 'local' // storage name session, local, memory
+}
 // Vue plugin for work with local storage, session storage and memory storage from Vue context
 // 注册Vus.ls 和 this.$ls
-Vue.use(Storage, options);
+Vue.use(Storage, options)
 
-// Vue module for lazyloading images in your applications. 
-// 注册组件lazyComponent/lazyImage 
+// Vue module for lazyloading images in your applications.
+// 注册组件lazyComponent/lazyImage
 // 注册指令lazy/lazy-container
 // 原型添加$Lazyload方法
 Vue.use(VueLazyload)
 
-// 复制 
+// 复制
 Vue.use(VueClipboard)
 
 Vue.config.productionTip = false
@@ -74,6 +75,7 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  i18n,
   render: (h) =>
     h(App, {
       class: {

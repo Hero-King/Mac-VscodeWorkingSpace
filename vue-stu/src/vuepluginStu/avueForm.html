@@ -31,18 +31,70 @@
     <div id="app">
       <div>form</div>
       <avue-form :option="option" v-model="form"></avue-form>
+      <hr />
+      <avue-form :option="constOption" v-model="constForm" />
     </div>
+
+    <script>
+      var constOption = {
+        column: [
+          {
+            type: 'title',
+            span: 24,
+            display: true,
+            styles: { fontSize: '18px', color: '#000' },
+            labelWidth: '0px',
+            value: '标题',
+            prop: 'a167935828513944082',
+            label: '11'
+          },
+          {
+            type: 'input',
+            label: '姓名',
+            span: 6,
+            display: true,
+            prop: 'name',
+            labelWidth: 80,
+            detail: true,
+            disabled: true,
+            value: 'wangjj',
+            readonly: true,
+            required: true,
+            rules: [{ required: true, message: '姓名必须填写', trigger: 'blur' }]
+          },
+          { type: 'input', label: '年龄', span: 6, display: true, prop: 'age', disabled: true },
+          { type: 'input', label: '单行文本', span: 6, display: true, prop: 'a167935831135779143', readonly: true },
+          { type: 'input', label: '单行文本', span: 6, display: true, prop: 'a16793583124225358', value: '1212', detail: true }
+        ],
+        labelPosition: 'left',
+        labelSuffix: '：',
+        labelWidth: 100,
+        gutter: 0,
+        menuBtn: true,
+        submitBtn: true,
+        submitText: '提交',
+        emptyBtn: true,
+        emptyText: '清空',
+        menuPosition: 'center'
+      }
+    </script>
 
     <script>
       var app = new Vue({
         el: '#app',
         data() {
+          this.constOption = constOption
           return {
             form: {
               title: '我是头部标题',
               title1: '我是尾部标题'
             },
+            constForm: {
+              name: 'wjj',
+              age: 12
+            },
             option: {
+              detail: true, // 是否是详情模式
               size: 'medium',
               labelWidth: '100',
               labelPosition: 'right',

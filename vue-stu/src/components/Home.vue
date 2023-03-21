@@ -16,6 +16,7 @@
           <el-menu-item index="/home/ScssStu"> ScssStu </el-menu-item>
           <el-menu-item index="/home/RenderStu"> RenderStu </el-menu-item>
           <el-menu-item index="/home/bar"> Bar </el-menu-item>
+          <el-menu-item index="/home/ElDescripts"> ElDescripts </el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title"> <i class="el-icon-menu" />懒加载 </template>
@@ -34,6 +35,7 @@
           <el-menu-item index="/home/EchartStu"> echart </el-menu-item>
           <el-menu-item index="/home/VueLazyLoad"> VueLazyLoad </el-menu-item>
           <el-menu-item index="/home/VueClipboard"> VueClipboard </el-menu-item>
+          <el-menu-item index="/home/AvueCrud"> AvueCrud </el-menu-item>
         </el-submenu>
         <el-submenu index="4">
           <template slot="title"> <i class="el-icon-message" />Vue知识点 </template>

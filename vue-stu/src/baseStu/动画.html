@@ -115,6 +115,26 @@ CSS 过渡的类将会应用在内部的元素中，而不是这个组/容器本
         <p v-for="item in arr" :key="item">{{ item }}</p>
         </transition>
     </div>
+
+    <div style="position: absolute; top: 40vh; left: 0vw;">
+      <h3>transition 和transtion-group </h3>
+      <button @click="count++">count++</button>
+      <button @click="count=1">count reset</button>
+      <transition-group name="side-fade">
+        <div :key="count" v-show="count === 1">
+          <div class="aa">
+            <label for="">姓名</label>
+            <input v-model="form.input1"/>
+          </div>
+        </div>
+        <div :key="count" v-show="count === 2">
+          <div class="aa">
+            <label for="">年龄</label>
+            <input v-model="form.input2"/>
+          </div>
+        </div>
+      </transition-group>
+    </div>
   </div>
 
   <script src="../assets/vue.js"></script>
@@ -124,7 +144,12 @@ CSS 过渡的类将会应用在内部的元素中，而不是这个组/容器本
       el: "#root",
       data: {
         flag: true,
-        arr: [1]
+        arr: [1],
+        count: 1,
+        form: {
+          input1: '',
+          input2: ''
+        }
       },
       components: {
         com1: {

@@ -18,12 +18,14 @@ import LoadingStu from '../components/LoadingStu'
 import VueLs from '@/views/home/VueLs'
 import TableStu from '../components/TableStu'
 import EchartStu from '@/views/home/echart/'
+import ElDescripts from '@/views/home/ElDescripts'
 import VueLazyLoad from '@/views/home/VueLazyLoad'
 import VueClipboard from '@/views/home/VueClipboard'
 import ExpandTableExample from '../components/expandtable/TableExample'
 import KeepAliveTest from '../components/KeepAliveTest.vue'
 import KeepAliveTestItem from '../components/KeepAliveTestItem.vue'
 import EditTableDemo from '../views/demo/EditTableDemo/index.vue'
+import AvueCrud from '@/views/demo/AvueCrud/'
 import NProgress from 'nprogress'
 
 // 路由懒加载
@@ -130,6 +132,14 @@ const router = new Router({
         {
           path: 'input',
           component: InputStu
+        },
+        {
+          path: 'ElDescripts',
+          component: ElDescripts
+        },
+        {
+          path: 'AvueCrud',
+          component: AvueCrud
         },
         {
           path: 'upload',
