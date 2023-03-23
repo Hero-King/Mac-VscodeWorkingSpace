@@ -735,12 +735,13 @@
 
   Dep.prototype.depend = function depend () {
     if (Dep.target) {
-      console.log(`dep实例${this.id}依赖收集到`,Dep.target);
+      console.log(`dep实例${this.id}依赖收集到watcher id: ${Dep.target.id}`, Dep.target);
       Dep.target.addDep(this);
     }
   };
 
   Dep.prototype.notify = function notify () {
+    console.log(`dep id: ${this.id}` ,'dep.notify() 通知watcher更新了');
     // stabilize the subscriber list first
     var subs = this.subs.slice();
     if (!config.async) {
@@ -1035,11 +1036,11 @@
     console.log('创建dep依赖管理器',dep.id,`缘由是defineReactive(obj,key),obj:`,obj,`key是${key}`);
 
      // Test
-     if(!obj.__deps__){
-      obj.__deps__ = {}
-     }
-     Array.isArray(obj.__deps__[key]) ? obj.__deps__[key].push(dep) : obj.__deps__[key] = [dep]
-     // Test end
+    //  if(!obj.__deps__){
+    //   obj.__deps__ = {}
+    //  }
+    //  Array.isArray(obj.__deps__[key]) ? obj.__deps__[key].push(dep) : obj.__deps__[key] = [dep]
+    //  // Test end
 
     // 属性必须满足可配置
     var property = Object.getOwnPropertyDescriptor(obj, key);
@@ -1080,6 +1081,7 @@
         if (newVal === value || (newVal !== newVal && value !== value)) {
           return
         }
+        console.log('检测到数据更新:',`key是${key},原始值: ${value}, 新的值: ${newVal}`);
         /* eslint-enable no-self-compare */
         if (customSetter) {
           customSetter();
@@ -4049,10 +4051,14 @@
       if (!prevVnode) {
         // initial render
         // 初次渲染
+        console.log(`vm._uid: ${vm._uid}, ${vm.$options.name}组件`,'初次渲染, 执行__patch__方法',);
+        console.log('vnode',vnode, 'prevVnode: ', prevVnode );
         vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */);
       } else {
         // updates
          // 数据更新
+        console.log(`vm._uid: ${vm._uid} ${vm.$options.name}组件`,'数据更新, 执行__patch__方法, 新旧节点比较',);
+        console.log('vnode',vnode, 'prevVnode: ', prevVnode );
         vm.$el = vm.__patch__(prevVnode, vnode);
       }
       restoreActiveInstance();
@@ -4148,12 +4154,14 @@
         }
       }
     }
+    console.log('callHook: beforeMount hook');
     callHook(vm, 'beforeMount');
 
     var updateComponent;
     /* istanbul ignore if */
     if (config.performance && mark) {
       updateComponent = function () {
+        console.log("updateComponent 函数开始调用");
         var name = vm._name;
         var id = vm._uid;
         var startTag = "vue-perf-start:" + id;
@@ -4175,6 +4183,7 @@
         /**
          * vm._render()方法是如何将render函数转化为Virtual DOM的。
          */
+        console.log("updateComponent 函数调用  ,开始执行_render函数 然后执行_update函数");
         vm._update(vm._render(), hydrating);
       };
     }
@@ -4182,7 +4191,7 @@
     // we set this to vm._watcher inside the watcher's constructor
     // since the watcher's initial patch may call $forceUpdate (e.g. inside child
     // component's mounted hook), which relies on vm._watcher being already defined
-    new Watcher(vm, updateComponent, noop, {
+    let watcherInstance = new Watcher(vm, updateComponent, noop, {
       before: function before () {
         if (vm._isMounted && !vm._isDestroyed) {
           callHook(vm, 'beforeUpdate');
@@ -4190,6 +4199,8 @@
       }
     }, true /* isRenderWatcher */);
     hydrating = false;
+
+    console.log("完成创建watcherInstance " + watcherInstance.id, `缘由是${vm.$options.name} 组件挂载到页面`);
 
     // manually mounted instance, call mounted on self
     // mounted is called for render-created child components in its inserted hook
@@ -4646,6 +4657,7 @@
    * Will be called when a dependency changes.
    */
   Watcher.prototype.update = function update () {
+    console.log(`watcher id: ${this.id} 准备执行update方法, 执行expression: ${this.expression}`, );
     /* istanbul ignore else */
     if (this.lazy) {
       this.dirty = true;
@@ -4898,6 +4910,7 @@
           noop,
           computedWatcherOptions
         );
+        console.log("创建watcherInstance " + watchers[key].id, `缘由是computed中的${key} 属性`);
       }
 
       // component-defined computed properties are already defined on the
@@ -5070,6 +5083,7 @@
       options = options || {};
       options.user = true;
       var watcher = new Watcher(vm, expOrFn, cb, options);
+      console.log("创建watcherInstance " + watcher.id, `缘由是执行了$watch${expOrFn}`);
       if (options.immediate) {
         var info = "callback for immediate watcher \"" + (watcher.expression) + "\"";
         pushTarget();
@@ -5088,7 +5102,7 @@
 
   function initMixin (Vue) {
     Vue.prototype._init = function (options) {
-      console.log("new Vue options", options, "---------");
+      console.log(`创建${options.name} 组件实例 options: , ${options}`, "---------");
       var vm = this;
       // a uid
       // 记录实例化多少个vue对象
@@ -5997,6 +6011,7 @@
   var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
 
   function sameVnode (a, b) {
+    console.log('开始sameVnode对比');
     return (
       a.key === b.key &&
       a.asyncFactory === b.asyncFactory && (
@@ -6649,6 +6664,7 @@
     }
 
     return function patch (oldVnode, vnode, hydrating, removeOnly) {
+      console.log('执行patch');
       if (isUndef(vnode)) {
         if (isDef(oldVnode)) { invokeDestroyHook(oldVnode); }
         return
@@ -6665,6 +6681,7 @@
         var isRealElement = isDef(oldVnode.nodeType);
         if (!isRealElement && sameVnode(oldVnode, vnode)) {
           // patch existing root node
+          console.log('tag和key相同, 开始执行 patchVnode');
           patchVnode(oldVnode, vnode, insertedVnodeQueue, null, null, removeOnly);
         } else {
           if (isRealElement) {
@@ -12034,6 +12051,7 @@
   ) {
     // 1. 进行模板解析，并将结果保存为 AST
     var ast = parse(template.trim(), options);
+    console.log("生成ast:",ast);
     // 没有禁用静态优化的话 会对Ast语法树进行优化
     if (options.optimize !== false) {
       // 2. 就遍历 AST，并找出静态节点并标记
@@ -12041,6 +12059,7 @@
     }
     // 3. 生成渲染函数
     var code = generate(ast, options);
+    console.log('生成渲染函数:', code);
     return {
       ast: ast,
       render: code.render,
@@ -12127,6 +12146,7 @@
           mark('compile');
         }
 
+        console.log('判断是否需要编译, 是否有el, template ,开始编译模板生成render函数');
         var ref = compileToFunctions(template, {
           outputSourceRange: "development" !== 'production',
           shouldDecodeNewlines: shouldDecodeNewlines,

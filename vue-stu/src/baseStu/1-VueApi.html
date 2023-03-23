@@ -46,7 +46,7 @@
         </li>
       </ul>
 
-      vm.add.number: {{add.number}}
+      vm.add.number: {{add.number}} <button @click="add.number++">num++</button>
     </div>
     <div id="app"></div>
     <script>
@@ -71,26 +71,20 @@
             return this.age * 2
           }
         },
-        /**
-         * render函数 
-         * function anonymous() {
-with(this){return _c('div',[_v("Hello Vue "+_s(age)+" -- double "+_s(doubleAge)+" "),_c('br'),_v(" "),_c('h3',[_v("子组件实例中可以使用$root直接访问到vm实例 (但是不推荐使用,全局状态管理可以使用vuex)")]),_v("\n                    vm实例中的data.a 为: "+_s($root.a)+"    \n                    "),_c('button',{on:{"click":function($event){$root.a ++}}},[_v("点我")]),_v(" "),_c('h3',[_v("子组件访问父组件实例对象")]),_v("\n                    $parent 不推荐使用, 不要拿实例对象!!\n                    "),_c('h3',[_v("父组件访问子组件实例对象: ref")])])}
-}
-         * 
-         *
-         */
         template: `
-                <div>Hello Vue {{age}} -- double {{doubleAge}} <br/>
+                <div style="border: 1px solid red;">Hello组件 Vue {{age}} -- double {{doubleAge}} <br/>
                     <h3>子组件实例中可以使用$root直接访问到vm实例 (但是不推荐使用,全局状态管理可以使用vuex)</h3>
                     vm实例中的data.a 为: {{$root.a}}    
-                    <button @click="$root.a ++">点我</button>    
+                    <button @click="$root.a ++">点我更改$root.a</button>    
+                    <button @click="age++">点我更改age</button>    
                     <h3>子组件访问父组件实例对象</h3>
                     $parent 不推荐使用, 不要拿实例对象!!
                     <h3>父组件访问子组件实例对象: ref</h3>
                 </div>
             `
       })
-      new Hello().$mount('#app')
+      // var vc = new Hello()
+      // vc.$mount('#app')
       const Hello2 = Vue.extend({
         name: 'Hello2',
         template: `
@@ -134,8 +128,11 @@ with(this){return _c('div',[_v("Hello Vue "+_s(age)+" -- double "+_s(doubleAge)+
         }
       })
 
+      // throw 'err'
+
       const vm = new Vue({
         el: '#root',
+        name: 'Root',
         components: { Hello },
         mixins: [mixin],
         data: {
