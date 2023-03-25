@@ -34,22 +34,28 @@
       </el-form-item>
 
       <el-form-item label="checkbox">
-        <DictSelect type="checkbox" resultKey="content" dictUrl="/getDict" v-model="form.checkbox" methods="post" @change="handleChange"> </DictSelect>
+        <DictSelect comType="checkbox" resultKey="content" dictUrl="/getDict" v-model="form.checkbox" methods="post" @change="handleChange"> </DictSelect>
       </el-form-item>
       <el-form-item label="checkboxButton">
-        <DictSelect type="checkboxButton" resultKey="content" dictUrl="/getDict" v-model="form.checkboxButton" methods="post" @change="handleChange">
+        <DictSelect comType="checkboxButton" resultKey="content" dictUrl="/getDict" v-model="form.checkboxButton" methods="post" @change="handleChange">
         </DictSelect>
       </el-form-item>
 
       <el-form-item label="radio">
-        <DictSelect type="radio" resultKey="content" dictUrl="/getDict" v-model="form.radio" methods="post" @change="handleChange"> </DictSelect>
+        <DictSelect comType="radio" resultKey="content" dictUrl="/getDict" v-model="form.radio" methods="post" @change="handleChange"> </DictSelect>
       </el-form-item>
       <el-form-item label="radioButton">
-        <!-- <DictSelect type="radioButton" resultKey="content" dictUrl="/getDict" v-model="form.radioButton" methods="post" @change="handleChange"> </DictSelect> -->
+        <!-- <DictSelect comType="radioButton" resultKey="content" dictUrl="/getDict" v-model="form.radioButton" methods="post" @change="handleChange"> </DictSelect> -->
         <!-- 插槽 -->
-        <DictSelect type="radioButton" resultKey="content" dictUrl="/getDict" v-model="form.radioButton" methods="post" @change="handleChange">
+        <DictSelect comType="radioButton" resultKey="content" dictUrl="/getDict" v-model="form.radioButton" methods="post" @change="handleChange">
           <template #default="{ optItem }"> {{ optItem.id }} - {{ optItem.label }} </template>
         </DictSelect>
+      </el-form-item>
+      <el-form-item label="input">
+        <DictSelect comType="el-input" v-model="form.input" @change="handleChange"> </DictSelect>
+      </el-form-item>
+      <el-form-item label="date">
+        <DictSelect comType="el-date-picker" v-model="form.date" type="date"> </DictSelect>
       </el-form-item>
     </el-form>
   </div>
@@ -70,9 +76,22 @@ export default {
     ]
     return {
       selectOpts1: [],
+    //   form: {
+    //     factoryId: 1,
+    //     checkbox: [],
+    //     checkboxButton: [],
+    //     input: '',
+    //     date: '2022-01-02'
+    //   },
+      //  test editable
       form: {
-        checkbox: [],
-        checkboxButton: []
+        factoryId: 1,
+        checkbox: ['Karen Wilson', 'Anthony Perez'],
+        checkboxButton: ['Karen Wilson', 'Paul Wilson'],
+        input: '1212',
+        radio: 'Karen Wilson',
+        radioButton: 'Jessica Robinson',
+        date: '2022-01-02'
       }
     }
   },

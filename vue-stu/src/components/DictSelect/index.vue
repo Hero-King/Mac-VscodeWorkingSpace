@@ -1,6 +1,13 @@
 <template>
-  <span>
-    <template v-if="type === 'select'">
+  <span v-if="!editable">
+    <template v-if="isComplexCom"> {{ translatedText }}</template>
+    <template v-else>
+      {{ $attrs.value }}
+    </template>
+  </span>
+  <!-- 可编辑部分 -->
+  <span v-else class="canEdit">
+    <template v-if="comType === 'select'">
       <el-select v-bind="$attrs" v-on="$listeners" :size="size" :popper-append-to-body="false">
         <el-option
           v-for="item in viewOptions"
@@ -12,10 +19,7 @@
         </el-option>
       </el-select>
     </template>
-    <template v-else-if="type === 'input'">
-      <el-input v-bind="$attrs" v-on="$listeners" :size="size"> </el-input>
-    </template>
-    <template v-else-if="type === 'checkbox'">
+    <template v-else-if="comType === 'checkbox'">
       <el-checkbox-group v-bind="$attrs" v-on="$listeners" :size="size">
         <el-checkbox v-for="item in viewOptions" :key="_forKey ? item[_forKey] : item" :label="valueKey ? item[valueKey] : item" :disabled="item.disabled">
           <slot :optItem="item">
@@ -24,7 +28,7 @@
         </el-checkbox>
       </el-checkbox-group>
     </template>
-    <template v-else-if="type === 'checkboxButton'">
+    <template v-else-if="comType === 'checkboxButton'">
       <el-checkbox-group v-bind="$attrs" v-on="$listeners" :size="size">
         <el-checkbox-button
           v-for="item in viewOptions"
@@ -38,7 +42,7 @@
         </el-checkbox-button>
       </el-checkbox-group>
     </template>
-    <template v-else-if="type === 'radio'">
+    <template v-else-if="comType === 'radio'">
       <el-radio-group v-bind="$attrs" v-on="$listeners" :size="size">
         <el-radio v-for="item in viewOptions" :key="_forKey ? item[_forKey] : item" :label="valueKey ? item[valueKey] : item" :disabled="item.disabled">
           <slot :optItem="item">
@@ -47,7 +51,7 @@
         </el-radio>
       </el-radio-group>
     </template>
-    <template v-else-if="type === 'radioButton'">
+    <template v-else-if="comType === 'radioButton'">
       <el-radio-group v-bind="$attrs" v-on="$listeners" :size="size">
         <el-radio-button v-for="item in viewOptions" :key="_forKey ? item[_forKey] : item" :label="valueKey ? item[valueKey] : item" :disabled="item.disabled">
           <slot :optItem="item">
@@ -57,11 +61,14 @@
       </el-radio-group>
     </template>
     <template v-else>
-      <component :is="type" v-bind="$attrs" v-on="$listeners" :size="size"></component>
+      <component :is="comType" v-bind="$attrs" v-on="$listeners" :size="size">
+        <slot></slot>
+      </component>
     </template>
   </span>
 </template>
 <script>
+const complexComs = ['select', 'checkbox', 'checkboxButton', 'radio', 'radioButton']
 export default {
   name: 'DictSelect',
   props: {
@@ -69,7 +76,7 @@ export default {
       type: String,
       default: 'small'
     },
-    type: {
+    comType: {
       type: String,
       default: 'select'
     },
@@ -97,7 +104,11 @@ export default {
       type: Object,
       default: () => ({})
     },
-    resultFormat: Function
+    resultFormat: Function,
+    editable: {
+      type: Boolean,
+      default: true
+    }
   },
   data() {
     return {
@@ -110,13 +121,31 @@ export default {
     },
     viewOptions() {
       return this.options ?? this.innerOptions
+    },
+    isComplexCom() {
+      return complexComs.includes(this.comType)
+    },
+    // 绑定的值是简单类型
+    bindValueIsSimple() {
+      let { value } = this.$attrs
+      return typeof value !== 'object' && typeof value !== 'function'
+    },
+    translatedText() {
+      if (this.editable) {
+        return ''
+      }
+      if (this.bindValueIsSimple) {
+        let item = this.viewOptions.find((i) => i[this.valueKey] === this.$attrs.value)
+        return item?.[this.labelKey] ?? ''
+      } else {
+        return ''
+      }
     }
   },
   created() {
-    if (this.viewOptions?.length > 0) {
-      return
+    if (this.viewOptions?.length == 0 && this.isComplexCom) {
+      this.getDicts()
     }
-    this.getDicts()
   },
   methods: {
     getDicts() {
@@ -135,7 +164,6 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err)
           this.$message.error(err)
         })
     }
