@@ -12,6 +12,7 @@ import VueLazyload from 'vue-lazyload'
 import _ from 'lodash'
 import i18n from './i18n'
 import Avue from '@smallwei/avue'
+import RegisterComponents from './utils/registerComponents'
 import VueClipboard from 'vue-clipboard2'
 import './mockjs/index'
 import './assets/global.scss'
@@ -50,6 +51,8 @@ Vue.use(ElementUI)
 Vue.use(vuex)
 
 Vue.use(Avue, { axios })
+
+Vue.use(RegisterComponents)
 
 const options = {
   namespace: 'vuejs__', // key prefix

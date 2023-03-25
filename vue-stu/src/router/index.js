@@ -25,6 +25,7 @@ import ExpandTableExample from '../components/expandtable/TableExample'
 import KeepAliveTest from '../components/KeepAliveTest.vue'
 import KeepAliveTestItem from '../components/KeepAliveTestItem.vue'
 import EditTableDemo from '../views/demo/EditTableDemo/index.vue'
+import DictSelectDemo from '../views/demo/DictSelectDemo/index.vue'
 import AvueCrud from '@/views/demo/AvueCrud/'
 import NProgress from 'nprogress'
 
@@ -227,6 +228,10 @@ const router = new Router({
         {
           path: 'editTableDemo',
           component: EditTableDemo
+        },
+        {
+          path: 'DictSelect',
+          component: DictSelectDemo
         }
       ]
     }

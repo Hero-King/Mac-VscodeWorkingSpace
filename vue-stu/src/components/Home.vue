@@ -45,13 +45,14 @@
         <el-submenu index="5">
           <template slot="title"> 组件封装 </template>
           <el-menu-item index="/demo/editTableDemo"> EditTable </el-menu-item>
+          <el-menu-item index="/demo/DictSelect"> DictSelect </el-menu-item>
         </el-submenu>
       </el-menu>
     </el-aside>
 
     <el-main>
       <transition name="fade">
-        <keep-alive>
+        <keep-alive include="KeepAliveTest">
           <router-view :key="$route.path"></router-view>
         </keep-alive>
       </transition>

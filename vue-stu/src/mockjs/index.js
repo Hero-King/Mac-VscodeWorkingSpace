@@ -10,3 +10,14 @@ Mock.mock('/api/getTableData', 'get', {
     }
   ]
 })
+
+Mock.mock('/api/getDict', 'post', {
+  code: 0,
+  'content|1-10': [
+    {
+      label: '@cname',
+      value: '@name',
+      id: '@id'
+    }
+  ]
+})
