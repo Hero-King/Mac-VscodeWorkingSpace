@@ -71,6 +71,7 @@
 const complexComs = ['select', 'checkbox', 'checkboxButton', 'radio', 'radioButton']
 export default {
   name: 'DictSelect',
+  inheritAttrs: false,
   props: {
     size: {
       type: String,

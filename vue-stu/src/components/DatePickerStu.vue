@@ -35,6 +35,12 @@
     <div class="module">
       <el-date-picker v-model="dateRange" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"> </el-date-picker>
     </div>
+
+    <h2>dateTimeRange</h2>
+    <div class="module">
+      <el-date-picker v-model="dateTimeRange" type="datetimerange" >  </el-date-picker>
+      <el-date-picker v-model="dateTimeRange1" type="datetimerange" format="yyyy-MM-dd HH:mm">  </el-date-picker>
+    </div>
   </div>
 </template>
 
@@ -52,12 +58,14 @@ export default {
       value6: this.$moment(),
       value10: '',
       value11: '',
-      dateRange: ''
+      dateRange: '',
+      dateTimeRange: '',
+      dateTimeRange1: '',
     }
   },
   watch: {
     $data: {
-      handler: function (newV, oldV) {
+      handler: function (newV) {
         console.log('$data数据变化了,:', newV)
       },
       deep: true

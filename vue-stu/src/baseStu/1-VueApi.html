@@ -16,7 +16,7 @@
       <li><a href="https://book.penblog.cn/">mini-vue vue3源码</a></li>
       ebook: 《Vue.js设计与实现》
       <!-- 生命周期 -->
-      <img src="https://ithack.github.io/images/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%85%A8%E8%A7%A3/1.jpg" alt="" srcset="" />
+      <img width="200px" src="https://ithack.github.io/images/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%85%A8%E8%A7%A3/1.jpg" alt="" srcset="" />
     </ul>
 
     <div id="root">
@@ -83,8 +83,7 @@
                 </div>
             `
       })
-      // var vc = new Hello()
-      // vc.$mount('#app')
+
       const Hello2 = Vue.extend({
         name: 'Hello2',
         template: `
@@ -128,7 +127,12 @@
         }
       })
 
-      // throw 'err'
+      let onlyMountHello = true
+      if (onlyMountHello) {
+        var vc = new Hello()
+        vc.$mount('#app')
+        throw 'err'
+      }
 
       const vm = new Vue({
         el: '#root',

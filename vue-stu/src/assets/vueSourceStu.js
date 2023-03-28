@@ -2266,6 +2266,7 @@
       }
     }
     invoker.fns = fns;
+    console.log('createFnInvoker 创建事件响应包装函数');
     return invoker
   }
 
@@ -2278,6 +2279,7 @@
     vm
   ) {
     var name, def$$1, cur, old, event;
+    console.log('updateListeners执行');
     for (name in on) {
       def$$1 = cur = on[name];
       old = oldOn[name];
@@ -2294,6 +2296,7 @@
         if (isTrue(event.once)) {
           cur = on[name] = createOnceHandler(event.name, cur, event.capture);
         }
+        console.log(`添加事件: ${event.name}`);
         add(event.name, cur, event.capture, event.passive, event.params);
       } else if (cur !== old) {
         old.fns = cur;
@@ -2303,6 +2306,7 @@
     for (name in oldOn) {
       if (isUndef(on[name])) {
         event = normalizeEvent(name);
+        console.log('删除旧的dom元素事件', event.name);
         remove$$1(event.name, oldOn[name], event.capture);
       }
     }
@@ -3356,11 +3360,12 @@
     }
 
     // install component management hooks onto the placeholder node
-    // 挂载组件钩子
+    // 挂载组件钩子 安装组件钩子函数 VNode 的 patch 流程中对外暴露了各种时机的钩子函数，方便我们做一些额外的事情
     installComponentHooks(data);
 
     // return a placeholder vnode
     var name = Ctor.options.name || tag;
+    // 实例化 VNode
     var vnode = new VNode(
       ("vue-component-" + (Ctor.cid) + (name ? ("-" + name) : '')),
       data, undefined, undefined, undefined, context,
@@ -4183,7 +4188,7 @@
         /**
          * vm._render()方法是如何将render函数转化为Virtual DOM的。
          */
-        console.log("updateComponent 函数调用  ,开始执行_render函数 然后执行_update函数");
+        console.log("渲染watcher执行回调, updateComponent函数被调用  ,开始执行_render函数 然后执行_update函数");
         vm._update(vm._render(), hydrating);
       };
     }
@@ -4194,6 +4199,7 @@
     let watcherInstance = new Watcher(vm, updateComponent, noop, {
       before: function before () {
         if (vm._isMounted && !vm._isDestroyed) {
+          console.log('callHook: beforeUpdate hook');
           callHook(vm, 'beforeUpdate');
         }
       }
@@ -4206,6 +4212,7 @@
     // mounted is called for render-created child components in its inserted hook
     if (vm.$vnode == null) {
       vm._isMounted = true;
+      console.log('callHook: mounted hook');
       callHook(vm, 'mounted');
     }
     return vm
@@ -5102,7 +5109,7 @@
 
   function initMixin (Vue) {
     Vue.prototype._init = function (options) {
-      console.log(`创建${options.name} 组件实例 options: , ${options}`, "---------");
+      console.log(`创建${options?.name} 组件实例 options: , ${options}`, "---------");
       var vm = this;
       // a uid
       // 记录实例化多少个vue对象
@@ -6112,6 +6119,7 @@
       ownerArray,
       index
     ) {
+      console.log('createElm函数执行', '开始vnode转成真实dom', '创建dom元素',vnode.tag || vnode.text);
       if (isDef(vnode.elm) && isDef(ownerArray)) {
         // This vnode was used in a previous render!
         // now it's used as a new node, overwriting its elm would cause
@@ -6154,8 +6162,10 @@
         {
           createChildren(vnode, children, insertedVnodeQueue);
           if (isDef(data)) {
+            console.log('执行dom元素创建完成钩子');
             invokeCreateHooks(vnode, insertedVnodeQueue);
           }
+          console.log('真实dom节点创建完成','dom: ', vnode.elm, ' 执行元素挂载到父节点操作, 开始上树parentElm:', parentElm);
           insert(parentElm, vnode.elm, refElm);
         }
 
@@ -6664,7 +6674,7 @@
     }
 
     return function patch (oldVnode, vnode, hydrating, removeOnly) {
-      console.log('执行patch');
+      console.log('执行patch函数');
       if (isUndef(vnode)) {
         if (isDef(oldVnode)) { invokeDestroyHook(oldVnode); }
         return
@@ -7240,16 +7250,16 @@
     // check capture modifier
     if (modifiers.capture) {
       delete modifiers.capture;
-      name = prependModifierMarker('!', name, dynamic);
+      name = prependModifierMarker('!', name, dynamic); // mark the event as captured
     }
     if (modifiers.once) {
       delete modifiers.once;
-      name = prependModifierMarker('~', name, dynamic);
+      name = prependModifierMarker('~', name, dynamic); // mark the event as once
     }
     /* istanbul ignore if */
     if (modifiers.passive) {
       delete modifiers.passive;
-      name = prependModifierMarker('&', name, dynamic);
+      name = prependModifierMarker('&', name, dynamic); // mark the event as passive
     }
 
     var events;
@@ -7758,6 +7768,7 @@
         }
       };
     }
+    console.log('dom元素: ', target$1, '通过addEventListener添加事件', `${name}`);
     target$1.addEventListener(
       name,
       handler,
@@ -7773,6 +7784,7 @@
     capture,
     _target
   ) {
+    console.log('dom元素: ', _target || target$1 , '通过removeEventListener删除事件', `${name}`);
     (_target || target$1).removeEventListener(
       name,
       handler._wrapper || handler,
@@ -7780,18 +7792,23 @@
     );
   }
 
+  // 更新dom事件
   function updateDOMListeners (oldVnode, vnode) {
+    console.log('start run updateDOMListeners fun');
     if (isUndef(oldVnode.data.on) && isUndef(vnode.data.on)) {
       return
     }
     var on = vnode.data.on || {};
     var oldOn = oldVnode.data.on || {};
     target$1 = vnode.elm;
+    // 对 v-model 相关的处理
     normalizeEvents(on);
+    // 遍历 on 去添加事件监听，遍历 oldOn 去移除事件监听
     updateListeners(on, oldOn, add$1, remove$2, createOnceHandler$1, vnode.context);
     target$1 = undefined;
   }
 
+  // DOM 元素相关的属性、样式、事件等都是通过这些 module 的钩子函数完成设置的。
   var events = {
     create: updateDOMListeners,
     update: updateDOMListeners
@@ -12146,7 +12163,7 @@
           mark('compile');
         }
 
-        console.log('判断是否需要编译, 是否有el, template ,开始编译模板生成render函数');
+        console.log('判断是否需要编译, 是否有el, template完成 ,开始编译模板生成render函数');
         var ref = compileToFunctions(template, {
           outputSourceRange: "development" !== 'production',
           shouldDecodeNewlines: shouldDecodeNewlines,
@@ -12155,8 +12172,8 @@
           comments: options.comments
         }, this);
         var render = ref.render;
-        console.log("compileToFunctions", ref);
         var staticRenderFns = ref.staticRenderFns;
+        console.log('模板编译完成 生成的render函数挂载到$Options中');
         options.render = render;
         options.staticRenderFns = staticRenderFns;
 
