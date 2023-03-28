@@ -23,14 +23,20 @@
       <el-button id="prettier-id" class-name="prettier-class" type="primary" circle> Click Here </el-button>
       <el-input label="姓名" />
     </div>
+
+    <h3>二维码生成</h3>
+    <h4>import VueQr from 'vue-qr'</h4>
+    <vue-qr text="Hello world!"></vue-qr>
   </div>
 </template>
 <script>
 import NumberInput from './NumberInput/index.vue'
+import VueQr from 'vue-qr'
 export default {
   name: 'InputStu',
   components: {
-    NumberInput
+    NumberInput,
+    VueQr
   },
   data() {
     return {
