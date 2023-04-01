@@ -32,3 +32,25 @@ Mock.mock('/api/getDict', 'post', {
     { label: '邱刚', value: 'Anthony Perez', id: '420000201909034536' }
   ]
 })
+
+let tableData = []
+for (let i = 0; i < 200; i++) {
+  tableData.push({
+    id: i,
+    date: '2016-05-02',
+    name: '王小虎' + i,
+    province: '上海' + i,
+    city: '普陀区' + i,
+    address: '上海市普陀区金沙江路 1518 弄' + i,
+    zip: i
+  })
+}
+Mock.mock('/api/getTableData', 'post', (options) => {
+  // options.body 是string
+  const { page = 1, pageSize = 10 } = JSON.parse(options.body)
+  return {
+    code: 0,
+    total: 200,
+    data: tableData.slice(page * pageSize, (page + 1) * pageSize)
+  }
+})

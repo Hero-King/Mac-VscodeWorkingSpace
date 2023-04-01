@@ -1,18 +1,18 @@
 <template>
-  <span v-if="!editable">
+  <span v-if="!editable" class="dict-select">
     <template v-if="isComplexCom"> {{ translatedText }}</template>
     <template v-else>
       {{ $attrs.value }}
     </template>
   </span>
   <!-- 可编辑部分 -->
-  <span v-else class="canEdit">
+  <span v-else class="dict-select canEdit">
     <template v-if="comType === 'select'">
       <el-select v-bind="$attrs" v-on="$listeners" :size="size" :popper-append-to-body="false">
         <el-option
           v-for="item in viewOptions"
-          :label="labelKey ? item[labelKey] : item"
-          :value="valueKey ? item[valueKey] : item"
+          :label="item[labelKey] == void 0 ? item : item[labelKey]"
+          :value="item[valueKey] == void 0 ? item : item[valueKey]"
           :key="_forKey ? item[_forKey] : item"
         >
           <slot :optItem="item"></slot>
@@ -21,9 +21,14 @@
     </template>
     <template v-else-if="comType === 'checkbox'">
       <el-checkbox-group v-bind="$attrs" v-on="$listeners" :size="size">
-        <el-checkbox v-for="item in viewOptions" :key="_forKey ? item[_forKey] : item" :label="valueKey ? item[valueKey] : item" :disabled="item.disabled">
+        <el-checkbox
+          v-for="item in viewOptions"
+          :key="_forKey ? item[_forKey] : item"
+          :label="item[valueKey] == void 0 ? item : item[valueKey]"
+          :disabled="item.disabled"
+        >
           <slot :optItem="item">
-            {{ labelKey ? item[labelKey] : item }}
+            {{ item[labelKey] == void 0 ? item : item[labelKey] }}
           </slot>
         </el-checkbox>
       </el-checkbox-group>
@@ -33,29 +38,39 @@
         <el-checkbox-button
           v-for="item in viewOptions"
           :key="_forKey ? item[_forKey] : item"
-          :label="valueKey ? item[valueKey] : item"
+          :label="item[valueKey] == void 0 ? item : item[valueKey]"
           :disabled="item.disabled"
         >
           <slot :optItem="item">
-            {{ labelKey ? item[labelKey] : item }}
+            {{ item[labelKey] == void 0 ? item : item[labelKey] }}
           </slot>
         </el-checkbox-button>
       </el-checkbox-group>
     </template>
     <template v-else-if="comType === 'radio'">
       <el-radio-group v-bind="$attrs" v-on="$listeners" :size="size">
-        <el-radio v-for="item in viewOptions" :key="_forKey ? item[_forKey] : item" :label="valueKey ? item[valueKey] : item" :disabled="item.disabled">
+        <el-radio
+          v-for="item in viewOptions"
+          :key="_forKey ? item[_forKey] : item"
+          :label="item[valueKey] == void 0 ? item : item[valueKey]"
+          :disabled="item.disabled"
+        >
           <slot :optItem="item">
-            {{ labelKey ? item[labelKey] : item }}
+            {{ item[labelKey] == void 0 ? item : item[labelKey] }}
           </slot>
         </el-radio>
       </el-radio-group>
     </template>
     <template v-else-if="comType === 'radioButton'">
       <el-radio-group v-bind="$attrs" v-on="$listeners" :size="size">
-        <el-radio-button v-for="item in viewOptions" :key="_forKey ? item[_forKey] : item" :label="valueKey ? item[valueKey] : item" :disabled="item.disabled">
+        <el-radio-button
+          v-for="item in viewOptions"
+          :key="_forKey ? item[_forKey] : item"
+          :label="item[valueKey] == void 0 ? item : item[valueKey]"
+          :disabled="item.disabled"
+        >
           <slot :optItem="item">
-            {{ labelKey ? item[labelKey] : item }}
+            {{ item[labelKey] == void 0 ? item : item[labelKey] }}
           </slot>
         </el-radio-button>
       </el-radio-group>
@@ -70,8 +85,8 @@
 <script>
 const complexComs = ['select', 'checkbox', 'checkboxButton', 'radio', 'radioButton']
 export default {
-  name: 'DictSelect',
   inheritAttrs: false,
+  name: 'DictSelect',
   props: {
     size: {
       type: String,
@@ -92,6 +107,9 @@ export default {
     valueKey: {
       type: String,
       default: 'value'
+    },
+    forKey: {
+      type: String
     },
     resultKey: {
       type: String,
@@ -118,7 +136,7 @@ export default {
   },
   computed: {
     _forKey() {
-      return this.forKey || this.valueKey || this.labelKey
+      return this.forKey || this.valueKey
     },
     viewOptions() {
       return this.options ?? this.innerOptions
