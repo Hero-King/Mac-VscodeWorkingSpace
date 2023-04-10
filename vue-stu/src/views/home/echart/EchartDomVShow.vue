@@ -73,7 +73,7 @@ export default {
   mounted() {
     this.initEchart()
     setInterval(() => {
-      console.log("gender");
+      // console.log("gender");
       for (var i = 0; i < 5; i++) {
         this.dataArr.shift()
         this.dataArr.push(randomData())
