@@ -1,32 +1,27 @@
 <template>
-  <div class="module">
-    <h3>单文件上传</h3>
-    <el-upload
-      class="upload-demo"
-      list-type="picture"
-      :action="action"
-      :on-preview="handlePreview"
-      :on-remove="handleRemove"
-      :before-remove="beforeRemove"
-      :on-success="handleSuccess"
-      :limit="3"
-      :on-exceed="handleExceed"
-      :file-list="fileList"
-    >
-      <el-button
-        size="small"
-        type="primary"
-        @click="handleClick"
+  <div>
+    <div class="module">
+      <h3>单文件上传</h3>
+      <el-upload
+        class="upload-demo"
+        list-type="picture"
+        :action="action"
+        :on-preview="handlePreview"
+        :on-remove="handleRemove"
+        :before-remove="beforeRemove"
+        :on-success="handleSuccess"
+        :limit="3"
+        :on-exceed="handleExceed"
+        :file-list="fileList"
       >
-        点击上传
-      </el-button>
-      <div
-        slot="tip"
-        class="el-upload__tip"
-      >
-        只能上传jpg/png文件，且不超过500kb
-      </div>
-    </el-upload>
+        <el-button size="small" type="primary" @click="handleClick"> 点击上传 </el-button>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+      </el-upload>
+    </div>
+
+    <!-- <div class="module">
+      <el-button type="primary" @click="preview">点我预览</el-button>
+    </div> -->
   </div>
 </template>
 
@@ -39,7 +34,11 @@ export default {
       fileList: [
         {
           name: '11.jpg',
-          url: 'https://www.heroking.top:9999/static/upload/f26f001e09e257f196edc05bd094db32.jpg'
+          url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+        },
+        {
+          name: '12.jpg',
+          url: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
         }
       ]
     }
@@ -68,7 +67,7 @@ export default {
       this.fileList = fileList
     },
     handlePreview(file) {
-      console.log(file)
+      this.$MyImagePreview({ fileList: this.fileList })
     },
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)

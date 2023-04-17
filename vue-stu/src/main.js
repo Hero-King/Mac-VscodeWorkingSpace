@@ -14,6 +14,7 @@ import i18n from './i18n'
 import Avue from '@smallwei/avue'
 import RegisterComponents from './utils/registerComponents'
 import VueClipboard from 'vue-clipboard2'
+import MyImagePreview from '@/components/ImagePreview/index.js'
 import './mockjs/index'
 import './assets/global.scss'
 
@@ -49,6 +50,8 @@ Vue.prototype._ = _
 
 Vue.use(ElementUI)
 Vue.use(vuex)
+
+Vue.use(MyImagePreview)
 
 Vue.use(Avue, { axios })
 
