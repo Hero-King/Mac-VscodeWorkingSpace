@@ -1,22 +1,17 @@
 <template>
-  <el-row>
-    <el-col v-for="item in conf" :span="item.span" :key="item.formKey">
-      <el-form-item
-        :label="item.label"
-        :label-width="item.labelWidth"
-        :prop="item.formKey"
-        :rules="item.rules"
-      >
-        <DictSelect v-bind="item" v-model="form[item.formKey]" v-on="item.events || []">
-        </DictSelect>
+  <div>
+    <el-col v-for="item in viewConf" :span="item.span" :offset="item.offset" :key="item.formKey" :class="colClass">
+      <el-form-item :label="item.label" :label-width="item.labelWidth" :prop="item.formKey" :rules="item.rules" :class="item.formItemClass">
+        <DictSelect v-bind="item" v-model="form[item.formKey]" v-on="item.events || {}"> </DictSelect>
       </el-form-item>
     </el-col>
-  </el-row>
+  </div>
 </template>
 <script>
 import DictSelect from './index.vue'
 export default {
   name: 'SelectFormContent',
+  inheritAttrs: false,
   components: {
     DictSelect
   },
@@ -26,6 +21,21 @@ export default {
       default: () => []
     },
     form: Object
+  },
+  computed: {
+    viewConf() {
+      return this.conf.filter((i) => {
+        if (i.itemHidden) {
+          if (typeof i.itemHidden == 'function') {
+            return !i.itemHidden(this.form)
+          } else {
+            return !i.itemHidden
+          }
+        } else {
+          return true
+        }
+      })
+    }
   }
 }
 /**

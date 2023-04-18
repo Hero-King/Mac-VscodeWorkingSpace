@@ -2,7 +2,7 @@ import Vue from 'vue'
 import ElImagePreview from 'element-ui/packages/image/src/image-viewer'
 import DownloadIcon from './DownloadIcon.vue'
 const ImagePreviewCtor = Vue.extend(ElImagePreview)
-const DocnloadIconCtor = Vue.extend(DownloadIcon)
+const DownloadIconCtor = Vue.extend(DownloadIcon)
 
 let ins = null
 let icon = null
@@ -25,7 +25,7 @@ export default function Preview(opts) {
   document.body.appendChild(ins.$el)
   Vue.nextTick(() => {
     if (!icon) {
-      icon = new DocnloadIconCtor()
+      icon = new DownloadIconCtor()
     }
     icon.$mount()
     icon.$parent = ins
