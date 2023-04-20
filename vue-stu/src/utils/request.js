@@ -107,3 +107,8 @@ service.interceptors.response.use(
 )
 
 export default service
+
+export const post = service.post
+export const get = service.get
+export const put = service.put
+export const del = service.delete

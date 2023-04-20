@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-col v-for="item in viewConf" :span="item.span" :offset="item.offset" :key="item.formKey" :class="colClass">
+    <el-col v-for="item in viewConf" :span="item.span" :offset="item.offset" :key="item.formKey" :class="item.colClass">
       <el-form-item :label="item.label" :label-width="item.labelWidth" :prop="item.formKey" :rules="item.rules" :class="item.formItemClass">
         <DictSelect v-bind="item" v-model="form[item.formKey]" v-on="item.events || {}"> </DictSelect>
       </el-form-item>

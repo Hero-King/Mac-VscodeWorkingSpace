@@ -1,0 +1,236 @@
+// 文字1
+@font-color: #333;
+// 文字2
+@font-color2: #666;
+// 文字3
+@font-color3: #999;
+// 线框
+@border-color: #e0e0e0;
+// 背景色
+@bg-color: #f6f8fb;
+
+.page {
+  padding: 16px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fd {
+  flex-direction: column;
+}
+
+/* 原子类 start */
+// margin
+.mr-8 {
+  margin-right: 8px;
+}
+
+.mr-16 {
+  margin-right: 8px;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+.ml-16 {
+  margin-left: 16px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+// float
+.fr {
+  float: right;
+}
+
+// font-size
+.fs-12 {
+  font-size: 12px;
+}
+
+.fs-24 {
+  font-size: 24px;
+}
+
+/* 原子类 end */
+
+.ellipsis-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.el-select-dropdown {
+  z-index: 5002 !important;
+}
+
+.empty_font {
+  color: #999;
+}
+
+.spin-wrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background-color: #ddd;
+}
+
+.el-input__inner:hover {
+  border-color: #7a8cff;
+  border-right-width: 1px !important;
+}
+
+.el-select .action:hover .el-input__inner {
+  border-color: #4e60f6;
+}
+
+.el-textarea__inner:hover {
+  // border-color: #C0C4CC;
+  border-color: #7a8cff;
+  border-right-width: 1px !important;
+}
+
+.el-input__inner {
+  height: 30px;
+  box-sizing: border-box;
+}
+.el-input__icon {
+  line-height: 30px;
+}
+.el-form-item .el-input__suffix-inner {
+  line-height: 30px;
+}
+.el-form-item .el-input__icon {
+  line-height: 30px;
+  height: 30px;
+}
+.el-date-editor .el-range__icon {
+  line-height: 30px;
+}
+.el-date-editor .el-range-separator {
+  line-height: 22px;
+}
+.el-date-editor .el-range__close-icon {
+  line-height: 30px;
+}
+.el-input-number {
+  line-height: 28px;
+}
+.el-button--mini {
+  span {
+    // font-size: 12px;
+    margin: 0 5px;
+  }
+}
+//去掉小三角
+.el-popper[x-placement^='bottom'] .popper__arrow::after {
+  border-bottom-color: transparent;
+}
+
+.el-popper .popper__arrow,
+.el-popper .popper__arrow::after {
+  border-style: none !important;
+}
+
+.el-select-dropdown__list {
+  padding: 0 !important;
+}
+
+.el-popper[x-placement^='bottom'] {
+  margin-top: 0px;
+}
+.el-tree {
+  /*改变高度*/
+  // .el-tree-node__content{
+  //     height: 50px;
+  // }
+  /*tree组件选中背景色修改 */
+  .el-tree-node.is-current > .el-tree-node__content {
+    background-color: #fff !important;
+    color: #333 !important;
+
+    .el-tree-node__label {
+      background-color: #f0f3ff;
+      padding: 0 10px;
+    }
+    //自定义样式
+    .custom-tree-node {
+      background-color: #f0f3ff;
+      padding: 0 10px;
+    }
+  }
+
+  /*tree组件鼠标hover悬浮背景色 */
+  .el-tree-node > .el-tree-node__content:hover {
+    background-color: #fff;
+
+    .el-tree-node__label {
+      background-color: #f0f3ff;
+    }
+    //自定义样式
+    .custom-tree-node {
+      background-color: #f0f3ff;
+    }
+  }
+}
+.primaryButton {
+  color: #4e60f6;
+}
+.delButton {
+  color: #f5222d;
+}
+.textCenter {
+  text-align: center;
+}
+
+.content-body .query-table > .box-table {
+  margin-top: 0;
+}
+
+.btn-list {
+  > * {
+    margin-right: 8px;
+  }
+  .delButton {
+    color: #f5222d;
+    &:hover {
+      color: #f5222d;
+    }
+  }
+}
+
+.el-popconfirm__main {
+  margin: 1em 0;
+}
+
+.label-blod-form {
+  .el-form-item__label {
+    font-size: 14px;
+    color: #101010;
+    font-weight: 700;
+  }
+}
+
+.datepicker-hidden-current {
+  .el-button--text.el-picker-panel__link-btn {
+    display: none;
+  }
+}

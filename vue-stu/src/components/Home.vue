@@ -47,6 +47,24 @@
           <el-menu-item index="/demo/editTableDemo"> EditTable </el-menu-item>
           <el-menu-item index="/demo/DictSelect"> DictSelect </el-menu-item>
         </el-submenu>
+        <el-submenu index="6">
+          <template slot="title"> 项目 </template>
+          <el-submenu index="60">
+            <template slot="title"> 看板 </template>
+            <el-menu-item index="/deliveryMonitor"> 交付看板 </el-menu-item>
+            <el-menu-item index="/planMonitor"> 计划看板 </el-menu-item>
+            <el-menu-item index="/EfficiencyMonitor"> 能效看板 </el-menu-item>
+          </el-submenu>
+          <el-submenu index="61">
+            <template slot="title"> 工单 </template>
+            <el-menu-item index="/work-order/statistics"> 工单统计 </el-menu-item>
+            <el-menu-item index="/work-order/query"> 工单查询 </el-menu-item>
+            <el-menu-item index="/knowledge-base/graphTopology"> 运维图谱 </el-menu-item>
+            <el-menu-item index="/knowledge-base/takeNotes"> 运维记录 </el-menu-item>
+            <el-menu-item index="/knowledge-base/standard"> 标准知识库 </el-menu-item>
+            <el-menu-item index="/device-management/equipmentAccount"> 设备台账 </el-menu-item>
+          </el-submenu>
+        </el-submenu>
       </el-menu>
     </el-aside>
 

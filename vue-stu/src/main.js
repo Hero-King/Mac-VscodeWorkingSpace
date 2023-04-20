@@ -17,8 +17,7 @@ import VueClipboard from 'vue-clipboard2'
 import MyImagePreview from '@/components/ImagePreview/index.js'
 import './mockjs/index'
 import './assets/global.scss'
-
-import 'element-ui/lib/theme-chalk/index.css'
+import './style/common.less'
 
 // 配置axios
 import axios from 'axios'
@@ -94,7 +93,7 @@ new Vue({
       },
       // 普通的 HTML attribute
       attrs: {
-        title: 'render函数生成'
+        // title: 'render函数生成'
       }
     })
 }).$mount('#app')

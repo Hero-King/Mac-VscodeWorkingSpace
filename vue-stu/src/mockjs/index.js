@@ -1,4 +1,5 @@
 import Mock from 'mockjs'
+import './module/workorder'
 
 Mock.mock('/api/getTableData', 'get', {
   'data|10': [

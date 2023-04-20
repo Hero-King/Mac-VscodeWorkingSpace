@@ -373,3 +373,125 @@ export function camelCase(str) {
 export function isNumberStr(str) {
   return /^[+-]?(0|([1-9]\d*))(\.\d+)?$/g.test(str)
 }
+
+
+/**
+ * @name 前端文件下载
+ * @param {Blob|Required} data The binary stream returned by the server
+ * @param {String|Required} filename
+ * @param {String} mime mime type
+ * @param {String} bom
+ * @return {undefined}
+ */
+ export const downloadFile = function (data, filename, mime, bom) {
+  if (!data || !filename) {
+    throw new Error('data and filename is Required')
+  }
+  var blobData = null
+  var blob = null
+  // Determine whether the incoming is a blob
+  if (typeof data == 'object' && data instanceof Blob) {
+    blobData = data
+    blob = data
+  } else {
+    blobData = typeof bom !== 'undefined' ? [bom, data] : [data]
+    blob = new Blob(blobData, {
+      type: mime || 'application/octet-stream'
+    })
+  }
+  if (typeof window.navigator.msSaveBlob !== 'undefined') {
+    // IE workaround for "HTML7007: One or more blob URLs were
+    // revoked by closing the blob for which they were created.
+    // These URLs will no longer resolve as the data backing
+    // the URL has been freed."
+    window.navigator.msSaveBlob(blob, filename)
+  } else {
+    var blobURL =
+      window.URL && window.URL.createObjectURL ?
+      window.URL.createObjectURL(blob) :
+      window.webkitURL.createObjectURL(blob)
+    var tempLink = document.createElement('a')
+    tempLink.style.display = 'none'
+    tempLink.href = blobURL
+    tempLink.setAttribute('download', filename)
+
+    // Safari thinks _blank anchor are pop ups. We only want to set _blank
+    // target if the browser does not support the HTML5 download attribute.
+    // This allows you to download files in desktop safari if pop up blocking
+    // is enabled.
+    if (typeof tempLink.download === 'undefined') {
+      tempLink.setAttribute('target', '_blank')
+    }
+
+    document.body.appendChild(tempLink)
+    tempLink.click()
+
+    // Fixes "webkit blob resource error 1"
+    setTimeout(function () {
+      document.body.removeChild(tempLink)
+      window.URL.revokeObjectURL(blobURL)
+    }, 200)
+  }
+}
+
+/**
+ * @name 表格数据装成blob
+ * @param {type} sheet 表格数据
+ * @param {type} sheetName 表格名称
+ * @return {Blob} blob
+ * @description 将一个sheet转成最终的excel文件的blob对象，然后利用URL.createObjectURL下载
+ * @throw:
+ */
+export const sheet2blob = function (sheet, sheetName) {
+  sheetName = sheetName || 'sheet1'
+  var workbook = {
+    SheetNames: [sheetName],
+    Sheets: {}
+  }
+  workbook.Sheets[sheetName] = sheet
+  // 生成excel的配置项
+  var wopts = {
+    bookType: 'xlsx', // 要生成的文件类型
+    bookSST: false, // 是否生成Shared String Table，官方解释是，如果开启生成速度会下降，但在低版本IOS设备上有更好的兼容性
+    type: 'binary'
+  }
+  var wbout = XLSX.write(workbook, wopts)
+  var blob = new Blob([s2ab(wbout)], {
+    type: 'application/octet-stream'
+  })
+  // 字符串转ArrayBuffer
+  function s2ab(s) {
+    var buf = new ArrayBuffer(s.length)
+    var view = new Uint8Array(buf)
+    for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff
+    return buf
+  }
+  return blob
+}
+
+/**
+ * @name 事件监听
+ * @param {Object} e 绑定数据的对象
+ * @param {String} type 事件名称
+ * @param {Function} handle 事件名称
+ */
+export const EventListener = {
+  add: function (e, type, handle) {
+    if (e.addEventListener) {
+      e.addEventListener(type, handle, false)
+    } else if (e.attachEvent) {
+      e.attachEvent('on' + type, handle)
+    } else {
+      e['on' + type] = handle
+    }
+  },
+  remove: function (e, type, handle) {
+    if (e.addEventListener) {
+      e.removeEventListener(type, handle, false)
+    } else if (e.attachEvent) {
+      e.detachEvent('on' + type, handle)
+    } else {
+      e['on' + type] = null
+    }
+  }
+}
