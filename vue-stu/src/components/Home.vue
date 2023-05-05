@@ -57,6 +57,7 @@
           </el-submenu>
           <el-submenu index="61">
             <template slot="title"> 工单 </template>
+            <!-- 原型: https://modao.cc/app/i2qzxprrqpwreEvQ8BcPu#screen=sle2j2qha65lem7q0nfa48dtm -->
             <el-menu-item index="/work-order/statistics"> 工单统计 </el-menu-item>
             <el-menu-item index="/work-order/query"> 工单查询 </el-menu-item>
             <el-menu-item index="/knowledge-base/graphTopology"> 运维图谱 </el-menu-item>
@@ -79,7 +80,6 @@
 </template>
 
 <script>
-import request from '../utils/request'
 export default {
   name: 'Home',
   data() {
@@ -91,6 +91,9 @@ export default {
     return {
       tableData: Array(5).fill(item)
     }
+  },
+  mounted() {
+    console.error('工单原型地址: https://modao.cc/app/i2qzxprrqpwreEvQ8BcPu#screen=sle2j2qha65lem7q0nfa48dtm')
   },
   beforeRouteEnter(to, from, next) {
     console.log('Home beforeRouteEnter')
