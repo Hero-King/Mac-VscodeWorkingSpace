@@ -20,6 +20,12 @@ npm update uview-ui
 
 删除uni_modules里面的uni-ui 组件库
 
+#### 两种方式项目配置差异
+main.js 中依赖引用路径
+uni.scss 中样式变量文件引用路径
+App.vue 中样式文件引用路径
+pages.json 中easycom 文件引用路径
+
 ### 技巧
 - 通过敲<u关键字(无需<u-后面的-)，HX会通过弹出提示列出uView的所有组件
 - uView有很多的自带的js工具函数，挂载在$u对象中同时挂载到了uni对象上，而$u又挂载在Vue.prototype中，外部的js文件中，通过uni.$u.xxx的形式去调用uView提供的一些工具方法
@@ -54,11 +60,26 @@ App.vue是uni-app的主组件，所有页面都是在App.vue下进行切换的�
 - h5端控制台调试eruda 或者vconsole
 - uni-app 打包apk怎么区分测试环境/生产环境 ? 使用多个appid 环境
 - uniapp tabBar配置后不显示，无效的问题 ?  tabBar.list数组的第一项必须和pages配置中的第一项要相同。
-- app不显示导航栏? pages.style.navigationBarTitleText为"custom" 或者 pages.style.app-plus.titleNView为false
+- app取消原生导航栏? pages.style.navigationBarTitleText为"custom" 或者 pages.style.app-plus.titleNView为false 
+- app取消沉浸式状态栏  manifest.json app-plus -> statusbar 下添加immersed节点并设为false。 或者使用 <view class="status_bar" ></view>进行占位 但是是透明的 不好用
+- 下拉刷新位置控制 取消了原生导航栏后 Android是从屏幕顶部下拉  App和H5下，原生下拉刷新提供了circle样式，可以指定offset偏移量（pages.json的app-plus下配置），自定义下拉圈出现的位置
 - 导航栏 44px /底部选项卡 50px 的高度是固定的  不可变 因此有了下一条
 - App 端，在 pages.json 里的 titleNView 或页面里写的 plus api 中涉及的单位，只支持 px，不支持 rpx。
 - static目录存放静态文件,会直接复制到最终的打包目录,不会被编译
 - setStorageSyns 是持久化存储
+- webview打不开 尝试 
+	```js
+	configureWebpack: {
+	  devServer: {
+	    allowedHosts: "all",
+	  },
+	},
+	```
+- uniapp可以使用ref 所有有关ref的调用，都不能在页面的onLoad生命周期调用，因为此时组件尚未创建完毕，会报错，应该在onReady生命周期调用。
+- uview list 取消滚动底部加载 设置lowerThreshold 为负数
+- 设置app body高度100% : 使用page标签选择器
+- 字体加粗手机端加粗 600  不生效
+- 长列表使用uview 的list组件实现, 其实为scroll-view组件 会导致页面没有滚动 触底事件不会被触发虽然可以使用scrolltolower 组件事件 但是会影响上拉刷新功能  同时 若想使用onReachBottom事件 不能给body设置height100%
 
 每次新建页面，均需在pages.json中配置pages列表；在 uni-app 项目上右键“新建页面”，HBuilderX会自动在pages.json中完成页面注册，开发更方便。
 
