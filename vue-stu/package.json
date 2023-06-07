@@ -19,6 +19,7 @@
     ]
   },
   "dependencies": {
+    "@antv/g6": "^4.8.14",
     "@smallwei/avue": "^2.10.10",
     "axios": "^0.25.0",
     "core-js": "^3.6.5",

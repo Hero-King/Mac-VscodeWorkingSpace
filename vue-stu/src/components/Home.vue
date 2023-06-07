@@ -31,6 +31,7 @@
           <el-menu-item index="/home/SheetJs"> SheetJsStu </el-menu-item>
           <el-menu-item index="/home/PerfectScrollBar"> PerfectScrollBar </el-menu-item>
           <el-menu-item index="/home/DayjsStu"> dayjs </el-menu-item>
+          <el-menu-item index="/home/G6Stu"> G6Stu </el-menu-item>
           <el-menu-item index="/home/VueLs"> vue-ls </el-menu-item>
           <el-menu-item index="/home/EchartStu"> echart </el-menu-item>
           <el-menu-item index="/home/VueLazyLoad"> VueLazyLoad </el-menu-item>

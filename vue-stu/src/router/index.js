@@ -12,6 +12,7 @@ import DraggableStu from '../components/DraggableStu'
 import SheetJsStu from '../components/SheetJsStu'
 import PerfectScrollBar from '../components/PerfectScrollBar'
 import DayjsStu from '../components/DayjsStu'
+import G6Stu from '../components/G6Stu/index.vue'
 import RenderStu from '../components/RenderStu'
 import Bar from '../components/echart/Bar'
 import LoadingStu from '../components/LoadingStu'
@@ -142,6 +143,10 @@ const router = new Router({
         {
           path: 'AvueCrud',
           component: AvueCrud
+        },
+        {
+          path: 'G6Stu',
+          component: G6Stu
         },
         {
           path: 'upload',
