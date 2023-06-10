@@ -1,8 +1,9 @@
 <script>
 	export default {
 		onLaunch: function() {
-			
+
 			console.log('App Launch')
+
 		},
 		onShow: function() {
 			console.log('App Show')
@@ -19,9 +20,10 @@
 	// 引入uview样式
 	@import "@/uni_modules/uview-ui/index.scss";
 	@import "common/demo.scss";
-	
+
 	/* #ifndef APP-NVUE */
 	@import '@/static/customicons.css';
+
 	// 设置整个项目的背景色
 	page {
 		background-color: #f5f5f5;
@@ -34,4 +36,3 @@
 		padding: 10px;
 	}
 </style>
-
