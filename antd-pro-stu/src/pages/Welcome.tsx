@@ -86,6 +86,9 @@ const InfoCard: React.FC<{
 const Welcome: React.FC = () => {
   const { token } = theme.useToken();
   const { initialState } = useModel('@@initialState');
+  // 通过config.ts中define变量才能在web环境中获取到
+  console.log(REACT_APP_ENV, SOME_ENV);
+  
   return (
     <PageContainer>
       <Card
