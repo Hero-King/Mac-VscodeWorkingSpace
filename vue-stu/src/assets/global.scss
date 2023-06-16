@@ -27,6 +27,8 @@ body,
 
 .flex1 {
   flex: 1;
+  height: 0;
+  width: 0;
 }
 
 .flexCol {
@@ -46,12 +48,7 @@ body {
     justify-content: space-between;
   }
 }
-.w100 {
-  width: 100%;
-}
-.h100 {
-  height: 100%;
-}
+
 @function px2vh($value) {
   @return $value/1080 * 100vh;
 }
