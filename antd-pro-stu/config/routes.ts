@@ -52,6 +52,18 @@ export default [
     component: './TableList',
   },
   {
+    path: '/project',
+    name: 'project',
+    footerRender: false,
+    routes: [
+      {
+        name: 'eatSnake',
+        path: '/project/eatSnake',
+        component: './Project/EatSnake',
+      },
+    ],
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },
