@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        }
+      }
+    </script>
+
+    <div id="app">
+      {{message}}
+      <br />
+      <button id="btn" @click="increment">{{ state.count }}</button>
+      <br />
+      arr: {{ state.arr.join(' ') }}
+      <button @click="arrPush">arr.push</button>
+    </div>
+
+    <script type="module">
+      import { createApp, reactive, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+      createApp({
+        setup() {
+          // 在 Vue 中，状态都是默认深层响应式的  reactive() 返回的是一个原始对象的 Proxy
+          const state = reactive({ count: 0, arr: ['foo', 'bar'] })
+
+          function increment() {
+            state.count++
+            nextTick(() => {
+              console.log('dom update', document.getElementById('btn').innerText)
+            })
+          }
+
+          function arrPush() {
+            state.arr.push(Math.round(Math.random() * 100))
+          }
+
+          return {
+            state,
+            increment,
+            arrPush
+          }
+        },
+        data() {
+          return {
+            message: 'Hello Vue!'
+          }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>
