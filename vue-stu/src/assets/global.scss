@@ -17,6 +17,14 @@ body,
   margin: 20px;
 }
 
+.border{
+  border: 1px solid #ccc;
+}
+
+body .el-main{
+  padding-bottom: 20vh;
+}
+
 .w100 {
   width: 100%;
 }
