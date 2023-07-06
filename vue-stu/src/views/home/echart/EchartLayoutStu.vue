@@ -52,6 +52,30 @@ export default {
     opt() {
       const { sliderOpt, borderColor } = this
       return {
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: 'white',
+          borderColor: '#357EE7',
+          borderWidth: '1',
+          textStyle: {
+            color: 'blank'
+          },
+          // 阻止溢出
+          confine: true,
+          // tooltip 中数值显示部分的格式化回调函数。  从 v5.3.0 开始支持
+          // valueFormatter(value){
+          //   return value + '个'
+          // }
+          // tooltip 数据添加单位 %  回调函数支持返回 HTML 字符串或者创建的 DOM 实例。
+          formatter: function (params) {
+            console.log(params)
+            var relVal = params[0].name
+            for (var i = 0, l = params.length; i < l; i++) {
+              relVal += '<br/>' + params[i].marker + params[i].seriesName + ':' + params[i].value + '%'
+            }
+            return relVal
+          }
+        },
         textStyle: {
           fontSize: 16
         },
