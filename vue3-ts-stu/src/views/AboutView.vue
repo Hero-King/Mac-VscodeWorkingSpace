@@ -1,6 +1,17 @@
 <script setup lang="ts">
-import { reactive, ref, computed, onMounted, onUpdated, watch } from 'vue'
+import {
+  reactive,
+  ref,
+  computed,
+  onMounted,
+  onUpdated,
+  watch,
+  onUnmounted,
+  onRenderTracked,
+  onRenderTriggered
+} from 'vue'
 
+// 接收props
 defineProps(['title'])
 defineEmits(['enlarge-text'])
 
@@ -66,13 +77,27 @@ onMounted(() => {
 onUpdated(() => {
   console.log('onUpdated')
 })
+
+onUnmounted(() => {
+  console.log('onUnmounted')
+})
+
+onRenderTracked(({ effect, target, type, key }) => {
+  console.log('onRenderTracked', effect, target, type, key)
+})
+
+// 注册一个调试钩子，当响应式依赖的变更触发了组件渲染时调用。
+onRenderTriggered((e) => {
+  const { effect, target, type, key, newValue, oldValue, oldTarget } = e
+  console.log('onRenderTriggered', e)
+})
 </script>
 
 <template>
   <div class="about">
     <h1>This is an about page</h1>
     <div>
-      count值: {{ state.count }}
+      state.count值: {{ state.count }}
       <button @click="increment">+</button>
       computed stateCountMoreThen5 : {{ stateCountMoreThen5 }}
     </div>
