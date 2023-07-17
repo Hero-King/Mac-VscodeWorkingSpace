@@ -68,7 +68,7 @@ export default {
           // }
           // tooltip 数据添加单位 %  回调函数支持返回 HTML 字符串或者创建的 DOM 实例。
           formatter: function (params) {
-            console.log(params)
+            // console.log(params)
             var relVal = params[0].name
             for (var i = 0, l = params.length; i < l; i++) {
               relVal += '<br/>' + params[i].marker + params[i].seriesName + ':' + params[i].value + '%'
