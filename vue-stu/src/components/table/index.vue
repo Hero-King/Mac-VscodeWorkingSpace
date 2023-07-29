@@ -86,6 +86,7 @@
           className:'.page',//获取元素的类名与diffHeight同时使用
     }
 } */
+// 格创 table组件
 export default {
   props: {
     config: {

@@ -9,9 +9,9 @@ function createWindow() {
         width: 800,
         height: 600,
         // 预加载
-        webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
-        }
+        // webPreferences: {
+        //     preload: path.join(__dirname, 'preload.js')
+        // }
     })
     win.loadFile('index.html')
 }
@@ -19,6 +19,7 @@ function createWindow() {
 // 在 Electron 中，只有在 app 模块的 ready 事件被激发后才能创建浏览器窗口。
 app.whenReady().then(() => {
     console.log(process.versions)
+    console.log(process.platform); // 当前平台 Electron 目前只支持三个平台：win32 (Windows), linux (Linux) 和 darwin (macOS) 。
     createWindow()
 
     // 如果没有窗口打开则打开一个窗口 (macOS)
