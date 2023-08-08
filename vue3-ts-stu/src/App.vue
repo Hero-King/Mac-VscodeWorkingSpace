@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+
+const componentClick = () => {
+  alert('Component click')
+}
 </script>
 
 <template>
@@ -8,11 +12,15 @@ import HelloWorld from './components/HelloWorld.vue'
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <!-- vue3中组件上绑定原生事件 将会把原生事件绑定到组件根元素 也就是子组件中点击会触发事件处理函数
+         除非在子组件中defineEmits(['click']) 接受原生事件 vue才认为是自定义事件
+      -->
+      <HelloWorld msg="You did it!" @click="componentClick" />
 
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/home">Home</RouterLink>
+        <RouterLink to="/about">语法学习</RouterLink>
+        <RouterLink to="/ComponentCommunicate">ComponentCommunicate</RouterLink>
       </nav>
     </div>
   </header>
