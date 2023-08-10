@@ -21,6 +21,7 @@ const componentClick = () => {
         <RouterLink to="/home">Home</RouterLink>
         <RouterLink to="/about">语法学习</RouterLink>
         <RouterLink to="/ComponentCommunicate">ComponentCommunicate</RouterLink>
+        <RouterLink to="/HookStu">HookStu</RouterLink>
       </nav>
     </div>
   </header>
