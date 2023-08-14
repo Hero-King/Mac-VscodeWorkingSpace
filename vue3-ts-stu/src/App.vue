@@ -12,8 +12,11 @@ const componentClick = () => {
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <!-- vue3中组件上绑定原生事件 将会把原生事件绑定到组件根元素 也就是子组件中点击会触发事件处理函数
-         除非在子组件中defineEmits(['click']) 接受原生事件 vue才认为是自定义事件
+      <!-- vue3中inheritAttrs 
+        如果是false 那么组件中 $attrs 不会绑定到根元素上
+        如果是true(默认) 组件的 $attrs 默认会绑定到根元素中, 如果根元素是组件 那么将会透传给组件 如果组件没有根元素(多个组件)
+        那么需要手动给某个组件 执行 v-bind=$attrs
+
       -->
       <HelloWorld msg="You did it!" @click="componentClick" />
 
