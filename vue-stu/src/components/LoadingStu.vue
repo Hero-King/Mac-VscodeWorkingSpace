@@ -50,6 +50,12 @@
         加载中
       </el-button>
     </div>
+
+    <div class="module">
+      <el-table :data="[]" border v-loading="tableLoading">
+        <el-table-column label="姓名" prop="name"></el-table-column>
+      </el-table>
+    </div>
   </div>
 </template>
 
@@ -62,7 +68,8 @@ export default {
       loading2: false,
       loading3: false,
       loading4: false,
-      checkSuccess: null
+      checkSuccess: null,
+      tableLoading: []
     }
   },
   methods: {
