@@ -26,6 +26,7 @@ const componentClick = () => {
         <RouterLink to="/ComponentCommunicate">ComponentCommunicate</RouterLink>
         <RouterLink to="/HookStu">HookStu</RouterLink>
         <RouterLink to="/Select">Select</RouterLink>
+        <RouterLink to="/Api">Api</RouterLink>
       </nav>
     </div>
   </header>
