@@ -17,6 +17,7 @@
 
 <script>
 import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
 export default {
   name: 'DayjsStu',
   mounted() {
@@ -47,6 +48,11 @@ export default {
 
     let tmp = now.diff('2022-05-10', 'day')
     console.log(tmp, '距离多少天')
+
+    // dayjs.locale('zh-cn')
+    console.log(dayjs().startOf('week'));
+    console.log(dayjs().locale('zh-cn').startOf('week'));
+    console.log(dayjs().locale('zh-cn').locale());
   }
 }
 </script>
