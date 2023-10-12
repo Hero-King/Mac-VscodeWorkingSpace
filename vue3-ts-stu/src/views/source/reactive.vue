@@ -19,5 +19,38 @@ console.log(
 )
 // console.log(toRaw(0), toRaw(1), toRaw(rawObj), toRaw(count), toRaw(refObj), toRaw(reactiveObj), toRaw(reactiveObj) === rawObj)
 
+var deepObj = {
+  name: {
+    age: 1
+  }
+}
+const reactiveDeepObj = reactive(deepObj)
 
+const stuProxy = () => {
+  // Proxy默认只代理一层对象的属性 ; 想要proxy代理深层属性需要在getter判断 Reflect.get(target,key)返回值是对象a -> 则对对象a在进行proxy 返回proxy对象
+  const proxyDeepObj = new Proxy(deepObj, {
+    get(target, p, receiver) {
+      console.log('get', target, p)
+      return Reflect.get(target, p, receiver)
+    }
+  })
+  console.log(proxyDeepObj.name.age, proxyDeepObj.name === deepObj.name) // get {name: {…}} name  true!!!!
+
+  // 对象属性深层proxy
+  let handler: ProxyHandler<any> = {
+    get(target, p, receiver) {
+      console.log('get', target, p)
+      let res = Reflect.get(target, p, receiver)
+      return typeof res == 'object' ? new Proxy(res, handler) : res
+    }
+  }
+  var deepObj2 = {
+    name: {
+      age: 2
+    }
+  }
+  const proxyDeepObj1 = new Proxy(deepObj2, handler)
+  console.log(proxyDeepObj1.name.age, proxyDeepObj1.name === deepObj2.name) // get {name: {…}} name get {age: 2} age  false!!!!
+  console.log(proxyDeepObj1.name) // proxy对象
+}
 </script>
