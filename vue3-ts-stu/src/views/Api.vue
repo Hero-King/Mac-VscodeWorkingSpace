@@ -21,6 +21,19 @@
     <button @click="handleHobby(reactiveObj)">爱好++</button>
     <button @click="reactiveObj.hobby[0].value++">爱好[0].value++</button>
   </div>
+
+  <div class="module">
+    <h2>computed</h2>
+    refObj.hobby.lenght {{ hobbyLength }}
+
+    <h3>能否缓存函数?</h3>
+    first hobby name: {{ getHobbyName(0) }}
+    <h3>结论: 不可以缓存函数</h3>
+  </div>
+
+  <div class="module">
+    <h2>watch</h2>
+  </div>
 </template>
 <script name="Api" setup lang="ts">
 const refObj = ref({
@@ -70,4 +83,47 @@ const reactiveObj = ref({
 })
 
 console.log(refObj, shallowRefObj, reactiveObj)
+
+// ===============computed
+const hobbyLength = computed(() => {
+  return refObj.value.hobby.length
+})
+
+/**
+ * @deprecate
+ * computed 不能缓存函数; 每次页面重新渲染 函数都会重新执行
+ */
+const getHobbyName = computed(() => (index: number) => {
+  console.log('func computed run')
+  return reactiveObj.value.hobby[index].name
+})
+
+// ===============watch
+/**
+ * 第一个参数: getter函数/ref/reactiveObj/以上组成的数组
+ * 第二个参数: 是在发生变化时要调用的回调函数。这个回调函数接受三个参数：新值、旧值，以及一个用于注册副作用清理的回调函数。该回调函数会在副作用下一次重新执行前调用，可以用来清除无效的副作用
+ *
+ *
+ * watchEffect优势: 回调立即执行;自动追踪依赖;只会追踪使用到的属性,避免递归追踪所有属性; 同步执行期间，才追踪依赖
+ */
+watch(
+  reactiveObj,
+  () => {
+    console.log('watch reactiveObj run')
+  },
+  {
+    flush: 'pre' // 调整回调函数的刷新时机 默认pre在组件更新之前被调用 post组件更新后调用
+  }
+)
+
+watch(
+  refObj,
+  () => {
+    console.log('watch refObj run')
+  },
+  {
+    deep: true,
+    flush: "post"
+  }
+)
 </script>
