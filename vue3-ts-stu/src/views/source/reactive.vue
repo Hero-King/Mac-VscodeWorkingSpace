@@ -1,9 +1,10 @@
 <template>
-  <div class="module">count: {{ count }} <button @click="count++">count++</button></div>
+  <div class="module">
+    count: {{ count }} dbCount: {{ dbCount }}<button @click="count++">count++</button>
+  </div>
 </template>
 
 <script lang="ts" setup name="SourceReactive">
-debugger
 var rawObj = { age: 26 }
 var count = ref(0)
 // reactive 函数调用 createReactiveObject(优先从weakmap中取代理对象, 没有则根据需要被代理的对象target的类型是数组/对象(则使用baseHandler) ? 还是set/map/WeakMap/weakset(则使用collectionHandler) 创建代理对象)
@@ -12,12 +13,28 @@ var reactiveObj = reactive(rawObj)
 var refObj = ref(rawObj)
 // isRef(ref函数创建RefImpl实例时候指定实例 __v_isRef 为true, isRef判断对象这个标志位即可 )
 console.log('isRef(0), isRef(1), isRef(rawObj), isRef(count), isRef(refObj), isRef(reactiveObj)')
-// console.log(isRef(0), isRef(1), isRef(rawObj), isRef(count), isRef(refObj), isRef(reactiveObj))
+console.log(isRef(0), isRef(1), isRef(rawObj), isRef(count), isRef(refObj), isRef(reactiveObj))
+// toref
+const dbCount = toRef(() => count.value * 2)
+const refObj1 = toRef(refObj)
+console.log(refObj1 === refObj, isRef(refObj1)) // true true
+
+// toValue
+console.log(toValue(dbCount), toValue(refObj1))
+
 // toRaw() 可以返回由 reactive()、readonly()、shallowReactive() 或者 shallowReadonly() 创建的代理对应的原始对象。
 console.log(
   'toRaw(0), toRaw(1), toRaw(rawObj), toRaw(count), toRaw(refObj),  toRaw(reactiveObj), toRaw(reactiveObj) === rawObj'
 )
-// console.log(toRaw(0), toRaw(1), toRaw(rawObj), toRaw(count), toRaw(refObj), toRaw(reactiveObj), toRaw(reactiveObj) === rawObj)
+console.log(
+  toRaw(0),
+  toRaw(1),
+  toRaw(rawObj),
+  toRaw(count),
+  toRaw(refObj),
+  toRaw(reactiveObj),
+  toRaw(reactiveObj) === rawObj
+)
 
 var deepObj = {
   name: {

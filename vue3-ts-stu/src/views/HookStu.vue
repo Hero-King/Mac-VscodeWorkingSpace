@@ -56,7 +56,8 @@ import {
   useStorage,
   useFullscreen,
   useElementSize,
-  useResizeObserver
+  useResizeObserver,
+  useTitle,
 } from '@vueuse/core'
 import { useTest } from '@/hook/test'
 const { x, y } = useMouse()
@@ -66,6 +67,8 @@ const container = ref()
 const content = ref()
 const inputVal = useStorage('inputVal', 'defaultVal')
 const showSidebar = ref<boolean>(true)
+
+useTitle('hook')
 
 // vueuse 中 副作用会在组件卸载时候自动清除, 你也可以手动接收hook返回值作为资源清理函数
 useEventListener(window, 'resize', (e) => {
