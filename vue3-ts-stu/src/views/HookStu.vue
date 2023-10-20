@@ -36,17 +36,24 @@
         >ResizeObserver MDN</a
       >
       <div class="flex">
-        <div v-show="showSidebar" class="flex-1 border">sidebar</div>
+        <div :style="{ width: showSidebar ? '50%' : 0, transition: 'all 1s' }" class="border">
+          sidebar
+        </div>
         <div ref="content" class="flex-1 border">
           content width, height: {{ width }}, {{ height }}
         </div>
       </div>
     </div>
     <div class="module">useMutationObserver 监听元素样式,大小,子元素变化</div>
+    <div class="module">
+      useVModel
+      <my-input v-model="parentInputVal" v-model:obj-value="parentInputObj"></my-input>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import MyInput from '@/components/MyInput.vue'
 import {
   useLocalStorage,
   useMouse,
@@ -58,6 +65,7 @@ import {
   useElementSize,
   useResizeObserver,
   useTitle,
+  useDebounceFn
 } from '@vueuse/core'
 import { useTest } from '@/hook/test'
 const { x, y } = useMouse()
@@ -67,6 +75,10 @@ const container = ref()
 const content = ref()
 const inputVal = useStorage('inputVal', 'defaultVal')
 const showSidebar = ref<boolean>(true)
+const parentInputVal = ref('')
+const parentInputObj = ref({
+  val: 'init'
+})
 
 useTitle('hook')
 
@@ -74,6 +86,18 @@ useTitle('hook')
 useEventListener(window, 'resize', (e) => {
   console.log('handle resize', e)
 })
+useEventListener(
+  window,
+  'resize',
+  useDebounceFn(
+    (e) => {
+      console.warn('useDebounceFn handle resize', e)
+    },
+    1000,
+    { maxWait: 3000 }
+  )
+)
+
 const { isSupported, isFullscreen, enter, exit, toggle } = useFullscreen(fullscreen)
 // 不给hook传递参数 hook内部逻辑只会执行一次
 // const { data } = useTest()
