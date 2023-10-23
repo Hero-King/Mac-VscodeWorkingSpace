@@ -1,5 +1,10 @@
 @import './base.css';
 
+/* 注入tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,19 +44,6 @@ a,
   border: 1px solid pink;
 }
 
-.flex{
-  display: flex;
-  align-items: center;
-}
-
-.flexCol{
-  flex-direction: column;
-}
-
-.flex-1{
-  flex: 1;
-}
-
-.border{
+.border {
   border: 1px solid #ccc;
 }
