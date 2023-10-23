@@ -65,7 +65,8 @@ import {
   useElementSize,
   useResizeObserver,
   useTitle,
-  useDebounceFn
+  useDebounceFn,
+  useThrottleFn
 } from '@vueuse/core'
 import { useTest } from '@/hook/test'
 const { x, y } = useMouse()
@@ -95,6 +96,19 @@ useEventListener(
     },
     1000,
     { maxWait: 3000 }
+  )
+)
+
+useEventListener(
+  'resize',
+  // trialing: 定时器到期执行函数 ; leading: 执行函数后设置定时器
+  useThrottleFn(
+    (e) => {
+      console.error('useThrottleFn handle resize', e)
+    },
+    4000,
+    true,
+    false
   )
 )
 
