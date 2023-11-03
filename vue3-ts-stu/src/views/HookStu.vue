@@ -12,6 +12,8 @@
       <div>鼠标坐标: x: {{ x }} , y: {{ y }}</div>
     </div>
 
+    <div class="module">useNow {{ now }} useDateFormat {{ dateFormat }}</div>
+
     <!-- <div class="module" ref="container">onClickOutside 不要点击这块区域 </div> -->
 
     <div class="module">
@@ -29,13 +31,10 @@
     <div class="module">useFullscreen 全屏模式呈现特定元素（及其后代）的方法</div>
     <div class="module" @click="showSidebar = !showSidebar">
       useElementSize 获取元素尺寸大小响应式 ; useResizeObserver 监听元素内容区和边框尺寸的变化。
-      <a
-        href="https://developer.mozilla.org/zh-CN/docs/Web/API/ResizeObserver"
-        target="_blank"
-        rel="noreferrer"
-        >ResizeObserver MDN</a
+      <el-link target="_blank" href="https://developer.mozilla.org/zh-CN/docs/Web/API/ResizeObserver"
+        >ResizeObserver MDN</el-link
       >
-      <div class="flex">
+      <div class="flex m-2">
         <div :style="{ width: showSidebar ? '50%' : 0, transition: 'all 1s' }" class="border">
           sidebar
         </div>
@@ -66,13 +65,17 @@ import {
   useResizeObserver,
   useTitle,
   useDebounceFn,
-  useThrottleFn
+  useThrottleFn,
+  useNow,
+  useDateFormat
 } from '@vueuse/core'
 import { useTest } from '@/hook/test'
 const { x, y } = useMouse()
 const fullscreen = ref<HTMLElement>()
 const count = ref(0)
 const container = ref()
+const now = useNow()
+const dateFormat = useDateFormat(now, 'YYYY年MM月DD日')
 const content = ref()
 const inputVal = useStorage('inputVal', 'defaultVal')
 const showSidebar = ref<boolean>(true)
