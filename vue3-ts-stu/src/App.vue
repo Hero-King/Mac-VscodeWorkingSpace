@@ -29,6 +29,7 @@ const componentClick = () => {
         <RouterLink to="/Api">Api</RouterLink>
         <RouterLink to="/source/reactive">源码学习-reactive</RouterLink>
         <RouterLink to="/tailwind">tailwind</RouterLink>
+        <RouterLink to="/swiper">swiper</RouterLink>
       </nav>
     </div>
   </header>
