@@ -30,6 +30,9 @@ const componentClick = () => {
         <RouterLink to="/source/reactive">源码学习-reactive</RouterLink>
         <RouterLink to="/tailwind">tailwind</RouterLink>
         <RouterLink to="/swiper">swiper</RouterLink>
+        <RouterLink to="/threejs/QuickStart">threejs QuickStart</RouterLink>
+        <RouterLink to="/threejs/DrawingLine">ThreeDrawingLine</RouterLink>
+        <RouterLink to="/threejs/Stu">Three Stu</RouterLink>
       </nav>
     </div>
   </header>
