@@ -33,6 +33,7 @@ const componentClick = () => {
         <RouterLink to="/threejs/QuickStart">threejs QuickStart</RouterLink>
         <RouterLink to="/threejs/DrawingLine">ThreeDrawingLine</RouterLink>
         <RouterLink to="/threejs/Stu">Three Stu</RouterLink>
+        <RouterLink to="/threejs/OrbitControls">Three OrbitControls</RouterLink>
       </nav>
     </div>
   </header>
