@@ -42,6 +42,17 @@ var deepObj = {
   }
 }
 const reactiveDeepObj = reactive(deepObj)
+const unwatchReactive = watch(
+  () => reactiveDeepObj.name,
+  (v) => {
+    console.log('reactiveDeepObj.name change')
+  },
+  {
+    immediate: false
+  }
+)
+
+Object.assign(reactiveDeepObj, { name: { age: 24 } })
 
 const stuProxy = () => {
   // Proxy默认只代理一层对象的属性 ; 想要proxy代理深层属性需要在getter判断 Reflect.get(target,key)返回值是对象a -> 则对对象a在进行proxy 返回proxy对象

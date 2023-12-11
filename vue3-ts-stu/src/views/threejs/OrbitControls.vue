@@ -34,7 +34,7 @@ const init = () => {
   axesHelper.setColors('red', 'green', 'blue')
   scene.add(axesHelper)
 
-  // controls
+  // controls Orbit: 道；眼眶；势力范围；生活常规 盘旋；绕道运行
   controls = new OrbitControls(camera, renderer.domElement)
   controls.autoRotate = false
   animate()
