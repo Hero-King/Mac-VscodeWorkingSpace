@@ -2,15 +2,16 @@
   <div ref="domRef"></div>
 </template>
 <script lang="ts" name="ThreeOrbitControls" setup>
-import { Scene, WebGLRenderer, Color, PerspectiveCamera, AxesHelper } from 'three'
+import { Scene, WebGLRenderer, Color, PerspectiveCamera, AxesHelper, Clock } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 // threejs + ts
 const domRef = ref<HTMLElement>()
-let camera: InstanceType<typeof PerspectiveCamera>,
-  controls: InstanceType<typeof OrbitControls>,
-  scene: InstanceType<typeof Scene>,
-  renderer: InstanceType<typeof WebGLRenderer>
+let camera:  PerspectiveCamera,
+  controls:  OrbitControls,
+  scene:  Scene,
+  renderer:  WebGLRenderer,
+  clock:  Clock
 
 onMounted(() => {
   init()
@@ -36,7 +37,11 @@ const init = () => {
 
   // controls Orbit: 道；眼眶；势力范围；生活常规 盘旋；绕道运行
   controls = new OrbitControls(camera, renderer.domElement)
+  // 设置控制器阻尼，让控制器更有真实效果,必须在动画循环里调用.update()。
+  controls.enableDamping = true
   controls.autoRotate = false
+
+  clock = new Clock()
   animate()
 }
 
