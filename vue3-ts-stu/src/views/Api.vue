@@ -21,6 +21,15 @@
     <button @click="handleHobby(reactiveObj)">爱好++</button>
     <button @click="reactiveObj.hobby[0].value++">爱好[0].value++</button>
   </div>
+  <div class="module">
+    shallowReactiveObj: {{ shallowReactiveObj }}
+    <div>姓名: {{ shallowReactiveObj.name }} -- 年龄: {{ shallowReactiveObj.age }} --</div>
+    <button @click="shallowReactiveObj.age++">年龄++</button>
+    <button @click="handleHobby(shallowReactiveObj)">爱好++</button>
+    <button @click="shallowReactiveObj.hobby[0].value++">爱好[0].value++</button>
+  </div>
+
+  <div class="module">version : {{ version }}</div>
 
   <div class="module">
     <h2>computed</h2>
@@ -36,6 +45,7 @@
   </div>
 </template>
 <script name="Api" setup lang="ts">
+import { version } from 'vue'
 const refObj = ref({
   name: 'wjj',
   age: 26,
@@ -71,7 +81,17 @@ const refreshShallow = () => {
   triggerRef(shallowRefObj)
 }
 
-const reactiveObj = ref({
+const reactiveObj = reactive({
+  name: 'wjj',
+  age: 26,
+  hobby: [
+    {
+      name: '羽毛球',
+      value: 24
+    }
+  ]
+})
+const shallowReactiveObj = shallowReactive({
   name: 'wjj',
   age: 26,
   hobby: [
@@ -82,7 +102,7 @@ const reactiveObj = ref({
   ]
 })
 
-console.log(refObj, shallowRefObj, reactiveObj)
+console.log(refObj, shallowRefObj, reactiveObj, shallowReactiveObj)
 
 // ===============computed
 const hobbyLength = computed(() => {
