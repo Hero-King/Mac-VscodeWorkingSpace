@@ -2,31 +2,32 @@
   <div class="module">
     refObj: {{ refObj }}
     <div>姓名: {{ refObj.name }} -- 年龄: {{ refObj.age }} --</div>
-    <button @click="refObj.age++">年龄++</button>
-    <button @click="handleHobby(refObj)">爱好++</button>
-    <button @click="refObj.hobby[0].value++">爱好[0].value++</button>
+    <el-button @click="refObj.age++">年龄++</el-button>
+    <el-button @click="handleHobby(refObj)">爱好++</el-button>
+    <el-button @click="refObj.hobby[0].value++">爱好[0].value++</el-button>
   </div>
   <div class="module">
     shallowRefObj: {{ shallowRefObj }}
     <div>姓名: {{ shallowRefObj.name }} -- 年龄: {{ shallowRefObj.age }} --</div>
-    <button @click="shallowRefObj.age++">年龄++</button>
-    <button @click="handleHobby(shallowRefObj)">爱好++</button>
-    <button @click="shallowRefObj.hobby[0].value++">爱好[0].value++</button>
-    <button @click="refreshShallow">强制触发shallowRef 更新</button>
+    <el-button @click="shallowRefObj.age++">年龄++</el-button>
+    <el-button @click="handleHobby(shallowRefObj)">爱好++</el-button>
+    <el-button @click="shallowRefObj.hobby[0].value++">爱好[0].value++</el-button>
+    <el-button @click="refreshShallow">强制触发shallowRef 更新</el-button>
+    <el-button @click="changeShallowRefObj">改变shallowRefObj 指向</el-button>
   </div>
   <div class="module">
     reactiveObj: {{ reactiveObj }}
     <div>姓名: {{ reactiveObj.name }} -- 年龄: {{ reactiveObj.age }} --</div>
-    <button @click="reactiveObj.age++">年龄++</button>
-    <button @click="handleHobby(reactiveObj)">爱好++</button>
-    <button @click="reactiveObj.hobby[0].value++">爱好[0].value++</button>
+    <el-button @click="reactiveObj.age++">年龄++</el-button>
+    <el-button @click="handleHobby(reactiveObj)">爱好++</el-button>
+    <el-button @click="reactiveObj.hobby[0].value++">爱好[0].value++</el-button>
   </div>
   <div class="module">
     shallowReactiveObj: {{ shallowReactiveObj }}
     <div>姓名: {{ shallowReactiveObj.name }} -- 年龄: {{ shallowReactiveObj.age }} --</div>
-    <button @click="shallowReactiveObj.age++">年龄++</button>
-    <button @click="handleHobby(shallowReactiveObj)">爱好++</button>
-    <button @click="shallowReactiveObj.hobby[0].value++">爱好[0].value++</button>
+    <el-button @click="shallowReactiveObj.age++">年龄++</el-button>
+    <el-button @click="handleHobby(shallowReactiveObj)">爱好++</el-button>
+    <el-button @click="shallowReactiveObj.hobby[0].value++">爱好[0].value++</el-button>
   </div>
 
   <div class="module">version : {{ version }}</div>
@@ -81,6 +82,10 @@ const refreshShallow = () => {
   triggerRef(shallowRefObj)
 }
 
+const changeShallowRefObj = () => {
+  shallowRefObj.value = JSON.parse(JSON.stringify(shallowRefObj.value))
+}
+
 const reactiveObj = reactive({
   name: 'wjj',
   age: 26,
@@ -115,7 +120,7 @@ const hobbyLength = computed(() => {
  */
 const getHobbyName = computed(() => (index: number) => {
   console.log('func computed run')
-  return reactiveObj.value.hobby[index].name
+  return reactiveObj.hobby[index].name
 })
 
 // ===============watch
@@ -143,7 +148,7 @@ watch(
   },
   {
     deep: true,
-    flush: "post"
+    flush: 'post'
   }
 )
 

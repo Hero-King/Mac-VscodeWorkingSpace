@@ -131,7 +131,7 @@ const animate = (time?) => {
   // cube.position.x = (time / 1000) % 5
   // console.log(cube.position.x);
 
-  //   controls.update() // only required if controls.enableDamping = true, or if controls.autoRotate = true
+  controls.update() // only required if controls.enableDamping = true, or if controls.autoRotate = true
   render()
 }
 

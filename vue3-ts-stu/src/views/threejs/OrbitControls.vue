@@ -7,11 +7,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 // threejs + ts
 const domRef = ref<HTMLElement>()
-let camera:  PerspectiveCamera,
-  controls:  OrbitControls,
-  scene:  Scene,
-  renderer:  WebGLRenderer,
-  clock:  Clock
+let camera: PerspectiveCamera,
+  controls: OrbitControls,
+  scene: Scene,
+  renderer: WebGLRenderer,
+  clock: Clock
 
 onMounted(() => {
   init()
@@ -47,7 +47,7 @@ const init = () => {
 
 const animate = () => {
   requestAnimationFrame(animate)
-  //   controls.update() // only required if controls.enableDamping = true, or if controls.autoRotate = true
+  controls.update() // only required if controls.enableDamping = true, or if controls.autoRotate = true
   render()
 }
 
