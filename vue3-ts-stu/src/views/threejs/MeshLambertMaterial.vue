@@ -1,7 +1,7 @@
 <template>
   <div ref="domRef"></div>
 </template>
-<script lang="ts" name="MeshStandardMaterial" setup>
+<script lang="ts" name="MeshLambertMaterial" setup>
 import { useThreeInit } from './useThreeInit'
 import * as THREE from 'three'
 import { AmbientLight, TextureLoader, Vector3 } from 'three'
@@ -19,8 +19,8 @@ onMounted(() => {
   const doorAplhaTexture = textureLoader.load(aplhaTextureImg)
 
   const geometry = new THREE.BoxGeometry(1, 1, 1)
-  // 创建带纹理的材质 受光照影响的材质MeshStandardMaterial MeshLambertMaterial 没有光就是黑的 看不到
-  const material = new THREE.MeshStandardMaterial({
+  // 创建带纹理的材质 受光照影响的材质MeshStandardMaterial MeshLambertMaterial,  没有光就是黑的 看不到
+  const material = new THREE.MeshLambertMaterial({
     color: 0x00ff00
     // map: doorColorTexture,
     // alphaMap: doorAplhaTexture,
@@ -37,20 +37,21 @@ onMounted(() => {
   pointLight.decay = 0.0 //取消光源衰减, 光源强度不随着距离元二衰减
   //   pointLight.position.set(10, 0, 0) // 光源放到x轴10位置, 那只能照到一个面
   pointLight.position.set(5, 15, 10) // 调整光源位置查看效果
-  //   scene.value.add(pointLight)
+    // scene.value.add(pointLight)
 
   //   光源辅助器
   const pointLightHelper = new THREE.PointLightHelper(pointLight, 1) // 参数: 点光源对象, helper范围大小
-  scene.value.add(pointLightHelper)
+  // scene.value.add(pointLightHelper)
 
   //   环境光 均匀的照亮场景中的所有物体。
   const ambientLight = new AmbientLight(0xffffff, 0.4)
-  scene.value.add(ambientLight)
+  // scene.value.add(ambientLight)
 
   // 平行光是沿着特定方向发射的光, 模拟太阳光的效果
   const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5)
   //   设置光源的方向：通过光源position属性和目标指向对象的position属性计算
-  directionalLight.position.set(-10, 10, 10)
+  // directionalLight.position.set(-10, 0, 0)
+  directionalLight.position.set(-10, 10, 10)  // 对立方体的反射角相同, 就会看不到立方体的边
   directionalLight.target = mesh
   scene.value.add(directionalLight)
 

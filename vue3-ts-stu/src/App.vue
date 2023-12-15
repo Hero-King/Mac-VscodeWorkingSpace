@@ -40,6 +40,8 @@ const componentClick = () => {
         <RouterLink to="/threejs/color">Three color</RouterLink>
         <RouterLink to="/threejs/MeshBasicMaterial">ThreeMeshBasicMaterial</RouterLink>
         <RouterLink to="/threejs/MeshStandardMaterial">MeshStandardMaterial</RouterLink>
+        <RouterLink to="/threejs/MeshLambertMaterial">MeshLambertMaterial</RouterLink>
+        <RouterLink to="/threejs/Stats">ThreeStats</RouterLink>
       </nav>
     </div>
   </header>

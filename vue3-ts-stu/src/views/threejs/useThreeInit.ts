@@ -21,14 +21,15 @@ export const useThreeInit = (
   controlsConfig: { autoRotate?: boolean; enableDamping?: boolean } = {
     autoRotate: false,
     enableDamping: true
-  }
+  },
+  animateCallback?: Function
 ) => {
   let camera = shallowRef<PerspectiveCamera>({} as PerspectiveCamera),
     controls = shallowRef<OrbitControls>({} as OrbitControls),
     scene = shallowRef<Scene>({} as Scene),
     renderer = shallowRef<WebGLRenderer>({} as WebGLRenderer),
     cube = shallowRef<Mesh>({} as Mesh),
-    clock: Clock = {} as Clock
+    clock = shallowRef<Clock>({} as Clock)
 
   const { isSupported, isFullscreen, enter, exit, toggle } = useFullscreen(domRef)
 
@@ -57,6 +58,8 @@ export const useThreeInit = (
     // 设置控制器阻尼，让控制器更有真实效果,必须在动画循环里调用.update()。
     controls.value.enableDamping = controlsConfig.enableDamping!
     controls.value.autoRotate = controlsConfig.autoRotate!
+
+    clock.value = new Clock()
 
     // 创建立方体
     const cubeGeometry = new BoxGeometry(1, 1, 1)
@@ -120,6 +123,10 @@ export const useThreeInit = (
   const needControlUpdate = controlsConfig.autoRotate || controlsConfig.enableDamping
 
   const animate = (time?) => {
+    // const spt = clock.value.getDelta() * 1000 //毫秒
+    // console.log('两帧渲染时间间隔(毫秒)', spt)
+    // console.log('帧率FPS', 1000 / spt)
+    animateCallback?.()
     requestAnimationFrame(animate)
     if (needControlUpdate) {
       controls.value.update() // only required if controls.enableDamping = true, or if controls.autoRotate = true

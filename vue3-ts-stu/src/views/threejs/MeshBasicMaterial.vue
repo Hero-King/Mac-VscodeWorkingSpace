@@ -20,7 +20,6 @@ onMounted(() => {
   // 设置旋转的原点 纹理的旋转点范围是0~1 默认是(0,0) 即左下角
   // doorColorTexture.center.set(0.5, 0.5);
 
-  // 创建5*5的平面
   const geometry = new THREE.BoxGeometry(1, 1, 1)
   // 创建带纹理的材质 不受光照影响的材质
   const material = new THREE.MeshBasicMaterial({
