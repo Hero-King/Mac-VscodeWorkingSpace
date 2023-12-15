@@ -7,7 +7,7 @@ import * as THREE from 'three'
 import { TextureLoader } from 'three'
 import colorTextureImg from '@/assets/color.jpg'
 const domRef = ref()
-const { camera, controls, scene, renderer, cube } = useThreeInit(domRef)
+const { camera, controls, scene, renderer, cube } = useThreeInit(domRef, { enableDamping: false })
 
 onMounted(() => {
   scene.value.remove(cube.value)
@@ -27,9 +27,10 @@ onMounted(() => {
   })
   // 根据几何体和材质创建物体
   const mesh = new THREE.Mesh(geometry, material)
-  mesh.position.x = 2.5
-  camera.value.position.set(8, 0, 5)
-
+  mesh.position.x = 5
   scene.value.add(mesh)
+
+  camera.value.position.set(8, 0, 10)
+  camera.value.lookAt(mesh.position)
 })
 </script>

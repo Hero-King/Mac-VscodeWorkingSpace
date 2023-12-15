@@ -19,7 +19,7 @@ const componentClick = () => {
 
       -->
       <HelloWorld msg="You did it!" @click="componentClick" />
-
+      <el-link href="http://www.webgl3d.cn/">threejs中文网</el-link>
       <nav>
         <RouterLink to="/home">Home</RouterLink>
         <RouterLink to="/about">语法学习</RouterLink>
@@ -39,6 +39,7 @@ const componentClick = () => {
         <RouterLink to="/threejs/PlaneGeometry">ThreePlaneGeometry</RouterLink>
         <RouterLink to="/threejs/color">Three color</RouterLink>
         <RouterLink to="/threejs/MeshBasicMaterial">ThreeMeshBasicMaterial</RouterLink>
+        <RouterLink to="/threejs/MeshStandardMaterial">MeshStandardMaterial</RouterLink>
       </nav>
     </div>
   </header>

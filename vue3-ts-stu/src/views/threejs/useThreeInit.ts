@@ -12,11 +12,21 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { MaybeElementRef, useEventListener, useFullscreen } from '@vueuse/core'
-export const useThreeInit = (domRef: MaybeElementRef<HTMLElement>) => {
+/**
+ * threejs初始化场景 相机 渲染器
+ * @param domRef domref
+ */
+export const useThreeInit = (
+  domRef: MaybeElementRef<HTMLElement>,
+  controlsConfig: { autoRotate?: boolean; enableDamping?: boolean } = {
+    autoRotate: false,
+    enableDamping: true
+  }
+) => {
   let camera = shallowRef<PerspectiveCamera>({} as PerspectiveCamera),
     controls = shallowRef<OrbitControls>({} as OrbitControls),
     scene = shallowRef<Scene>({} as Scene),
-    renderer: WebGLRenderer = {} as WebGLRenderer,
+    renderer = shallowRef<WebGLRenderer>({} as WebGLRenderer),
     cube = shallowRef<Mesh>({} as Mesh),
     clock: Clock = {} as Clock
 
@@ -31,9 +41,9 @@ export const useThreeInit = (domRef: MaybeElementRef<HTMLElement>) => {
     scene.value = new Scene()
     scene.value.background = new Color(0xcccccc)
 
-    renderer = new WebGLRenderer()
-    renderer.setSize(dom.clientWidth, dom.clientHeight)
-    dom.appendChild(renderer.domElement)
+    renderer.value = new WebGLRenderer()
+    renderer.value.setSize(dom.clientWidth, dom.clientHeight)
+    dom.appendChild(renderer.value.domElement)
 
     camera.value = new PerspectiveCamera(60, dom.clientWidth / dom.clientWidth, 1, 500)
     camera.value.position.set(-5, 5, 5)
@@ -43,10 +53,10 @@ export const useThreeInit = (domRef: MaybeElementRef<HTMLElement>) => {
     scene.value.add(axesHelper)
 
     // controls Orbit: 道；眼眶；势力范围；生活常规 盘旋；绕道运行
-    controls.value = new OrbitControls(camera.value, renderer.domElement)
+    controls.value = new OrbitControls(camera.value, renderer.value.domElement)
     // 设置控制器阻尼，让控制器更有真实效果,必须在动画循环里调用.update()。
-    controls.value.enableDamping = true
-    controls.value.autoRotate = false
+    controls.value.enableDamping = controlsConfig.enableDamping!
+    controls.value.autoRotate = controlsConfig.autoRotate!
 
     // 创建立方体
     const cubeGeometry = new BoxGeometry(1, 1, 1)
@@ -91,9 +101,9 @@ export const useThreeInit = (domRef: MaybeElementRef<HTMLElement>) => {
       camera.value.updateProjectionMatrix()
 
       //   更新渲染器
-      renderer.setSize(window.innerWidth, window.innerHeight)
+      renderer.value.setSize(window.innerWidth, window.innerHeight)
       //   设置渲染器的像素比
-      renderer.setPixelRatio(window.devicePixelRatio)
+      renderer.value.setPixelRatio(window.devicePixelRatio)
     })
 
     // 双击进入全屏
@@ -107,15 +117,18 @@ export const useThreeInit = (domRef: MaybeElementRef<HTMLElement>) => {
 
     console.log('inited')
   }
+  const needControlUpdate = controlsConfig.autoRotate || controlsConfig.enableDamping
 
   const animate = (time?) => {
     requestAnimationFrame(animate)
-    controls.value.update() // only required if controls.enableDamping = true, or if controls.autoRotate = true
+    if (needControlUpdate) {
+      controls.value.update() // only required if controls.enableDamping = true, or if controls.autoRotate = true
+    }
     render()
   }
 
   const render = () => {
-    renderer.render(scene.value, camera.value)
+    renderer.value.render(scene.value, camera.value)
   }
 
   return {

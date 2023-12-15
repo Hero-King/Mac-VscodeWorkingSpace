@@ -22,7 +22,7 @@ onMounted(() => {
 
   // 创建5*5的平面
   const geometry = new THREE.BoxGeometry(1, 1, 1)
-  // 创建带纹理的材质
+  // 创建带纹理的材质 不受光照影响的材质
   const material = new THREE.MeshBasicMaterial({
     color: 0xffff00,
     map: doorColorTexture,
