@@ -2,7 +2,7 @@
   <div ref="domRef"></div>
 </template>
 <script lang="ts" name="ThreeOrbitControls" setup>
-import { Scene, WebGLRenderer, Color, PerspectiveCamera, AxesHelper, Clock } from 'three'
+import { Scene, WebGLRenderer, Color, PerspectiveCamera, AxesHelper, Clock, Vector3 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 // threejs + ts
@@ -42,7 +42,25 @@ const init = () => {
   controls.autoRotate = false
 
   clock = new Clock()
-  animate()
+
+  const useRequestAnimationFrame = false
+  if (useRequestAnimationFrame) {
+    animate() // 使用requestAnimationFrame 控制渲染
+  } else {
+    render()
+
+    // 当摄像机被组件改变时触发。
+    controls.addEventListener('change', () => {
+      render()
+    })
+
+    setTimeout(() => {
+      camera.position.set(-20, 20, 20)
+      // camera.lookAt(0.0, 20.0, 40.0)  // OrbitControls与lookAt不能一起使用??? 需要使用 controls.target
+      controls.target = new Vector3(0, 20, 20)
+      controls.update()
+    }, 2000)
+  }
 }
 
 const animate = () => {
