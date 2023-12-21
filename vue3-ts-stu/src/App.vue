@@ -49,6 +49,8 @@ const componentClick = () => {
         <RouterLink to="/threejs/Visible">Three Visible</RouterLink>
         <RouterLink to="/threejs/Texture">Three ThreeTexture</RouterLink>
         <RouterLink to="/threejs/CustomUV">Three CustomUV</RouterLink>
+        <RouterLink to="/threejs/CircleGeometry">Three CircleGeometry</RouterLink>
+        <RouterLink to="/threejs/UvAnimation">Three UvAnimation</RouterLink>
       </nav>
     </div>
   </header>
