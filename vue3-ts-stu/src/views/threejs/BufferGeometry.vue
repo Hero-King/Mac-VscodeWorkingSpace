@@ -7,7 +7,7 @@ import * as THREE from 'three'
 const domRef = ref()
 const { camera, controls, scene, renderer, cube } = useThreeInit(domRef)
 
-// demo: 几何体顶点位置数据, 顶点索引
+// demo: 几何体顶点位置数据, 顶点索引 点/线/面模型
 
 onMounted(() => {
   scene.value.remove(cube.value)
@@ -54,6 +54,13 @@ onMounted(() => {
   // geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
 
   console.log(geometry)
+
+  // renderMesh(geometry)
+  // renderPoint(geometry)
+  renderLine(geometry)
+})
+
+const renderMesh = (geometry: THREE.BufferGeometry) => {
   // 网格材质 如果改用其他受光照影响的材质,因为没有light会是黑的,解决也简单,需要设置BufferGeometry的顶点法线geometry.attributes.normal
   const material = new THREE.MeshBasicMaterial({
     color: 0xffff00,
@@ -63,23 +70,27 @@ onMounted(() => {
   // 用网格模型mesh渲染自定义的几何体bufferGeometry
   const mesh = new THREE.Mesh(geometry, material)
   scene.value.add(mesh)
+}
 
+const renderPoint = (geometry: THREE.BufferGeometry) => {
   // 点材质
-  // const material = new THREE.PointsMaterial({
-  //   color: 0xffff00,
-  //   size: 2
-  // })
-  // // 点模型
-  // const points = new THREE.Points(geometry, material)
-  // scene.value.add(points)
+  const material = new THREE.PointsMaterial({
+    color: 0xffff00,
+    size: 1
+  })
+  // 点模型
+  const points = new THREE.Points(geometry, material)
+  scene.value.add(points)
+}
 
+const renderLine = (geometry: THREE.BufferGeometry) => {
   // 线模型
-  // const material = new THREE.LineBasicMaterial({
-  //   color: 0xffff00
-  // })
-  // // const line = new THREE.Line(geometry, material) // 从第一个点开始到最后一个点，依次连成线。
-  // // const line = new THREE.LineLoop(geometry, material) // 闭合线条 终点和起点连接到一起
-  // const line = new THREE.LineSegments(geometry, material) // 非连续的线条 位置坐标两两一组成线
-  // scene.value.add(line)
-})
+  const material = new THREE.LineBasicMaterial({
+    color: 0xffff00
+  })
+  // const line = new THREE.Line(geometry, material) // 从第一个点开始到最后一个点，依次连成线。
+  // const line = new THREE.LineLoop(geometry, material) // 闭合线条 终点和起点连接到一起
+  const line = new THREE.LineSegments(geometry, material) // 非连续的线条 位置坐标两两一组成线
+  scene.value.add(line)
+}
 </script>

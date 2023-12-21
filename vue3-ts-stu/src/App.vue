@@ -30,20 +30,22 @@ const componentClick = () => {
         <RouterLink to="/source/reactive">源码学习-reactive</RouterLink>
         <RouterLink to="/tailwind">tailwind</RouterLink>
         <RouterLink to="/swiper">swiper</RouterLink>
-        <RouterLink to="/threejs/QuickStart">threejs QuickStart</RouterLink>
-        <RouterLink to="/threejs/DrawingLine">ThreeDrawingLine</RouterLink>
-        <RouterLink to="/threejs/Stu">Three Stu</RouterLink>
+        <RouterLink to="/threejs/QuickStart">Three QuickStart</RouterLink>
+        <RouterLink to="/threejs/DrawingLine">Three DrawingLine</RouterLink>
+        <RouterLink to="/threejs/RotateGeometry">Three RotateGeometry</RouterLink>
         <RouterLink to="/threejs/OrbitControls">Three OrbitControls</RouterLink>
         <RouterLink to="/threejs/Gsap">Three Gsap</RouterLink>
-        <RouterLink to="/threejs/BufferGeometry">ThreeBufferGeometry</RouterLink>
-        <RouterLink to="/threejs/PlaneGeometry">ThreePlaneGeometry</RouterLink>
+        <RouterLink to="/threejs/BufferGeometry">Three BufferGeometry</RouterLink>
+        <RouterLink to="/threejs/PlaneGeometry">Three PlaneGeometry</RouterLink>
         <RouterLink to="/threejs/color">Three color</RouterLink>
-        <RouterLink to="/threejs/MeshBasicMaterial">ThreeMeshBasicMaterial</RouterLink>
-        <RouterLink to="/threejs/MeshStandardMaterial">MeshStandardMaterial</RouterLink>
-        <RouterLink to="/threejs/MeshLambertMaterial">MeshLambertMaterial</RouterLink>
-        <RouterLink to="/threejs/Stats">ThreeStats</RouterLink>
-        <RouterLink to="/threejs/GeometryIndex">GeometryIndex</RouterLink>
-        <RouterLink to="/threejs/group">GeometryGroup</RouterLink>
+        <RouterLink to="/threejs/MeshBasicMaterial">Three MeshBasicMaterial</RouterLink>
+        <RouterLink to="/threejs/MeshStandardMaterial">Three MeshStandardMaterial</RouterLink>
+        <RouterLink to="/threejs/MeshLambertMaterial">Three MeshLambertMaterial</RouterLink>
+        <RouterLink to="/threejs/Stats">Three Stats</RouterLink>
+        <RouterLink to="/threejs/GeometryIndex">Three GeometryIndex</RouterLink>
+        <RouterLink to="/threejs/group">Three Group</RouterLink>
+        <RouterLink to="/threejs/GroupApi">Three GroupApi</RouterLink>
+        <RouterLink to="/threejs/GeometryTranslate">Three GeometryTranslate</RouterLink>
       </nav>
     </div>
   </header>

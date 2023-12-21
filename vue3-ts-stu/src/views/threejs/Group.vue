@@ -36,5 +36,14 @@ onMounted(() => {
   //   世界坐标和本地坐标
   //   任何一个模型的本地坐标(局部坐标)就是模型的.position属性。
   // 一个模型的世界坐标，说的是，模型自身.position和所有父对象.position累加的坐标 mesh.getWorldPosition(Vector3)读取一个模型的世界坐标，并把读取结果存储到参数Vector3中。
+  console.log('mesh.position', mesh.position)
+  let worldPosition = new THREE.Vector3()
+  mesh.getWorldPosition(worldPosition)
+  console.log('mesh worldPosition', worldPosition)
+
+  // 树遍历
+  scene.value.traverse((obj) => {
+    console.log(obj)
+  })
 })
 </script>

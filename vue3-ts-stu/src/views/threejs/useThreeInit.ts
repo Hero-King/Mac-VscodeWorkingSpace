@@ -51,7 +51,8 @@ export const useThreeInit = (
     camera.value = new PerspectiveCamera(60, dom.clientWidth / dom.clientWidth, 1, 500)
     camera.value.position.set(-5, 5, 5)
 
-    const axesHelper = new AxesHelper(5)
+    const axesHelper = new AxesHelper(30)
+    axesHelper.name = 'axesHelper'
     axesHelper.setColors('red', 'green', 'blue')
     scene.value.add(axesHelper)
 
