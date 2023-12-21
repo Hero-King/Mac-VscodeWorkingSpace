@@ -28,7 +28,6 @@ onMounted(() => {
 
   //   geometry.scale(2, 2, 2) // 放大2倍
   geometry.translate(5, 0, 0)
-
   //   geometry.center() // 几何体居中
 
   //   查看几何体顶点数据和索引数据
