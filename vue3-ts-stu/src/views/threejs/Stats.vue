@@ -7,6 +7,8 @@ import * as THREE from 'three'
 import Stats from 'three/examples/jsm/libs/stats.module.js'
 const domRef = ref()
 
+// demo: 在页面左上角展示浏览器渲染帧率
+
 //创建stats对象
 const stats = new Stats()
 document.body.appendChild(stats.dom)

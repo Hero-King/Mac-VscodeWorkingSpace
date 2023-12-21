@@ -42,7 +42,9 @@ export const useThreeInit = (
     scene.value = new Scene()
     scene.value.background = new Color(0xcccccc)
 
-    renderer.value = new WebGLRenderer()
+    renderer.value = new WebGLRenderer({
+      antialias: true //渲染器锯齿属性
+    })
     renderer.value.setSize(dom.clientWidth, dom.clientHeight)
     dom.appendChild(renderer.value.domElement)
 
@@ -122,7 +124,7 @@ export const useThreeInit = (
   }
   const needControlUpdate = controlsConfig.autoRotate || controlsConfig.enableDamping
 
-  const animate = (time?) => {
+  const animate = (time?: DOMHighResTimeStamp) => {
     // const spt = clock.value.getDelta() * 1000 //毫秒
     // console.log('两帧渲染时间间隔(毫秒)', spt)
     // console.log('帧率FPS', 1000 / spt)

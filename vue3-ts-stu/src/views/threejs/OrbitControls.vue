@@ -5,7 +5,9 @@
 import { Scene, WebGLRenderer, Color, PerspectiveCamera, AxesHelper, Clock, Vector3 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-// threejs + ts
+// 轨道控制器 用于监听 renderer.domElement 元素的左击/右击/拖动事件 以更新摄像机的位置
+// 想更新摄像机的朝向 需要调整controls.target值, 执行controls.update()通知摄像机更新,  不能使用camera.lookAt
+
 const domRef = ref<HTMLElement>()
 let camera: PerspectiveCamera,
   controls: OrbitControls,
@@ -54,12 +56,12 @@ const init = () => {
       render()
     })
 
-    setTimeout(() => {
-      camera.position.set(-20, 20, 20)
-      // camera.lookAt(0.0, 20.0, 40.0)  // OrbitControls与lookAt不能一起使用??? 需要使用 controls.target
-      controls.target = new Vector3(0, 20, 20)
-      controls.update()
-    }, 2000)
+    // setTimeout(() => {
+    //   camera.position.set(-20, 20, 20)
+    //   // camera.lookAt(0.0, 20.0, 40.0)  // OrbitControls与lookAt不能一起使用??? 需要使用 controls.target
+    //   controls.target = new Vector3(0, 20, 20)
+    //   controls.update()
+    // }, 2000)
   }
 }
 

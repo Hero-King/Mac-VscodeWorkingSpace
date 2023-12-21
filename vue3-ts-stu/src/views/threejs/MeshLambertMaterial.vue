@@ -10,6 +10,8 @@ import aplhaTextureImg from '@/assets/alpha.jpg'
 const domRef = ref()
 const { camera, controls, scene, renderer, cube } = useThreeInit(domRef)
 
+// 光照 光照辅助器 和 MeshLambertMaterial
+
 onMounted(() => {
   scene.value.remove(cube.value)
   scene.value.background = null
@@ -37,7 +39,7 @@ onMounted(() => {
   pointLight.decay = 0.0 //取消光源衰减, 光源强度不随着距离元二衰减
   //   pointLight.position.set(10, 0, 0) // 光源放到x轴10位置, 那只能照到一个面
   pointLight.position.set(5, 15, 10) // 调整光源位置查看效果
-    // scene.value.add(pointLight)
+  // scene.value.add(pointLight)
 
   //   光源辅助器
   const pointLightHelper = new THREE.PointLightHelper(pointLight, 1) // 参数: 点光源对象, helper范围大小
@@ -51,7 +53,7 @@ onMounted(() => {
   const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5)
   //   设置光源的方向：通过光源position属性和目标指向对象的position属性计算
   // directionalLight.position.set(-10, 0, 0)
-  directionalLight.position.set(-10, 10, 10)  // 对立方体的反射角相同, 就会看不到立方体的边
+  directionalLight.position.set(-10, 10, 10) // 对立方体的反射角相同, 就会看不到立方体的边
   directionalLight.target = mesh
   scene.value.add(directionalLight)
 
