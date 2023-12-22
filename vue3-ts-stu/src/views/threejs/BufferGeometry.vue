@@ -57,7 +57,8 @@ onMounted(() => {
 
   // renderMesh(geometry)
   // renderPoint(geometry)
-  renderLine(geometry)
+  // renderLine(geometry)
+  positionBySetFromPoints()
 })
 
 const renderMesh = (geometry: THREE.BufferGeometry) => {
@@ -91,6 +92,22 @@ const renderLine = (geometry: THREE.BufferGeometry) => {
   // const line = new THREE.Line(geometry, material) // 从第一个点开始到最后一个点，依次连成线。
   // const line = new THREE.LineLoop(geometry, material) // 闭合线条 终点和起点连接到一起
   const line = new THREE.LineSegments(geometry, material) // 非连续的线条 位置坐标两两一组成线
+  scene.value.add(line)
+}
+
+const positionBySetFromPoints = () => {
+  const geometry = new THREE.BufferGeometry()
+  const points = [
+    // 三维向量Vector3表示的坐标值
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0, 10, 0),
+    new THREE.Vector3(0, 10, 10),
+    new THREE.Vector3(0, 0, 10)
+  ]
+  geometry.setFromPoints(points)
+  const material = new THREE.LineBasicMaterial({ color: 0xffff00 })
+  const line = new THREE.LineLoop(geometry, material)
+  line.position.y = 2
   scene.value.add(line)
 }
 </script>

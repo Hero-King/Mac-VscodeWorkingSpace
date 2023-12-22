@@ -43,6 +43,7 @@ export const useThreeInit = (
     scene.value.background = new Color(0xcccccc)
 
     renderer.value = new WebGLRenderer({
+      // logarithmicDepthBuffer: true,  // 设置对数深度缓冲区, 当两个面间距比较小的时候，让threejs更容易区分两个面，谁在前，谁在后
       antialias: true //渲染器锯齿属性
     })
     renderer.value.setSize(dom.clientWidth, dom.clientHeight)
