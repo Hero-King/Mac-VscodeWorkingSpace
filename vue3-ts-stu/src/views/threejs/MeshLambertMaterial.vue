@@ -21,7 +21,7 @@ onMounted(() => {
   const doorAplhaTexture = textureLoader.load(aplhaTextureImg)
 
   const geometry = new THREE.BoxGeometry(1, 1, 1)
-  // 创建带纹理的材质 受光照影响的材质MeshStandardMaterial MeshLambertMaterial,  没有光就是黑的 看不到
+  // 创建带纹理的材质 受光照影响的材质MeshLambertMaterial(漫反射材质),  没有光就是黑的 看不到
   const material = new THREE.MeshLambertMaterial({
     color: 0x00ff00
     // map: doorColorTexture,
