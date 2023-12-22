@@ -4,7 +4,7 @@
 <script lang="ts" name="ThreeUvAnimation" setup>
 import { useThreeInit } from './useThreeInit'
 import * as THREE from 'three'
-import earthImg from '@/assets/earth.jpg'
+import partImg from '@/assets/part.png'
 import { BufferGeometry } from 'three'
 const domRef = ref()
 const { camera, controls, scene, renderer, cube } = useThreeInit(domRef, { enableDamping: false })
@@ -23,8 +23,9 @@ onMounted(() => {
   //纹理贴图加载器TextureLoader
   const texLoader = new THREE.TextureLoader()
   // .load()方法加载图像，返回一个纹理对象Texture
-  const texture = texLoader.load(earthImg)
+  const texture = texLoader.load(partImg)
   const material = new THREE.MeshLambertMaterial({
+    transparent: true,
     side: THREE.DoubleSide,
     // 设置纹理贴图：Texture对象作为材质map属性的属性值
     map: texture //map表示材质的颜色贴图属性
@@ -36,10 +37,18 @@ onMounted(() => {
   mesh.rotateX(-Math.PI / 2) //平行地面：矩形Mesh默认单面可见，注意旋转-Math.PI / 2
   mesh.position.y = 1
 
-  texture.offset.x = 0.5 //纹理U方向偏移   实质就是修改几何体的uv坐标
+  // texture.offset.x = 0.5 //纹理U方向偏移   实质就是修改几何体的uv坐标
   // 设置.wrapS也就是U方向，纹理映射模式(包裹模式)
-  //   texture.wrapS = THREE.RepeatWrapping //对应offste.x偏移
+  texture.wrapS = THREE.RepeatWrapping //对应offste.x偏移
+  texture.repeat.x = 30
 
   scene.value.add(mesh)
+
+  function render() {
+    texture.offset.x += 0.02
+    renderer.value.render(scene.value, camera.value)
+    requestAnimationFrame(render)
+  }
+  render()
 })
 </script>

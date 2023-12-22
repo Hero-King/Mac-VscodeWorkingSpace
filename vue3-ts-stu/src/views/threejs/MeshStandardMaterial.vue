@@ -21,10 +21,10 @@ onMounted(() => {
   const geometry = new THREE.BoxGeometry(1, 1, 1)
   // 创建带纹理的材质 受光照影响的材质MeshStandardMaterial MeshLambertMaterial 没有光就是黑的 看不到
   const material = new THREE.MeshStandardMaterial({
-    color: 0x00ff00
-    // map: doorColorTexture,
+    color: 0xffff00,
+    map: doorColorTexture,
     // alphaMap: doorAplhaTexture,
-    // transparent: true, // 开启半透明
+    transparent: true // 开启半透明
     // opacity: 0.5 //透明度设置
   })
   // 根据几何体和材质创建物体

@@ -5,7 +5,6 @@
 import { useThreeInit } from './useThreeInit'
 import * as THREE from 'three'
 import earthImg from '@/assets/earth.jpg'
-import { BufferGeometry } from 'three'
 const domRef = ref()
 const { camera, controls, scene, renderer, cube } = useThreeInit(domRef, { enableDamping: false })
 
