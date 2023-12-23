@@ -9,6 +9,11 @@ const { camera, controls, scene, renderer, cube } = useThreeInit(domRef)
 
 // demo: 几何体顶点位置数据, 顶点索引 点/线/面模型
 
+// 顶点位置数据geometry.attributes.position
+// 顶点法向量数据geometry.attributes.normal
+// 顶点UV数据geometry.attributes.uv
+// 顶点颜色数据geometry.attributes.color
+
 onMounted(() => {
   scene.value.remove(cube.value)
 
@@ -58,7 +63,8 @@ onMounted(() => {
   // renderMesh(geometry)
   // renderPoint(geometry)
   // renderLine(geometry)
-  positionBySetFromPoints()
+  // positionBySetFromPoints()
+  attributesColor(geometry)
 })
 
 const renderMesh = (geometry: THREE.BufferGeometry) => {
@@ -109,5 +115,53 @@ const positionBySetFromPoints = () => {
   const line = new THREE.LineLoop(geometry, material)
   line.position.y = 2
   scene.value.add(line)
+}
+
+const attributesColor = (geometry: THREE.BufferGeometry) => {
+  console.log(geometry.attributes.color) // undefined
+
+  const colors = new Float32Array([
+    1,
+    0,
+    0, //顶点1颜色
+    0,
+    0,
+    1, //顶点2颜色
+    0,
+    1,
+    0, //顶点3颜色
+    0,
+    1,
+    1
+  ])
+  // 设置几何体attributes属性的颜色color属性
+  //3个为一组,表示一个顶点的颜色数据RGB
+  geometry.attributes.color = new THREE.BufferAttribute(colors, 3)
+
+  // 点渲染模式 需要设置vertexColors true  geometry的不同点被你设置为了不同颜色
+  const material = new THREE.PointsMaterial({
+    // color: 0x333333,//使用顶点颜色数据，color属性可以不用设置
+    vertexColors: true, //默认false，设置为true表示使用顶点颜色渲染
+    size: 1 //点对象像素尺寸
+  })
+  const points = new THREE.Points(geometry, material)
+  scene.value.add(points)
+
+  // 使用线模型Line渲染，你可以看到直线的颜色是渐变的
+
+  const lineMaterial = new THREE.LineBasicMaterial({
+    vertexColors: true //使用顶点颜色渲染
+  })
+  const line = new THREE.LineLoop(geometry, lineMaterial)
+  scene.value.add(line)
+
+  // / 使用体模型渲染，你可以看到面的颜色是渐变的
+  const meshMaterial = new THREE.MeshBasicMaterial({
+    // color: 0x333333,//使用顶点颜色数据，color属性可以不用设置
+    vertexColors: true, //默认false，设置为true表示使用顶点颜色渲染
+    side: THREE.DoubleSide
+  })
+  const meshgeometry = geometry.clone().translate(4, 0, 0)
+  scene.value.add(new THREE.Mesh(meshgeometry, meshMaterial))
 }
 </script>

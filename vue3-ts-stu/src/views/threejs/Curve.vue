@@ -18,6 +18,8 @@ const { camera, controls, scene, renderer, cube } = useThreeInit(domRef, { enabl
  * 三维三次贝赛尔曲线CubicBezierCurve3
  * 3D直线LineCurve3
  * 2D直线LineCurve
+ * 2D圆弧ArcCurve
+ * 2D椭圆EllipseCurve
  * 组合曲线CurvePath拼接曲线
  */
 

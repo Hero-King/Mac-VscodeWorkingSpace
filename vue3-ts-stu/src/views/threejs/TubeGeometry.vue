@@ -56,7 +56,7 @@ const renderCurvePathTube = () => {
   // 3. 3D直线线段
   const line2 = new THREE.LineCurve3(p4, p5)
 
-  const curvePath = new THREE.CurvePath()
+  const curvePath = new THREE.CurvePath<THREE.Vector3>()
   // 三条线拼接为一条曲线
   curvePath.curves.push(line1, curve, line2)
 
