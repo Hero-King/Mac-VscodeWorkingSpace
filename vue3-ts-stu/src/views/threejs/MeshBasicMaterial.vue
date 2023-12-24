@@ -11,7 +11,8 @@ const domRef = ref()
 const { camera, controls, scene, renderer, cube } = useThreeInit(domRef)
 
 onMounted(() => {
-  // scene.value.remove(cube.value)
+  scene.value.remove(cube.value)
+  scene.value.background = null
 
   const textureLoader = new TextureLoader()
   const doorColorTexture = textureLoader.load(colorTextureImg)
@@ -25,9 +26,9 @@ onMounted(() => {
   const material = new THREE.MeshBasicMaterial({
     color: 0xffff00,
     map: doorColorTexture,
-    alphaMap: doorAplhaTexture,
+    alphaMap: doorAplhaTexture, // 设置透明纹理，alpha.jpg中 黑色的部分透明 白色的部分不透明 需要设置transparent true 
     transparent: true, // 开启半透明
-    opacity: 0.5 //透明度设置
+    opacity: 0.8 //透明度设置
   })
   // 根据几何体和材质创建物体
   const mesh = new THREE.Mesh(geometry, material)

@@ -38,7 +38,7 @@ onMounted(() => {
   mesh.position.y = 1
 
   // texture.offset.x = 0.5 //纹理U方向偏移   实质就是修改几何体的uv坐标
-  // 设置.wrapS也就是U方向，纹理映射模式(包裹模式)
+  // 设置.wrapS也就是U方向，纹理映射模式(包裹模式) THREE.ClampToEdgeWrapping: 默认值，将最后一个像素点复制到边缘 MirroredRepeatWrapping 镜像重复， 第二个和第一是镜像对称
   texture.wrapS = THREE.RepeatWrapping //对应offste.x偏移
   texture.repeat.x = 30
 
