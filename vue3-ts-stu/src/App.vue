@@ -61,6 +61,10 @@ const componentClick = () => {
         <RouterLink to="/threejs/ShapeGeometry">Three ShapeGeometry</RouterLink>
         <RouterLink to="/threejs/ExtrudeGeometry">Three ExtrudeGeometry</RouterLink>
         <RouterLink to="/threejs/EdgesGeometry">Three EdgesGeometry</RouterLink>
+        <RouterLink to="/threejs/PointsMaterial">Three PointsMaterial</RouterLink>
+        <RouterLink to="/threejs/DemoSnow">Three ThreeDemoSnow</RouterLink>
+        <RouterLink to="/threejs/RayCaster">Three RayCaster</RouterLink>
+        <RouterLink to="/threejs/DemoBall">Three DemoBall</RouterLink>
       </nav>
     </div>
   </header>

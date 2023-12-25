@@ -147,6 +147,7 @@ export const useThreeInit = (
     controls,
     scene,
     renderer,
-    cube
+    cube,
+    clock
   }
 }
