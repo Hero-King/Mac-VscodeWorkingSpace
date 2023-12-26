@@ -175,11 +175,14 @@ onMounted(async () => {
   const clock = new Clock()
   function animate() {
     const time = clock.getElapsedTime()
+    let deltaTime = clock.getDelta()
     const y = (window.scrollY / window.innerHeight) * 30
     camera.position.setY(-y)
 
     // 镜头根据鼠标左右摇晃
-    camera.position.x = mouse.x * 4
+    // camera.position.x = mouse.x * 4
+    // 惯性摇动
+    camera.position.x += (mouse.x * 10 - camera.position.x) * deltaTime * 5
 
     renderer.render(scene, camera)
     requestAnimationFrame(animate)
@@ -268,7 +271,7 @@ const initThree = () => {
   const axes = new AxesHelper(10)
   scene.add(axes)
 
-  new OrbitControls(camera, renderer.domElement)
+  // new OrbitControls(camera, renderer.domElement)
 
   // resize时调整threejs
   useEventListener('resize', () => {
