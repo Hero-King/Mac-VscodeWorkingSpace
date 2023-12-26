@@ -38,7 +38,8 @@ const rayCaster = () => {
   })
 
   // 1000立方体
-  let cubeArr: Mesh[] = []
+  type rayMesh = Mesh<BoxGeometry, MeshBasicMaterial>
+  let cubeArr: rayMesh[] = []
   for (let i = -5; i < 5; i++) {
     for (let j = -5; j < 5; j++) {
       for (let z = -5; z < 5; z++) {
@@ -62,7 +63,7 @@ const rayCaster = () => {
   //     mouse.x = (event.clientX / window.innerWidth) * 2 - 1
   //     mouse.y = -((event.clientY / window.innerHeight) * 2 - 1)
   //     raycaster.setFromCamera(mouse, camera.value)
-  //     let result = raycaster.intersectObjects(cubeArr)
+  //     let result = raycaster.intersectObjects<rayMesh>(cubeArr)
   //     //   console.log(result);
   //     //   result[0].object.material = redMaterial;
   //     result.forEach((item) => {
@@ -76,7 +77,7 @@ const rayCaster = () => {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1
     mouse.y = -((event.clientY / window.innerHeight) * 2 - 1)
     raycaster.setFromCamera(mouse, camera.value)
-    let result = raycaster.intersectObjects(cubeArr)
+    let result = raycaster.intersectObjects<rayMesh>(cubeArr)
     //   console.log(result);
     //   result[0].object.material = redMaterial;
     result.forEach((item) => {

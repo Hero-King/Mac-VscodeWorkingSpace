@@ -49,7 +49,7 @@ export const useThreeInit = (
     renderer.value.setSize(dom.clientWidth, dom.clientHeight)
     dom.appendChild(renderer.value.domElement)
 
-    camera.value = new PerspectiveCamera(60, dom.clientWidth / dom.clientWidth, 1, 500)
+    camera.value = new PerspectiveCamera(60, dom.clientWidth / dom.clientHeight, 1, 500)
     camera.value.position.set(-15, 15, 15)
 
     const axesHelper = new AxesHelper(30)

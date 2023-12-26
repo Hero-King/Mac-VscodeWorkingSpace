@@ -54,7 +54,7 @@ const init = () => {
   renderer.setSize(dom.clientWidth, dom.clientHeight)
   dom.appendChild(renderer.domElement)
 
-  camera = new PerspectiveCamera(60, dom.clientWidth / dom.clientWidth, 1, 500)
+  camera = new PerspectiveCamera(60, dom.clientWidth / dom.clientHeight, 1, 500)
   camera.position.set(-5, 5, 5)
 
   const axesHelper = new AxesHelper(5)

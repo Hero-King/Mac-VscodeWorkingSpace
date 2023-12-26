@@ -34,7 +34,7 @@ onMounted(() => {
   renderer.setSize(dom.clientWidth, dom.clientHeight)
   dom.appendChild(renderer.domElement)
 
-  const camera = new PerspectiveCamera(60, dom.clientWidth / dom.clientWidth, 1, 500)
+  const camera = new PerspectiveCamera(60, dom.clientWidth / dom.clientHeight, 1, 500)
   camera.position.set(-15, 15, 15)
 
   const axesHelper = new AxesHelper(30)

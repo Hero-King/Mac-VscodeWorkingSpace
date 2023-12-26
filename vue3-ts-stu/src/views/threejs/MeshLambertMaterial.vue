@@ -34,7 +34,7 @@ onMounted(() => {
 
   scene.value.add(mesh)
 
-  // 光源
+  // 光源 点光源没有朝向target
   const pointLight = new THREE.PointLight(0xffffff, 1.0) // 点光源 -> 灯泡
   pointLight.decay = 0.0 //取消光源衰减, 光源强度不随着距离元二衰减
   //   pointLight.position.set(10, 0, 0) // 光源放到x轴10位置, 那只能照到一个面
