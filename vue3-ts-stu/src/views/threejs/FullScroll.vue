@@ -1,18 +1,21 @@
 <template>
   <div id="wrap">
-    <div class="text-wrap">
+    <div class="text-wrap page0">
       <h1 class="title-h1">Ray鼠标拾取</h1>
       <h3 class="title-h3">Raycaster实现3D交互</h3>
     </div>
-    <div class="text-wrap">
-      <h1 class="title-h1">Ray鼠标拾取</h1>
-      <h3 class="title-h3">Raycaster实现3D交互</h3>
+    <div class="text-wrap page1">
+      <h1 class="title-h1">炫酷三角形</h1>
+      <h3 class="title-h3">BufferGeometry</h3>
     </div>
-    <div class="text-wrap">
-      <h1 class="title-h1">Ray鼠标拾取</h1>
-      <h3 class="title-h3">Raycaster实现3D交互</h3>
+    <div class="text-wrap page2">
+      <h1 class="title-h1">跳动小球</h1>
+      <h3 class="title-h3">PointLight + SphereGeometry</h3>
     </div>
     <div ref="domRef" class="canvas-wrap"></div>
+    <el-button class="fixed top-0 z-20" type="primary" @click="router.push('/')"
+      >返回首页</el-button
+    >
   </div>
 </template>
 <script lang="ts" name="ThreeFullScroll" setup>
@@ -43,8 +46,10 @@ import {
   Vector2,
   WebGLRenderer
 } from 'three'
-import { useEventListener, useFullscreen } from '@vueuse/core'
+import { useEventListener, useFullscreen, useMouse } from '@vueuse/core'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+
+const router = useRouter()
 
 const domRef = ref<HTMLElement>()
 
@@ -79,6 +84,10 @@ onMounted(async () => {
   const mouse = new Vector2()
 
   // 监听鼠标的位置
+  useEventListener('mousemove', (event) => {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+    mouse.y = -((event.clientY / window.innerHeight) * 2 - 1)
+  })
   useEventListener(domRef, 'click', (event) => {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1
     mouse.y = -((event.clientY / window.innerHeight) * 2 - 1)
@@ -147,6 +156,7 @@ onMounted(async () => {
   sphereGroup.add(smallBall, sphere, plane, ambientlight)
   scene.add(sphereGroup)
 
+  // 给小球添加动画
   gsap.to(smallBall.position, {
     x: -3,
     duration: 6,
@@ -168,6 +178,9 @@ onMounted(async () => {
     const y = (window.scrollY / window.innerHeight) * 30
     camera.position.setY(-y)
 
+    // 镜头根据鼠标左右摇晃
+    camera.position.x = mouse.x * 4
+
     renderer.render(scene, camera)
     requestAnimationFrame(animate)
   }
@@ -186,6 +199,18 @@ onMounted(async () => {
       curPage = newPage
       const curGroupAnimate = pageConfig[curPage]
       curGroupAnimate.quickRotate()
+
+      gsap.fromTo(
+        `.page${curPage} h1`,
+        {
+          x: -300
+        },
+        {
+          x: 0,
+          rotation: '+=360',
+          duration: 1
+        }
+      )
     }
   })
 })
@@ -267,12 +292,11 @@ const initThree = () => {
   position: absolute;
   right: 0;
   left: 0;
+  height: 300vh;
   color: white;
   background-color: rgb(36, 58, 66);
 }
 .text-wrap {
-  position: relative;
-  z-index: 10;
   height: 100vh;
   text-align: center;
 }
@@ -283,11 +307,15 @@ const initThree = () => {
   height: 100vh;
 }
 .title-h1 {
+  position: relative;
+  z-index: 5;
   margin: 20px 0;
   font-weight: 700;
   font-size: 40px;
 }
 .title-h3 {
+  position: relative;
+  z-index: 5;
   font-weight: 500;
   font-size: 20px;
 }
