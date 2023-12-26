@@ -16,7 +16,6 @@
   </div>
 </template>
 <script lang="ts" name="ThreeFullScroll" setup>
-import * as dat from 'dat.gui'
 import gsap from 'gsap'
 import {
   AmbientLight,
@@ -148,15 +147,27 @@ onMounted(async () => {
   sphereGroup.add(smallBall, sphere, plane, ambientlight)
   scene.add(sphereGroup)
 
-  const clock = new Clock()
+  gsap.to(smallBall.position, {
+    x: -3,
+    duration: 6,
+    ease: 'power2.inOut',
+    yoyo: true,
+    repeat: -1
+  })
+  gsap.to(smallBall.position, {
+    y: 0,
+    duration: 0.5,
+    ease: 'power2.inOut',
+    yoyo: true,
+    repeat: -1
+  })
 
+  const clock = new Clock()
   function animate() {
     const time = clock.getElapsedTime()
     const y = (window.scrollY / window.innerHeight) * 30
     camera.position.setY(-y)
 
-    // sphereGroup.rotation.x = Math.sin(time) * 0.2
-    // sphereGroup.rotation.z = Math.sin(time) * 0.1
     renderer.render(scene, camera)
     requestAnimationFrame(animate)
   }
@@ -164,9 +175,9 @@ onMounted(async () => {
 
   let curPage = 0
   const pageConfig: { [index: number]: GroupAnimate } = {
-    0: new GroupAnimate(rayGroup, false),
+    0: new GroupAnimate(rayGroup, true),
     1: new GroupAnimate(colorGroup),
-    2: new GroupAnimate(sphereGroup)
+    2: new GroupAnimate(sphereGroup, false)
   }
   useEventListener('scroll', () => {
     const newPage = Math.round(window.scrollY / window.innerHeight)
