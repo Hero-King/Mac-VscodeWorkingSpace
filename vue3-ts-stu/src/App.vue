@@ -16,7 +16,6 @@ const componentClick = () => {
         如果是false 那么组件中 $attrs 不会绑定到根元素上
         如果是true(默认) 组件的 $attrs 默认会绑定到根元素中, 如果根元素是组件 那么将会透传给组件 如果组件没有根元素(多个组件)
         那么需要手动给某个组件 执行 v-bind=$attrs
-
       -->
       <HelloWorld msg="You did it!" @click="componentClick" />
       <el-link href="http://www.webgl3d.cn/">threejs中文网</el-link>
@@ -66,6 +65,7 @@ const componentClick = () => {
         <RouterLink to="/threejs/RayCaster">Three RayCaster</RouterLink>
         <RouterLink to="/threejs/DemoBall">Three DemoBall</RouterLink>
         <RouterLink to="/threejs/FullScroll">Three FullScroll</RouterLink>
+        <RouterLink to="/threejs/Cannon">Three Cannon</RouterLink>
       </nav>
     </div>
   </header>
@@ -86,7 +86,9 @@ header {
 
 nav {
   width: 100%;
+  max-height: 80vh;
   margin-top: 2rem;
+  overflow: clip auto;
   font-size: 12px;
   text-align: center;
 }

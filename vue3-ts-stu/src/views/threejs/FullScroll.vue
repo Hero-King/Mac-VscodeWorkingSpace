@@ -1,22 +1,24 @@
 <template>
-  <div id="wrap">
-    <div class="text-wrap page0">
-      <h1 class="title-h1">Ray鼠标拾取</h1>
-      <h3 class="title-h3">Raycaster实现3D交互</h3>
+  <Teleport to="body">
+    <div id="wrap">
+      <div class="text-wrap page0">
+        <h1 class="title-h1">Ray鼠标拾取</h1>
+        <h3 class="title-h3">Raycaster实现3D交互</h3>
+      </div>
+      <div class="text-wrap page1">
+        <h1 class="title-h1">炫酷三角形</h1>
+        <h3 class="title-h3">BufferGeometry</h3>
+      </div>
+      <div class="text-wrap page2">
+        <h1 class="title-h1">跳动小球</h1>
+        <h3 class="title-h3">PointLight + SphereGeometry</h3>
+      </div>
+      <div ref="domRef" class="canvas-wrap"></div>
+      <el-button class="fixed top-0 z-20" type="primary" @click="router.push('/')"
+        >返回首页</el-button
+      >
     </div>
-    <div class="text-wrap page1">
-      <h1 class="title-h1">炫酷三角形</h1>
-      <h3 class="title-h3">BufferGeometry</h3>
-    </div>
-    <div class="text-wrap page2">
-      <h1 class="title-h1">跳动小球</h1>
-      <h3 class="title-h3">PointLight + SphereGeometry</h3>
-    </div>
-    <div ref="domRef" class="canvas-wrap"></div>
-    <el-button class="fixed top-0 z-20" type="primary" @click="router.push('/')"
-      >返回首页</el-button
-    >
-  </div>
+  </Teleport>
 </template>
 <script lang="ts" name="ThreeFullScroll" setup>
 import gsap from 'gsap'
@@ -293,9 +295,9 @@ const initThree = () => {
 <style lang="scss" scoped>
 #wrap {
   position: absolute;
+  top: 0;
   right: 0;
   left: 0;
-  height: 300vh;
   color: white;
   background-color: rgb(36, 58, 66);
 }
@@ -312,7 +314,7 @@ const initThree = () => {
 .title-h1 {
   position: relative;
   z-index: 5;
-  margin: 20px 0;
+  padding: 20px;
   font-weight: 700;
   font-size: 40px;
 }
@@ -321,10 +323,5 @@ const initThree = () => {
   z-index: 5;
   font-weight: 500;
   font-size: 20px;
-}
-
-.full-btn {
-  position: fixed;
-  left: 0;
 }
 </style>
