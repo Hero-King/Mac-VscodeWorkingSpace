@@ -29,6 +29,7 @@
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
     "@tsconfig/node18": "^2.0.1",
+    "@types/dat.gui": "^0.7.12",
     "@types/node": "^18.16.17",
     "@types/three": "^0.158.3",
     "@umijs/openapi": "^1.8.5",

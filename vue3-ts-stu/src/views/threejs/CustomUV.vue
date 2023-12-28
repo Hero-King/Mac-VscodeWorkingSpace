@@ -50,7 +50,7 @@ onMounted(() => {
     // 下面索引值对应顶点位置数据中的顶点坐标
     0, 1, 2, 0, 2, 3
   ])
-  geometry.index = new THREE.BufferAttribute(indexes, 1) //1个为一组
+  geometry.index = new THREE.BufferAttribute(indexes, 1) // indexs 中每一个元素表示一个点
   console.log('查看几何体的UV坐标', geometry.attributes.uv) // undefined
   console.log('查看几何体的顶点坐标', geometry.attributes.position)
 

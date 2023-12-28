@@ -14,14 +14,21 @@ import img from '@/assets/img/渲染流程.png'
 import basicVertexShader from './shader/basic/vertex.glsl?raw'
 // 片元着色器
 import basicFragmentShader from './shader/basic/fragment.glsl?raw'
+
+// 顶点着色器
+import rawVertexShader from './shader/raw/vertex.glsl?raw'
+// 片元着色器
+import rawFragmentShader from './shader/raw/fragment.glsl?raw'
+import renderImg from '@/assets/ca.jpeg'
+
 const domRef = ref()
 const { camera, controls, scene, renderer, cube } = useThreeInit(domRef, { enableDamping: false })
 
 /**
  * shader
- * 渲染管线
+ * 渲染管线 在图形管道 (graphic pipeline) 中直接可执行的 OpenGL 着色语言, 着色器有两种类型——顶点着色器 (Vertex Shader) 和片段着色器（Fragment Shader）
  * 渲染流程: 顶点数据 Vertex Data[] => 顶点着色器(Vertex shader) => 形状/图元装配Shape Accembly => 几何着色器(Geometry Shader) => RASTERIZATION光栅化 => 片段着色器(FRAGEMENT SHADER) => 测试与混合(TESTS AND BLENDING)
- * 顶点着色器: 顶点位置
+ * 顶点着色器: 顶点位置, 将形状转换到真实的 3D 绘制坐标中, 顶点着色器操作 3D 空间的坐标并且每个顶点都会调用一次这个函数
  * 图元: 一个顶点或者一条线段或者一个多边形
  * 图元装配: 将我们设置的顶点、颜色、纹理等内容组装成一个可渲染的多边形的过程
  * 光栅化： 通过图元装配生成的多边形，计算像素并填充，剔除不可见的部分，裁减掉不在可视范围的部分，最终生成可见的带有颜色数据的图形并绘制
@@ -34,7 +41,8 @@ onMounted(() => {
   scene.value.remove(cube.value)
 
   //   renderPlane()
-  renderPlane2()
+  // renderPlane2()
+  renderPlaneRawShader()
 })
 
 /**
@@ -75,6 +83,10 @@ const renderPlane = () => {
   const floor = new THREE.Mesh(geometry, material)
   scene.value.add(floor)
 }
+
+/**
+ * ShaderMaterial会自动给GLSL程序 声明常用的变量
+ */
 const renderPlane2 = () => {
   scene.value.add(
     new THREE.Mesh(
@@ -82,6 +94,30 @@ const renderPlane2 = () => {
       new THREE.ShaderMaterial({
         vertexShader: basicVertexShader,
         fragmentShader: basicFragmentShader
+      })
+    )
+  )
+}
+
+const renderPlaneRawShader = () => {
+  // 创建纹理加载器对象
+  const textureLoader = new THREE.TextureLoader()
+  const texture = textureLoader.load(renderImg)
+  scene.value.add(
+    new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.RawShaderMaterial({
+        vertexShader: rawVertexShader,
+        fragmentShader: rawFragmentShader,
+        side: THREE.DoubleSide,
+        uniforms: {
+          uTime: {
+            value: 0
+          },
+          uTexture: {
+            value: texture
+          }
+        }
       })
     )
   )

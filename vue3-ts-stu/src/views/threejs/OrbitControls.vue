@@ -63,6 +63,8 @@ const init = () => {
     //   controls.update()
     // }, 2000)
   }
+
+  testCameraUp(camera)
 }
 
 const animate = () => {
@@ -73,5 +75,20 @@ const animate = () => {
 
 const render = () => {
   renderer.render(scene, camera)
+}
+
+/**
+ *
+ * .up是相机对象的上方向属性，当你改变.up属性时候，就好比你生活中拍照时候，扭转你的相机姿态角度进行拍照，这时候你的照片也会跟着相机姿态旋转。
+ * @param camera
+ */
+const testCameraUp = (camera: THREE.PerspectiveCamera) => {
+  console.log('.up默认值', camera.up)
+  // 你可以看到模型相比原来上下颠倒  y坐标轴朝下
+  // camera.up.set(0, -1, 0)
+  //渲染效果：红色x轴向上
+  // camera.up.set(1, 0, 0)
+  camera.lookAt(0, 0, 0) //执行lookAt重新计算相机姿态
+  controls.update()
 }
 </script>

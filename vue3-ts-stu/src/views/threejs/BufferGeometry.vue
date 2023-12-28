@@ -48,7 +48,7 @@ onMounted(() => {
     // 下面索引值对应顶点位置数据中的顶点坐标
     0, 1, 2, 0, 2, 3
   ])
-  geometry.index = new THREE.BufferAttribute(indexes, 1) //1个为一组
+  geometry.index = new THREE.BufferAttribute(indexes, 1) // indexs 中每一个元素表示一个点
 
   // 由(-1,-1,1) (1,-1,1) (1,1,1)三个顶点组成的三角形
   // const vertices = new Float32Array([-1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0])
