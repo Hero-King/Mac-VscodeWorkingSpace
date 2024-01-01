@@ -69,6 +69,7 @@ const componentClick = () => {
         <RouterLink to="/threejs/Shader">Three Shader</RouterLink>
         <RouterLink to="/threejs/DemoFlyLight">Three DemoFlyLight</RouterLink>
         <RouterLink to="/threejs/OrthographicCamera">Three OrthographicCamera</RouterLink>
+        <RouterLink to="/threejs/sprite">Three sprite</RouterLink>
       </nav>
     </div>
   </header>
