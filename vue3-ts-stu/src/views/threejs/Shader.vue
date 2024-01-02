@@ -34,7 +34,6 @@ const { camera, controls, scene, renderer, cube } = useThreeInit(domRef, { enabl
  * 光栅化： 通过图元装配生成的多边形，计算像素并填充，剔除不可见的部分，裁减掉不在可视范围的部分，最终生成可见的带有颜色数据的图形并绘制
  * 片元着色器：光栅化后，每一个像素点都包含了颜色、深度、纹理数据，称为片元，着色器就是给每一个像素上色
  *
- *
  */
 
 onMounted(() => {
@@ -50,6 +49,7 @@ onMounted(() => {
 1．什么是着色器材质
 着色器材质（ShaderMaterial）是一个用GLSL编写的小程序，在GPU上运行。它能够提供materials之外的效果，也可以将许多对象组合成单个Geometry或BufferGeometry以提高性能。
 2．着色器材质的变量
+内置attributes和uniforms与代码一起传递到shaders
 每个着色器材质都可以指定两种不同类型的shaders，他们是顶点着色器和片元着色器（Vertex shaders and fragmentshaders)。
 ·顶点着色器首先运行；它接收attributes，计算／操纵每个单独顶点的位置，并将其他数据（varyings）传递给片元着色器。
 ·片元（或像素）着色器后运行；它设置渲染到屏幕的每个单独的“片元”（像素）的颜色。shader中有三种类型的变量：uniforms，attributes，和varyings

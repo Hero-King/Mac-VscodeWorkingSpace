@@ -53,3 +53,14 @@ npm run lint
 npm i --save-dev three
 npm i --save-dev @types/three
 ```
+
+#### blender
+
+快捷键
+
+- t 左侧工具栏显隐
+- n 右侧工具栏显隐
+- 视角切换: 右上角三维视图单击拖动/ 按住鼠标滚轮、shift+ 滚轮
+- 调整摄像机位置: 右侧工具栏-视图-锁定摄像机到视图方位
+- ` 切换视图
+- x 删除物体

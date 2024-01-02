@@ -14,8 +14,11 @@ import {
   PointsMaterial,
   TextureLoader
 } from 'three'
+import gsap from 'gsap'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
+import vertexShader from './shader/flylight/vertex.glsl?raw'
+import fragmentShader from './shader/flylight/fragment.glsl?raw'
 const domRef = ref()
 const { camera, controls, scene, renderer, cube, clock } = useThreeInit(domRef, {
   enableDamping: false
@@ -40,15 +43,45 @@ onMounted(() => {
     scene.value.background = texture
   })
 
+  // 创建着色器材质;
+  const shaderMaterial = new THREE.ShaderMaterial({
+    vertexShader: vertexShader,
+    fragmentShader: fragmentShader,
+    uniforms: {},
+    side: THREE.DoubleSide
+    //   transparent: true,
+  })
+
   const gltfLoader = new GLTFLoader()
   type MaterialMesh = Mesh<BufferGeometry, MeshStandardMaterial>
   gltfLoader.load('/flyLight.glb', (gltf) => {
-    // console.log(gltf.scene, 'gltf.scene', gltf.scene.getObjectByName('灯体'))
+    console.log(gltf.scene, 'gltf.scene', gltf.scene.getObjectByName('灯体'))
     const bodyMesh: MaterialMesh = gltf.scene.getObjectByName('灯体') as MaterialMesh
     const bottomMesh: MaterialMesh = gltf.scene.getObjectByName('灯托') as MaterialMesh
     getBox(bottomMesh)
-    bodyMesh.material.side = THREE.DoubleSide
-    scene.value.add(gltf.scene)
+    // @ts-ignore
+    bodyMesh.material = shaderMaterial
+
+    for (let i = 0; i < 100; i++) {
+      const flyLight = gltf.scene.clone()
+      let x = (Math.random() - 0.5) * 300
+      let z = (Math.random() - 0.5) * 300
+      let y = Math.random() * 60 + 25
+      flyLight.position.set(x, y, z)
+      gsap.to(flyLight.rotation, {
+        y: 2 * Math.PI,
+        duration: 10 + Math.random() * 30,
+        repeat: -1
+      })
+      gsap.to(flyLight.position, {
+        x: '+=' + Math.random() * 5,
+        y: '+=' + Math.random() * 20,
+        yoyo: true,
+        duration: 5 + Math.random() * 10,
+        repeat: -1
+      })
+      scene.value.add(flyLight)
+    }
   })
   renderer.value.outputColorSpace = THREE.SRGBColorSpace
   // 设置色调映射
@@ -56,12 +89,6 @@ onMounted(() => {
   //   renderer.value.toneMapping = THREE.LinearToneMapping
   // 色调映射的曝光级别
   renderer.value.toneMappingExposure = 0.2
-
-  const animate = (time?: DOMHighResTimeStamp) => {
-    requestAnimationFrame(animate)
-  }
-
-  animate()
 
   addGui()
 })
