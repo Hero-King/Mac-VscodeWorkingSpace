@@ -22,7 +22,9 @@ import rawFragmentShader from './shader/raw/fragment.glsl?raw'
 import renderImg from '@/assets/ca.jpeg'
 
 const domRef = ref()
-const { camera, controls, scene, renderer, cube } = useThreeInit(domRef, { enableDamping: false })
+const { camera, controls, scene, renderer, cube, clock } = useThreeInit(domRef, {
+  enableDamping: false
+})
 
 /**
  * shader
@@ -41,6 +43,7 @@ onMounted(() => {
 
   //   renderPlane()
   // renderPlane2()
+  // renderCurvePlane()
   renderPlaneRawShader()
 })
 
@@ -93,6 +96,37 @@ const renderPlane = () => {
   scene.value.add(floor)
 }
 
+const renderCurvePlane = () => {
+  scene.value.add(
+    new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1, 64, 64),
+      new THREE.ShaderMaterial({
+        vertexShader: `
+      varying vec2 vUv;
+      varying float vDeep; 
+      void main (){
+        vUv = uv; // 将uv坐标赋值给变量vUv 便于传递给片元着色器
+        vec4 modelPosition =  modelMatrix * vec4( position, 1.0 );
+        // modelPosition.x += 1.0; // 所有顶点x方向偏移1
+        modelPosition.z = sin(modelPosition.x * 10.0) * 0.1;  // x轴波浪效果
+        modelPosition.z += sin(modelPosition.y * 10.0) * 0.1;  // 加上y轴波浪效果
+        gl_Position = projectionMatrix * viewMatrix * modelPosition ;
+        vDeep = modelPosition.z;
+      }
+    `,
+        fragmentShader: `
+      varying vec2 vUv;
+      varying float vDeep; 
+      void main(){
+        // gl_FragColor = vec4(vUv,0.0,1);  // 使用uv坐标作为颜色
+        gl_FragColor = vec4(vDeep * 2.0 + 0.8 ,0.0, 0.0,1);
+      }
+    `
+      })
+    )
+  )
+}
+
 /**
  * ShaderMaterial会自动给GLSL程序 声明常用的变量
  */
@@ -112,23 +146,26 @@ const renderPlaneRawShader = () => {
   // 创建纹理加载器对象
   const textureLoader = new THREE.TextureLoader()
   const texture = textureLoader.load(renderImg)
-  scene.value.add(
-    new THREE.Mesh(
-      new THREE.PlaneGeometry(1, 1),
-      new THREE.RawShaderMaterial({
-        vertexShader: rawVertexShader,
-        fragmentShader: rawFragmentShader,
-        side: THREE.DoubleSide,
-        uniforms: {
-          uTime: {
-            value: 0
-          },
-          uTexture: {
-            value: texture
-          }
-        }
-      })
-    )
-  )
+  const material = new THREE.RawShaderMaterial({
+    vertexShader: rawVertexShader,
+    fragmentShader: rawFragmentShader,
+    side: THREE.DoubleSide,
+    uniforms: {
+      uTime: {
+        value: 0
+      },
+      uTexture: {
+        value: texture
+      }
+    }
+  })
+  // 需要多给些顶点坐标
+  scene.value.add(new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 64, 64), material))
+
+  const animate = () => {
+    material.uniforms.uTime.value = clock.value.getElapsedTime()
+    requestAnimationFrame(animate)
+  }
+  animate()
 }
 </script>
