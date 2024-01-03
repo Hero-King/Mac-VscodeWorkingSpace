@@ -58,6 +58,10 @@ onMounted(() => {
 ·Varyings 是从顶点着色器传递到片元着色器的变量。对于每一个片元，每一个varying的值将是相邻顶点值的平滑插值。
 注意：在shader 内部，uniforms和attributes就像常量；你只能使用JavaScript代码通过缓冲区来修改它们的值。 
 
+  GLSL语言
+  每一行代码必须带; 浮点数和整数不会做类型转换
+  https://learnopengl-cn.github.io/01%20Getting%20started/05%20Shaders/#glsl
+  https://webglfundamentals.org/webgl/lessons/zh_cn/webgl-shaders-and-glsl.html
  */
 const renderPlane = () => {
   const geometry = new THREE.PlaneGeometry(1, 1)
@@ -65,15 +69,20 @@ const renderPlane = () => {
 
   //   编写的是 GLSL 代码, 安装 shader vscode插件编写
   const material = new THREE.ShaderMaterial({
-    // 顶点着色器
+    // 顶点着色器 每个顶点数据都会执行一次, 计算出最终位置存放在gl_Position全局变量中
     vertexShader: `
+        // varying vec4 v_color; 传递给片元着色器
         void main(){
             // gl_Position = vec4(position, 1); // 直接将(-0.5,0.5,0) ( 0.5, 0.5, 0) (-0.5, -0.5, 0)等四个顶点坐标 直接放到canvas中
-            gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4( position, 1.0 ) ; // 相乘顺序不能改变, 投影矩阵*视图矩阵*模型矩阵*顶点坐标
+            gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4( position, 1.0 ) ; // 相乘顺序不能改变, 投影矩阵*视图矩阵*模型矩阵*顶点坐标, 模型矩阵 * 顶点坐标得到物体世界坐标系坐标, 在* 视图矩阵得到视点坐标,观察点坐标和上方向, 投影矩阵通常分为平行投影和透视投影
+
+            // v_color = xxxx 给变量赋值
         }
     `,
-    // 片元着色器
+    // 片元着色器 每个像素点都会执行片元着色器,计算出最终颜色值存放在gl_FragColor中
     fragmentShader: `
+        // precision lowp float;  // 浮点数精度, lowp(低) medium(中) highp(高) 让GPU估算计算量
+        // varying vec4 v_color; // varying代表接受顶点着色器传递的数据, 类型是vec4 变量名v_color
         void main(){
             gl_FragColor = vec4(1.0,0.0,0.0,1);   // 每个像素颜色: rgba
         }
