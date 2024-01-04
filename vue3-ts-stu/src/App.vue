@@ -67,6 +67,7 @@ const componentClick = () => {
         <RouterLink to="/threejs/FullScroll">Three FullScroll</RouterLink>
         <RouterLink to="/threejs/Cannon">Three Cannon</RouterLink>
         <RouterLink to="/threejs/Shader">Three Shader</RouterLink>
+        <RouterLink to="/threejs/ShaderMore">Three ShaderMore</RouterLink>
         <RouterLink to="/threejs/DemoFlyLight">Three DemoFlyLight</RouterLink>
         <RouterLink to="/threejs/OrthographicCamera">Three OrthographicCamera</RouterLink>
         <RouterLink to="/threejs/sprite">Three sprite</RouterLink>

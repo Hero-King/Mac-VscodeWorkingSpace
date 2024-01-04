@@ -65,6 +65,7 @@ onMounted(() => {
   每一行代码必须带; 浮点数和整数不会做类型转换
   https://learnopengl-cn.github.io/01%20Getting%20started/05%20Shaders/#glsl
   https://webglfundamentals.org/webgl/lessons/zh_cn/webgl-shaders-and-glsl.html
+  thebookofshader.com
  */
 const renderPlane = () => {
   const geometry = new THREE.PlaneGeometry(1, 1)
