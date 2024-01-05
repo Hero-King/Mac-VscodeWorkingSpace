@@ -27,6 +27,7 @@ const componentClick = () => {
         <RouterLink to="/Select">Select</RouterLink>
         <RouterLink to="/Api">Api</RouterLink>
         <RouterLink to="/source/reactive">源码学习-reactive</RouterLink>
+        <RouterLink to="/pinia/">pinia-index</RouterLink>
         <RouterLink to="/tailwind">tailwind</RouterLink>
         <RouterLink to="/swiper">swiper</RouterLink>
         <RouterLink to="/threejs/QuickStart">Three QuickStart</RouterLink>

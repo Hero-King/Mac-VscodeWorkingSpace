@@ -22,7 +22,17 @@ console.log(
 
 const app = createApp(App)
 app.use(ElementPlus)
-// app.use(createPinia())
+/**
+ * createPinia() 创建了pinia对象(Every application must own its own pinia to be able to create stores),
+ * 插件被use之后挂载到了app.config.globalProperties.$pinia, 并使用provide注册到了每个组件中
+ * pinia._a = app
+ * pinia._s: new Map()
+ * pinia.state是一个ref对象
+ */
+const pinia = createPinia()
+console.log(pinia, 'pinia')
+
+app.use(pinia)
 app.use(router)
 
 console.log(app, 'app')
@@ -36,8 +46,8 @@ const clearDefault = {
  * 方式二  app._context.components.ElSelect.props.clearable = clearDefault
  */
 app._context.components.ElSelect.props.clearable = clearDefault
-app._context.components.ElCard.props.shadow.default = false;
-app._context.components.ElLink.props.underline.default = false;
-app._context.components.ElLink.props.type.default = 'primary';
+app._context.components.ElCard.props.shadow.default = false
+app._context.components.ElLink.props.underline.default = false
+app._context.components.ElLink.props.type.default = 'primary'
 
 app.mount('#app')
