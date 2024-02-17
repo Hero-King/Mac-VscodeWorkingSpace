@@ -3,7 +3,7 @@
     hook Stu
     <div>
       计数器 {{ count }}
-      <button @click="count++">+</button>
+      <el-button @click="count++">+</el-button>
       hooks Data: {{ data }}
     </div>
 
@@ -31,7 +31,9 @@
     <div class="module">useFullscreen 全屏模式呈现特定元素（及其后代）的方法</div>
     <div class="module" @click="showSidebar = !showSidebar">
       useElementSize 获取元素尺寸大小响应式 ; useResizeObserver 监听元素内容区和边框尺寸的变化。
-      <el-link target="_blank" href="https://developer.mozilla.org/zh-CN/docs/Web/API/ResizeObserver"
+      <el-link
+        target="_blank"
+        href="https://developer.mozilla.org/zh-CN/docs/Web/API/ResizeObserver"
         >ResizeObserver MDN</el-link
       >
       <div class="flex m-2">

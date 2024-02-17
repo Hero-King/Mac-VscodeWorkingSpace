@@ -1,0 +1,37 @@
+<template>
+  <div>
+    <h2 class="font-bold text-lg">
+      别人总结好的: https://boychina.github.io/posts/2020-12-19-vue3-core-source-code-0
+    </h2>
+    <h3 class="font-bold text-lg">Vue3优势</h3>
+    <ul class="list-disc">
+      <li>源码使用monorepo组织代码, 不同功能拆分到不同的package中</li>
+      <li>使用Typescript开发, 类型检查/静态类型推断/IDE更好的支持</li>
+      <li>打包优化: 移除一些冷门的feature/API, 引入Tree-shaking技术减少Vuejs打包体积</li>
+      <li>
+        数据劫持优化:
+        使用Proxy(可以检测对象属性删减,proxy提供很多的拦截器/可以检查数组/不能监听内部深层对象属性变化,vue3在getter中去递归响应式:访问内部对象时候才会变成响应式,而不是无脑递归)代替Object.defineProperty(不能检测对象属性的添加删除/数组检测性能差/嵌套层级比较深的对象必须递归响应式处理)
+      </li>
+      <li>
+        编译优化: 编译阶段优化编译结果,实现运行时 Patch过程的优化, Vue2实现局部更新的颗粒度到组件级,
+        在组件中进行Dom Diff,当组件中只有一两个动态节点时候, 也需要逐层Diff, 这都是性能的浪费;
+        Vue3能够依据Block Tree识别动态节点; 重写了Diff算法; 事件侦听函数缓存优化
+      </li>
+      <li>
+        语法优化: 组合式API,
+        Vue2的选项式API在组件中存在多个逻辑关注点时候,需要再methods/data等不同选项中来回切换
+      </li>
+    </ul>
+
+    <h3 class="font-bold text-lg">Vnode到真实dom</h3>
+    <ul class="list-disc">
+      <li>
+        组件是由模板、组件描述对象、数据构成的, 数据的变化会影响组件的变化,
+        组件的渲染过程中创建了一个带副作用的渲染函数,
+        当数据发生变化的时候就会执行这个渲染函数来触发组件的更新
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script setup name="SourceFeature" lang="ts"></script>

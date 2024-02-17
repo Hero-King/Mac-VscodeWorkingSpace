@@ -1,6 +1,6 @@
 <template>
   <div class="module">
-    count: {{ count }} dbCount: {{ dbCount }}<button @click="count++">count++</button>
+    count: {{ count }} dbCount: {{ dbCount }}<el-button @click="count++">count++</el-button>
   </div>
 </template>
 

@@ -3,12 +3,12 @@
     <h1>This is an about page</h1>
     <div>
       state.count值: {{ state.count }}
-      <button @click="increment">+</button>
+      <el-button @click="increment">+</el-button>
       computed stateCountMoreThen5 : {{ stateCountMoreThen5 }}
     </div>
     <div>
       objectRef.count值: {{ objectRef.count }}
-      <button @click="objIncrement">+</button>
+      <el-button @click="objIncrement">+</el-button>
     </div>
     <div>
       <input type="text" v-model="value" ref="input" />
@@ -140,10 +140,10 @@ onRenderTriggered((e) => {
 <style>
 @media (min-width: 1024px) {
   .about {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
   }
 }
 </style>
