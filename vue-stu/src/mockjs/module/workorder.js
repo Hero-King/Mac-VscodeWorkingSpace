@@ -1739,10 +1739,331 @@ Mock.mock(/\/cms-cloud-service\/locationTree\/query/, (opt) => {
   }
 })
 
-Mock.mock(/\/cms-cloud-service\/deviceBook\/queryDeviceGroupData/, opt => ({"code":0,"msg":"success","data":[{"name":"蜂巢","topParentId":"1590543023293394946","modelGroup":null,"modelMark":null,"modelName":null,"locationId":null,"id":null,"deviceMark":null,"deviceName":null,"resourceId":null,"qrcodeResourceId":null,"resourceUrl":null,"qrcodeUrl":null,"companyName":"蜂巢","modelGroupName":null,"child":[{"name":"其他","topParentId":"1590543023293394946","modelGroup":"other","modelMark":null,"modelName":null,"locationId":null,"id":null,"deviceMark":null,"deviceName":null,"resourceId":null,"qrcodeResourceId":null,"resourceUrl":null,"qrcodeUrl":null,"companyName":"蜂巢","modelGroupName":"其他","child":[{"name":"原单位表计模型_liml","topParentId":"1590543023293394946","modelGroup":"other","modelMark":"ydw_limltest","modelName":"原单位表计模型_liml","locationId":null,"id":null,"deviceMark":null,"deviceName":null,"resourceId":null,"qrcodeResourceId":null,"resourceUrl":null,"qrcodeUrl":null,"companyName":"蜂巢","modelGroupName":"其他","child":[{"name":"原单位表计001","topParentId":"1590543023293394946","modelGroup":"other","modelMark":"ydw_limltest","modelName":"原单位表计模型_liml","locationId":"1590543023293394946","id":"1630857900788232219","deviceMark":"ydw_device001","deviceName":"原单位表计001","resourceId":null,"qrcodeResourceId":null,"resourceUrl":"","qrcodeUrl":"","companyName":"蜂巢","modelGroupName":"其他","child":null}]}]},{"name":"变压器","topParentId":"1590543023293394946","modelGroup":"transfer","modelMark":null,"modelName":null,"locationId":null,"id":null,"deviceMark":null,"deviceName":null,"resourceId":null,"qrcodeResourceId":null,"resourceUrl":null,"qrcodeUrl":null,"companyName":"蜂巢","modelGroupName":"变压器","child":[{"name":"测试GZW","topParentId":"1590543023293394946","modelGroup":"transfer","modelMark":"testGZW","modelName":"测试GZW","locationId":null,"id":null,"deviceMark":null,"deviceName":null,"resourceId":null,"qrcodeResourceId":null,"resourceUrl":null,"qrcodeUrl":null,"companyName":"蜂巢","modelGroupName":"变压器","child":[{"name":"测试设备GZ","topParentId":"1590543023293394946","modelGroup":"transfer","modelMark":"testGZW","modelName":"测试GZW","locationId":"1590543023293394946","id":"1630857900788232213","deviceMark":"testDeviceGZW","deviceName":"测试设备GZ","resourceId":null,"qrcodeResourceId":null,"resourceUrl":"https://test.carbonminip.getech.cn/oss/test/5d75bef9/activemq_manage.jpg","qrcodeUrl":"https://test.carbonminip.getech.cn/oss/test/eabfb3e6/1630857900788232213_QRcode.jpg","companyName":"蜂巢","modelGroupName":"变压器","child":null}]}]}]},{"name":"半导体研究所","topParentId":"1587691650352775169","modelGroup":null,"modelMark":null,"modelName":null,"locationId":null,"id":null,"deviceMark":null,"deviceName":null,"resourceId":null,"qrcodeResourceId":null,"resourceUrl":null,"qrcodeUrl":null,"companyName":"半导体研究所","modelGroupName":null,"child":[{"name":"变压器","topParentId":"1587691650352775169","modelGroup":"transfer","modelMark":null,"modelName":null,"locationId":null,"id":null,"deviceMark":null,"deviceName":null,"resourceId":null,"qrcodeResourceId":null,"resourceUrl":null,"qrcodeUrl":null,"companyName":"半导体研究所","modelGroupName":"变压器","child":[{"name":"测试GZW","topParentId":"1587691650352775169","modelGroup":"transfer","modelMark":"testGZW","modelName":"测试GZW","locationId":null,"id":null,"deviceMark":null,"deviceName":null,"resourceId":null,"qrcodeResourceId":null,"resourceUrl":null,"qrcodeUrl":null,"companyName":"半导体研究所","modelGroupName":"变压器","child":[{"name":"测试结点2","topParentId":"1587691650352775169","modelGroup":"transfer","modelMark":"testGZW","modelName":"测试GZW","locationId":"1610530001321537538","id":"1630857900788232214","deviceMark":"testGZW01","deviceName":"测试结点2","resourceId":null,"qrcodeResourceId":null,"resourceUrl":"","qrcodeUrl":"https://test.carbonminip.getech.cn/oss/test/e6b61a2c/1630857900788232214_QRcode.jpg","companyName":"半导体研究所","modelGroupName":"变压器","child":null},{"name":"gzw011","topParentId":"1587691650352775169","modelGroup":"transfer","modelMark":"testGZW","modelName":"测试GZW","locationId":"1591634110695116801","id":"1630857900788232215","deviceMark":"gzw001","deviceName":"gzw011","resourceId":null,"qrcodeResourceId":null,"resourceUrl":"","qrcodeUrl":"https://test.carbonminip.getech.cn/oss/test/06b31b4e/1630857900788232215_QRcode.jpg","companyName":"半导体研究所","modelGroupName":"变压器","child":null},{"name":"gzw002","topParentId":"1587691650352775169","modelGroup":"transfer","modelMark":"testGZW","modelName":"测试GZW","locationId":"1591634110695116801","id":"1630857900788232216","deviceMark":"gzw002","deviceName":"gzw002","resourceId":null,"qrcodeResourceId":null,"resourceUrl":"","qrcodeUrl":"https://test.carbonminip.getech.cn/oss/test/59135780/1630857900788232216_QRcode.jpg","companyName":"半导体研究所","modelGroupName":"变压器","child":null},{"name":"gzw003","topParentId":"1587691650352775169","modelGroup":"transfer","modelMark":"testGZW","modelName":"测试GZW","locationId":"1610530001321537538","id":"1630857900788232217","deviceMark":"gzw003","deviceName":"gzw003","resourceId":null,"qrcodeResourceId":null,"resourceUrl":"","qrcodeUrl":"https://test.carbonminip.getech.cn/oss/test/f209180e/1630857900788232217_QRcode.jpg","companyName":"半导体研究所","modelGroupName":"变压器","child":null}]}]}]}],"success":true}))
+Mock.mock(/\/cms-cloud-service\/deviceBook\/queryDeviceGroupData/, (opt) => ({
+  code: 0,
+  msg: 'success',
+  data: [
+    {
+      name: '蜂巢',
+      topParentId: '1590543023293394946',
+      modelGroup: null,
+      modelMark: null,
+      modelName: null,
+      locationId: null,
+      id: null,
+      deviceMark: null,
+      deviceName: null,
+      resourceId: null,
+      qrcodeResourceId: null,
+      resourceUrl: null,
+      qrcodeUrl: null,
+      companyName: '蜂巢',
+      modelGroupName: null,
+      child: [
+        {
+          name: '其他',
+          topParentId: '1590543023293394946',
+          modelGroup: 'other',
+          modelMark: null,
+          modelName: null,
+          locationId: null,
+          id: null,
+          deviceMark: null,
+          deviceName: null,
+          resourceId: null,
+          qrcodeResourceId: null,
+          resourceUrl: null,
+          qrcodeUrl: null,
+          companyName: '蜂巢',
+          modelGroupName: '其他',
+          child: [
+            {
+              name: '原单位表计模型_liml',
+              topParentId: '1590543023293394946',
+              modelGroup: 'other',
+              modelMark: 'ydw_limltest',
+              modelName: '原单位表计模型_liml',
+              locationId: null,
+              id: null,
+              deviceMark: null,
+              deviceName: null,
+              resourceId: null,
+              qrcodeResourceId: null,
+              resourceUrl: null,
+              qrcodeUrl: null,
+              companyName: '蜂巢',
+              modelGroupName: '其他',
+              child: [
+                {
+                  name: '原单位表计001',
+                  topParentId: '1590543023293394946',
+                  modelGroup: 'other',
+                  modelMark: 'ydw_limltest',
+                  modelName: '原单位表计模型_liml',
+                  locationId: '1590543023293394946',
+                  id: '1630857900788232219',
+                  deviceMark: 'ydw_device001',
+                  deviceName: '原单位表计001',
+                  resourceId: null,
+                  qrcodeResourceId: null,
+                  resourceUrl: '',
+                  qrcodeUrl: '',
+                  companyName: '蜂巢',
+                  modelGroupName: '其他',
+                  child: null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: '变压器',
+          topParentId: '1590543023293394946',
+          modelGroup: 'transfer',
+          modelMark: null,
+          modelName: null,
+          locationId: null,
+          id: null,
+          deviceMark: null,
+          deviceName: null,
+          resourceId: null,
+          qrcodeResourceId: null,
+          resourceUrl: null,
+          qrcodeUrl: null,
+          companyName: '蜂巢',
+          modelGroupName: '变压器',
+          child: [
+            {
+              name: '测试GZW',
+              topParentId: '1590543023293394946',
+              modelGroup: 'transfer',
+              modelMark: 'testGZW',
+              modelName: '测试GZW',
+              locationId: null,
+              id: null,
+              deviceMark: null,
+              deviceName: null,
+              resourceId: null,
+              qrcodeResourceId: null,
+              resourceUrl: null,
+              qrcodeUrl: null,
+              companyName: '蜂巢',
+              modelGroupName: '变压器',
+              child: [
+                {
+                  name: '测试设备GZ',
+                  topParentId: '1590543023293394946',
+                  modelGroup: 'transfer',
+                  modelMark: 'testGZW',
+                  modelName: '测试GZW',
+                  locationId: '1590543023293394946',
+                  id: '1630857900788232213',
+                  deviceMark: 'testDeviceGZW',
+                  deviceName: '测试设备GZ',
+                  resourceId: null,
+                  qrcodeResourceId: null,
+                  resourceUrl: 'https://test.carbonminip.getech.cn/oss/test/5d75bef9/activemq_manage.jpg',
+                  qrcodeUrl: 'https://test.carbonminip.getech.cn/oss/test/eabfb3e6/1630857900788232213_QRcode.jpg',
+                  companyName: '蜂巢',
+                  modelGroupName: '变压器',
+                  child: null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: '半导体研究所',
+      topParentId: '1587691650352775169',
+      modelGroup: null,
+      modelMark: null,
+      modelName: null,
+      locationId: null,
+      id: null,
+      deviceMark: null,
+      deviceName: null,
+      resourceId: null,
+      qrcodeResourceId: null,
+      resourceUrl: null,
+      qrcodeUrl: null,
+      companyName: '半导体研究所',
+      modelGroupName: null,
+      child: [
+        {
+          name: '变压器',
+          topParentId: '1587691650352775169',
+          modelGroup: 'transfer',
+          modelMark: null,
+          modelName: null,
+          locationId: null,
+          id: null,
+          deviceMark: null,
+          deviceName: null,
+          resourceId: null,
+          qrcodeResourceId: null,
+          resourceUrl: null,
+          qrcodeUrl: null,
+          companyName: '半导体研究所',
+          modelGroupName: '变压器',
+          child: [
+            {
+              name: '测试GZW',
+              topParentId: '1587691650352775169',
+              modelGroup: 'transfer',
+              modelMark: 'testGZW',
+              modelName: '测试GZW',
+              locationId: null,
+              id: null,
+              deviceMark: null,
+              deviceName: null,
+              resourceId: null,
+              qrcodeResourceId: null,
+              resourceUrl: null,
+              qrcodeUrl: null,
+              companyName: '半导体研究所',
+              modelGroupName: '变压器',
+              child: [
+                {
+                  name: '测试结点2',
+                  topParentId: '1587691650352775169',
+                  modelGroup: 'transfer',
+                  modelMark: 'testGZW',
+                  modelName: '测试GZW',
+                  locationId: '1610530001321537538',
+                  id: '1630857900788232214',
+                  deviceMark: 'testGZW01',
+                  deviceName: '测试结点2',
+                  resourceId: null,
+                  qrcodeResourceId: null,
+                  resourceUrl: '',
+                  qrcodeUrl: 'https://test.carbonminip.getech.cn/oss/test/e6b61a2c/1630857900788232214_QRcode.jpg',
+                  companyName: '半导体研究所',
+                  modelGroupName: '变压器',
+                  child: null
+                },
+                {
+                  name: 'gzw011',
+                  topParentId: '1587691650352775169',
+                  modelGroup: 'transfer',
+                  modelMark: 'testGZW',
+                  modelName: '测试GZW',
+                  locationId: '1591634110695116801',
+                  id: '1630857900788232215',
+                  deviceMark: 'gzw001',
+                  deviceName: 'gzw011',
+                  resourceId: null,
+                  qrcodeResourceId: null,
+                  resourceUrl: '',
+                  qrcodeUrl: 'https://test.carbonminip.getech.cn/oss/test/06b31b4e/1630857900788232215_QRcode.jpg',
+                  companyName: '半导体研究所',
+                  modelGroupName: '变压器',
+                  child: null
+                },
+                {
+                  name: 'gzw002',
+                  topParentId: '1587691650352775169',
+                  modelGroup: 'transfer',
+                  modelMark: 'testGZW',
+                  modelName: '测试GZW',
+                  locationId: '1591634110695116801',
+                  id: '1630857900788232216',
+                  deviceMark: 'gzw002',
+                  deviceName: 'gzw002',
+                  resourceId: null,
+                  qrcodeResourceId: null,
+                  resourceUrl: '',
+                  qrcodeUrl: 'https://test.carbonminip.getech.cn/oss/test/59135780/1630857900788232216_QRcode.jpg',
+                  companyName: '半导体研究所',
+                  modelGroupName: '变压器',
+                  child: null
+                },
+                {
+                  name: 'gzw003',
+                  topParentId: '1587691650352775169',
+                  modelGroup: 'transfer',
+                  modelMark: 'testGZW',
+                  modelName: '测试GZW',
+                  locationId: '1610530001321537538',
+                  id: '1630857900788232217',
+                  deviceMark: 'gzw003',
+                  deviceName: 'gzw003',
+                  resourceId: null,
+                  qrcodeResourceId: null,
+                  resourceUrl: '',
+                  qrcodeUrl: 'https://test.carbonminip.getech.cn/oss/test/f209180e/1630857900788232217_QRcode.jpg',
+                  companyName: '半导体研究所',
+                  modelGroupName: '变压器',
+                  child: null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  success: true
+}))
 
-Mock.mock(/\/business\/device\/deviceParamInfoList/, opt => (
-  {"code":0,"data":[{"id":"1590159765183459644","modelMark":"testGZW","modelName":"测试GZW","deviceMark":"testDeviceGZW","deviceName":"测试设备GZ","paramMark":"brand","paramName":"品牌","paramValue":"章鱼博士","unit":"","paramValType":"text","paramValueCode":null},{"id":"1590159765183459645","modelMark":"testGZW","modelName":"测试GZW","deviceMark":"testDeviceGZW","deviceName":"测试设备GZ","paramMark":"model","paramName":"型号","paramValue":"svolt-6667","unit":"","paramValType":"text","paramValueCode":null},{"id":"1590159765183459646","modelMark":"testGZW","modelName":"测试GZW","deviceMark":"testDeviceGZW","deviceName":"测试设备GZ","paramMark":"position","paramName":"安装位置","paramValue":"上海嘉定北","unit":"","paramValType":"text","paramValueCode":null},{"id":"1590159765183459647","modelMark":"testGZW","modelName":"测试GZW","deviceMark":"testDeviceGZW","deviceName":"测试设备GZ","paramMark":"power","paramName":"额定功率","paramValue":"1TGWH","unit":"","paramValType":"number","paramValueCode":null}],"success":true}
-))
+Mock.mock(/\/business\/device\/deviceParamInfoList/, (opt) => ({
+  code: 0,
+  data: [
+    {
+      id: '1590159765183459644',
+      modelMark: 'testGZW',
+      modelName: '测试GZW',
+      deviceMark: 'testDeviceGZW',
+      deviceName: '测试设备GZ',
+      paramMark: 'brand',
+      paramName: '品牌',
+      paramValue: '章鱼博士',
+      unit: '',
+      paramValType: 'text',
+      paramValueCode: null
+    },
+    {
+      id: '1590159765183459645',
+      modelMark: 'testGZW',
+      modelName: '测试GZW',
+      deviceMark: 'testDeviceGZW',
+      deviceName: '测试设备GZ',
+      paramMark: 'model',
+      paramName: '型号',
+      paramValue: 'svolt-6667',
+      unit: '',
+      paramValType: 'text',
+      paramValueCode: null
+    },
+    {
+      id: '1590159765183459646',
+      modelMark: 'testGZW',
+      modelName: '测试GZW',
+      deviceMark: 'testDeviceGZW',
+      deviceName: '测试设备GZ',
+      paramMark: 'position',
+      paramName: '安装位置',
+      paramValue: '上海嘉定北',
+      unit: '',
+      paramValType: 'text',
+      paramValueCode: null
+    },
+    {
+      id: '1590159765183459647',
+      modelMark: 'testGZW',
+      modelName: '测试GZW',
+      deviceMark: 'testDeviceGZW',
+      deviceName: '测试设备GZ',
+      paramMark: 'power',
+      paramName: '额定功率',
+      paramValue: '1TGWH',
+      unit: '',
+      paramValType: 'number',
+      paramValueCode: null
+    }
+  ],
+  success: true
+}))
 
-Mock.mock(/\/cms-cloud-service\/deviceParamInfo\/queryDeviceParamLastData/, opt=> ({"code":0,"msg":"success","data":[],"success":true}))
+Mock.mock(/\/cms-cloud-service\/deviceParamInfo\/queryDeviceParamLastData/, (opt) => ({ code: 0, msg: 'success', data: [], success: true }))

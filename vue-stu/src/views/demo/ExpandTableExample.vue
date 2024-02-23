@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import ExpandTable from './index'
-import ExpandTable2 from './index2'
+import ExpandTable from '@/components/expandtable/index'
+import ExpandTable2 from '@/components/expandtable/index2'
 export default {
   components: {
     ExpandTable,
-    ExpandTable2,
+    ExpandTable2
   },
   data() {
     return {
@@ -20,7 +20,7 @@ export default {
           label: 111,
           value: 111
         },
-         {
+        {
           label: 222,
           value: 222
         }

@@ -42,6 +42,8 @@ var deepObj = {
   }
 }
 const reactiveDeepObj = reactive(deepObj)
+console.log('reactiveObj', reactiveObj, reactiveObj.__v_raw)
+
 const unwatchReactive = watch(
   () => reactiveDeepObj.name,
   (v) => {

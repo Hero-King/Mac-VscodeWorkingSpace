@@ -1,37 +1,38 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '../components/Login.vue'
-import Home from '../components/Home.vue'
-import CheckboxStu from '../components/CheckboxStu'
-import InputStu from '../components/InputStu.vue'
-import Form from '../components/FormStu.vue'
-import UploadStu from '../components/UploadStu.vue'
-import SelectStu from '../components/SelectStu.vue'
-import ScssStu from '../components/ScssStu.vue'
-import DraggableStu from '../components/DraggableStu'
-import SheetJsStu from '../components/SheetJsStu'
-import PerfectScrollBar from '../components/PerfectScrollBar'
-import DayjsStu from '../components/DayjsStu'
-import G6Stu from '../components/G6Stu/index.vue'
-import RenderStu from '../components/RenderStu'
-import Bar from '../components/echart/Bar'
-import LoadingStu from '../components/LoadingStu'
-import VueLs from '@/views/home/VueLs'
-import TableStu from '../components/TableStu'
-import EchartStu from '@/views/home/echart/'
-import ElDescripts from '@/views/home/ElDescripts'
-import VueLazyLoad from '@/views/home/VueLazyLoad'
-import VueClipboard from '@/views/home/VueClipboard'
-import ExpandTableExample from '../components/expandtable/TableExample'
-import KeepAliveTest from '../components/KeepAliveTest.vue'
-import KeepAliveTestItem from '../components/KeepAliveTestItem.vue'
-import EditTableDemo from '../views/demo/EditTableDemo/index.vue'
-import DictSelectDemo from '../views/demo/DictSelectDemo/index.vue'
-import AvueCrud from '@/views/demo/AvueCrud/'
-import NProgress from 'nprogress'
 
+import NProgress from 'nprogress'
+import DayjsStuVue from '@/views/common-utils-stu/DayjsStu.vue'
+import ScssStuVue from '@/views/common-utils-stu/ScssStu.vue'
+import FormStuVue from '@/views/elementui-stu/FormStu.vue'
+import SelectStuVue from '@/views/elementui-stu/SelectStu.vue'
+import DatePickerStuVue from '@/views/elementui-stu/DatePickerStu.vue'
+import CheckboxStuVue from '@/views/elementui-stu/CheckboxStu.vue'
+import InputStuVue from '@/views/elementui-stu/InputStu.vue'
+import UploadStuVue from '@/views/elementui-stu/UploadStu.vue'
+import TableStuVue from '@/views/elementui-stu/TableStu.vue'
+import DescriptsStuVue from '@/views/elementui-stu/DescriptsStu.vue'
+import DraggableStuVue from '@/views/vuestu/DraggableStu.vue'
+import SheetJsStuVue from '@/views/common-utils-stu/SheetJsStu.vue'
+import EchartStuVue from '@/views/common-utils-stu/echart/index.vue'
+import PerfectScrollbarStuVue from '@/views/common-utils-stu/PerfectScrollBar.vue'
+import G6StuVue from '@/views/common-utils-stu/G6Stu/index.vue'
+import VueLsVue from '@/views/vuestu/VueLsStu.vue'
+import RenderStuVue from '@/views/vuestu/RenderStu.vue'
+import VueStu from '@/views/vuestu/index.vue'
+import VueLazyloadStuVue from '@/views/vuestu/VueLazyLoadStu.vue'
+import VueClipboardStuVue from '@/views/vuestu/VueClipboardStu.vue'
+import LoadingStuVue from '@/views/elementui-stu/LoadingStu.vue'
+import EditTableDemo from '@/views/demo/EditTableDemo/index.vue'
+import DictSelectDemo from '@/views/demo/DictSelectDemo/index.vue'
+import ExpandTableExample from '@/views/demo/ExpandTableExample.vue'
+import AvueCrudDemo from '@/views/demo/AvueCrud/index.vue'
+import Login from '@/views/home/Login.vue'
+import Home from '@/views/home/index.vue'
+import KeepAliveTest from '@/components/KeepAliveTest.vue'
+import KeepAliveTestItem from '@/components/KeepAliveTestItem.vue'
 // 路由懒加载
-const HelloWorld = () => import(/* webpackChunkName: "hello" */ '../components/HelloWorld.vue')
+const HelloWorld = () => import(/* webpackChunkName: "HelloWorld" */ '../views/home/HelloWorld.vue')
 
 Vue.use(Router)
 
@@ -68,16 +69,6 @@ const router = new Router({
       }
     },
     {
-      path: '/lazy',
-      name: 'Lazy',
-      // 异步组件 会生成单独的文件 路由到组件时候去请求加载
-      component: (resolve) => require(['../components/Lazy.vue'], resolve),
-      beforeEnter: (to, from, next) => {
-        console.log('lazy route beforeEnter')
-        next()
-      }
-    },
-    {
       path: '/login',
       name: 'Login',
       component: Login
@@ -101,7 +92,7 @@ const router = new Router({
 
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/home/HelloWorld'
     },
     {
       path: '/home',
@@ -113,117 +104,20 @@ const router = new Router({
       },
       children: [
         {
-          path: 'form',
-          component: Form
-        },
-        {
-          path: 'select',
-          component: SelectStu
-        },
-        {
-          path: 'bar',
-          component: Bar
-        },
-        {
-          path: 'ScssStu',
-          component: ScssStu
-        },
-        {
-          path: 'checkbox',
-          component: CheckboxStu
-        },
-        {
-          path: 'input',
-          component: InputStu
-        },
-        {
-          path: 'ElDescripts',
-          component: ElDescripts
-        },
-        {
-          path: 'AvueCrud',
-          component: AvueCrud
-        },
-        {
-          path: 'G6Stu',
-          component: G6Stu
-        },
-        {
-          path: 'upload',
-          component: UploadStu
-        },
-        {
-          path: 'hello',
+          path: 'HelloWorld',
           component: HelloWorld
         },
         {
-          path: 'draggable',
-          component: DraggableStu
+          path: 'lazy',
+          name: 'Lazy',
+          // 异步组件 会生成单独的文件 路由到组件时候去请求加载
+          component: (resolve) => require(['@/views/home/Lazy.vue'], resolve),
+          beforeEnter: (to, from, next) => {
+            console.log('lazy route beforeEnter')
+            next()
+          }
         },
-        {
-          path: 'sheetjs',
-          component: SheetJsStu
-        },
-        {
-          path: 'PerfectScrollBar',
-          component: PerfectScrollBar
-        },
-        {
-          path: 'DayjsStu',
-          component: DayjsStu
-        },
-        {
-          path: 'VueLs',
-          component: VueLs
-        },
-        {
-          path: 'VueLazyLoad',
-          component: VueLazyLoad
-        },
-        {
-          path: 'VueClipboard',
-          component: VueClipboard
-        },
-        {
-          path: 'EchartStu',
-          component: EchartStu
-        },
-        {
-          path: 'RenderStu',
-          component: RenderStu
-        },
-        {
-          path: 'datePicker',
-          component: (resolve) => require(['../components/DatePickerStu.vue'], resolve)
-        },
-        {
-          path: 'loadingstu',
-          component: LoadingStu
-        },
-        {
-          path: 'tableStu',
-          component: TableStu
-        },
-        {
-          path: 'ExpandTableExample',
-          component: ExpandTableExample
-        },
-        {
-          path: 'VueStu',
-          component: (resolve) => require(['@/views/vuestu/'], resolve)
-        },
-        {
-          path: 'keepalive',
-          component: KeepAliveTest,
-          redirect: 'keepalive/1',
-          children: [
-            {
-              path: ':id',
-              component: KeepAliveTestItem,
-              props: true
-            }
-          ]
-        },
+
         {
           path: '/work-order/statistics',
           component: () => import(/* webpackChunkName: "workOrder" */ '@/views/devops-center/work-order/statistics')
@@ -263,8 +157,133 @@ const router = new Router({
           component: EditTableDemo
         },
         {
-          path: 'DictSelect',
+          path: 'DictSelectDemo',
           component: DictSelectDemo
+        },
+        {
+          path: 'ExpandTableExample',
+          component: ExpandTableExample
+        },
+        {
+          path: 'AvueCrudDemo',
+          component: AvueCrudDemo
+        }
+      ]
+    },
+    {
+      path: '/common-utils-stu',
+      name: 'commonUtilsStu',
+      component: Home,
+      children: [
+        {
+          path: 'DayjsStu',
+          component: DayjsStuVue
+        },
+        {
+          path: 'PerfectScrollbarStu',
+          component: PerfectScrollbarStuVue
+        },
+        {
+          path: 'SheetJsStu',
+          component: SheetJsStuVue
+        },
+        {
+          path: 'ScssStu',
+          component: ScssStuVue
+        },
+        {
+          path: 'EchartStu',
+          component: EchartStuVue
+        },
+        {
+          path: 'G6Stu',
+          component: G6StuVue
+        }
+      ]
+    },
+    {
+      path: '/elementui-stu',
+      name: 'ElementuiStu',
+      component: Home,
+      children: [
+        {
+          path: 'FormStu',
+          component: FormStuVue
+        },
+        {
+          path: 'DatePickerStu',
+          component: DatePickerStuVue
+        },
+        {
+          path: 'CheckboxStu',
+          component: CheckboxStuVue
+        },
+        {
+          path: 'InputStu',
+          component: InputStuVue
+        },
+        {
+          path: 'UploadStu',
+          component: UploadStuVue
+        },
+        {
+          path: 'SelectStu',
+          component: SelectStuVue
+        },
+        {
+          path: 'TableStu',
+          component: TableStuVue
+        },
+        {
+          path: 'DescriptsStu',
+          component: DescriptsStuVue
+        },
+        {
+          path: 'LoadingStu',
+          component: LoadingStuVue
+        }
+      ]
+    },
+    {
+      path: '/vuestu',
+      name: 'vuestu',
+      component: Home,
+      children: [
+        {
+          path: 'VueStu',
+          component: VueStu
+        },
+        {
+          path: 'VueLs',
+          component: VueLsVue
+        },
+        {
+          path: 'DraggableStu',
+          component: DraggableStuVue
+        },
+        {
+          path: 'RenderStu',
+          component: RenderStuVue
+        },
+        {
+          path: 'VueClipboardStu',
+          component: VueClipboardStuVue
+        },
+        {
+          path: 'VueLazyloadStu',
+          component: VueLazyloadStuVue
+        },
+        {
+          path: 'keepalive',
+          component: KeepAliveTest,
+          redirect: 'keepalive/1',
+          children: [
+            {
+              path: ':id',
+              component: KeepAliveTestItem,
+              props: true
+            }
+          ]
         }
       ]
     }

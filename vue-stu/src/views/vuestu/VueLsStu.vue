@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  name: 'VueLs',
+  name: 'VueLsStu',
   mounted() {
     this.$ls.set('foo', 'boo')
     //Set expire for item

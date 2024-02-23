@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './common';
+@import '@/assets/common';
 // 声明变量
 $highlight-color: #f90;
 $nav-color: #f90;
@@ -83,45 +83,45 @@ nav {
 
 // 生成 .bg1 ~ .bg4 样式
 @for $i from 1 through 4 {
-	.bg#{$i} {
-		background: url('/@/assets/img/dataOverview/bg#{$i}.png') right bottom no-repeat;
-	}
+  .bg#{$i} {
+    background: url('/@/assets/img/dataOverview/bg#{$i}.png') right bottom no-repeat;
+  }
 }
 
 /* 字体大小全局样式
 ------------------------------- */
 @for $i from 10 through 32 {
-	.font#{$i} {
-		font-size: #{$i}px !important;
-	}
+  .font#{$i} {
+    font-size: #{$i}px !important;
+  }
 }
 
 /* 外边距、内边距全局样式
 ------------------------------- */
 @for $i from 0 through 35 {
-	.mt#{$i} {
-		margin-top: #{$i}px !important;
-	}
-	.mr#{$i} {
-		margin-right: #{$i}px !important;
-	}
-	.mb#{$i} {
-		margin-bottom: #{$i}px !important;
-	}
-	.ml#{$i} {
-		margin-left: #{$i}px !important;
-	}
-	.pt#{$i} {
-		padding-top: #{$i}px !important;
-	}
-	.pr#{$i} {
-		padding-right: #{$i}px !important;
-	}
-	.pb#{$i} {
-		padding-bottom: #{$i}px !important;
-	}
-	.pl#{$i} {
-		padding-left: #{$i}px !important;
-	}
+  .mt#{$i} {
+    margin-top: #{$i}px !important;
+  }
+  .mr#{$i} {
+    margin-right: #{$i}px !important;
+  }
+  .mb#{$i} {
+    margin-bottom: #{$i}px !important;
+  }
+  .ml#{$i} {
+    margin-left: #{$i}px !important;
+  }
+  .pt#{$i} {
+    padding-top: #{$i}px !important;
+  }
+  .pr#{$i} {
+    padding-right: #{$i}px !important;
+  }
+  .pb#{$i} {
+    padding-bottom: #{$i}px !important;
+  }
+  .pl#{$i} {
+    padding-left: #{$i}px !important;
+  }
 }
 </style>

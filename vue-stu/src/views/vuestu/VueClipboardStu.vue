@@ -14,7 +14,7 @@
 </template>
 <script>
 export default {
-  name: 'VueClipboard',
+  name: 'VueClipboardStu',
   data() {
     return {
       message: 'Copy These Text'

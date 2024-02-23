@@ -2,24 +2,20 @@
   <div>
     <div class="module">
       <h2>Perfect ScrollBar</h2>
-      <div
-        id="container"
-        ref="container"
-        class="redBorder"
-      >
+      <div id="container" ref="container" class="redBorder">
         <div style="width: 300px; height: 400px">
           112121
-          <hr>
+          <hr />
           112121
-          <hr>
+          <hr />
           112121
-          <hr>
+          <hr />
           112121
-          <hr>
+          <hr />
           112121
-          <hr>
+          <hr />
           112121
-          <hr>
+          <hr />
         </div>
       </div>
     </div>
@@ -30,6 +26,7 @@
 import PerfectScrollbar from 'perfect-scrollbar'
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
 export default {
+  name: 'PerfectScrollbarStu',
   components: {
     PerfectScrollbar
   },

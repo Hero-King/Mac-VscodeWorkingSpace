@@ -17,12 +17,11 @@
 
     <!-- Customer scrollable element -->
     <img v-lazy.container="imgUrl" />
-
   </div>
 </template>
 <script>
 export default {
-  name: 'VueLazyLoad',
+  name: 'VueLazyLoadStu',
   data() {
     let imgBaseUrl = 'http://hilongjw.github.io/vue-lazyload/dist/avatar/'
     let list = []

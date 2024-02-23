@@ -7,11 +7,6 @@
     <div class="module">
       <h2>解析</h2>
     </div>
-
-    <div>
-      Test elementui 样式重写
-      <ElButton size="mini" class="btn" type="primary">提交</ElButton>
-    </div>
   </div>
 </template>
 

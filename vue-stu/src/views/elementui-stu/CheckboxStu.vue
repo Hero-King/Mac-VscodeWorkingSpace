@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import CheckInputItem from './CheckInputItem/index.vue'
+import CheckInputItem from '@/components/CheckInputItem/index.vue'
 export default {
   name: 'CheckboxStu',
   components: {

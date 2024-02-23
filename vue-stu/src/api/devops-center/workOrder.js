@@ -1,9 +1,5 @@
 import { get, post, put, del } from '@/utils/request'
-const system = {
-  baseUrl: '/cms-cloud-front',
-  baseApi: '/api/cms-cloud-service',
-  businessApi: '/api/business'
-}
+import { system } from './systemConfig'
 
 // 工单总体数量
 export function workPlanGlobalStatistic(params) {

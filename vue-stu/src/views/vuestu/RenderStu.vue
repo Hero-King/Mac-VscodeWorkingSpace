@@ -1,6 +1,6 @@
 <script>
-import BaseH2 from './BaseH2.vue'
-import TestJsRender from './jsrender/TestJsRender.vue'
+import BaseH2 from '../../components/BaseH2.vue'
+import TestJsRender from '../../components/jsrender/TestJsRender.vue'
 export default {
   name: 'RenderStu',
   // render: function (createElement) {

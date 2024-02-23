@@ -30,6 +30,10 @@
         组件的渲染过程中创建了一个带副作用的渲染函数,
         当数据发生变化的时候就会执行这个渲染函数来触发组件的更新
       </li>
+      <li>
+        Vnode对象: { appContext: 上下文, component:
+        ComponentInternalInstance(createComponentInstance返回值) }
+      </li>
     </ul>
   </div>
 </template>

@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import NumberInput from './NumberInput/index.vue'
+import NumberInput from '@/components/NumberInput/index.vue'
 import VueQr from 'vue-qr'
 export default {
   name: 'InputStu',

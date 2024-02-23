@@ -62,6 +62,7 @@
 <script>
 import draggable from 'vuedraggable'
 export default {
+  name: 'FormStu',
   components: {
     draggable
   },

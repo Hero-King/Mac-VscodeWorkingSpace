@@ -4,49 +4,48 @@
       <el-menu router>
         <el-submenu index="1">
           <template slot="title"> Element UI 组件学习 </template>
-          <el-menu-item index="/home/form"> form </el-menu-item>
-          <el-menu-item index="/home/hello"> hello </el-menu-item>
-          <el-menu-item index="/home/datePicker"> datePicker </el-menu-item>
-          <el-menu-item index="/home/checkbox"> checkbox </el-menu-item>
-          <el-menu-item index="/home/input"> input </el-menu-item>
-          <el-menu-item index="/home/upload"> upload </el-menu-item>
-          <el-menu-item index="/home/select"> Select </el-menu-item>
-          <el-menu-item index="/home/TableStu"> TableStu </el-menu-item>
-          <el-menu-item index="/home/ExpandTableExample"> ExpandTableExample </el-menu-item>
-          <el-menu-item index="/home/ScssStu"> ScssStu </el-menu-item>
-          <el-menu-item index="/home/RenderStu"> RenderStu </el-menu-item>
-          <el-menu-item index="/home/bar"> Bar </el-menu-item>
-          <el-menu-item index="/home/ElDescripts"> ElDescripts </el-menu-item>
+          <el-menu-item index="/elementui-stu/FormStu"> FormStu </el-menu-item>
+          <el-menu-item index="/elementui-stu/DatePickerStu"> DatePickerStu </el-menu-item>
+          <el-menu-item index="/elementui-stu/DatePickerStu"> CheckboxStuVue </el-menu-item>
+          <el-menu-item index="/elementui-stu/InputStu"> InputStu </el-menu-item>
+          <el-menu-item index="/elementui-stu/UploadStu"> UploadStu </el-menu-item>
+          <el-menu-item index="/elementui-stu/SelectStu"> SelectStu </el-menu-item>
+          <el-menu-item index="/elementui-stu/TableStu"> TableStu </el-menu-item>
+          <el-menu-item index="/elementui-stu/DescriptsStu"> DescriptsStu </el-menu-item>
+          <el-menu-item index="/elementui-stu/LoadingStu"> LoadingStu </el-menu-item>
         </el-submenu>
+
         <el-submenu index="2">
-          <template slot="title"> <i class="el-icon-menu" />懒加载 </template>
-          <el-menu-item index="/lazy"> lazy </el-menu-item>
-          <el-menu-item index="2-3"> 选项3 </el-menu-item>
-          <el-menu-item index="2-4"> 选项4 </el-menu-item>
+          <template slot="title"> <i class="el-icon-setting" /> home </template>
+          <el-menu-item index="/home/HelloWorld"> HelloWorld </el-menu-item>
+          <el-menu-item index="/home/lazy"> 懒加载 </el-menu-item>
         </el-submenu>
+
         <el-submenu index="3">
-          <template slot="title"> <i class="el-icon-setting" />工具组件学习 </template>
-          <el-menu-item index="/home/draggable"> draggable </el-menu-item>
-          <el-menu-item index="/home/loadingstu"> LoadingStu </el-menu-item>
-          <el-menu-item index="/home/SheetJs"> SheetJsStu </el-menu-item>
-          <el-menu-item index="/home/PerfectScrollBar"> PerfectScrollBar </el-menu-item>
-          <el-menu-item index="/home/DayjsStu"> dayjs </el-menu-item>
-          <el-menu-item index="/home/G6Stu"> G6Stu </el-menu-item>
-          <el-menu-item index="/home/VueLs"> vue-ls </el-menu-item>
-          <el-menu-item index="/home/EchartStu"> echart </el-menu-item>
-          <el-menu-item index="/home/VueLazyLoad"> VueLazyLoad </el-menu-item>
-          <el-menu-item index="/home/VueClipboard"> VueClipboard </el-menu-item>
-          <el-menu-item index="/home/AvueCrud"> AvueCrud </el-menu-item>
+          <template slot="title"> <i class="el-icon-setting" /> 工具组件学习 </template>
+          <el-menu-item index="/common-utils-stu/DayjsStu"> dayjs </el-menu-item>
+          <el-menu-item index="/common-utils-stu/SheetJsStu"> SheetJsStu </el-menu-item>
+          <el-menu-item index="/common-utils-stu/ScssStu"> ScssStu </el-menu-item>
+          <el-menu-item index="/common-utils-stu/EchartStu"> echart </el-menu-item>
+          <el-menu-item index="/common-utils-stu/G6Stu"> G6Stu </el-menu-item>
+          <el-menu-item index="/common-utils-stu/PerfectScrollbarStu"> PerfectScrollBar </el-menu-item>
         </el-submenu>
         <el-submenu index="4">
           <template slot="title"> <i class="el-icon-message" />Vue知识点 </template>
-          <el-menu-item index="/home/VueStu"> VueStu </el-menu-item>
-          <el-menu-item index="/home/keepalive"> keepalive </el-menu-item>
+          <el-menu-item index="/vuestu/VueLs"> vue-ls </el-menu-item>
+          <el-menu-item index="/vuestu/DraggableStu"> draggable </el-menu-item>
+          <el-menu-item index="/vuestu/RenderStu"> RenderStu </el-menu-item>
+          <el-menu-item index="/vuestu/VueClipboardStu"> VueClipboard </el-menu-item>
+          <el-menu-item index="/vuestu/VueLazyloadStu"> VueLazyLoad </el-menu-item>
+          <el-menu-item index="/vuestu/VueStu"> VueStu </el-menu-item>
+          <el-menu-item index="/vuestu/keepalive"> keepalive </el-menu-item>
         </el-submenu>
         <el-submenu index="5">
-          <template slot="title"> 组件封装 </template>
-          <el-menu-item index="/demo/editTableDemo"> EditTable </el-menu-item>
-          <el-menu-item index="/demo/DictSelect"> DictSelect </el-menu-item>
+          <template slot="title"> 组件封装Demo </template>
+          <el-menu-item index="/demo/editTableDemo"> EditTableDemo </el-menu-item>
+          <el-menu-item index="/demo/DictSelectDemo"> DictSelectDemo </el-menu-item>
+          <el-menu-item index="/demo/AvueCrudDemo"> AvueCrudDemo </el-menu-item>
+          <el-menu-item index="/demo/ExpandTableExample"> ExpandTableExample </el-menu-item>
         </el-submenu>
         <el-submenu index="6">
           <template slot="title"> 项目 </template>
@@ -71,7 +70,7 @@
     </el-aside>
 
     <el-main>
-      <transition name="fade">
+      <transition>
         <keep-alive include="KeepAliveTest">
           <router-view :key="$route.path"></router-view>
         </keep-alive>

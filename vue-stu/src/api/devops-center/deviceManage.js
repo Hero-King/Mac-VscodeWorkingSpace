@@ -1,9 +1,5 @@
 import axios, { get, post, put, del } from '@/utils/request'
-const system = {
-  baseUrl: '/cms-cloud-front',
-  baseApi: '/api/cms-cloud-service',
-  businessApi: '/api/business'
-}
+import { system } from './systemConfig'
 
 export function uploadDeviceImg(params) {
   return post(`${system.baseApi}/deviceBook/fileUpload`, params)
@@ -30,23 +26,23 @@ export function exportDeviceList(params) {
 
 // 获取设备数
 export function getTreeQuery(params) {
-  return post(system.baseApi+'/locationTree/query', params)
+  return post(system.baseApi + '/locationTree/query', params)
 }
 
 export function getNoCacheTopParent(params) {
-  return post(system.baseApi+'/locationTree/queryNoCacheTopParent', params)
+  return post(system.baseApi + '/locationTree/queryNoCacheTopParent', params)
 }
 
 // 获取暖通设备概览详情实时数据
-export function queryDeviceParamLastData (data) {
-  return post(system.baseApi+'/deviceParamInfo/queryDeviceParamLastData', data)
+export function queryDeviceParamLastData(data) {
+  return post(system.baseApi + '/deviceParamInfo/queryDeviceParamLastData', data)
 }
 
 // 保存设备
-export function saveDevice (data) {
-  return post(system.businessApi+'/device/saveDevice', data)
+export function saveDevice(data) {
+  return post(system.businessApi + '/device/saveDevice', data)
 }
 // 设备参数信息列表
-export function getDeviceParamInfo (data) {
-  return post(system.businessApi+'/device/deviceParamInfoList', data)
+export function getDeviceParamInfo(data) {
+  return post(system.businessApi + '/device/deviceParamInfoList', data)
 }

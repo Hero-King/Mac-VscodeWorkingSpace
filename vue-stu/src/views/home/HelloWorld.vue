@@ -68,8 +68,8 @@
 </template>
 
 <script>
-import myh2 from './BaseH2.vue'
-import { persons, deepObj, constArr } from './constant'
+import myh2 from '../../components/BaseH2.vue'
+import { persons, deepObj, constArr } from '../../components/constant'
 export default {
   name: 'HelloWorld',
   props: ['author'],

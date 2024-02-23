@@ -1,7 +1,7 @@
 const system = {
   baseUrl: '/cms-cloud-front',
-  baseApi: '/api/cms-cloud-service',
-  businessApi: '/api/business'
+  baseApi: '/cms-cloud-service',
+  businessApi: '/business'
 }
 
 export const factorySelectUrl = system.baseApi + '/locationTree/queryCacheAllTop'

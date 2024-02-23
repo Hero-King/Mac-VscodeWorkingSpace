@@ -46,7 +46,7 @@
 </template>
 <script>
 export default {
-  name: 'ElDescripts',
+  name: 'DescriptsStu',
   data() {
     return {
       size: 'small',

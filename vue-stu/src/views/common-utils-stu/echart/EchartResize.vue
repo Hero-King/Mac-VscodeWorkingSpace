@@ -4,10 +4,7 @@
     <div class="module">
       <div class="chart-wrap flex w100 h100">
         <!-- 可以正常resize 左右两个都是echart实例时候就resize失败 -->
-        <div
-          ref="left"
-          class="left w100"
-        />
+        <div ref="left" class="left w100" />
         <div />
         <div class="right w100" />
 
@@ -33,7 +30,7 @@
 <script>
 import * as echarts from 'echarts'
 export default {
-  name: 'Bar',
+  name: 'EchartResizeStu',
   mounted() {
     this.initChart()
     window.addEventListener('resize', () => {

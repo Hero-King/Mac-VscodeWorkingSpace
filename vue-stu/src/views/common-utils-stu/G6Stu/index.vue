@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import RegisterNode from '@/components/G6Stu/RegisterNode'
+import RegisterNode from './RegisterNode'
 export default {
   name: 'G6Stu',
   components: {
