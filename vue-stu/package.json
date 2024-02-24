@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev": "npm start",
     "serve": "vue-cli-service serve",
     "start": "vue-cli-service serve",
     "inspect": "vue-cli-service inspect > webpackConfig.js",

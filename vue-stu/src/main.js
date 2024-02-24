@@ -15,7 +15,6 @@ import Avue from '@smallwei/avue'
 import RegisterComponents from './utils/registerComponents'
 import VueClipboard from 'vue-clipboard2'
 import MyImagePreview from '@/components/ImagePreview/index.js'
-import './mockjs/index'
 import './assets/global.scss'
 import './style/common.less'
 
