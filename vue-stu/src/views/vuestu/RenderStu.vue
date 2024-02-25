@@ -1,6 +1,5 @@
 <script>
 import BaseH2 from '../../components/BaseH2.vue'
-import TestJsRender from '../../components/jsrender/TestJsRender.vue'
 export default {
   name: 'RenderStu',
   // render: function (createElement) {
@@ -37,7 +36,6 @@ export default {
     return (
       <div>
         <BaseH2>JSX语法</BaseH2>
-        <TestJsRender />
       </div>
     )
   }

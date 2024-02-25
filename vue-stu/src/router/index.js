@@ -31,6 +31,7 @@ import Login from '@/views/home/Login.vue'
 import Home from '@/views/home/index.vue'
 import KeepAliveTest from '@/components/KeepAliveTest.vue'
 import KeepAliveTestItem from '@/components/KeepAliveTestItem.vue'
+import JsRenderExampleVue from '@/views/demo/JsRenderExample.vue'
 // 路由懒加载
 const HelloWorld = () => import(/* webpackChunkName: "HelloWorld" */ '../views/home/HelloWorld.vue')
 
@@ -167,6 +168,10 @@ const router = new Router({
         {
           path: 'AvueCrudDemo',
           component: AvueCrudDemo
+        },
+        {
+          path: 'JsRenderExample',
+          component: JsRenderExampleVue
         }
       ]
     },

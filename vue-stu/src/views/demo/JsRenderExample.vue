@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import JsRender from './index.vue'
+import JsRender from '../../components/jsrender/index.vue'
 export default {
-  name: 'TestJsRender',
+  name: 'JsRenderExample',
   components: {
     JsRender
   },
@@ -33,10 +33,11 @@ export default {
         {
           label: '标题',
           prop: 'title',
-          // Example
+          // Example 使用箭头函数绑定当前this指向
           // render: (h, row) => {
           //   return <span onClick={this.handleClick}>11122222222 {row.title} </span>
           // }
+          // Example2 普通函数this指向函数调用时的对象, 需要在调用时使用call/apply方法改变函数内部this
           render(h, row) {
             console.log('column render this:', this, this?.$options?.name)
             return <span onClick={this?.handleClick}>11122222222 {row.title} </span>
@@ -52,7 +53,7 @@ export default {
   },
   methods: {
     handleClick(e) {
-      console.log(e, 'click')
+      console.log(e, 'click', this.data)
     }
   }
 }

@@ -46,6 +46,7 @@
           <el-menu-item index="/demo/DictSelectDemo"> DictSelectDemo </el-menu-item>
           <el-menu-item index="/demo/AvueCrudDemo"> AvueCrudDemo </el-menu-item>
           <el-menu-item index="/demo/ExpandTableExample"> ExpandTableExample </el-menu-item>
+          <el-menu-item index="/demo/JsRenderExample"> JsRenderExample </el-menu-item>
         </el-submenu>
         <el-submenu index="6">
           <template slot="title"> 项目 </template>
