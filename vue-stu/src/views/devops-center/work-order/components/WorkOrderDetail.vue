@@ -118,6 +118,7 @@ export default {
       return '195243'
     },
     showKnowledgeBtn() {
+      return true
       return this.$store.state.poros.btnAuth.includes('assignmentRejection') || this.$store.state.poros.btnAuth.includes('inputDetail')
     },
     rightTipClass() {

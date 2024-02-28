@@ -1,31 +1,15 @@
 <template>
-  <el-dialog
-    :title="curConf.title"
-    :visible.sync="dialogVisible"
-    @open="open"
-    @closed="closed"
-    :close-on-click-modal="false"
-  >
+  <el-dialog :title="curConf.title" :visible.sync="dialogVisible" @open="open" @closed="closed" :close-on-click-modal="false">
     <el-form ref="form" :model="form" @submit.native.prevent label-width="110px">
       <el-row>
         <!-- 关联知识库 -->
         <template v-if="actionType == 'assignKnowledge'">
           <el-col :span="24">
             <el-form-item label="关联知识库">
-              <el-button
-                size="small"
-                type="text"
-                icon="el-icon-plus"
-                @click="workDialogVisible = true"
-                >选择</el-button
-              >
+              <el-button size="small" type="text" icon="el-icon-plus" @click="workDialogVisible = true">选择</el-button>
               <div>
                 <ul class="ul_list">
-                  <li
-                    class="ul_item"
-                    v-for="(device, deviceIndex) in form.knowledges"
-                    :key="device.id"
-                  >
+                  <li class="ul_item" v-for="(device, deviceIndex) in form.knowledges" :key="device.id">
                     <div><i class="el-icon-tickets"></i>{{ device.name }}</div>
                     <i class="el-icon-delete" @click.stop="deleteDeviceList(deviceIndex)"></i>
                   </li>
@@ -42,21 +26,9 @@
       <el-button size="small" @click="dialogVisible = false">取 消</el-button>
     </div>
 
-    <el-dialog
-      title="关联知识库"
-      width="60%"
-      :append-to-body="true"
-      :visible.sync="workDialogVisible"
-      :close-on-click-modal="false"
-      @close="dialogClose"
-    >
+    <el-dialog title="关联知识库" width="60%" :append-to-body="true" :visible.sync="workDialogVisible" :close-on-click-modal="false" @close="dialogClose">
       <div class="dialog-content-wrap">
-        <Standard
-          :isDialogType="true"
-          :opend="workDialogVisible"
-          :selectionList="form.knowledges"
-          :selectChange.sync="tmpSelectionList"
-        />
+        <Standard :isDialogType="true" :opend="workDialogVisible" :selectionList="form.knowledges" :selectChange.sync="tmpSelectionList" />
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button size="small" @click="workDialogVisible = false">取 消</el-button>
@@ -100,7 +72,7 @@ export default {
         remark: '',
         needIssueClassify: 0,
         isResolved: 1,
-        curUser: this.$store.state.user.name,
+        curUser: this.$store.state?.user?.name || 'Test用户',
         handleTime: this.$moment().format('YYYY-MM-DD HH:mm:ss'),
         knowledges: []
       },
@@ -356,9 +328,7 @@ export default {
     },
     selectData() {
       this.workDialogVisible = false
-      this.form.knowledges = this.form.knowledges.concat(
-        JSON.parse(JSON.stringify(this.tmpSelectionList))
-      )
+      this.form.knowledges = this.form.knowledges.concat(JSON.parse(JSON.stringify(this.tmpSelectionList)))
     },
     dialogClose() {
       this.tmpSelectionList = []
@@ -380,9 +350,7 @@ export default {
       this.$refs.form.resetFields()
     },
     open() {
-      this.form.knowledges =
-        this.detail.knowledges?.map((i) => ({ id: i.knowledgeId, name: i.knowledgeName, ...i })) ||
-        []
+      this.form.knowledges = this.detail.knowledges?.map((i) => ({ id: i.knowledgeId, name: i.knowledgeName, ...i })) || []
       // this.form.remark = this.detail.remark
       this.form.handleTime = this.$moment().format('YYYY-MM-DD HH:mm:ss')
     },
