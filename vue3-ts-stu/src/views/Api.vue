@@ -44,9 +44,32 @@
   <div class="module">
     <h2>watch</h2>
   </div>
+
+  <div class="module">
+    <h2>Enum</h2>
+    <el-select v-model="selected">
+      <el-option v-for="item in options" :key="item.value" v-bind="item"></el-option>
+    </el-select>
+  </div>
 </template>
 <script name="Api" setup lang="ts">
 import { version } from 'vue'
+enum StatusEnum {
+  Enable = 1,
+  Disable = 0
+}
+const options = [
+  {
+    label: '启用',
+    value: StatusEnum.Enable
+  },
+  {
+    label: '禁用',
+    value: StatusEnum.Disable
+  }
+]
+const selected = ref<string>()
+
 const refObj = ref({
   name: 'wjj',
   age: 26,

@@ -5,8 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-  </head>
-  <body>
     <script type="importmap">
       {
         "imports": {
@@ -14,7 +12,8 @@
         }
       }
     </script>
-
+  </head>
+  <body>
     <div id="app">
       {{message}}
       <br />
@@ -22,10 +21,11 @@
       <br />
       arr: {{ state.arr.join(' ') }}
       <button @click="arrPush">arr.push</button>
+      <button @click="test">解构一个reactive对象会怎么样</button>
     </div>
 
     <script type="module">
-      import { createApp, reactive, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+      import { createApp, reactive, nextTick } from 'vue'
 
       createApp({
         setup() {
@@ -43,10 +43,21 @@
             state.arr.push(Math.round(Math.random() * 100))
           }
 
+          function test() {
+            let { count, arr } = state
+            count++
+            // 解构后为普通数据类型, 与原始对象无任何关联
+            console.log(count == state.count) // false
+
+            // 解构对象 相当于: arr = state.arr
+            arr.push('xxxx') // 响应式的
+          }
+
           return {
             state,
             increment,
-            arrPush
+            arrPush,
+            test
           }
         },
         data() {
