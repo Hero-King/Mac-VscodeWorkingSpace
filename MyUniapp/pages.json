@@ -12,6 +12,14 @@
 			"enablePullDownRefresh": false
 		}
 
+	},
+	{
+		"path" : "pages/map/map",
+		"style" : 
+		{
+			"navigationBarTitleText" : "mapStu",
+			"enablePullDownRefresh" : false
+		}
 	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

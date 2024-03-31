@@ -58,5 +58,14 @@
         "usingComponents" : true
     },
     "vueVersion" : "2",
-    "fallbackLocale" : "zh-Hans"
+    "fallbackLocale" : "zh-Hans",
+    "h5" : {
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : "M4FBZ-F6SWL-LHIPA-MNB3S-TUBX2-37FWA"
+                }
+            }
+        }
+    }
 }
