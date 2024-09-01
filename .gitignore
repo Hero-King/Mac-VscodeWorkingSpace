@@ -2,3 +2,6 @@
 .vscode
 vue-stu/webpackConfig.js
 MyUniapp/unpackage
+2020年9月5日后/excel2vcf/students_info.xlsx
+2020年9月5日后/excel2vcf/contacts.vcf
+.DS_Store
