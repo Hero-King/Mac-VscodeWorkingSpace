@@ -1,30 +1,47 @@
 <template>
   <div class="page h100">
-    <div class="graph" v-show="!tableVisible">
-      <el-form ref="form" :model="form" label-width="80px" @submit.native.prevent>
+    <div
+      v-show="!tableVisible"
+      class="graph"
+    >
+      <el-form
+        ref="form"
+        :model="form"
+        label-width="80px"
+        @submit.native.prevent
+      >
         <el-row>
-          <SelectFormContent :conf="queryFields" :form="form" />
-          <el-col :span="1" :offset="4">
+          <SelectFormContent
+            :conf="queryFields"
+            :form="form"
+          />
+          <el-col
+            :span="1"
+            :offset="4"
+          >
             <export-button
               type="primary"
-              :exportUrl="exportGraphTopologyUrl"
-              :getQueryParam="getQueryParam"
-              fileName="图谱列表.xls"
-              >导出</export-button
-            >
+              :export-url="exportGraphTopologyUrl"
+              :get-query-param="getQueryParam"
+              file-name="图谱列表.xls"
+            >导出</export-button>
           </el-col>
         </el-row>
       </el-form>
 
       <div class="echart-wrap">
-        <graphy :dataConf="echartConf" :activeName="activeName" @click="handleClick" />
+        <graphy
+          :data-conf="echartConf"
+          :active-name="activeName"
+          @click="handleClick"
+        />
       </div>
     </div>
 
     <GraphyDetailTable
-      :visible.sync="tableVisible"
       v-if="tableVisible"
-      :queryParam="tableQueryParam"
+      :visible.sync="tableVisible"
+      :query-param="tableQueryParam"
     />
   </div>
 </template>
@@ -122,8 +139,8 @@ export default {
   methods: {
     handleClick(param) {
       const { category, name } = param.data
-      let cnTypeName = this.echartConf.categories[category].name
-      let formKey = this.queryFields.find((i) => i.label.includes(cnTypeName))?.formKey || ''
+      const cnTypeName = this.echartConf.categories[category].name
+      const formKey = this.queryFields.find((i) => i.label.includes(cnTypeName))?.formKey || ''
       if (formKey) {
         this.tableQueryParam = { [formKey]: name }
         this.tableVisible = true
@@ -149,7 +166,7 @@ export default {
      * @description 通过将formKey置空 查询到可选内容更新到optionsKey
      */
     updateOptions(formKey, optionsKey) {
-      let param = formKey ? { ...this.form, [formKey]: '' } : { ...this.form }
+      const param = formKey ? { ...this.form, [formKey]: '' } : { ...this.form }
       selectRealType(param).then((res) => {
         if (res?.code == 0) {
           this.queryFields.forEach((i) => {

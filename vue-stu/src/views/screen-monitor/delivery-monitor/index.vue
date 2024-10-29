@@ -1,10 +1,10 @@
 <template>
   <div class="delivery-monitor">
     <ScreenHeader>
-      <template v-slot:leftTitle>
+      <template #leftTitle>
         {{ leftTitle }}
       </template>
-      <template v-slot:centerTitle>
+      <template #centerTitle>
         <div class="center-content">
           <Selector
             v-model="formParam.factory"
@@ -25,7 +25,7 @@
           />
         </div>
       </template>
-      <template v-slot:rightTitle>
+      <template #rightTitle>
         <TimeSelect
           v-model="formParam"
           type="monthselect"

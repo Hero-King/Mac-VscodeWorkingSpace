@@ -235,7 +235,7 @@ export default {
     keyItemList3() {
       const { keyList } = this
       console.log(keyList)
-      let arr = []
+      const arr = []
       for (let i = 0; i < 3; i++) {
         arr.push({ title: keyList[i] + 'title', text: keyList[i] })
       }
@@ -243,7 +243,7 @@ export default {
     },
     keyItemList45() {
       const { keyList } = this
-      let arr = []
+      const arr = []
       for (let i = 3; i < 4; i++) {
         arr.push({ title: keyList[i] + 'title', text: keyList[i] })
       }

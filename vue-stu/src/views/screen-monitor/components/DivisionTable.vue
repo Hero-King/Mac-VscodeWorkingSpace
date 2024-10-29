@@ -88,8 +88,8 @@ export default {
       deep: false,
       handler(val, oldVal) {
         console.log(val)
-        let tableDataMap = new Map()
-        let columnsT = new Set()
+        const tableDataMap = new Map()
+        const columnsT = new Set()
         val.forEach((i) => {
           const rowTag = i[this.rowKey]
           const colLabel = i[this.colKey]
@@ -97,7 +97,7 @@ export default {
             if (!tableDataMap.has(rowTag)) {
               tableDataMap.set(rowTag, { [this.rowKey]: rowTag })
             }
-            let rowData = tableDataMap.get(rowTag)
+            const rowData = tableDataMap.get(rowTag)
             columnsT.add(colLabel)
             rowData[colLabel] = i[this.cellKey]
           }

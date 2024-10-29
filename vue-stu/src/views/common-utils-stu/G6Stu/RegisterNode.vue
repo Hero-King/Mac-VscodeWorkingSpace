@@ -1,7 +1,7 @@
 <template>
   <div>
     RegisterNode
-    <div ref="dom"></div>
+    <div ref="dom" />
   </div>
 </template>
 <script>
@@ -68,8 +68,8 @@ export default {
          <group>
           <circle keyshape="true" style={{fill: ${cfg.color}, r: ${cfg.r}, lineWidth: 2, stroke: 'blank'}} }}>
             <image style={{ img: ${cfg.img},marginLeft: ${-cfg.imgSize / 2}, marginTop: ${
-        cfg.value.length > 0 ? -(cfg.r + cfg.imgSize) / 2 : -cfg.imgSize / 2
-      }, width: ${cfg.imgSize}, height: ${cfg.imgSize}  }}></image>
+  cfg.value.length > 0 ? -(cfg.r + cfg.imgSize) / 2 : -cfg.imgSize / 2
+}, width: ${cfg.imgSize}, height: ${cfg.imgSize}  }}></image>
             <text style={{fill: ${cfg.valColor},fontSize: ${cfg.valFontSize}, textAlign: 'center', marginTop: ${-cfg.r + 10} }}>${cfg.value || ' '}</text>
             <rect style={{ lineWidth: 2, stroke: 'blank', fill: 'white', width: ${cfg.r * 2}, height : 20, marginLeft: ${-cfg.r}, }}>
             <text style={{fill: ${cfg.labelColor},fontSize: ${cfg.labelFontSize}, textAlign: 'center' }} >{{label}}</text>

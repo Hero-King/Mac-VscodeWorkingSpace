@@ -73,7 +73,7 @@
     <el-main>
       <transition>
         <keep-alive include="KeepAliveTest">
-          <router-view :key="$route.path"></router-view>
+          <router-view :key="$route.path" />
         </keep-alive>
       </transition>
     </el-main>
@@ -83,25 +83,12 @@
 <script>
 export default {
   name: 'Home',
-  data() {
-    const item = {
-      date: '2016-05-02',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1518 弄'
-    }
-    return {
-      tableData: Array(5).fill(item)
-    }
-  },
-  mounted() {
-    console.error('工单原型地址: https://modao.cc/app/i2qzxprrqpwreEvQ8BcPu#screen=sle2j2qha65lem7q0nfa48dtm')
-  },
   beforeRouteEnter(to, from, next) {
     console.log('Home beforeRouteEnter')
     // 在渲染该组件的对应路由被验证前调用
     // 不能获取组件实例 `this` ！
     // 因为当守卫执行时，组件实例还没被创建！
-    next(function (vm) {
+    next(function(vm) {
       console.log(vm._uid, 'Home beforeRouteEnter 中next')
     })
   },
@@ -118,6 +105,19 @@ export default {
     // 在导航离开渲染该组件的对应路由时调用
     // 与 `beforeRouteUpdate` 一样，它可以访问组件实例 `this`
     next()
+  },
+  data() {
+    const item = {
+      date: '2016-05-02',
+      name: '王小虎',
+      address: '上海市普陀区金沙江路 1518 弄'
+    }
+    return {
+      tableData: Array(5).fill(item)
+    }
+  },
+  mounted() {
+    console.error('工单原型地址: https://modao.cc/app/i2qzxprrqpwreEvQ8BcPu#screen=sle2j2qha65lem7q0nfa48dtm')
   }
 }
 </script>

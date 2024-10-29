@@ -10,8 +10,8 @@ export default function Preview(opts) {
   if (!ins) {
     ins = new ImagePreviewCtor()
   }
-  let close = opts.onClose
-  opts.onClose = function () {
+  const close = opts.onClose
+  opts.onClose = function() {
     ins.$el?.remove()
     close && close()
   }
@@ -34,6 +34,6 @@ export default function Preview(opts) {
   return ins
 }
 
-Preview.install = function (Vue) {
+Preview.install = function(Vue) {
   Vue.prototype.$MyImagePreview = Preview
 }

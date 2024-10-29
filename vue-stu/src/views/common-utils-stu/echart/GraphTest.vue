@@ -1,20 +1,38 @@
 <template>
   <div>
-    <el-button type="primary" @click="click">切换</el-button>
-    <div style="height: 300px" ref="dom"></div>
+    <el-button
+      type="primary"
+      @click="click"
+    >切换</el-button>
+    <div
+      ref="dom"
+      style="height: 300px"
+    />
   </div>
 </template>
 <script>
 import * as echarts from 'echarts'
 export default {
   name: 'GraphTest',
+  props: {},
   data() {
     return {
       activeName: '现象A',
       data: []
     }
   },
-  props: {},
+  watch: {
+    activeName: {
+      handler() {
+        this.goCenter()
+      }
+    },
+    data(v) {
+      if (v.length > 0) {
+        this.initEchart()
+      }
+    }
+  },
   mounted() {
     // this.initEchart()
     setTimeout(() => {
@@ -70,7 +88,7 @@ export default {
 
       // 力引导布局产生的关系图 获取渲染后的x ,y
       //   let model = this.echart.getModel().getSeriesByIndex(0).getData()._itemLayouts
-      let model = this.echart.getModel().getSeriesByIndex(0).preservedPoints
+      const model = this.echart.getModel().getSeriesByIndex(0).preservedPoints
 
       console.log('model', model)
       console.log(this.echart.getOption())
@@ -79,7 +97,7 @@ export default {
       //   this.echart.setOption({ series: [{ center: model[index] }] })
       // }, 0)
       setTimeout(() => {
-        let index = this.data.findIndex((i) => i.name === this.activeName)
+        const index = this.data.findIndex((i) => i.name === this.activeName)
         this.echart.setOption({ series: [{ center: model[index] }] })
       }, 0)
     },
@@ -90,7 +108,7 @@ export default {
       const width = this.$refs.dom.offsetWidth
       const height = this.$refs.dom.offsetHeight
 
-      let option = {
+      const option = {
         title: {
           text: '关系图',
           subtext: 'Force layout',
@@ -153,18 +171,6 @@ export default {
       console.log('initechart', option, this.echart)
       this.echart.setOption(option)
       this.goCenter()
-    }
-  },
-  watch: {
-    activeName: {
-      handler() {
-        this.goCenter()
-      }
-    },
-    data(v) {
-      if (v.length > 0) {
-        this.initEchart()
-      }
     }
   }
 }

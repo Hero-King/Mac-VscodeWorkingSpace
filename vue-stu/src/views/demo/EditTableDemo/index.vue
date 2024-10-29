@@ -1,23 +1,37 @@
 <template>
   <div class="demo-edit-table">
     <el-button @click="add">添加行</el-button>
-    <EditTable :data.sync="data" :form.sync="form" ref="table" :deleteRequestApi="deleteRequestApi">
+    <EditTable
+      ref="table"
+      :data.sync="data"
+      :form.sync="form"
+      :delete-request-api="deleteRequestApi"
+    >
       <edit-table-column
+        v-model="form.date"
         prop="date"
         label="日期"
-        v-model="form.date"
         width="180"
-        fieldType="ElDatePicker"
-        :formItemConfig="{ rules: [{ required: true, message: '请选择日期' }] }"
+        field-type="ElDatePicker"
+        :form-item-config="{ rules: [{ required: true, message: '请选择日期' }] }"
         value-format="yyyy-MM-dd"
         clearable
         type="date"
         placeholder="选择日期"
-      >
-      </edit-table-column>
-      <edit-table-column prop="name" label="姓名" width="180" v-model="form.name" :formItemConfig="{ rules: [{ required: true, message: '请输入姓名' }] }">
-      </edit-table-column>
-      <edit-table-column prop="age" label="年龄" disabled v-model="form.age"> </edit-table-column>
+      />
+      <edit-table-column
+        v-model="form.name"
+        prop="name"
+        label="姓名"
+        width="180"
+        :form-item-config="{ rules: [{ required: true, message: '请输入姓名' }] }"
+      />
+      <edit-table-column
+        v-model="form.age"
+        prop="age"
+        label="年龄"
+        disabled
+      />
     </EditTable>
   </div>
 </template>

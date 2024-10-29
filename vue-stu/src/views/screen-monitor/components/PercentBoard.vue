@@ -73,7 +73,7 @@ export default {
     }
   },
   watch: {
-    ['percentCtx']: {
+    'percentCtx': {
       deep: true,
       // immediate: true,
       handler(val, oldVal) {

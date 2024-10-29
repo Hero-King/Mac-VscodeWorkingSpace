@@ -15,19 +15,23 @@
       :on-remove="handleRemove"
     >
       <div v-if="!config.showFileList && fileList.length > 0 && fileList[0].url != ''">
-        <img :src="fileList[0].url" :style="{ height: config.height }" class="avatar" />
+        <img
+          :src="fileList[0].url"
+          :style="{ height: config.height }"
+          class="avatar"
+        >
         <span class="change-tip">替换图片</span>
       </div>
       <i
         v-if="!config.showFileList && fileList[0].url == ''"
         class="el-icon-plus avatar-uploader-icon"
         :style="{ height: config.height, width: config.height, lineHeight: config.height }"
-      ></i>
+      />
       <i
         v-if="config.showFileList"
         class="el-icon-plus avatar-uploader-icon"
         :style="{ height: config.height, width: config.height, lineHeight: config.height }"
-      ></i>
+      />
     </el-upload>
   </div>
 </template>
@@ -72,30 +76,30 @@ export default {
         '.css,.jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.doc,.docx,.PDF,.js,.csv,.xlsx,.xls,.ppt,.pptx'
     }
   },
-  mounted() {
-    this.fileList = this.config.fileList[0]?.url
-      ? this.config.fileList
-      : [
-          {
-            name: '',
-            url: ''
-          }
-        ]
-  },
   watch: {
     config: {
       handler(val) {
         this.fileList = val.fileList[0]?.url
           ? this.config.fileList
           : [
-              {
-                name: '',
-                url: ''
-              }
-            ]
+            {
+              name: '',
+              url: ''
+            }
+          ]
       },
       deep: true
     }
+  },
+  mounted() {
+    this.fileList = this.config.fileList[0]?.url
+      ? this.config.fileList
+      : [
+        {
+          name: '',
+          url: ''
+        }
+      ]
   },
   methods: {
     handleAvatarSuccess(response, fileList) {
@@ -119,7 +123,7 @@ export default {
     },
     handleRemove(response, fileList) {
       if (response && response.status === 'success') {
-        let arr = []
+        const arr = []
         fileList.forEach((item) => {
           arr.push({ name: '', url: item.url })
         })

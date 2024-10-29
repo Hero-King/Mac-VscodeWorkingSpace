@@ -1,39 +1,51 @@
 <template>
   <div class="workorder-statistic page">
     <!-- 查询部分 -->
-    <el-form :model="form" label-width="80px" inline size="small">
+    <el-form
+      :model="form"
+      label-width="80px"
+      inline
+      size="small"
+    >
       <el-form-item label="工厂选择">
         <DictSelect
-          labelKey="locationName"
-          valueKey="topParentId"
-          forKey="topParentId"
-          :dictUrl="factorySelectUrl"
           v-model="form.factoryId"
-          @getSuccess="handleSuccess"
+          label-key="locationName"
+          value-key="topParentId"
+          for-key="topParentId"
+          :dict-url="factorySelectUrl"
           methods="post"
           placeholder="请选择工厂"
+          @getSuccess="handleSuccess"
           @change="query"
         />
       </el-form-item>
       <el-form-item label="时间选择">
         <TimeSelect
           v-model="form.date"
-          @change="query"
           format="YYYY-MM-DD HH:mm"
-          datePickerFormat="yyyy-MM-dd HH:mm"
+          date-picker-format="yyyy-MM-dd HH:mm"
+          @change="query"
         />
       </el-form-item>
     </el-form>
 
     <!-- 统计部分 -->
-    <el-row type="flex" justify="space-between">
-      <el-col v-for="(item, index) in statisticConf" :span="item.span" :key="item.title">
+    <el-row
+      type="flex"
+      justify="space-between"
+    >
+      <el-col
+        v-for="(item, index) in statisticConf"
+        :key="item.title"
+        :span="item.span"
+      >
         <el-statistic
           class="statistic-item"
           :value="statistic[item.valueKey]"
           :title="item.title"
-          :valueStyle="{ color: '#4e60f6' }"
-        ></el-statistic>
+          :value-style="{ color: '#4e60f6' }"
+        />
       </el-col>
       <el-col :span="5">
         <LabelValue
@@ -56,19 +68,30 @@
       <div>
         <h3>工单类型分布</h3>
         <div class="echart-wrap">
-          <WorkOrderTypeChart class="echart-dom" ref="left" :pieData="typeDistribution" />
-          <el-empty class="echart-empty" v-show="typeDistribution.length == 0" />
+          <WorkOrderTypeChart
+            ref="left"
+            class="echart-dom"
+            :pie-data="typeDistribution"
+          />
+          <el-empty
+            v-show="typeDistribution.length == 0"
+            class="echart-empty"
+          />
         </div>
       </div>
       <div>
         <h3>工单统计</h3>
         <div class="echart-wrap">
-          <WorkOrderLineChart class="echart-dom" :dataConf="barLineData" ref="right" />
+          <WorkOrderLineChart
+            ref="right"
+            class="echart-dom"
+            :data-conf="barLineData"
+          />
           <el-empty
-            class="echart-empty"
             v-show="
               barLineData.timeExpansionAxis == void 0 || barLineData.timeExpansionAxis.length == 0
             "
+            class="echart-empty"
           />
         </div>
       </div>
@@ -112,7 +135,7 @@ export default {
     TimeSelect,
     DictSelect,
     WorkOrderTypeChart,
-    WorkOrderLineChart,
+    WorkOrderLineChart
   },
   data() {
     this.factorySelectUrl = factorySelectUrl
@@ -166,8 +189,8 @@ export default {
   methods: {
     formatParams() {
       const [beginDate, endDate] = this.form.date
-      let beginDateMom = this.$moment(beginDate)
-      let endDateMom = this.$moment(endDate)
+      const beginDateMom = this.$moment(beginDate)
+      const endDateMom = this.$moment(endDate)
       let timeType = 2
       if (endDateMom.diff(beginDateMom, 'hours', true) < 25) {
         timeType = 1
@@ -194,7 +217,7 @@ export default {
       if (!(form.factoryId && form.date?.length > 0)) {
         return
       }
-      let params = this.formatParams()
+      const params = this.formatParams()
 
       // 总数统计数据
       workPlanGlobalStatistic(params).then((res) => {

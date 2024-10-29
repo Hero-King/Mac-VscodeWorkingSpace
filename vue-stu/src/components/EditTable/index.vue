@@ -1,17 +1,45 @@
 <template>
-  <el-form ref="form" :model="form">
-    <el-table border ref="table" :data="data" :row-key="id">
-      <slot></slot>
-      <el-table-column fixed="right" label="操作" width="200">
+  <el-form
+    ref="form"
+    :model="form"
+  >
+    <el-table
+      ref="table"
+      border
+      :data="data"
+      :row-key="id"
+    >
+      <slot />
+      <el-table-column
+        fixed="right"
+        label="操作"
+        width="200"
+      >
         <template slot-scope="scope">
           <template v-if="scope.row.isEdit">
-            <el-button type="text" size="small" @click="handleSave(scope.row, scope.column, scope.$index)">保存</el-button>
-            <el-button type="text" size="small" @click="handleCancel(scope.row, scope.column, scope.$index)">取消</el-button>
+            <el-button
+              type="text"
+              size="small"
+              @click="handleSave(scope.row, scope.column, scope.$index)"
+            >保存</el-button>
+            <el-button
+              type="text"
+              size="small"
+              @click="handleCancel(scope.row, scope.column, scope.$index)"
+            >取消</el-button>
           </template>
           <template v-else>
-            <el-button type="text" size="small" @click="handleEdit(scope.row, scope.column, scope.$index)">编辑</el-button>
+            <el-button
+              type="text"
+              size="small"
+              @click="handleEdit(scope.row, scope.column, scope.$index)"
+            >编辑</el-button>
           </template>
-          <el-button type="text" size="small" @click="handleDelete(scope.row, scope.column, scope.$index)">删除</el-button>
+          <el-button
+            type="text"
+            size="small"
+            @click="handleDelete(scope.row, scope.column, scope.$index)"
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -23,12 +51,6 @@ export default {
   name: 'EditTable',
   components: {
     EditTableColumn
-  },
-  data() {
-    return {
-      deleteLoading: false,
-      saveLoading: false
-    }
   },
   props: {
     form: {
@@ -51,6 +73,12 @@ export default {
     needRefreshTable: {
       type: Boolean,
       default: false
+    }
+  },
+  data() {
+    return {
+      deleteLoading: false,
+      saveLoading: false
     }
   },
   computed: {

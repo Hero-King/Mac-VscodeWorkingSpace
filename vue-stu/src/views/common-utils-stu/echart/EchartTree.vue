@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div ref="echart" style="height: 400px; width: 375px" class="border"></div>
+    <div
+      ref="echart"
+      style="height: 400px; width: 375px"
+      class="border"
+    />
   </div>
 </template>
 <script>
@@ -10,18 +14,23 @@ export default {
   computed: {
     opt() {}
   },
+  watch: {
+    opt(v) {
+    //   this.echart.setOption(v)
+    }
+  },
   mounted() {
     this.echart = echarts.init(this.$refs.echart)
     const dotColor = new echarts.graphic.LinearGradient(
-              0,
-              0,
-              1,
-              1, //4个参数用于配置渐变色的起止位置, 这4个参数依次对应右/下/左/上四个方位. 而0 0 0 1则代表渐变色从正上方开始
-              [
-                { offset: 0, color: '#84FAB0' },
-                { offset: 0, color: '#8FD3F4' }
-              ]
-            )
+      0,
+      0,
+      1,
+      1, // 4个参数用于配置渐变色的起止位置, 这4个参数依次对应右/下/左/上四个方位. 而0 0 0 1则代表渐变色从正上方开始
+      [
+        { offset: 0, color: '#84FAB0' },
+        { offset: 0, color: '#8FD3F4' }
+      ]
+    )
     this.echart.setOption({
       series: [
         {
@@ -99,7 +108,7 @@ export default {
               0,
               0,
               1,
-              1, //4个参数用于配置渐变色的起止位置, 这4个参数依次对应右/下/左/上四个方位. 而0 0 0 1则代表渐变色从正上方开始
+              1, // 4个参数用于配置渐变色的起止位置, 这4个参数依次对应右/下/左/上四个方位. 而0 0 0 1则代表渐变色从正上方开始
               [
                 { offset: 0, color: '#A0D6FE' },
                 { offset: 0, color: '#0C95FE' }
@@ -109,11 +118,6 @@ export default {
         }
       ]
     })
-  },
-  watch: {
-    opt(v) {
-    //   this.echart.setOption(v)
-    }
   }
 }
 </script>

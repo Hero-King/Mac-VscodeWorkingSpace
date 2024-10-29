@@ -1,34 +1,91 @@
 <template>
   <div>
     <div class="expand-table-wrap">
-      <el-table :data="tableData" header-row-class-name="blue-header" :border="border">
+      <el-table
+        :data="tableData"
+        header-row-class-name="blue-header"
+        :border="border"
+      >
         <template v-for="column in tableColumns">
-          <el-table-column v-if="column.render && column.headerRender" :key="column.prop || column.label" v-bind="column">
-            <template slot-scope="scope" slot="header">
+          <el-table-column
+            v-if="column.render && column.headerRender"
+            :key="column.prop || column.label"
+            v-bind="column"
+          >
+            <template
+              slot="header"
+              slot-scope="scope"
+            >
               <!-- <el-form-item :rules="column.rules"> -->
-              <js-render :jsRender="column.headerRender" :renderArgument="scope" :renderNode="_self" />
+              <js-render
+                :js-render="column.headerRender"
+                :render-argument="scope"
+                :render-node="_self"
+              />
               <!-- </el-form-item> -->
             </template>
             <template slot-scope="scope">
-              <js-render :jsRender="column.render" :renderArgument="scope" :renderNode="$parent" />
+              <js-render
+                :js-render="column.render"
+                :render-argument="scope"
+                :render-node="$parent"
+              />
             </template>
           </el-table-column>
-          <el-table-column v-else-if="column.render" :key="column.prop || column.label" v-bind="column">
+          <el-table-column
+            v-else-if="column.render"
+            :key="column.prop || column.label"
+            v-bind="column"
+          >
             <template slot-scope="scope">
-              <js-render :jsRender="column.render" :renderArgument="scope" :renderNode="$parent" />
+              <js-render
+                :js-render="column.render"
+                :render-argument="scope"
+                :render-node="$parent"
+              />
             </template>
           </el-table-column>
-          <el-table-column v-else :key="column.prop || column.label" v-bind="column"> </el-table-column>
+          <el-table-column
+            v-else
+            :key="column.prop || column.label"
+            v-bind="column"
+          />
         </template>
       </el-table>
-      <div class="expand-table-right-btns" v-if="needAddColumn">
-        <el-button title="添加列" icon="el-icon-circle-plus" circle @click="handleAddColumn"></el-button>
-        <el-button title="删除列" icon="el-icon-remove" circle @click="handleDeleteColumn"></el-button>
+      <div
+        v-if="needAddColumn"
+        class="expand-table-right-btns"
+      >
+        <el-button
+          title="添加列"
+          icon="el-icon-circle-plus"
+          circle
+          @click="handleAddColumn"
+        />
+        <el-button
+          title="删除列"
+          icon="el-icon-remove"
+          circle
+          @click="handleDeleteColumn"
+        />
       </div>
     </div>
-    <div class="expand-table-bottom-btns" v-if="needAddRow">
-      <el-button title="添加行" icon="el-icon-circle-plus" circle @click="handleAddRow"></el-button>
-      <el-button title="删除行" icon="el-icon-remove" circle @click="handleDeleteRow"></el-button>
+    <div
+      v-if="needAddRow"
+      class="expand-table-bottom-btns"
+    >
+      <el-button
+        title="添加行"
+        icon="el-icon-circle-plus"
+        circle
+        @click="handleAddRow"
+      />
+      <el-button
+        title="删除行"
+        icon="el-icon-remove"
+        circle
+        @click="handleDeleteRow"
+      />
     </div>
   </div>
 </template>
@@ -82,7 +139,7 @@ export default {
       return new Set(this.commonColumns.map((i) => i.prop))
     },
     tableColumns() {
-      let otherColumn = this.needAddColumn ? (this.customColumns.length === 0 ? [this.templateColumn] : this.customColumns) : []
+      const otherColumn = this.needAddColumn ? (this.customColumns.length === 0 ? [this.templateColumn] : this.customColumns) : []
       return [...this.commonColumns, ...otherColumn]
     },
     columnLabelSet() {
@@ -108,18 +165,26 @@ export default {
       return isNaN(index) ? 0 : index
     }
   },
+  watch: {
+    data: {
+      handler(v) {
+        this.tableData = this.transformDataToCustomData()
+      },
+      immediate: true
+    }
+  },
   methods: {
     transformDataToCustomData() {
-      let dataT = []
+      const dataT = []
       const { customColPropPrefix } = this
       this.data.forEach((i, index) => {
-        let dataItem = {}
+        const dataItem = {}
         let customColIndex = 0
         Object.keys(i).forEach((key) => {
           if (this.commonPropSet.has(key)) {
             dataItem[key] = i[key]
           } else {
-            let customProp = `${customColPropPrefix}_${customColIndex++}`
+            const customProp = `${customColPropPrefix}_${customColIndex++}`
             if (index === 0 && this.needAddColumn) {
               this.customColumns.push({
                 ...this.templateColumn,
@@ -143,7 +208,7 @@ export default {
       }
     },
     validateData() {
-      let validRowSuccess = this.handleAddRow({}, true)
+      const validRowSuccess = this.handleAddRow({}, true)
       return validRowSuccess === true && this.handleAddRow({}, true) === true
     },
     // 复制最后一列
@@ -170,7 +235,7 @@ export default {
       }
     },
     handleAddRow(e, test = false) {
-      let latestRowData = this.tableData[this.tableData.length - 1]
+      const latestRowData = this.tableData[this.tableData.length - 1]
       if (Object.keys(latestRowData).length === this.tableColumns.length && Object.values(latestRowData).every((i) => i.length > 0)) {
         if (test) {
           return true
@@ -188,15 +253,15 @@ export default {
     // 获取表格数据
     getTableData() {
       if (this.validateData()) {
-        let tableData = []
+        const tableData = []
         this.tableData.forEach((row) => {
           // 结合customColumns 封装数据
-          let rowT = {}
+          const rowT = {}
           Object.keys(row).forEach((key) => {
             if (this.commonPropSet.has(key)) {
               rowT[key] = row[key]
             } else {
-              let customIndex = key.split('_')[1]
+              const customIndex = key.split('_')[1]
               rowT[this.customColumns[customIndex].label] = row[key]
             }
           })
@@ -204,14 +269,6 @@ export default {
         })
         return tableData
       }
-    }
-  },
-  watch: {
-    data: {
-      handler(v) {
-        this.tableData = this.transformDataToCustomData()
-      },
-      immediate: true
     }
   }
 }

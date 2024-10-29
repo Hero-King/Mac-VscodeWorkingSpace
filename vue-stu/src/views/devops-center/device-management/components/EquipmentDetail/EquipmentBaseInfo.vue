@@ -1,9 +1,16 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="8" class="left-wrap">
+      <el-col
+        :span="8"
+        class="left-wrap"
+      >
         <h4>设备图片</h4>
-        <EleImgUpload title="请上传设备图片" @uploadSuccess="uploadSuccess" :config="uploadConf" />
+        <EleImgUpload
+          title="请上传设备图片"
+          :config="uploadConf"
+          @uploadSuccess="uploadSuccess"
+        />
 
         <h4 class="mt-20">设备二维码</h4>
         <div class="qr-wrap textCenter">
@@ -12,8 +19,7 @@
             fit="scale-down"
             :src="deviceInfo.qrcodeUrl"
             :preview-src-list="[deviceInfo.qrcodeUrl]"
-          >
-          </el-image>
+          />
         </div>
       </el-col>
 
@@ -22,19 +28,23 @@
         layout="inline"
         class="let-form-horizontal"
         :model="ruleForm"
-        :labelCol="{ span: 6 }"
-        :wrapperCol="{ span: 16 }"
+        :label-col="{ span: 6 }"
+        :wrapper-col="{ span: 16 }"
         :rules="rules"
       >
         <!-- 设备类型 start -->
         <el-col :span="8">
-          <p-form-model-item has-feedback label="设备类型" prop="modelMark">
+          <p-form-model-item
+            has-feedback
+            label="设备类型"
+            prop="modelMark"
+          >
             <p-select
+              v-model="ruleForm.modelMark"
               class="form-item-width"
               placeholder="请选择设备类型"
               allow-clear
               :disabled="true"
-              v-model="ruleForm.modelMark"
             >
               <p-select-option
                 v-for="deviceType in deviceTypes"
@@ -49,11 +59,15 @@
         <!-- 设备类型 end -->
         <!-- 设备名称 start -->
         <el-col :span="8">
-          <p-form-model-item has-feedback label="设备名称" prop="deviceName">
+          <p-form-model-item
+            has-feedback
+            label="设备名称"
+            prop="deviceName"
+          >
             <p-input
+              v-model="ruleForm.deviceName"
               class="form-item-width"
               placeholder="请输入设备名称"
-              v-model="ruleForm.deviceName"
               :disabled="!editable"
             />
           </p-form-model-item>
@@ -61,16 +75,24 @@
         <!-- 设备名称 end -->
 
         <el-col :span="8">
-          <p-form-model-item has-feedback label="设备标识" prop="deviceMark">
+          <p-form-model-item
+            has-feedback
+            label="设备标识"
+            prop="deviceMark"
+          >
             <p-input
+              v-model="ruleForm.deviceMark"
               :disabled="true"
               class="form-item-width"
               placeholder="请输入设备标识"
-              v-model="ruleForm.deviceMark"
             />
           </p-form-model-item>
         </el-col>
-        <el-col :span="8" v-for="item in paramList" :key="item.paramMark">
+        <el-col
+          v-for="item in paramList"
+          :key="item.paramMark"
+          :span="8"
+        >
           <p-form-model-item
             has-feedback
             :label="item.paramName"
@@ -78,21 +100,21 @@
           >
             <p-date-picker
               v-if="item.paramValType === 'date'"
+              :id="item.id"
+              v-model="item.paramValue"
               :mode="item.paramValType"
               :disabled="!editable"
               format="yyyy-MM-DD"
               :value="item.paramValue || null"
-              v-model="item.paramValue"
               :name="item.paramMark"
               class="form-item-width"
               :placeholder="item.paramName"
-              :id="item.id"
             />
             <p-select
-              allow-clear
-              :disabled="!editable"
               v-else-if="item.paramValType === 'dic'"
               v-model="item.paramValue"
+              allow-clear
+              :disabled="!editable"
             >
               <p-select-option
                 v-for="selectItem in item.selectList"
@@ -104,11 +126,11 @@
             </p-select>
             <el-input
               v-else
+              :id="item.id"
+              v-model="item.paramValue"
               class="form-item-width"
               :name="item.paramMark"
-              v-model="item.paramValue"
               :placeholder="item.unit ? '单位（' + item.unit + '）' : ''"
-              :id="item.id"
               readonly
               :disabled="!editable"
               onfocus="this.removeAttribute('readonly')"
@@ -117,9 +139,20 @@
         </el-col>
       </p-form-model>
     </el-row>
-    <div class="textCenter" v-if="editable">
-      <el-button type="primary" size="small" @click="onOk">保存</el-button>
-      <el-button style="margin-left: 20px" size="small" @click="onCancel">取消</el-button>
+    <div
+      v-if="editable"
+      class="textCenter"
+    >
+      <el-button
+        type="primary"
+        size="small"
+        @click="onOk"
+      >保存</el-button>
+      <el-button
+        style="margin-left: 20px"
+        size="small"
+        @click="onCancel"
+      >取消</el-button>
     </div>
   </div>
 </template>
@@ -203,6 +236,18 @@ export default {
       }
     }
   },
+  watch: {
+    deviceInfo: {
+      handler(val) {
+        console.log(val.id, 'deviceInfo.id')
+        const { child, children, ...rest } = val
+        this.ruleForm = JSON.parse(JSON.stringify(rest))
+        this.initData()
+      },
+      deep: true,
+      immediate: true
+    }
+  },
   created() {},
   methods: {
     initData() {
@@ -237,14 +282,14 @@ export default {
       this.$refs.ruleForm.clearValidate()
     },
     onOk() {
-      let paramList = []
+      const paramList = []
       for (const paramInfo of this.paramList) {
-        let elementsByName = document.getElementsByName(paramInfo.paramMark)[0]
-        let paramMark = elementsByName.name
-        let paramValue = elementsByName.value
-        let id = paramInfo.id
+        const elementsByName = document.getElementsByName(paramInfo.paramMark)[0]
+        const paramMark = elementsByName.name
+        const paramValue = elementsByName.value
+        const id = paramInfo.id
 
-        let param = {
+        const param = {
           id: id,
           paramMark: paramMark,
           paramValue: paramValue,
@@ -256,7 +301,7 @@ export default {
       }
       this.ruleForm.paramList = paramList
 
-      let url = this.uploadConf.fileList[0]?.url
+      const url = this.uploadConf.fileList[0]?.url
       if (url !== this.deviceInfo.resourceUrl) {
         resourceRelationDevice({ deviceId: this.deviceInfo.id, resourceUrl: url }).then((res) => {
           if (res?.code == 0) {
@@ -279,18 +324,6 @@ export default {
           this.$message.error(res.msg)
         }
       })
-    }
-  },
-  watch: {
-    deviceInfo: {
-      handler(val) {
-        console.log(val.id, 'deviceInfo.id')
-        const { child, children, ...rest } = val
-        this.ruleForm = JSON.parse(JSON.stringify(rest))
-        this.initData()
-      },
-      deep: true,
-      immediate: true
     }
   }
 }

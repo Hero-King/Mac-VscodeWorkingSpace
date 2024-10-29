@@ -1,3 +1,3 @@
 <template>
-    <div>工单申请</div>
+  <div>工单申请</div>
 </template>

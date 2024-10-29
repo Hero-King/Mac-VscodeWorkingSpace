@@ -80,7 +80,7 @@ export default {
     }
   },
   created() {
-    let bigTableData = []
+    const bigTableData = []
     for (let i = 0; i < 2000; i++) {
       const obj = {
         name: 'wang' + i,
@@ -163,7 +163,7 @@ export default {
       /* DO SOMETHING WITH workbook HERE */
       console.log('workbook:', workbook)
     },
-    handleExcelToHtml(){
+    handleExcelToHtml() {
       // Generating HTML Tables
       // XLSX.utils.sheet_to_html(worksheet)
     }

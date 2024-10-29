@@ -3,36 +3,108 @@
     <h3>表格</h3>
     <el-button @click="toggleSelection()">取消选择</el-button>
     <el-button @click="toggleSelection(initSelectedRows)">初始化选中状态</el-button>
-    <el-table ref="multipleTable" :data="tableData" border style="width: 100%" row-key="id" @selection-change="selectChange">
+    <el-table
+      ref="multipleTable"
+      :data="tableData"
+      border
+      style="width: 100%"
+      row-key="id"
+      @selection-change="selectChange"
+    >
       <!-- 显示多选框 -->
-      <el-table-column type="selection" width="55" :reserve-selection="true" />
+      <el-table-column
+        type="selection"
+        width="55"
+        :reserve-selection="true"
+      />
       <!-- 显示索引 该属性传入数字时，将作为索引的起始值 也可以传入一个方法，它提供当前行的行号（从 0 开始）作为参数，返回值将作为索引展示 -->
-      <el-table-column type="index" width="55" :index="1000" />
+      <el-table-column
+        type="index"
+        width="55"
+        :index="1000"
+      />
 
-      <el-table-column fixed prop="date" label="日期" width="150" />
-      <el-table-column prop="name" label="姓名" width="120" />
-      <el-table-column prop="province" label="省份" width="120" />
-      <el-table-column prop="city" label="市区" width="120" />
-      <el-table-column prop="address" label="地址" width="300" />
-      <el-table-column prop="zip" label="邮编" width="120">
+      <el-table-column
+        fixed
+        prop="date"
+        label="日期"
+        width="150"
+      />
+      <el-table-column
+        prop="name"
+        label="姓名"
+        width="120"
+      />
+      <el-table-column
+        prop="province"
+        label="省份"
+        width="120"
+      />
+      <el-table-column
+        prop="city"
+        label="市区"
+        width="120"
+      />
+      <el-table-column
+        prop="address"
+        label="地址"
+        width="300"
+      />
+      <el-table-column
+        prop="zip"
+        label="邮编"
+        width="120"
+      >
         <template slot-scope="scope">
-          <el-input v-model.number="scope.row.zip" placeholder="请输入内容" />
+          <el-input
+            v-model.number="scope.row.zip"
+            placeholder="请输入内容"
+          />
         </template>
       </el-table-column>
-      <el-table-column prop="select" label="select" width="120">
-        <template slot="header" slot-scope="scope">
-          <el-input size="mini" placeholder="输入关键字搜索" />
+      <el-table-column
+        prop="select"
+        label="select"
+        width="120"
+      >
+        <template
+          slot="header"
+          slot-scope="scope"
+        >
+          <el-input
+            size="mini"
+            placeholder="输入关键字搜索"
+          />
         </template>
         <template slot-scope="scope">
-          <el-select v-model="scope.row.select" placeholder="请选择">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+          <el-select
+            v-model="scope.row.select"
+            placeholder="请选择"
+          >
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="100">
+      <el-table-column
+        fixed="right"
+        label="操作"
+        width="100"
+      >
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="handleClick(scope)"> 查看 </el-button>
-          <el-button type="text" size="small"> 编辑 </el-button>
+          <el-button
+            type="text"
+            size="small"
+            @click="handleClick(scope)"
+          > 查看 </el-button>
+          <el-button
+            type="text"
+            size="small"
+          > 编辑 </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -126,7 +198,7 @@ export default {
     },
     toggleSelection(rows) {
       if (rows) {
-        let set = new Set()
+        const set = new Set()
         rows.forEach((i) => set.add(i.id))
         this.$nextTick(() => {
           // 做一个选中状态的回显 就用这里

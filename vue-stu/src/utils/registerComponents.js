@@ -1,6 +1,6 @@
 import DictSelect from '@/components/DictSelect'
 
-let componentList = [DictSelect]
+const componentList = [DictSelect]
 
 export default {
   install(Vue) {

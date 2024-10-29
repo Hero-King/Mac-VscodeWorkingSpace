@@ -40,7 +40,7 @@ export const getEfficiencyStep = (param) => {
   })
 }
 /**
- * 
+ *
 /dws/api/production/efficiency/procedure 这个接口，总共返回：
 1：procedure_code,工序编码
 2：good_rate_parent: 综合良率，保留00.0%

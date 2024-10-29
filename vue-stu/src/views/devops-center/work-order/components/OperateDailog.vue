@@ -1,38 +1,96 @@
 <template>
-  <el-dialog :title="curConf.title" :visible.sync="dialogVisible" @open="open" @closed="closed" :close-on-click-modal="false">
-    <el-form ref="form" :model="form" @submit.native.prevent label-width="110px">
+  <el-dialog
+    :title="curConf.title"
+    :visible.sync="dialogVisible"
+    :close-on-click-modal="false"
+    @open="open"
+    @closed="closed"
+  >
+    <el-form
+      ref="form"
+      :model="form"
+      label-width="110px"
+      @submit.native.prevent
+    >
       <el-row>
         <!-- 关联知识库 -->
         <template v-if="actionType == 'assignKnowledge'">
           <el-col :span="24">
             <el-form-item label="关联知识库">
-              <el-button size="small" type="text" icon="el-icon-plus" @click="workDialogVisible = true">选择</el-button>
+              <el-button
+                size="small"
+                type="text"
+                icon="el-icon-plus"
+                @click="workDialogVisible = true"
+              >选择</el-button>
               <div>
                 <ul class="ul_list">
-                  <li class="ul_item" v-for="(device, deviceIndex) in form.knowledges" :key="device.id">
-                    <div><i class="el-icon-tickets"></i>{{ device.name }}</div>
-                    <i class="el-icon-delete" @click.stop="deleteDeviceList(deviceIndex)"></i>
+                  <li
+                    v-for="(device, deviceIndex) in form.knowledges"
+                    :key="device.id"
+                    class="ul_item"
+                  >
+                    <div><i class="el-icon-tickets" />{{ device.name }}</div>
+                    <i
+                      class="el-icon-delete"
+                      @click.stop="deleteDeviceList(deviceIndex)"
+                    />
                   </li>
                 </ul>
               </div>
             </el-form-item>
           </el-col>
         </template>
-        <SelectFormContent :conf="curConf.conf" :form="form" />
+        <SelectFormContent
+          :conf="curConf.conf"
+          :form="form"
+        />
       </el-row>
     </el-form>
-    <div slot="footer" class="textCenter">
-      <el-button size="small" type="primary" @click="submit">提 交</el-button>
-      <el-button size="small" @click="dialogVisible = false">取 消</el-button>
+    <div
+      slot="footer"
+      class="textCenter"
+    >
+      <el-button
+        size="small"
+        type="primary"
+        @click="submit"
+      >提 交</el-button>
+      <el-button
+        size="small"
+        @click="dialogVisible = false"
+      >取 消</el-button>
     </div>
 
-    <el-dialog title="关联知识库" width="60%" :append-to-body="true" :visible.sync="workDialogVisible" :close-on-click-modal="false" @close="dialogClose">
+    <el-dialog
+      title="关联知识库"
+      width="60%"
+      :append-to-body="true"
+      :visible.sync="workDialogVisible"
+      :close-on-click-modal="false"
+      @close="dialogClose"
+    >
       <div class="dialog-content-wrap">
-        <Standard :isDialogType="true" :opend="workDialogVisible" :selectionList="form.knowledges" :selectChange.sync="tmpSelectionList" />
+        <Standard
+          :is-dialog-type="true"
+          :opend="workDialogVisible"
+          :selection-list="form.knowledges"
+          :selectChange.sync="tmpSelectionList"
+        />
       </div>
-      <div slot="footer" class="dialog-footer">
-        <el-button size="small" @click="workDialogVisible = false">取 消</el-button>
-        <el-button size="small" type="primary" @click="selectData">确 定</el-button>
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          size="small"
+          @click="workDialogVisible = false"
+        >取 消</el-button>
+        <el-button
+          size="small"
+          type="primary"
+          @click="selectData"
+        >确 定</el-button>
       </div>
     </el-dialog>
   </el-dialog>
@@ -321,8 +379,8 @@ export default {
   },
   methods: {
     setEnterDetailsList(e) {
-      let assignConf = this.operateConf.assign.conf
-      let inputDetailConf = this.operateConf.inputDetail.conf
+      const assignConf = this.operateConf.assign.conf
+      const inputDetailConf = this.operateConf.inputDetail.conf
       assignConf[assignConf.length - 1].options = e
       inputDetailConf[inputDetailConf.length - 1].options = e
     },
@@ -357,7 +415,7 @@ export default {
     async submit() {
       const { curConf, workId } = this
       await this.$refs.form.validate()
-      let param = { ...this.form, workId }
+      const param = { ...this.form, workId }
       if (this.form?.files?.length > 0) {
         param.actionFile = this.form.files.map((i) => ({
           workId,
@@ -368,7 +426,7 @@ export default {
       }
       delete param.handleTime
       delete param.curUser
-      if (typeof curConf.paramFormat == 'function') {
+      if (typeof curConf.paramFormat === 'function') {
         curConf.paramFormat(param)
       }
       this.$api.post(curConf.submitUrl, param).then((res) => {

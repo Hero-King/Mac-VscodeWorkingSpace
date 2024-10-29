@@ -1,39 +1,94 @@
 <template>
   <div>
     <div class="expand-table-wrap">
-      <el-table :data="data" header-row-class-name="blue-header" :border="border">
+      <el-table
+        :data="data"
+        header-row-class-name="blue-header"
+        :border="border"
+      >
         <template v-for="column in columns">
-          <el-table-column v-if="column.render && column.header" :key="column.prop || column.label" v-bind="column">
-            <template slot-scope="scope" slot="header">
-              <component :is="column.header.type" v-model="column.label"/>
+          <el-table-column
+            v-if="column.render && column.header"
+            :key="column.prop || column.label"
+            v-bind="column"
+          >
+            <template
+              slot="header"
+              slot-scope="scope"
+            >
+              <component
+                :is="column.header.type"
+                v-model="column.label"
+              />
             </template>
             <template slot-scope="scope">
               <!-- 妙用 -->
-              <component :is="column.render.type" v-model="scope.row[scope.column.property]" @change="handleCellChange"/>
+              <component
+                :is="column.render.type"
+                v-model="scope.row[scope.column.property]"
+                @change="handleCellChange"
+              />
             </template>
           </el-table-column>
-          <el-table-column v-else-if="column.render" :key="column.prop || column.label" v-bind="column">
+          <el-table-column
+            v-else-if="column.render"
+            :key="column.prop || column.label"
+            v-bind="column"
+          >
             <template slot-scope="scope">
-              <component :is="column.render.type" v-model="scope.row[scope.column.property]"/>
+              <component
+                :is="column.render.type"
+                v-model="scope.row[scope.column.property]"
+              />
             </template>
           </el-table-column>
-          <el-table-column v-else :key="column.prop || column.label" v-bind="column"> </el-table-column>
+          <el-table-column
+            v-else
+            :key="column.prop || column.label"
+            v-bind="column"
+          />
         </template>
       </el-table>
-      <div class="expand-table-right-btns" v-if="needAddColumn">
-        <el-button title="添加列" icon="el-icon-circle-plus" circle @click="handleAddColumn"></el-button>
-        <el-button title="删除列" icon="el-icon-remove" circle @click="handleDeleteColumn"></el-button>
+      <div
+        v-if="needAddColumn"
+        class="expand-table-right-btns"
+      >
+        <el-button
+          title="添加列"
+          icon="el-icon-circle-plus"
+          circle
+          @click="handleAddColumn"
+        />
+        <el-button
+          title="删除列"
+          icon="el-icon-remove"
+          circle
+          @click="handleDeleteColumn"
+        />
       </div>
     </div>
-    <div class="expand-table-bottom-btns" v-if="needAddRow">
-      <el-button title="添加行" icon="el-icon-circle-plus" circle @click="handleAddRow"></el-button>
-      <el-button title="删除行" icon="el-icon-remove" circle @click="handleDeleteRow"></el-button>
+    <div
+      v-if="needAddRow"
+      class="expand-table-bottom-btns"
+    >
+      <el-button
+        title="添加行"
+        icon="el-icon-circle-plus"
+        circle
+        @click="handleAddRow"
+      />
+      <el-button
+        title="删除行"
+        icon="el-icon-remove"
+        circle
+        @click="handleDeleteRow"
+      />
     </div>
   </div>
 </template>
 <script>
 /**
- 
+
  */
 import JsRender from './JsRender'
 export default {
@@ -97,7 +152,7 @@ export default {
       return new Set(this.commonColumns.map((i) => i.prop))
     },
     tableColumns() {
-      let otherColumn = this.needAddColumn ? (this.customColumns.length === 0 ? [this.templateColumn] : this.customColumns) : []
+      const otherColumn = this.needAddColumn ? (this.customColumns.length === 0 ? [this.templateColumn] : this.customColumns) : []
       return [...this.commonColumns, ...otherColumn]
     },
     columnLabelSet() {
@@ -123,12 +178,20 @@ export default {
       return isNaN(index) ? 0 : index
     }
   },
+  watch: {
+    data: {
+      handler(v) {
+        this.tableData = this.transformDataToCustomData()
+      },
+      immediate: true
+    }
+  },
   methods: {
-    handleCellChange(e){
-      console.log(e);
+    handleCellChange(e) {
+      console.log(e)
     },
     validateData() {
-      let validRowSuccess = this.handleAddRow({}, true)
+      const validRowSuccess = this.handleAddRow({}, true)
       return validRowSuccess === true && this.handleAddRow({}, true) === true
     },
     // 复制最后一列
@@ -155,7 +218,7 @@ export default {
       }
     },
     handleAddRow(e, test = false) {
-      let latestRowData = this.tableData[this.tableData.length - 1]
+      const latestRowData = this.tableData[this.tableData.length - 1]
       if (Object.keys(latestRowData).length === this.tableColumns.length && Object.values(latestRowData).every((i) => i.length > 0)) {
         if (test) {
           return true
@@ -169,14 +232,6 @@ export default {
       if (this.tableData.length > 1) {
         this.tableData = this.tableData.slice(0, this.tableData.length - 1)
       }
-    }
-  },
-  watch: {
-    data: {
-      handler(v) {
-        this.tableData = this.transformDataToCustomData()
-      },
-      immediate: true
     }
   }
 }

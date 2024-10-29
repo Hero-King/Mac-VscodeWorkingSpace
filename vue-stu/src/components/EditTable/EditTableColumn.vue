@@ -1,13 +1,26 @@
 <template>
-  <el-table-column :prop="prop" :label="label" :width="width">
+  <el-table-column
+    :prop="prop"
+    :label="label"
+    :width="width"
+  >
     <template slot-scope="scope">
-      <el-form-item v-if="scope.row.isEdit" :prop="prop" label="" v-bind="formItemConfig">
-        <component :is="fieldType" v-bind="$attrs" v-on="$listeners">
-          <slot v-bind="scope"></slot>
+      <el-form-item
+        v-if="scope.row.isEdit"
+        :prop="prop"
+        label=""
+        v-bind="formItemConfig"
+      >
+        <component
+          :is="fieldType"
+          v-bind="$attrs"
+          v-on="$listeners"
+        >
+          <slot v-bind="scope" />
         </component>
       </el-form-item>
       <template v-else-if="$scopedSlots.default">
-        <slot v-bind="scope"></slot>
+        <slot v-bind="scope" />
       </template>
       <span v-else>
         {{ scope.row[prop] }}
@@ -17,8 +30,8 @@
 </template>
 <script>
 export default {
-  inheritAttrs: false,
   name: 'EditTableColumn',
+  inheritAttrs: false,
   props: {
     prop: String,
     label: String,

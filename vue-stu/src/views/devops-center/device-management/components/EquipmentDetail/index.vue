@@ -1,10 +1,14 @@
 <template>
   <div class="equipment-detail">
     <div class="left-wrap">
-      <el-button type="primary" size="small" @click="handleBack">返回</el-button>
+      <el-button
+        type="primary"
+        size="small"
+        @click="handleBack"
+      >返回</el-button>
       <el-tree
-        class="mt-20"
         ref="tree"
+        class="mt-20"
         :data="treeData"
         auto-expand-parent
         :highlight-current="true"
@@ -13,7 +17,7 @@
         :props="defaultProps"
         node-key="id"
         @node-click="handleNodeClick"
-      ></el-tree>
+      />
     </div>
     <div class="right-wrap">
       <el-tabs v-model="activeName">
@@ -25,11 +29,11 @@
         >
           <component
             :is="tab.com"
-            @reload="reloadTreeData"
             :editable="canEditForm"
-            :deviceInfo="realDeviceInfo"
-            :deviceTypes="deviceTypes"
-          ></component>
+            :device-info="realDeviceInfo"
+            :device-types="deviceTypes"
+            @reload="reloadTreeData"
+          />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -98,7 +102,7 @@ export default {
     reloadTreeData() {
       this.loadTreeData().then((res) => {
         this.$nextTick(() => {
-          let { children, child, ...rest } = this.$refs.tree.getCurrentNode()
+          const { children, child, ...rest } = this.$refs.tree.getCurrentNode()
           this.handleNodeClick(rest)
         }).catch((err) => {
           this.$message.error('获取数据失败')

@@ -4,7 +4,10 @@
     <div class="module">
       <div class="chart-wrap flex w100 h100">
         <!-- 可以正常resize 左右两个都是echart实例时候就resize失败 -->
-        <div ref="left" class="left w100" />
+        <div
+          ref="left"
+          class="left w100"
+        />
         <div />
         <div class="right w100" />
 
@@ -45,7 +48,7 @@ export default {
       // this.leftChart.resize()
       //   }, 50)
     })
-    this.leftChart.on('click', function () {
+    this.leftChart.on('click', function() {
       console.log('click')
     })
   },

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div v-if="!editable" class="dict-select noEdit">
+    <div
+      v-if="!editable"
+      class="dict-select noEdit"
+    >
       <template v-if="isComplexCom"> {{ translatedText }}</template>
       <template v-else-if="comType === 'upload'">
         <el-upload
@@ -14,7 +17,7 @@
           v-bind="$attrs"
           v-on="$listeners"
         >
-          <slot></slot>
+          <slot />
         </el-upload>
       </template>
       <template v-else>
@@ -22,70 +25,94 @@
       </template>
     </div>
     <!-- 可编辑部分 -->
-    <div v-else class="dict-select canEdit">
+    <div
+      v-else
+      class="dict-select canEdit"
+    >
       <template v-if="comType === 'select'">
-        <el-select v-bind="$attrs" v-on="$listeners" :size="size" :popper-append-to-body="false">
+        <el-select
+          v-bind="$attrs"
+          :size="size"
+          :popper-append-to-body="false"
+          v-on="$listeners"
+        >
           <el-option
             v-for="item in viewOptions"
+            :key="_forKey ? item[_forKey] : item"
             :label="item[labelKey] == void 0 ? item : item[labelKey]"
             :value="item[valueKey] == void 0 ? item : item[valueKey]"
-            :key="_forKey ? item[_forKey] : item"
           >
-            <slot :optItem="item"></slot>
+            <slot :opt-item="item" />
           </el-option>
         </el-select>
       </template>
       <template v-else-if="comType === 'checkbox'">
-        <el-checkbox-group v-bind="$attrs" v-on="$listeners" :size="size">
+        <el-checkbox-group
+          v-bind="$attrs"
+          :size="size"
+          v-on="$listeners"
+        >
           <el-checkbox
             v-for="item in viewOptions"
             :key="_forKey ? item[_forKey] : item"
             :label="item[valueKey] == void 0 ? item : item[valueKey]"
             :disabled="item.disabled"
           >
-            <slot :optItem="item">
+            <slot :opt-item="item">
               {{ item[labelKey] == void 0 ? item : item[labelKey] }}
             </slot>
           </el-checkbox>
         </el-checkbox-group>
       </template>
       <template v-else-if="comType === 'checkboxButton'">
-        <el-checkbox-group v-bind="$attrs" v-on="$listeners" :size="size">
+        <el-checkbox-group
+          v-bind="$attrs"
+          :size="size"
+          v-on="$listeners"
+        >
           <el-checkbox-button
             v-for="item in viewOptions"
             :key="_forKey ? item[_forKey] : item"
             :label="item[valueKey] == void 0 ? item : item[valueKey]"
             :disabled="item.disabled"
           >
-            <slot :optItem="item">
+            <slot :opt-item="item">
               {{ item[labelKey] == void 0 ? item : item[labelKey] }}
             </slot>
           </el-checkbox-button>
         </el-checkbox-group>
       </template>
       <template v-else-if="comType === 'radio'">
-        <el-radio-group v-bind="$attrs" v-on="$listeners" :size="size">
+        <el-radio-group
+          v-bind="$attrs"
+          :size="size"
+          v-on="$listeners"
+        >
           <el-radio
             v-for="item in viewOptions"
             :key="_forKey ? item[_forKey] : item"
             :label="item[valueKey] == void 0 ? item : item[valueKey]"
             :disabled="item.disabled"
           >
-            <slot :optItem="item">
+            <slot :opt-item="item">
               {{ item[labelKey] == void 0 ? item : item[labelKey] }}
             </slot>
           </el-radio>
         </el-radio-group>
       </template>
       <template v-else-if="comType === 'radioButton'">
-        <el-radio-group v-bind="$attrs" v-on="$listeners" :size="size">
+        <el-radio-group
+          v-bind="$attrs"
+          :size="size"
+          v-on="$listeners"
+        >
           <el-radio-button
             v-for="item in viewOptions"
             :key="_forKey ? item[_forKey] : item"
             :label="item[valueKey] == void 0 ? item : item[valueKey]"
             :disabled="item.disabled"
           >
-            <slot :optItem="item">
+            <slot :opt-item="item">
               {{ item[labelKey] == void 0 ? item : item[labelKey] }}
             </slot>
           </el-radio-button>
@@ -105,26 +132,39 @@
         >
           <slot>
             <el-button size="small">点击上传</el-button>
-            <div slot="tip" class="el-upload__tip">{{ $attrs.uploadTip || '' }}</div>
+            <div
+              slot="tip"
+              class="el-upload__tip"
+            >{{ $attrs.uploadTip || '' }}</div>
           </slot>
         </el-upload>
       </template>
       <template v-else>
-        <component :is="comType" v-bind="$attrs" v-on="$listeners" :size="size">
-          <slot></slot>
+        <component
+          :is="comType"
+          v-bind="$attrs"
+          :size="size"
+          v-on="$listeners"
+        >
+          <slot />
         </component>
       </template>
     </div>
 
-    <el-image class="dict-select-img" v-if="imgUrl" ref="image" :preview-src-list="[imgUrl]"></el-image>
+    <el-image
+      v-if="imgUrl"
+      ref="image"
+      class="dict-select-img"
+      :preview-src-list="[imgUrl]"
+    />
   </div>
 </template>
 <script>
 const complexComs = ['select', 'checkbox', 'checkboxButton', 'radio', 'radioButton']
 import { saveAs } from 'file-saver'
 export default {
-  inheritAttrs: false,
   name: 'DictSelect',
+  inheritAttrs: false,
   props: {
     // 隐藏props: uploadTip fileSize
     innerPreview: {
@@ -190,7 +230,7 @@ export default {
     },
     // 绑定的值是简单类型
     bindValueIsSimple() {
-      let { value } = this.$attrs
+      const { value } = this.$attrs
       return typeof value !== 'object' && typeof value !== 'function'
     },
     translatedText() {
@@ -198,7 +238,7 @@ export default {
         return ''
       }
       if (this.bindValueIsSimple) {
-        let item = this.viewOptions.find((i) => i[this.valueKey] === this.$attrs.value)
+        const item = this.viewOptions.find((i) => i[this.valueKey] === this.$attrs.value)
         return item?.[this.labelKey] ?? this.$attrs.value
       } else {
         return ''
@@ -223,7 +263,7 @@ export default {
       this.$http[methods.toLowerCase()](dictUrl, params)
         .then((res) => {
           if (res?.code === 0) {
-            let result = this.resultFormat ? this.resultFormat(res) : res[this.resultKey]
+            const result = this.resultFormat ? this.resultFormat(res) : res[this.resultKey]
             this.innerOptions = result
             // let cloneData = JSON.parse(JSON.stringify(result))
             this.$emit('update:options', this.innerOptions)
@@ -267,7 +307,7 @@ export default {
           saveAs(file.url || file.response?.data?.storePath, file.name)
           // saveAs('https://test.carbonminip.getech.cn/oss/test/303f4f59/工单列表.xls', file.name)
         }
-      } else if (typeof this.onPreview == 'function') {
+      } else if (typeof this.onPreview === 'function') {
         this.onPreview(file)
       }
     }

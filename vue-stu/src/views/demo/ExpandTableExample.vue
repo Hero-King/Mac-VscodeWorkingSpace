@@ -1,6 +1,10 @@
 <template>
   <div>
-    <expand-table ref="dimensionTable" :columns="dimensionColumn" :data="dimensionList"> </expand-table>
+    <expand-table
+      ref="dimensionTable"
+      :columns="dimensionColumn"
+      :data="dimensionList"
+    />
     <ExpandTable2 />
   </div>
 </template>
@@ -30,7 +34,7 @@ export default {
           prop: 'dimensionType',
           label: '量纲类型',
           render: (h, context, { row, column }) => (
-            <el-select v-model={row[column.property]} placeholder="请选择">
+            <el-select v-model={row[column.property]} placeholder='请选择'>
               {this.dimensionTypeOptions.map((item) => (
                 <el-option key={item.value} label={item.label} value={item.value}></el-option>
               ))}
@@ -42,9 +46,9 @@ export default {
           label: '',
           rules: [{ required: true, message: '请输入', trigger: 'blur' }],
           headerRender: (h, context, scope) => {
-            return <el-input value={scope.column.label} onInput={(v) => context.handleHeaderChange(v, scope.$index)} placeholder="请输入年份" />
+            return <el-input value={scope.column.label} onInput={(v) => context.handleHeaderChange(v, scope.$index)} placeholder='请输入年份' />
           },
-          render: (h, context, { row, column }) => <el-input v-model={row[column.property]} placeholder="请输入" />
+          render: (h, context, { row, column }) => <el-input v-model={row[column.property]} placeholder='请输入' />
         }
       ],
       dimensionList: [

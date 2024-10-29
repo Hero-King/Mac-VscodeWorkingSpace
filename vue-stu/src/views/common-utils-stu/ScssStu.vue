@@ -1,8 +1,9 @@
 <template>
   <div>
-    <a href="https://www.sass.hk/docs/" target="_blank                                                                                               "
-      ><nav>Sass文档</nav></a
-    >
+    <a
+      href="https://www.sass.hk/docs/"
+      target="_blank                                                                                               "
+    ><nav>Sass文档</nav></a>
     <h3>sass使用$符号来标识变量 当变量定义在css规则块内，那么该变量只能在此规则块内使用</h3>
     <h3>
       变量名用中划线还是下划线分隔效果相同
@@ -31,9 +32,7 @@
       <div class="seriousError">@extend语法继承CSS</div>
       <div>定义混合器： @mixin name { 样式 }</div>
       <div>调用混合器： @include name</div>
-      <span
-        >然后就可以在你的样式表中通过@include来使用这个混合器，放在你希望的任何地方。@include调用会把混合器中的所有样式提取出来放在@include被调用的地方。</span
-      >
+      <span>然后就可以在你的样式表中通过@include来使用这个混合器，放在你希望的任何地方。@include调用会把混合器中的所有样式提取出来放在@include被调用的地方。</span>
       <div>给混合器传参数 @mixin link-colors($normal, $hover, $visited) { color: $normal; &:hover { color: $hover; } &:visited { color: $visited; } }</div>
       <div>Vue组件中的scss引用全局变量和方法使用: sass-resources-loader</div>
       <div class="other-scss">其他scss定义的样式</div>

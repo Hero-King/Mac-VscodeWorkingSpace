@@ -1,34 +1,71 @@
 <template>
   <div class="work-order-detail">
     <div class="clearfix">
-      <el-button class="fl" size="small" type="primary" @click="handleBack">返回</el-button>
-      <span class="fr right-tip" :class="rightTipClass">{{ WorkOrderStatusMap[form.status] }}</span>
+      <el-button
+        class="fl"
+        size="small"
+        type="primary"
+        @click="handleBack"
+      >返回</el-button>
+      <span
+        class="fr right-tip"
+        :class="rightTipClass"
+      >{{ WorkOrderStatusMap[form.status] }}</span>
     </div>
-    <el-form :model="form" class="label-blod-form" @submit.native.prevent label-width="80px">
+    <el-form
+      :model="form"
+      class="label-blod-form"
+      label-width="80px"
+      @submit.native.prevent
+    >
       <el-row>
-        <el-col :span="6"
-          ><el-form-item style="margin-bottom: 0" label="工单编号">{{ form.workMark }}</el-form-item></el-col
-        >
-        <el-col :span="6"
-          ><el-form-item style="margin-bottom: 0" label="工单标题">{{ form.workName }}</el-form-item></el-col
-        >
+        <el-col :span="6"><el-form-item
+          style="margin-bottom: 0"
+          label="工单编号"
+        >{{ form.workMark }}</el-form-item></el-col>
+        <el-col :span="6"><el-form-item
+          style="margin-bottom: 0"
+          label="工单标题"
+        >{{ form.workName }}</el-form-item></el-col>
       </el-row>
       <!-- 基本信息 -->
-      <el-alert title="基本信息" type="info" class="detail-alert" :closable="false"> </el-alert>
+      <el-alert
+        title="基本信息"
+        type="info"
+        class="detail-alert"
+        :closable="false"
+      />
       <el-row>
-        <SelectFormContent :conf="workOrderEditFormFields" :form="form" />
+        <SelectFormContent
+          :conf="workOrderEditFormFields"
+          :form="form"
+        />
       </el-row>
 
       <div>
         <el-form-item label="关联站点">
-          <el-link class="mr-16 text" :underline="false" @click="locationClick(item)" v-for="item in form.workLocations" :key="item.id" type="info">{{
+          <el-link
+            v-for="item in form.workLocations"
+            :key="item.id"
+            class="mr-16 text"
+            :underline="false"
+            type="info"
+            @click="locationClick(item)"
+          >{{
             item.locationName
           }}</el-link>
         </el-form-item>
       </div>
       <div>
         <el-form-item label="关联设备">
-          <el-link class="mr-16" :underline="false" @click="deviceClick(item)" v-for="item in form.deviceMarks" :key="item.id" type="primary">{{
+          <el-link
+            v-for="item in form.deviceMarks"
+            :key="item.id"
+            class="mr-16"
+            :underline="false"
+            type="primary"
+            @click="deviceClick(item)"
+          >{{
             item.deviceName
           }}</el-link>
         </el-form-item>
@@ -50,22 +87,67 @@
 
     <!-- 操作 -->
     <div v-if="form.status !== 'closed' && isEdit">
-      <el-alert title="操作" type="info" class="detail-alert" :closable="false"> </el-alert>
+      <el-alert
+        title="操作"
+        type="info"
+        class="detail-alert"
+        :closable="false"
+      />
       <div class="btn-list">
-        <el-button size="small" v-permission="'assignmentRejection'" plain @click="operateBtnClick('assign')" v-if="form.status == 'pendding'">指派</el-button>
-        <el-button size="small" v-permission="'assignmentRejection'" plain @click="operateBtnClick('reject')" v-if="form.status == 'pendding'">驳回</el-button>
-        <el-button size="small" v-permission="'inputDetail'" plain @click="operateBtnClick('inputDetail')" v-if="form.status == 'processing'"
-          >录入详情</el-button
-        >
-        <el-button size="small" plain @click="operateBtnClick('confirm')" v-if="form.status == 'finished' && form.createBy == userId">工单确认</el-button>
-        <el-button size="small" v-if="showKnowledgeBtn" plain @click="operateBtnClick('assignKnowledge')">知识库</el-button>
+        <el-button
+          v-if="form.status == 'pendding'"
+          v-permission="'assignmentRejection'"
+          size="small"
+          plain
+          @click="operateBtnClick('assign')"
+        >指派</el-button>
+        <el-button
+          v-if="form.status == 'pendding'"
+          v-permission="'assignmentRejection'"
+          size="small"
+          plain
+          @click="operateBtnClick('reject')"
+        >驳回</el-button>
+        <el-button
+          v-if="form.status == 'processing'"
+          v-permission="'inputDetail'"
+          size="small"
+          plain
+          @click="operateBtnClick('inputDetail')"
+        >录入详情</el-button>
+        <el-button
+          v-if="form.status == 'finished' && form.createBy == userId"
+          size="small"
+          plain
+          @click="operateBtnClick('confirm')"
+        >工单确认</el-button>
+        <el-button
+          v-if="showKnowledgeBtn"
+          size="small"
+          plain
+          @click="operateBtnClick('assignKnowledge')"
+        >知识库</el-button>
       </div>
-      <operate-dailog :visible.sync="operateVisible" :actionType="actionType" :workId="rowData.id" :detail="form" @operateFinish="operateFinish" />
+      <operate-dailog
+        :visible.sync="operateVisible"
+        :action-type="actionType"
+        :work-id="rowData.id"
+        :detail="form"
+        @operateFinish="operateFinish"
+      />
     </div>
 
     <!-- 工单执行记录 -->
-    <el-alert title="工单执行记录" type="info" class="detail-alert" :closable="false"> </el-alert>
-    <ExeRecord :data="form.workPlanActionCollections" :orderDetail="form" />
+    <el-alert
+      title="工单执行记录"
+      type="info"
+      class="detail-alert"
+      :closable="false"
+    />
+    <ExeRecord
+      :data="form.workPlanActionCollections"
+      :order-detail="form"
+    />
 
     <!-- 告警详情 -->
   </div>
@@ -85,9 +167,9 @@ export default {
   },
   directives: {
     permission: {
-      inserted: function (el, binding) {
+      inserted: function(el, binding) {
         // let show = store.state.poros.btnAuth.includes(binding.value)
-        let show = true
+        const show = true
         !show && (el.style.display = 'none')
       }
     }

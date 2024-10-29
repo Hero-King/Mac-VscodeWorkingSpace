@@ -1,41 +1,48 @@
 <template>
   <div class="work-order-query">
     <el-row>
-      <el-form :model="form" label-width="80px" inline @submit.native.prevent>
+      <el-form
+        :model="form"
+        label-width="80px"
+        inline
+        @submit.native.prevent
+      >
         <el-col :span="6">
           <el-form-item label="工厂选择">
             <DictSelect
-              labelKey="locationName"
-              valueKey="topParentId"
-              forKey="topParentId"
-              :dictUrl="factorySelectUrl"
-              :options.sync="factoryList"
               v-model="form.factoryId"
+              label-key="locationName"
+              value-key="topParentId"
+              for-key="topParentId"
+              :dict-url="factorySelectUrl"
+              :options.sync="factoryList"
               methods="post"
               placeholder="请选择工厂"
               @getSuccess="getfactoryListSuccess"
               @change="queryList"
-            >
-            </DictSelect>
+            />
           </el-form-item>
         </el-col>
         <el-col :span="16">
           <el-form-item label="时间筛选">
-            <TimeSelect v-model="form.date" @change="queryList" />
+            <TimeSelect
+              v-model="form.date"
+              @change="queryList"
+            />
           </el-form-item>
         </el-col>
         <el-col :span="24">
           <el-form-item label="工单类型">
             <DictSelect
               ref="workTypeSelect"
-              labelKey="workTypeName"
-              valueKey="workTypeName"
-              forKey="workTypeName"
-              :dictUrl="queryWorkPlanTypeUrl"
-              :options.sync="woTypes"
               v-model="form.workPlanType"
+              label-key="workTypeName"
+              value-key="workTypeName"
+              for-key="workTypeName"
+              :dict-url="queryWorkPlanTypeUrl"
+              :options.sync="woTypes"
               methods="post"
-              comType="radioButton"
+              com-type="radioButton"
               @getSuccess="getWoTypesSuccess"
               @change="queryList"
             />
@@ -44,34 +51,32 @@
         <el-col :span="10">
           <el-form-item label="工单状态">
             <DictSelect
-              :options="WorkOrderStatusListFilter"
-              comType="checkbox"
               v-model="form.workPlanStatus"
+              :options="WorkOrderStatusListFilter"
+              com-type="checkbox"
               @change="queryList"
-            >
-            </DictSelect
-          ></el-form-item>
+            /></el-form-item>
         </el-col>
         <el-col :span="10">
           <el-form-item label="优先级">
             <DictSelect
-              :options="WorkOrderLevelList"
-              comType="checkbox"
               v-model="form.workPlanLevel"
+              :options="WorkOrderLevelList"
+              com-type="checkbox"
               @change="queryList"
-            >
-            </DictSelect
-          ></el-form-item>
+            /></el-form-item>
         </el-col>
-        <el-col :span="2" :offset="2">
+        <el-col
+          :span="2"
+          :offset="2"
+        >
           <el-form-item class="fr">
             <export-button
               type="primary"
-              :exportUrl="exportWorkPlanUrl"
-              :getQueryParam="getQueryParam"
-              fileName="工单列表.xls"
-              >导出</export-button
-            >
+              :export-url="exportWorkPlanUrl"
+              :get-query-param="getQueryParam"
+              file-name="工单列表.xls"
+            >导出</export-button>
           </el-form-item>
         </el-col>
       </el-form>
@@ -97,12 +102,15 @@
       <template #workPlanStatus="{ data }">
         {{ WorkOrderStatusMap[data.workPlanStatus] }}
       </template>
-      <template slot="operation" slot-scope="scope">
+      <template
+        slot="operation"
+        slot-scope="scope"
+      >
         <el-button
-          @click.native.prevent="viewDetail(scope.data)"
           type="text"
           style="color: #4e60f6"
           size="small"
+          @click.native.prevent="viewDetail(scope.data)"
         >
           详情
         </el-button>

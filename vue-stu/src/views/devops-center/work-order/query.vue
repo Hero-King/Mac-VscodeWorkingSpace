@@ -1,37 +1,52 @@
 <template lang="">
   <div class="workorder-manage page">
     <div v-show="!detailVisible && !applyVisible">
-      <el-tabs v-model="activeName" @tab-click="change">
-        <el-tab-pane lazy label="工单查询" name="WorkOrderQuery">
-          <WorkOrderQuery ref="WorkOrderQuery" @rowClick="rowClick" />
-        </el-tab-pane>
-        <el-tab-pane lazy label="工作量查询" name="WorkLoadQuery"
-          ><WorkLoadQuery ref="WorkLoadQuery"></WorkLoadQuery>
-        </el-tab-pane>
-        <el-tab-pane lazy label="我的工单" name="MyWorkOrder"
-          ><MyWorkOrder
-            ref="MyWorkOrder"
+      <el-tabs
+        v-model="activeName"
+        @tab-click="change"
+      >
+        <el-tab-pane
+          lazy
+          label="工单查询"
+          name="WorkOrderQuery"
+        >
+          <WorkOrderQuery
+            ref="WorkOrderQuery"
             @rowClick="rowClick"
-            :typeDialogVisible.sync="typeDialogVisible"
-            @reloadTableData="change"
-          >
-          </MyWorkOrder>
+          />
+        </el-tab-pane>
+        <el-tab-pane
+          lazy
+          label="工作量查询"
+          name="WorkLoadQuery"
+        ><WorkLoadQuery ref="WorkLoadQuery" />
+        </el-tab-pane>
+        <el-tab-pane
+          lazy
+          label="我的工单"
+          name="MyWorkOrder"
+        ><MyWorkOrder
+          ref="MyWorkOrder"
+          :typeDialogVisible.sync="typeDialogVisible"
+          @rowClick="rowClick"
+          @reloadTableData="change"
+        />
         </el-tab-pane>
       </el-tabs>
     </div>
     <WorkOrderDetail
-      :isEdit="isEdit"
-      :visible.sync="detailVisible"
       v-if="detailVisible"
-      :rowData="rowData"
+      :is-edit="isEdit"
+      :visible.sync="detailVisible"
+      :row-data="rowData"
       @reloadTableData="change"
     />
     <WorkOrderApply
-      :isEdit="isEdit"
-      :visible.sync="applyVisible"
       v-if="applyVisible"
-      :rowData="rowData"
-      :initData="initData"
+      :is-edit="isEdit"
+      :visible.sync="applyVisible"
+      :row-data="rowData"
+      :init-data="initData"
       @reloadTableData="change"
     />
     <ApplyDialog
@@ -58,6 +73,15 @@ export default {
     WorkOrderDetail,
     ApplyDialog,
     WorkOrderApply
+  },
+  beforeRouteEnter(to, from, next) {
+    if (to.query.id) {
+      next((vm) => {
+        vm.rowClick({ ...to.query }, false, false)
+      })
+    } else {
+      next()
+    }
   },
   data() {
     return {
@@ -98,15 +122,6 @@ export default {
     // 新增工单类型时 刷新工单查询中的工单类型
     changeWorkPlanType() {
       this.$refs.WorkOrderQuery?.$refs.workTypeSelect?.getDicts()
-    }
-  },
-  beforeRouteEnter(to, from, next) {
-    if (to.query.id) {
-      next((vm) => {
-        vm.rowClick({ ...to.query }, false, false)
-      })
-    } else {
-      next()
     }
   }
 }

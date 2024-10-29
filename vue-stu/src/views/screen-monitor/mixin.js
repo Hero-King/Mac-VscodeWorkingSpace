@@ -60,9 +60,9 @@ export default {
       let totalNum = 0
       data.forEach((i) => (totalNum += i[key]))
       const percentNum = (totalNum * reduceToOtherPercent) / 100
-      let lessPart = [],
-        lessPartTotal = 0,
-        filterData = []
+      const lessPart = []
+      let lessPartTotal = 0
+      const filterData = []
       data.forEach((i) => {
         if (i[key] < percentNum) {
           lessPartTotal += i[key]
@@ -77,7 +77,7 @@ export default {
 
   filters: {
     parseNum(number) {
-      if (typeof number == 'number') {
+      if (typeof number === 'number') {
         return Math.round(number).toLocaleString()
       } else {
         return number

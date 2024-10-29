@@ -1,5 +1,9 @@
 <template>
-  <el-button size="mini" v-bind="$attrs" @click="handleExport"><slot>导出</slot></el-button>
+  <el-button
+    size="mini"
+    v-bind="$attrs"
+    @click="handleExport"
+  ><slot>导出</slot></el-button>
 </template>
 <script>
 export default {
@@ -24,12 +28,12 @@ export default {
   },
   methods: {
     handleExport() {
-      let param = this.getQueryParam()
+      const param = this.getQueryParam()
       delete param.limit
       delete param.pageNo
       delete param.total
       this.$api[this.methods.toLowerCase()](this.exportUrl, param).then((res) => {
-        let fileType = 'application/octet-stream;charset=UTF-8'
+        const fileType = 'application/octet-stream;charset=UTF-8'
         // this.$tool.downloadFile({ data: res }, fileType, this.fileName)
         this.$emit('exportSuccess')
       })

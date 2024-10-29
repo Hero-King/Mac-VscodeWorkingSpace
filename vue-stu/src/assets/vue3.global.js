@@ -1,4 +1,4 @@
-var Vue = (function (exports) {
+var Vue = (function(exports) {
   'use strict'
 
   /**
@@ -50,7 +50,7 @@ var Vue = (function (exports) {
     'Infinity,undefined,NaN,isFinite,isNaN,parseFloat,parseInt,decodeURI,' +
     'decodeURIComponent,encodeURI,encodeURIComponent,Math,Number,Date,Array,' +
     'Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt'
-  const isGloballyWhitelisted = /*#__PURE__*/ makeMap(GLOBALS_WHITE_LISTED)
+  const isGloballyWhitelisted = /* #__PURE__*/ makeMap(GLOBALS_WHITE_LISTED)
 
   const range = 2
   function generateCodeFrame(source, start = 0, end = source.length) {
@@ -104,7 +104,7 @@ var Vue = (function (exports) {
    * - readonly -> readOnly
    */
   const specialBooleanAttrs = `itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly`
-  const isSpecialBooleanAttr = /*#__PURE__*/ makeMap(specialBooleanAttrs)
+  const isSpecialBooleanAttr = /* #__PURE__*/ makeMap(specialBooleanAttrs)
   /**
    * Boolean attributes should be included if the value is truthy or ''.
    * e.g. `<select multiple>` compiles to `{ multiple: '' }`
@@ -166,7 +166,7 @@ var Vue = (function (exports) {
   }
   function normalizeProps(props) {
     if (!props) return null
-    let { class: klass, style } = props
+    const { class: klass, style } = props
     if (klass && !isString(klass)) {
       props.class = normalizeClass(klass)
     }
@@ -205,17 +205,17 @@ var Vue = (function (exports) {
    * Compiler only.
    * Do NOT use in runtime code paths unless behind `true` flag.
    */
-  const isHTMLTag = /*#__PURE__*/ makeMap(HTML_TAGS)
+  const isHTMLTag = /* #__PURE__*/ makeMap(HTML_TAGS)
   /**
    * Compiler only.
    * Do NOT use in runtime code paths unless behind `true` flag.
    */
-  const isSVGTag = /*#__PURE__*/ makeMap(SVG_TAGS)
+  const isSVGTag = /* #__PURE__*/ makeMap(SVG_TAGS)
   /**
    * Compiler only.
    * Do NOT use in runtime code paths unless behind `true` flag.
    */
-  const isVoidTag = /*#__PURE__*/ makeMap(VOID_TAGS)
+  const isVoidTag = /* #__PURE__*/ makeMap(VOID_TAGS)
 
   function looseCompareArrays(a, b) {
     if (a.length !== b.length) return false
@@ -271,10 +271,10 @@ var Vue = (function (exports) {
     return isString(val)
       ? val
       : val == null
-      ? ''
-      : isArray(val) || (isObject(val) && (val.toString === objectToString || !isFunction(val.toString)))
-      ? JSON.stringify(val, replacer, 2)
-      : String(val)
+        ? ''
+        : isArray(val) || (isObject(val) && (val.toString === objectToString || !isFunction(val.toString)))
+          ? JSON.stringify(val, replacer, 2)
+          : String(val)
   }
   const replacer = (_key, val) => {
     // can't use isRef here since @vue/shared has no deps
@@ -335,11 +335,11 @@ var Vue = (function (exports) {
   }
   const isPlainObject = (val) => toTypeString(val) === '[object Object]'
   const isIntegerKey = (key) => isString(key) && key !== 'NaN' && key[0] !== '-' && '' + parseInt(key, 10) === key
-  const isReservedProp = /*#__PURE__*/ makeMap(
+  const isReservedProp = /* #__PURE__*/ makeMap(
     // the leading comma is intentional so empty string "" is also included
     ',key,ref,ref_for,ref_key,' + 'onVnodeBeforeMount,onVnodeMounted,' + 'onVnodeBeforeUpdate,onVnodeUpdated,' + 'onVnodeBeforeUnmount,onVnodeUnmounted'
   )
-  const isBuiltInDirective = /*#__PURE__*/ makeMap('bind,cloak,else-if,else,for,html,if,model,on,once,pre,show,slot,text,memo')
+  const isBuiltInDirective = /* #__PURE__*/ makeMap('bind,cloak,else-if,else,for,html,if,model,on,once,pre,show,slot,text,memo')
   const cacheStringFunction = (fn) => {
     const cache = Object.create(null)
     return (str) => {
@@ -393,12 +393,12 @@ var Vue = (function (exports) {
         typeof globalThis !== 'undefined'
           ? globalThis
           : typeof self !== 'undefined'
-          ? self
-          : typeof window !== 'undefined'
-          ? window
-          : typeof global !== 'undefined'
-          ? global
-          : {})
+            ? self
+            : typeof window !== 'undefined'
+              ? window
+              : typeof global !== 'undefined'
+                ? global
+                : {})
     )
   }
 
@@ -560,7 +560,7 @@ var Vue = (function (exports) {
         return this.fn()
       }
       let parent = activeEffect
-      let lastShouldTrack = shouldTrack
+      const lastShouldTrack = shouldTrack
       while (parent) {
         if (parent === this) {
           return
@@ -760,22 +760,22 @@ var Vue = (function (exports) {
     }
   }
 
-  const isNonTrackableKeys = /*#__PURE__*/ makeMap(`__proto__,__v_isRef,__isVue`)
+  const isNonTrackableKeys = /* #__PURE__*/ makeMap(`__proto__,__v_isRef,__isVue`)
   const builtInSymbols = new Set(
-    /*#__PURE__*/
+    /* #__PURE__*/
     Object.getOwnPropertyNames(Symbol)
       .map((key) => Symbol[key])
       .filter(isSymbol)
   )
-  const get = /*#__PURE__*/ createGetter()
-  const shallowGet = /*#__PURE__*/ createGetter(false, true)
-  const readonlyGet = /*#__PURE__*/ createGetter(true)
-  const shallowReadonlyGet = /*#__PURE__*/ createGetter(true, true)
-  const arrayInstrumentations = /*#__PURE__*/ createArrayInstrumentations()
+  const get = /* #__PURE__*/ createGetter()
+  const shallowGet = /* #__PURE__*/ createGetter(false, true)
+  const readonlyGet = /* #__PURE__*/ createGetter(true)
+  const shallowReadonlyGet = /* #__PURE__*/ createGetter(true, true)
+  const arrayInstrumentations = /* #__PURE__*/ createArrayInstrumentations()
   function createArrayInstrumentations() {
     const instrumentations = {}
     ;['includes', 'indexOf', 'lastIndexOf'].forEach((key) => {
-      instrumentations[key] = function (...args) {
+      instrumentations[key] = function(...args) {
         const arr = toRaw(this)
         for (let i = 0, l = this.length; i < l; i++) {
           track(arr, 'get' /* GET */, i + '')
@@ -791,7 +791,7 @@ var Vue = (function (exports) {
       }
     })
     ;['push', 'pop', 'shift', 'unshift', 'splice'].forEach((key) => {
-      instrumentations[key] = function (...args) {
+      instrumentations[key] = function(...args) {
         pauseTracking()
         const res = toRaw(this)[key].apply(this, args)
         resetTracking()
@@ -842,8 +842,8 @@ var Vue = (function (exports) {
       return res
     }
   }
-  const set = /*#__PURE__*/ createSetter()
-  const shallowSet = /*#__PURE__*/ createSetter(true)
+  const set = /* #__PURE__*/ createSetter()
+  const shallowSet = /* #__PURE__*/ createSetter(true)
   function createSetter(shallow = false) {
     return function set(target, key, value, receiver) {
       let oldValue = target[key]
@@ -915,14 +915,14 @@ var Vue = (function (exports) {
       return true
     }
   }
-  const shallowReactiveHandlers = /*#__PURE__*/ extend({}, mutableHandlers, {
+  const shallowReactiveHandlers = /* #__PURE__*/ extend({}, mutableHandlers, {
     get: shallowGet,
     set: shallowSet
   })
   // Props handlers are special in the sense that it should not unwrap top-level
   // refs (in order to allow refs to be explicitly passed down), but should
   // retain the reactivity of the normal readonly object.
-  const shallowReadonlyHandlers = /*#__PURE__*/ extend({}, readonlyHandlers, {
+  const shallowReadonlyHandlers = /* #__PURE__*/ extend({}, readonlyHandlers, {
     get: shallowReadonlyGet
   })
 
@@ -1041,7 +1041,7 @@ var Vue = (function (exports) {
     }
   }
   function createIterableMethod(method, isReadonly, isShallow) {
-    return function (...args) {
+    return function(...args) {
       const target = this['__v_raw' /* RAW */]
       const rawTarget = toRaw(target)
       const targetIsMap = isMap(rawTarget)
@@ -1059,9 +1059,9 @@ var Vue = (function (exports) {
           return done
             ? { value, done }
             : {
-                value: isPair ? [wrap(value[0]), wrap(value[1])] : wrap(value),
-                done
-              }
+              value: isPair ? [wrap(value[0]), wrap(value[1])] : wrap(value),
+              done
+            }
         },
         // iterable protocol
         [Symbol.iterator]() {
@@ -1071,7 +1071,7 @@ var Vue = (function (exports) {
     }
   }
   function createReadonlyMethod(type) {
-    return function (...args) {
+    return function(...args) {
       {
         const key = args[0] ? `on key "${args[0]}" ` : ``
         console.warn(`${capitalize(type)} operation ${key}failed: target is readonly.`, toRaw(this))
@@ -1156,8 +1156,8 @@ var Vue = (function (exports) {
         ? shallowReadonlyInstrumentations
         : shallowInstrumentations
       : isReadonly
-      ? readonlyInstrumentations
-      : mutableInstrumentations
+        ? readonlyInstrumentations
+        : mutableInstrumentations
     return (target, key, receiver) => {
       if (key === '__v_isReactive' /* IS_REACTIVE */) {
         return !isReadonly
@@ -1170,16 +1170,16 @@ var Vue = (function (exports) {
     }
   }
   const mutableCollectionHandlers = {
-    get: /*#__PURE__*/ createInstrumentationGetter(false, false)
+    get: /* #__PURE__*/ createInstrumentationGetter(false, false)
   }
   const shallowCollectionHandlers = {
-    get: /*#__PURE__*/ createInstrumentationGetter(false, true)
+    get: /* #__PURE__*/ createInstrumentationGetter(false, true)
   }
   const readonlyCollectionHandlers = {
-    get: /*#__PURE__*/ createInstrumentationGetter(true, false)
+    get: /* #__PURE__*/ createInstrumentationGetter(true, false)
   }
   const shallowReadonlyCollectionHandlers = {
-    get: /*#__PURE__*/ createInstrumentationGetter(true, true)
+    get: /* #__PURE__*/ createInstrumentationGetter(true, true)
   }
   function checkIdentityKeys(target, has, key) {
     const rawKey = toRaw(key)
@@ -1700,7 +1700,7 @@ var Vue = (function (exports) {
   const pendingPostFlushCbs = []
   let activePostFlushCbs = null
   let postFlushIndex = 0
-  const resolvedPromise = /*#__PURE__*/ Promise.resolve()
+  const resolvedPromise = /* #__PURE__*/ Promise.resolve()
   let currentFlushPromise = null
   let currentPreFlushParentJob = null
   const RECURSION_LIMIT = 100
@@ -2073,16 +2073,16 @@ var Vue = (function (exports) {
   function devtoolsUnmountApp(app) {
     emit('app:unmount' /* APP_UNMOUNT */, app)
   }
-  const devtoolsComponentAdded = /*#__PURE__*/ createDevtoolsComponentHook('component:added' /* COMPONENT_ADDED */)
-  const devtoolsComponentUpdated = /*#__PURE__*/ createDevtoolsComponentHook('component:updated' /* COMPONENT_UPDATED */)
-  const devtoolsComponentRemoved = /*#__PURE__*/ createDevtoolsComponentHook('component:removed' /* COMPONENT_REMOVED */)
+  const devtoolsComponentAdded = /* #__PURE__*/ createDevtoolsComponentHook('component:added' /* COMPONENT_ADDED */)
+  const devtoolsComponentUpdated = /* #__PURE__*/ createDevtoolsComponentHook('component:updated' /* COMPONENT_UPDATED */)
+  const devtoolsComponentRemoved = /* #__PURE__*/ createDevtoolsComponentHook('component:removed' /* COMPONENT_REMOVED */)
   function createDevtoolsComponentHook(hook) {
     return (component) => {
       emit(hook, component.appContext.app, component.uid, component.parent ? component.parent.uid : undefined, component)
     }
   }
-  const devtoolsPerfStart = /*#__PURE__*/ createDevtoolsPerformanceHook('perf:start' /* PERFORMANCE_START */)
-  const devtoolsPerfEnd = /*#__PURE__*/ createDevtoolsPerformanceHook('perf:end' /* PERFORMANCE_END */)
+  const devtoolsPerfStart = /* #__PURE__*/ createDevtoolsPerformanceHook('perf:start' /* PERFORMANCE_START */)
+  const devtoolsPerfEnd = /* #__PURE__*/ createDevtoolsPerformanceHook('perf:end' /* PERFORMANCE_END */)
   function createDevtoolsPerformanceHook(hook) {
     return (component, type, time) => {
       emit(hook, component.appContext.app, component.uid, component, type, time)
@@ -2175,7 +2175,7 @@ var Vue = (function (exports) {
       return cached
     }
     const raw = comp.emits
-    let normalized = {}
+    const normalized = {}
     // apply mixin/extends props
     let hasExtends = false
     if (!isFunction(comp)) {
@@ -2356,18 +2356,18 @@ var Vue = (function (exports) {
         result = normalizeVNode(
           render.length > 1
             ? render(
-                props,
-                true
-                  ? {
-                      get attrs() {
-                        markAttrsAccessed()
-                        return attrs
-                      },
-                      slots,
-                      emit
-                    }
-                  : { attrs, slots, emit }
-              )
+              props,
+              true
+                ? {
+                  get attrs() {
+                    markAttrsAccessed()
+                    return attrs
+                  },
+                  slots,
+                  emit
+                }
+                : { attrs, slots, emit }
+            )
             : render(props, null /* we know it doesn't need it */)
         )
         fallthroughAttrs = Component.props ? attrs : getFunctionalFallthrough(attrs)
@@ -2381,7 +2381,7 @@ var Vue = (function (exports) {
     // in dev mode, comments are preserved, and it's possible for a template
     // to have comments along side the root element which makes it a fragment
     let root = result
-    let setRoot = undefined
+    let setRoot
     if (result.patchFlag > 0 && result.patchFlag & 2048 /* DEV_ROOT_FRAGMENT */) {
       [root, setRoot] = getChildRoot(result)
     }
@@ -2692,7 +2692,7 @@ var Vue = (function (exports) {
       suspense.resolve()
     }
   }
-  function patchSuspense(n1, n2, container, anchor, parentComponent, isSVG, slotScopeIds, optimized, { p: patch, um: unmount, o: { createElement } }) {
+  function patchSuspense(n1, n2, container, anchor, parentComponent, isSVG, slotScopeIds, optimized, { p: patch, um: unmount, o: { createElement }}) {
     const suspense = (n2.suspense = n1.suspense)
     suspense.vnode = n2
     n2.el = n1.el
@@ -3239,7 +3239,7 @@ var Vue = (function (exports) {
       getter = () => traverse(baseGetter())
     }
     let cleanup
-    let onCleanup = (fn) => {
+    const onCleanup = (fn) => {
       cleanup = effect.onStop = () => {
         callWithErrorHandling(fn, instance, 4 /* WATCH_CLEANUP */)
       }
@@ -3668,7 +3668,7 @@ var Vue = (function (exports) {
     let ret = []
     let keyedFragmentCount = 0
     for (let i = 0; i < children.length; i++) {
-      let child = children[i]
+      const child = children[i]
       // #5360 inherit parent key in case of <template v-for>
       const key = parentKey == null ? child.key : String(parentKey) + String(child.key != null ? child.key : i)
       // handle fragment children case, e.g. v-for
@@ -3784,8 +3784,8 @@ var Vue = (function (exports) {
               return () =>
                 errorComponent
                   ? createVNode(errorComponent, {
-                      error: err
-                    })
+                    error: err
+                  })
                   : null
             })
         }
@@ -3833,7 +3833,7 @@ var Vue = (function (exports) {
       }
     })
   }
-  function createInnerComp(comp, { vnode: { ref, props, children } }) {
+  function createInnerComp(comp, { vnode: { ref, props, children }}) {
     const vnode = createVNode(comp, props, children)
     // ensure inner component inherits the async wrapper's ref owner
     vnode.ref = ref
@@ -4165,9 +4165,9 @@ var Vue = (function (exports) {
   }
   const createHook =
     (lifecycle) =>
-    (hook, target = currentInstance) =>
+      (hook, target = currentInstance) =>
       // post-create lifecycle registrations are noops during SSR (except for serverPrefetch)
-      (!isInSSRComponentSetup || lifecycle === 'sp') /* SERVER_PREFETCH */ && injectHook(lifecycle, hook, target)
+        (!isInSSRComponentSetup || lifecycle === 'sp') /* SERVER_PREFETCH */ && injectHook(lifecycle, hook, target)
   const onBeforeMount = createHook('bm' /* BEFORE_MOUNT */)
   const onMounted = createHook('m' /* MOUNTED */)
   const onBeforeUpdate = createHook('bu' /* BEFORE_UPDATE */)
@@ -4323,8 +4323,8 @@ var Vue = (function (exports) {
           !isFunction(opt) && isFunction(opt.set)
             ? opt.set.bind(publicThis)
             : () => {
-                warn$1(`Write operation failed: computed property "${key}" is readonly.`)
-              }
+              warn$1(`Write operation failed: computed property "${key}" is readonly.`)
+            }
         const c = computed$1({
           get,
           set
@@ -4649,7 +4649,7 @@ var Vue = (function (exports) {
         // the props.
         const propsToUpdate = instance.vnode.dynamicProps
         for (let i = 0; i < propsToUpdate.length; i++) {
-          let key = propsToUpdate[i]
+          const key = propsToUpdate[i]
           // skip if the prop key is a declared emit event listener
           if (isEmitListener(instance.emitsOptions, key)) {
             continue
@@ -4732,7 +4732,7 @@ var Vue = (function (exports) {
     let hasAttrsChanged = false
     let rawCastValues
     if (rawProps) {
-      for (let key in rawProps) {
+      for (const key in rawProps) {
         // key, ref are reserved and never passed down
         if (isReservedProp(key)) {
           continue
@@ -4896,7 +4896,7 @@ var Vue = (function (exports) {
     const resolvedValues = toRaw(props)
     const options = instance.propsOptions[0]
     for (const key in options) {
-      let opt = options[key]
+      const opt = options[key]
       if (opt == null) continue
       validateProp(key, resolvedValues[key], opt, !hasOwn(rawProps, key) && !hasOwn(rawProps, hyphenate(key)))
     }
@@ -4936,7 +4936,7 @@ var Vue = (function (exports) {
       warn$1('Invalid prop: custom validator check failed for prop "' + name + '".')
     }
   }
-  const isSimpleType = /*#__PURE__*/ makeMap('String,Number,Boolean,Function,Symbol,BigInt')
+  const isSimpleType = /* #__PURE__*/ makeMap('String,Number,Boolean,Function,Symbol,BigInt')
   /**
    * dev only
    */
@@ -5175,7 +5175,7 @@ var Vue = (function (exports) {
       if (oldBindings) {
         binding.oldValue = oldBindings[i].value
       }
-      let hook = binding.dir[name]
+      const hook = binding.dir[name]
       if (hook) {
         // disable tracking inside all lifecycle hooks
         // since they can potentially be called inside effects.
@@ -6149,8 +6149,8 @@ var Vue = (function (exports) {
             oldVNode.shapeFlag & (6 /* COMPONENT */ | 64) /* TELEPORT */)
             ? hostParentNode(oldVNode.el)
             : // In other cases, the parent container is not actually used so we
-              // just pass the block element here to avoid a DOM parentNode call.
-              fallbackContainer
+          // just pass the block element here to avoid a DOM parentNode call.
+            fallbackContainer
         patch(oldVNode, newVNode, container, null, parentComponent, parentSuspense, isSVG, slotScopeIds, true)
       }
     }
@@ -6404,7 +6404,7 @@ var Vue = (function (exports) {
           // This is triggered by mutation of component's own state (next: null)
           // OR parent calling processComponent (next: VNode)
           let { next, bu, u, parent, vnode } = instance
-          let originNext = next
+          const originNext = next
           let vnodeHook
           {
             pushWarningContext(next || instance.vnode)
@@ -7181,7 +7181,7 @@ var Vue = (function (exports) {
         }
       }
     },
-    remove(vnode, parentComponent, parentSuspense, optimized, { um: unmount, o: { remove: hostRemove } }, doRemove) {
+    remove(vnode, parentComponent, parentSuspense, optimized, { um: unmount, o: { remove: hostRemove }}, doRemove) {
       const { shapeFlag, children, anchor, targetAnchor, target, props } = vnode
       if (target) {
         hostRemove(targetAnchor)
@@ -7234,7 +7234,7 @@ var Vue = (function (exports) {
     parentSuspense,
     slotScopeIds,
     optimized,
-    { o: { nextSibling, parentNode, querySelector } },
+    { o: { nextSibling, parentNode, querySelector }},
     hydrateChildren
   ) {
     const target = (vnode.target = resolveTarget(vnode.props, querySelector))
@@ -7551,14 +7551,14 @@ var Vue = (function (exports) {
     const shapeFlag = isString(type)
       ? 1 /* ELEMENT */
       : isSuspense(type)
-      ? 128 /* SUSPENSE */
-      : isTeleport(type)
-      ? 64 /* TELEPORT */
-      : isObject(type)
-      ? 4 /* STATEFUL_COMPONENT */
-      : isFunction(type)
-      ? 2 /* FUNCTIONAL_COMPONENT */
-      : 0
+        ? 128 /* SUSPENSE */
+        : isTeleport(type)
+          ? 64 /* TELEPORT */
+          : isObject(type)
+            ? 4 /* STATEFUL_COMPONENT */
+            : isFunction(type)
+              ? 2 /* FUNCTIONAL_COMPONENT */
+              : 0
     if (shapeFlag & 4 /* STATEFUL_COMPONENT */ && isProxy(type)) {
       type = toRaw(type)
       warn$1(
@@ -7590,9 +7590,9 @@ var Vue = (function (exports) {
       ref:
         extraProps && extraProps.ref
           ? // #2078 in the case of <component :is="vnode" ref="extra"/>
-            // if the vnode itself already has a ref, cloneVNode will need to merge
-            // the refs so the single vnode can be set on multiple refs
-            mergeRef && ref
+        // if the vnode itself already has a ref, cloneVNode will need to merge
+        // the refs so the single vnode can be set on multiple refs
+          mergeRef && ref
             ? isArray(ref)
               ? ref.concat(normalizeRef(extraProps))
               : [ref, normalizeRef(extraProps)]
@@ -7925,7 +7925,7 @@ var Vue = (function (exports) {
   const publicPropertiesMap =
     // Move PURE marker to new line to workaround compiler discarding it
     // due to type annotation
-    /*#__PURE__*/ extend(Object.create(null), {
+    /* #__PURE__*/ extend(Object.create(null), {
       $: (i) => i,
       $el: (i) => i.vnode.el,
       $data: (i) => i.data,
@@ -8068,7 +8068,7 @@ var Vue = (function (exports) {
       }
       return true
     },
-    has({ _: { data, setupState, accessCache, ctx, appContext, propsOptions } }, key) {
+    has({ _: { data, setupState, accessCache, ctx, appContext, propsOptions }}, key) {
       let normalizedProps
       return (
         !!accessCache[key] ||
@@ -8098,7 +8098,7 @@ var Vue = (function (exports) {
       return Reflect.ownKeys(target)
     }
   }
-  const RuntimeCompiledPublicInstanceProxyHandlers = /*#__PURE__*/ extend({}, PublicInstanceProxyHandlers, {
+  const RuntimeCompiledPublicInstanceProxyHandlers = /* #__PURE__*/ extend({}, PublicInstanceProxyHandlers, {
     get(target, key) {
       // fast path for unscopables when using `with` block
       if (key === Symbol.unscopables) {
@@ -8269,7 +8269,7 @@ var Vue = (function (exports) {
     currentInstance && currentInstance.scope.off()
     currentInstance = null
   }
-  const isBuiltInTag = /*#__PURE__*/ makeMap('slot,component')
+  const isBuiltInTag = /* #__PURE__*/ makeMap('slot,component')
   function validateComponentName(name, config) {
     const appIsNativeTag = config.isNativeTag || NO
     if (isBuiltInTag(name) || appIsNativeTag(name)) {
@@ -8945,7 +8945,7 @@ var Vue = (function (exports) {
 
   const svgNS = 'http://www.w3.org/2000/svg'
   const doc = typeof document !== 'undefined' ? document : null
-  const templateContainer = doc && /*#__PURE__*/ doc.createElement('template')
+  const templateContainer = doc && /* #__PURE__*/ doc.createElement('template')
   const nodeOps = {
     insert: (child, parent, anchor) => {
       parent.insertBefore(child, anchor || null)
@@ -9219,7 +9219,7 @@ var Vue = (function (exports) {
   }
 
   // Async edge case fix requires storing an event listener's attach timestamp.
-  const [_getNow, skipTimestampCheck] = /*#__PURE__*/ (() => {
+  const [_getNow, skipTimestampCheck] = /* #__PURE__*/ (() => {
     let _getNow = Date.now
     let skipTimestampCheck = false
     if (typeof window !== 'undefined') {
@@ -9243,7 +9243,7 @@ var Vue = (function (exports) {
   // To avoid the overhead of repeatedly calling performance.now(), we cache
   // and use the same timestamp for all event listeners attached in the same tick.
   let cachedNow = 0
-  const p = /*#__PURE__*/ Promise.resolve()
+  const p = /* #__PURE__*/ Promise.resolve()
   const reset = () => {
     cachedNow = 0
   }
@@ -9684,7 +9684,7 @@ var Vue = (function (exports) {
     leaveActiveClass: String,
     leaveToClass: String
   }
-  const TransitionPropsValidators = (Transition.props = /*#__PURE__*/ extend({}, BaseTransition.props, DOMTransitionPropsValidators))
+  const TransitionPropsValidators = (Transition.props = /* #__PURE__*/ extend({}, BaseTransition.props, DOMTransitionPropsValidators))
   /**
    * #3227 Incoming hooks may be merged into arrays when wrapping Transition
    * with custom HOCs.
@@ -9941,7 +9941,7 @@ var Vue = (function (exports) {
   const newPositionMap = new WeakMap()
   const TransitionGroupImpl = {
     name: 'TransitionGroup',
-    props: /*#__PURE__*/ extend({}, TransitionPropsValidators, {
+    props: /* #__PURE__*/ extend({}, TransitionPropsValidators, {
       tag: String,
       moveClass: String
     }),
@@ -9987,7 +9987,7 @@ var Vue = (function (exports) {
       return () => {
         const rawProps = toRaw(props)
         const cssTransitionProps = resolveTransitionProps(rawProps)
-        let tag = rawProps.tag || Fragment
+        const tag = rawProps.tag || Fragment
         prevChildren = children
         children = slots.default ? getTransitionRawChildren(slots.default()) : []
         for (let i = 0; i < children.length; i++) {
@@ -10077,7 +10077,7 @@ var Vue = (function (exports) {
   // We are exporting the v-model runtime directly as vnode hooks so that it can
   // be tree-shaken in case v-model is never used.
   const vModelText = {
-    created(el, { modifiers: { lazy, trim, number } }, vnode) {
+    created(el, { modifiers: { lazy, trim, number }}, vnode) {
       el._assign = getModelAssigner(vnode)
       const castToNumber = number || (vnode.props && vnode.props.type === 'number')
       addEventListener(el, lazy ? 'change' : 'input', (e) => {
@@ -10109,7 +10109,7 @@ var Vue = (function (exports) {
     mounted(el, { value }) {
       el.value = value == null ? '' : value
     },
-    beforeUpdate(el, { value, modifiers: { lazy, trim, number } }, vnode) {
+    beforeUpdate(el, { value, modifiers: { lazy, trim, number }}, vnode) {
       el._assign = getModelAssigner(vnode)
       // avoid clearing unresolved text. #2302
       if (el.composing) return
@@ -10198,7 +10198,7 @@ var Vue = (function (exports) {
   const vModelSelect = {
     // <select multiple> value need to be deep traversed
     deep: true,
-    created(el, { value, modifiers: { number } }, vnode) {
+    created(el, { value, modifiers: { number }}, vnode) {
       const isSetModel = isSet(value)
       addEventListener(el, 'change', () => {
         const selectedVal = Array.prototype.filter.call(el.options, (o) => o.selected).map((o) => (number ? toNumber(getValue(o)) : getValue(o)))
@@ -10382,7 +10382,7 @@ var Vue = (function (exports) {
     el.style.display = value ? el._vod : 'none'
   }
 
-  const rendererOptions = /*#__PURE__*/ extend({ patchProp }, nodeOps)
+  const rendererOptions = /* #__PURE__*/ extend({ patchProp }, nodeOps)
   // lazy create the renderer - this makes core renderer logic tree-shakable
   // in case the user only imports reactivity utilities from Vue.
   let renderer
@@ -10853,7 +10853,7 @@ var Vue = (function (exports) {
     // remove whitespaces around . or [ first
     path = path.trim().replace(whitespaceRE, (s) => s.trim())
     let state = 0 /* inMemberExp */
-    let stateStack = []
+    const stateStack = []
     let currentOpenBracketCount = 0
     let currentOpenParensCount = 0
     let currentStringType = null
@@ -11252,7 +11252,7 @@ var Vue = (function (exports) {
     const nodes = []
     while (!isEnd(context, mode, ancestors)) {
       const s = context.source
-      let node = undefined
+      let node
       if (mode === 0 /* DATA */ || mode === 1 /* RCDATA */) {
         if (!context.inVPre && startsWith(s, context.options.delimiters[0])) {
           // '{{'
@@ -11410,8 +11410,8 @@ var Vue = (function (exports) {
       content = context.source.slice(4, match.index)
       // Advancing with reporting nested comments.
       const s = context.source.slice(0, match.index)
-      let prevIndex = 1,
-        nestedIndex = 0
+      let prevIndex = 1
+      let nestedIndex = 0
       while ((nestedIndex = s.indexOf('<!--', prevIndex)) !== -1) {
         advanceBy(context, nestedIndex - prevIndex + 1)
         if (nestedIndex + 4 < s.length) {
@@ -11490,7 +11490,7 @@ var Vue = (function (exports) {
     }
     return element
   }
-  const isSpecialTemplateDirective = /*#__PURE__*/ makeMap(`if,else,else-if,for,slot`)
+  const isSpecialTemplateDirective = /* #__PURE__*/ makeMap(`if,else,else-if,for,slot`)
   function parseTag(context, type, parent) {
     // Tag open.
     const start = getCursor(context)
@@ -11646,7 +11646,7 @@ var Vue = (function (exports) {
     }
     advanceBy(context, name.length)
     // Value
-    let value = undefined
+    let value
     if (/^[\t\r\n\f ]*=/.test(context.source)) {
       advanceSpaces(context)
       advanceBy(context, 1)
@@ -11659,8 +11659,8 @@ var Vue = (function (exports) {
     const loc = getSelection(context, start)
     if (!context.inVPre && /^(v-[A-Za-z0-9-]|:|\.|@|#)/.test(name)) {
       const match = /(?:^v-([a-z0-9-]+))?(?:(?::|^\.|^@|^#)(\[[^\]]+\]|[^\.]+))?(.+)?$/i.exec(name)
-      let isPropShorthand = startsWith(name, '.')
-      let dirName = match[1] || (isPropShorthand || startsWith(name, ':') ? 'bind' : startsWith(name, '@') ? 'on' : 'slot')
+      const isPropShorthand = startsWith(name, '.')
+      const dirName = match[1] || (isPropShorthand || startsWith(name, ':') ? 'bind' : startsWith(name, '@') ? 'on' : 'slot')
       let arg
       if (match[2]) {
         const isSlot = dirName === 'slot'
@@ -13344,8 +13344,8 @@ var Vue = (function (exports) {
         const slotOutlet = isSlotOutlet(node)
           ? node
           : isTemplate && node.children.length === 1 && isSlotOutlet(node.children[0])
-          ? node.children[0] // api-extractor somehow fails to infer this
-          : null
+            ? node.children[0] // api-extractor somehow fails to infer this
+            : null
         if (slotOutlet) {
           // <slot v-for="..."> or <template v-for="..."><slot/></template>
           childBlock = slotOutlet.codegenNode
@@ -13747,7 +13747,7 @@ var Vue = (function (exports) {
       const isComponent = node.tagType === 1 /* COMPONENT */
       // The goal of the transform is to create a codegenNode implementing the
       // VNodeCall interface.
-      let vnodeTag = isComponent ? resolveComponentType(node, context) : `"${tag}"`
+      const vnodeTag = isComponent ? resolveComponentType(node, context) : `"${tag}"`
       const isDynamicComponent = isObject(vnodeTag) && vnodeTag.callee === RESOLVE_DYNAMIC_COMPONENT
       let vnodeProps
       let vnodeChildren
@@ -13970,7 +13970,7 @@ var Vue = (function (exports) {
       const prop = props[i]
       if (prop.type === 6 /* ATTRIBUTE */) {
         const { loc, name, value } = prop
-        let isStatic = true
+        const isStatic = true
         if (name === 'ref') {
           hasRef = true
           if (context.scopes.vFor > 0) {
@@ -14070,7 +14070,7 @@ var Vue = (function (exports) {
         }
       }
     }
-    let propsExpression = undefined
+    let propsExpression
     // has v-bind="object" or v-on="object", wrap with mergeProps
     if (mergeArgs.length) {
       if (properties.length) {
@@ -14280,7 +14280,7 @@ var Vue = (function (exports) {
   }
   function processSlotOutlet(node, context) {
     let slotName = `"default"`
-    let slotProps = undefined
+    let slotProps
     const nonNameProps = []
     for (let i = 0; i < node.props.length; i++) {
       const p = node.props[i]
@@ -14348,7 +14348,7 @@ var Vue = (function (exports) {
     if (exp && !exp.content.trim()) {
       exp = undefined
     }
-    let shouldCache = context.cacheHandlers && !exp && !context.inVOnce
+    const shouldCache = context.cacheHandlers && !exp && !context.inVOnce
     if (exp) {
       const isMemberExp = isMemberExpression(exp.content)
       const isInlineStatement = !(isMemberExp || fnExpRE.test(exp.content))
@@ -14447,7 +14447,7 @@ var Vue = (function (exports) {
       // been processed.
       return () => {
         const children = node.children
-        let currentContainer = undefined
+        let currentContainer
         let hasText = false
         for (let i = 0; i < children.length; i++) {
           const child = children[i]
@@ -14559,7 +14559,7 @@ var Vue = (function (exports) {
       context.onError(createCompilerError(42 /* X_V_MODEL_MALFORMED_EXPRESSION */, exp.loc))
       return createTransformProps()
     }
-    const propName = arg ? arg : createSimpleExpression('modelValue', true)
+    const propName = arg || createSimpleExpression('modelValue', true)
     const eventName = arg ? (isStaticExp(arg) ? `onUpdate:${arg.content}` : createCompoundExpression(['"onUpdate:" + ', arg])) : `onUpdate:modelValue`
     let assignmentExp
     const eventArg = context.isTS ? `($event: any)` : `$event`
@@ -14716,7 +14716,7 @@ var Vue = (function (exports) {
     }
   }
 
-  const isRawTextContainer = /*#__PURE__*/ makeMap('style,iframe,script,noscript', true)
+  const isRawTextContainer = /* #__PURE__*/ makeMap('style,iframe,script,noscript', true)
   const parserOptions = {
     isVoidTag,
     isNativeTag: (tag) => isHTMLTag(tag) || isSVGTag(tag),
@@ -14931,8 +14931,8 @@ var Vue = (function (exports) {
     return baseResult
   }
 
-  const isEventOptionModifier = /*#__PURE__*/ makeMap(`passive,once,capture`)
-  const isNonKeyModifier = /*#__PURE__*/ makeMap(
+  const isEventOptionModifier = /* #__PURE__*/ makeMap(`passive,once,capture`)
+  const isNonKeyModifier = /* #__PURE__*/ makeMap(
     // event propagation management
     `stop,prevent,self,` +
       // system modifiers + exact
@@ -14941,8 +14941,8 @@ var Vue = (function (exports) {
       `middle`
   )
   // left & right could be mouse or key modifiers based on event type
-  const maybeKeyModifier = /*#__PURE__*/ makeMap('left,right')
-  const isKeyboardEvent = /*#__PURE__*/ makeMap(`onkeyup,onkeydown,onkeypress`, true)
+  const maybeKeyModifier = /* #__PURE__*/ makeMap('left,right')
+  const isKeyboardEvent = /* #__PURE__*/ makeMap(`onkeyup,onkeydown,onkeypress`, true)
   const resolveModifiers = (key, modifiers, context, loc) => {
     const keyModifiers = []
     const nonKeyModifiers = []
@@ -14986,8 +14986,8 @@ var Vue = (function (exports) {
     return isStaticClick
       ? createSimpleExpression(event, true)
       : key.type !== 4 /* SIMPLE_EXPRESSION */
-      ? createCompoundExpression([`(`, key, `) === "onClick" ? "${event}" : (`, key, `)`])
-      : key
+        ? createCompoundExpression([`(`, key, `) === "onClick" ? "${event}" : (`, key, `)`])
+        : key
   }
   const transformOn$1 = (dir, node, context) => {
     return transformOn(dir, node, context, (baseResult) => {

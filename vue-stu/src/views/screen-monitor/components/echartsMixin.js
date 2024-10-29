@@ -15,7 +15,7 @@ export default {
         if (this.initChart) {
           this.initChart()
         }
-        this.$nextTick(function () {
+        this.$nextTick(function() {
           this.echartInstance.resize()
           this.echartInstance.resize()
         })

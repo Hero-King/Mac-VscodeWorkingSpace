@@ -1,33 +1,36 @@
 <template>
   <div>
-    <el-select v-model="selectedType" @change="setDateType" size="small">
+    <el-select
+      v-model="selectedType"
+      size="small"
+      @change="setDateType"
+    >
       <el-option
         v-for="(op, index) in options"
         :key="op.value"
         :label="op.label"
         :value="op.value"
-      ></el-option>
+      />
     </el-select>
 
     <!-- v-if="selectedType == 'custom'" -->
     <el-date-picker
+      v-if="selectedType == 'custom'"
+      v-model="dateValue"
       size="small"
       style="margin-left: 20px"
-      v-model="dateValue"
       type="datetimerange"
-      v-if="selectedType == 'custom'"
       :picker-options="pickerOptions"
       range-separator="至"
       start-placeholder="开始时间"
       end-placeholder="结束时间"
       :format="datePickerFormat"
       :clearable="false"
-    >
-    </el-date-picker>
+    />
   </div>
 </template>
 <script>
-let obj = {
+const obj = {
   day: '今天',
   yesterday: '昨天',
   week: '本周',
@@ -59,11 +62,6 @@ export default {
       selectedType: 'month'
     }
   },
-  created() {
-    if (this.selectedType) {
-      this.setDateType()
-    }
-  },
   computed: {
     dateValue: {
       get() {
@@ -86,11 +84,16 @@ export default {
       }
     }
   },
+  created() {
+    if (this.selectedType) {
+      this.setDateType()
+    }
+  },
   methods: {
     setDateType() {
-      let { format, selectedType } = this
-      let beginDate,
-        endDate = this.$moment().format(format)
+      const { format, selectedType } = this
+      let beginDate
+      let endDate = this.$moment().format(format)
       if (selectedType === 'yesterday') {
         beginDate = this.$moment().subtract(1, 'days').startOf('day').format(format)
         endDate = this.$moment().subtract(1, 'days').endOf('day').format(format)

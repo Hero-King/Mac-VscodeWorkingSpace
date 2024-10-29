@@ -60,7 +60,7 @@ export function resetForm(refName) {
 
 // 添加日期范围
 export function addDateRange(params, dateRange, propName) {
-  let search = params
+  const search = params
   search.params = typeof search.params === 'object' && search.params !== null && !Array.isArray(search.params) ? search.params : {}
   dateRange = Array.isArray(dateRange) ? dateRange : []
   if (typeof propName === 'undefined') {
@@ -107,10 +107,10 @@ export function download(fileName) {
 
 // 字符串格式化(%s )
 export function sprintf(str) {
-  var args = arguments,
-    flag = true,
-    i = 1
-  str = str.replace(/%s/g, function () {
+  var args = arguments
+  var flag = true
+  var i = 1
+  str = str.replace(/%s/g, function() {
     var arg = args[i++]
     if (typeof arg === 'undefined') {
       flag = false
@@ -137,7 +137,7 @@ export function praseStrEmpty(str) {
  * @param {*} children 孩子节点字段 默认 'children'
  */
 export function handleTree(data, id, parentId, children) {
-  let config = {
+  const config = {
     id: id || 'id',
     parentId: parentId || 'parentId',
     childrenList: children || 'children'
@@ -147,8 +147,8 @@ export function handleTree(data, id, parentId, children) {
   var nodeIds = {}
   var tree = []
 
-  for (let d of data) {
-    let parentId = d[config.parentId]
+  for (const d of data) {
+    const parentId = d[config.parentId]
     if (childrenListMap[parentId] == null) {
       childrenListMap[parentId] = []
     }
@@ -156,14 +156,14 @@ export function handleTree(data, id, parentId, children) {
     childrenListMap[parentId].push(d)
   }
 
-  for (let d of data) {
-    let parentId = d[config.parentId]
+  for (const d of data) {
+    const parentId = d[config.parentId]
     if (nodeIds[parentId] == null) {
       tree.push(d)
     }
   }
 
-  for (let t of tree) {
+  for (const t of tree) {
     adaptToChildrenList(t)
   }
 
@@ -172,7 +172,7 @@ export function handleTree(data, id, parentId, children) {
       o[config.childrenList] = childrenListMap[o[config.id]]
     }
     if (o[config.childrenList]) {
-      for (let c of o[config.childrenList]) {
+      for (const c of o[config.childrenList]) {
         adaptToChildrenList(c)
       }
     }

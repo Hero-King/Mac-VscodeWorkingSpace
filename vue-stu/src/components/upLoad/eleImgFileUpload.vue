@@ -14,15 +14,29 @@
       :http-request="uploadFile"
     >
       <div v-if="!config.showFileList&&fileList.length>0 && !fileList[0].url.includes('.pdf')">
-        <img  :src="fileList[0].url" :style="{height:config.height }" class="avatar" />
-        <span class="change-tip"  >上传附件</span>
+        <img
+          :src="fileList[0].url"
+          :style="{height:config.height }"
+          class="avatar"
+        >
+        <span class="change-tip">上传附件</span>
       </div>
       <div v-if="!config.showFileList&&fileList.length>0 && fileList[0].url.includes('.pdf')">
-        <img  :src="pdficon" :style="{height:config.height }" class="avatar" />
-        <span class="change-tip"  >上传附件</span>
+        <img
+          :src="pdficon"
+          :style="{height:config.height }"
+          class="avatar"
+        >
+        <span class="change-tip">上传附件</span>
       </div>
-      <div v-if="!config.showFileList&&fileList.length<1" style="position:relative;">
-        <i class="el-icon-plus avatar-uploader-icon" :style="{height:config.height,width:config.height,lineHeight:config.height }"></i>
+      <div
+        v-if="!config.showFileList&&fileList.length<1"
+        style="position:relative;"
+      >
+        <i
+          class="el-icon-plus avatar-uploader-icon"
+          :style="{height:config.height,width:config.height,lineHeight:config.height }"
+        />
         <span class="change-tip">上传附件</span>
       </div>
       <!-- <embed
@@ -32,7 +46,11 @@
           width="100%"
           height="100%"
         /> -->
-      <i v-if="config.showFileList" class="el-icon-plus avatar-uploader-icon" :style="{height:config.height,width:config.height,lineHeight:config.height }"></i>
+      <i
+        v-if="config.showFileList"
+        class="el-icon-plus avatar-uploader-icon"
+        :style="{height:config.height,width:config.height,lineHeight:config.height }"
+      />
     </el-upload>
   </div>
 </template>
@@ -42,7 +60,7 @@ const system = {
   baseApi: '/api/cms-cloud-service',
   businessApi: '/api/business'
 }
-const pdficon = require("@/assets/images/pdficon.png");
+const pdficon = require('@/assets/images/pdficon.png')
 export default {
   props: {
     config: {
@@ -59,13 +77,13 @@ export default {
       pdficon,
       imageUrl: '',
       fileList: this.config.fileList,
-      accept: ".jpg,.jpeg,.png,.pdf,.JPG,.JPEG,。PNG,.PDF",
-      fileUploadUrl: system.businessApi + '/file/newUpload',
+      accept: '.jpg,.jpeg,.png,.pdf,.JPG,.JPEG,。PNG,.PDF',
+      fileUploadUrl: system.businessApi + '/file/newUpload'
     }
   },
-  watch:{
+  watch: {
     config: {
-      handler (val) {
+      handler(val) {
         this.fileList = val.fileList
       },
       deep: true
@@ -74,16 +92,16 @@ export default {
   methods: {
     async uploadFile(file) {
       console.log(file)
-      let formData = new FormData()
+      const formData = new FormData()
       formData.append('file', file.file)
 
       formData.append('reportId', this.config.id)
       const { data, code, msg } = await this.$http2.post(this.fileUploadUrl, formData)
       if (code === 0) {
-        this.fileList = [{name:file.file.name,url:data.storePath,urlSha:data.sha256,}]
+        this.fileList = [{ name: file.file.name, url: data.storePath, urlSha: data.sha256 }]
         this.$refs.upload.clearFiles()
         const obj = {
-          fileList:this.fileList,
+          fileList: this.fileList
         }
         this.$emit('uploadSuccess', obj)
         return this.$message.success('成功')
@@ -91,8 +109,8 @@ export default {
         return this.$message.error(msg)
       }
     },
-    handleAvatarError(err,file){
-      console.log(err,file)
+    handleAvatarError(err, file) {
+      console.log(err, file)
     },
     beforeAvatarUpload(file) {
       const fileSize = this.config?.fileSize || 10
@@ -130,7 +148,7 @@ export default {
 /deep/.el-upload-list--picture-card .el-upload-list__item{
   width: 100%;
   height: 100%;
-  
+
 }
 /deep/.el-upload input[type='file'] {
   display: none !important;

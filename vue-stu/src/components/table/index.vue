@@ -5,7 +5,6 @@
         ref="tables"
         v-loading="config.loading ? config.loading : false"
         :data="config.tableData"
-        @selection-change="handleSelectionChange"
         stripe
         :height="config.height ? config.height : tableHeight"
         :border="config.border || true"
@@ -16,10 +15,12 @@
         :tree-props="config.treeProps || {}"
         :span-method="config.spanMethod"
         :header-cell-style="{ 'background-color': config.background || '#edf2ff', color: '#000' }"
+        @selection-change="handleSelectionChange"
         :key="key"
       >
         <template v-for="item in config.tableList">
           <el-table-column
+            v-if="item.type === 'slot'"
             :key="item.label"
             :prop="item.prop"
             :type="item.status"
@@ -29,16 +30,20 @@
             :fixed="item.fixed"
             :show-overflow-tooltip="item.showOverflowTooltip"
             :selectable="(row) => (row.enable ? false : true)"
-            v-if="item.type === 'slot'"
             :render-header="addRedStar"
           >
             <!-- <template slot-scope="{ row ,$index}"> -->
             <template slot-scope="scope">
-              <slot :name="item.slotName" :data="scope.row" :index="scope.$index"></slot>
+              <slot
+                :name="item.slotName"
+                :data="scope.row"
+                :index="scope.$index"
+              />
             </template>
           </el-table-column>
           <el-table-column
             :key="item.label"
+            v-else
             :prop="item.prop"
             :type="item.status"
             :width="item.width"
@@ -49,24 +54,26 @@
             :reserve-selection="true"
             :selectable="(row) => (row.enable ? false : true)"
             :render-header="addRedStar"
-            v-else
-          ></el-table-column>
+          />
         </template>
         <template slot="empty">
           <el-empty />
         </template>
       </el-table>
     </div>
-    <div class="box-pagination" v-if="config.total > 10">
+    <div
+      v-if="config.total > 10"
+      class="box-pagination"
+    >
       <el-pagination
-        @size-change="sizeChange"
-        @current-change="currentChange"
         :current-page="config.pageNo"
         :page-sizes="[10, 20, 50, 100]"
         :page-size="config.limit"
         layout="total, sizes, prev, pager, next, jumper"
         :total="Number(config.total)"
-      ></el-pagination>
+        @size-change="sizeChange"
+        @current-change="currentChange"
+      />
     </div>
   </div>
 </template>
@@ -102,6 +109,16 @@ export default {
       default: () => []
     }
   },
+  data() {
+    return {
+      con: {
+        total: 400
+      },
+      tableHeight: null,
+      expands: [],
+      key: null
+    }
+  },
   watch: {
     // multipleSelection: {
     //   handler(val) {
@@ -130,7 +147,7 @@ export default {
         this.key = null
         if (val.multipleSelection && val.multipleSelection.length > 0) {
           if (this.config.tableData.length > 0) {
-            let set = new Set(val.multipleSelection.map((i) => i.id))
+            const set = new Set(val.multipleSelection.map((i) => i.id))
             this.$nextTick(() => {
               this.config.tableData.forEach((item) => {
                 if (set.has(item.id)) {
@@ -152,7 +169,7 @@ export default {
           this.key = Math.random()
         }
         this.$nextTick(() => {
-          this.$refs.tables.doLayout() //对表格重新布局
+          this.$refs.tables.doLayout() // 对表格重新布局
         })
       },
 
@@ -172,20 +189,10 @@ export default {
       deep: true
     }
   },
-  data() {
-    return {
-      con: {
-        total: 400
-      },
-      tableHeight: null,
-      expands: [],
-      key: null
-    }
-  },
   mounted() {
     window.onresize = () => {
-      //用于使表格高度自适应的方法
-      this.getTableMaxHeight() //获取容器当前高度，重设表格的最大高度
+      // 用于使表格高度自适应的方法
+      this.getTableMaxHeight() // 获取容器当前高度，重设表格的最大高度
     }
   },
   methods: {
@@ -202,8 +209,8 @@ export default {
     getTableMaxHeight() {
       this.$nextTick(() => {
         if (this.config.className) {
-          let box = document.querySelector(this.config.className).attributes
-          let box_clientHeight = box[0].ownerElement.clientHeight
+          const box = document.querySelector(this.config.className).attributes
+          const box_clientHeight = box[0].ownerElement.clientHeight
           console.log(box)
           this.tableHeight = box_clientHeight - this.config.diffHeight
           console.log(this.tableHeight)

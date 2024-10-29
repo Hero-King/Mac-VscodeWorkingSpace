@@ -1,10 +1,10 @@
 <template>
   <div class="plan-monitor">
     <ScreenHeader>
-      <template v-slot:leftTitle>
+      <template #leftTitle>
         {{ leftTitle }}
       </template>
-      <template v-slot:centerTitle>
+      <template #centerTitle>
         <div class="flex spaceAround w100 h100 center-content">
           <ScreenDatePicker
             v-model="formParam.year"
@@ -43,7 +43,7 @@
           />
         </div>
       </template>
-      <template v-slot:rightTitle>
+      <template #rightTitle>
         <TimeSelect
           v-model="formParam['time_type']"
           type="labelselect"

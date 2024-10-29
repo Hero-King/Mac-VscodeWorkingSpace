@@ -4,18 +4,10 @@
 <script>
 export default {
   name: 'KeepAliveTestItem',
-  props: {
-    id: String
-  },
-  data() {
-    return {
-      count: 0
-    }
-  },
   // 没有路由指向组件时,不会执行路由钩子函数
   beforeRouteEnter(to, from, next) {
     console.log('KeepAliveTestItem beforeRouteEnter')
-    next(function (vm) {
+    next(function(vm) {
       console.log(vm._uid, 'beforeRouteEnter 中next')
     })
   },
@@ -23,6 +15,14 @@ export default {
     console.log(this.$options.name, 'beforeRouteUpdate', this._uid)
     console.log(this.count)
     next()
+  },
+  props: {
+    id: String
+  },
+  data() {
+    return {
+      count: 0
+    }
   },
   beforeCreate() {
     console.log(this.$options.name, 'beforeCreate', this._uid)

@@ -1,15 +1,19 @@
 <template lang="">
   <div>
     <el-button @click="show = !show">显示隐藏</el-button>
-    <div class="chart-wrap" >
-      <div v-show="show" style="height: 400px; width: 400px" ref="echart"></div>
+    <div class="chart-wrap">
+      <div
+        v-show="show"
+        ref="echart"
+        style="height: 400px; width: 400px"
+      />
     </div>
   </div>
 </template>
 <script>
 import * as echarts from 'echarts'
 let now = new Date(1997, 9, 3)
-let oneDay = 24 * 3600 * 1000
+const oneDay = 24 * 3600 * 1000
 let value = Math.random() * 1000
 function randomData() {
   now = new Date(+now + oneDay)
@@ -24,7 +28,7 @@ export default {
   name: 'EchartDomVShow',
 
   data() {
-    let data = []
+    const data = []
     for (var i = 0; i < 1000; i++) {
       data.push(randomData())
     }
@@ -34,7 +38,7 @@ export default {
       },
       tooltip: {
         trigger: 'axis',
-        formatter: function (params) {
+        formatter: function(params) {
           params = params[0]
           var date = new Date(params.name)
           return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1]

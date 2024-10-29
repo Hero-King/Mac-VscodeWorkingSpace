@@ -10,14 +10,14 @@ export const taskNotesStatusObj = {
   important: '已落库'
 }
 
-let statusMap = {}
+const statusMap = {}
 Object.keys(taskNotesStatusObj).forEach((key) => {
-  let val = taskNotesStatusObj[key]
+  const val = taskNotesStatusObj[key]
   statusMap[key] = val
   statusMap[val] = key
 })
 
-export let taskNotesStatusMap = statusMap
+export const taskNotesStatusMap = statusMap
 
 export const taskNotesStatusList = Object.keys(taskNotesStatusObj).map((i) => ({
   label: taskNotesStatusObj[i],
@@ -155,6 +155,6 @@ export const standardEditFields = [
     comType: 'upload',
     formKey: 'methodFileList',
     showFileList: true,
-    action: newUploadUrl,
+    action: newUploadUrl
   }
 ]

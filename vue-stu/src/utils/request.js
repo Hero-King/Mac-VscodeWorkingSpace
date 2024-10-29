@@ -30,8 +30,8 @@ service.interceptors.request.use(
           if (typeof value === 'object') {
             for (const key of Object.keys(value)) {
               if (value[key] !== null && typeof value[key] !== 'undefined') {
-                let params = propName + '[' + key + ']'
-                let subPart = encodeURIComponent(params) + '='
+                const params = propName + '[' + key + ']'
+                const subPart = encodeURIComponent(params) + '='
                 url += subPart + encodeURIComponent(value[key]) + '&'
               }
             }

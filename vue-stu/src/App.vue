@@ -8,6 +8,20 @@
 <script>
 export default {
   name: 'App',
+  beforeRouteEnter(to, from, next) {
+    console.log('App', 'beforeRouteEnter')
+    next(function(vm) {
+      console.log(vm._uid, 'App beforeRouteEnter 中next')
+    })
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log(this.$options.name, 'beforeRouteLeave', this._uid)
+    next()
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log(this.$options.name, 'beforeRouteUpdate', this._uid)
+    next()
+  },
   mounted() {
     window.app = this
   },
@@ -19,37 +33,23 @@ export default {
   },
   updated() {
     console.log(this.$options.name, 'updated', this._uid)
-  },
-  beforeRouteEnter(to, from, next) {
-    console.log('App', 'beforeRouteEnter')
-    next(function (vm) {
-      console.log(vm._uid, 'App beforeRouteEnter 中next')
-    })
-  },
-  beforeRouteLeave(to, from, next) {
-    console.log(this.$options.name, 'beforeRouteLeave', this._uid)
-    next()
-  },
-  beforeRouteUpdate(to, from, next) {
-    console.log(this.$options.name, 'beforeRouteUpdate', this._uid)
-    next()
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+    transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+    opacity: 0;
 }
 </style>

@@ -2,9 +2,18 @@
   <div>
     <h2 class="apply-tip">工单申请</h2>
 
-    <el-form :model="form" ref="form" class="label-blod-form" @submit.native.prevent label-width="80px">
+    <el-form
+      ref="form"
+      :model="form"
+      class="label-blod-form"
+      label-width="80px"
+      @submit.native.prevent
+    >
       <el-row>
-        <SelectFormContent :conf="conf" :form="form" />
+        <SelectFormContent
+          :conf="conf"
+          :form="form"
+        />
       </el-row>
 
       <!-- <el-form-item class="elefileUpload" label="附件上传">
@@ -25,17 +34,23 @@
                     dialogType = 2
                     dialogVisible2 = true
                   "
-                  >关联站点</el-button
-                >
+                >关联站点</el-button>
               </div>
             </template>
             <ul class="ul_list">
-              <li class="ul_item" v-for="(params, paramsIndex) in locationList" :key="paramsIndex">
+              <li
+                v-for="(params, paramsIndex) in locationList"
+                :key="paramsIndex"
+                class="ul_item"
+              >
                 <div>
-                  <i class="el-icon-tickets"></i>
+                  <i class="el-icon-tickets" />
                   {{ params.locationName }}
                 </div>
-                <i class="el-icon-delete" @click.stop="deleteLocationList(paramsIndex)"></i>
+                <i
+                  class="el-icon-delete"
+                  @click.stop="deleteLocationList(paramsIndex)"
+                />
               </li>
             </ul>
           </el-collapse-item>
@@ -52,14 +67,20 @@
                     dialogType = 1
                     dialogVisible1 = true
                   "
-                  >关联设备</el-button
-                >
+                >关联设备</el-button>
               </div>
             </template>
             <ul class="ul_list">
-              <li class="ul_item" v-for="(device, deviceIndex) in selectDeviceList" :key="deviceIndex">
-                <div><i class="el-icon-tickets"></i>{{ device.deviceName }}-{{ device.modelName }}</div>
-                <i class="el-icon-delete" @click.stop="deleteDeviceList(deviceIndex)"></i>
+              <li
+                v-for="(device, deviceIndex) in selectDeviceList"
+                :key="deviceIndex"
+                class="ul_item"
+              >
+                <div><i class="el-icon-tickets" />{{ device.deviceName }}-{{ device.modelName }}</div>
+                <i
+                  class="el-icon-delete"
+                  @click.stop="deleteDeviceList(deviceIndex)"
+                />
               </li>
             </ul>
           </el-collapse-item>
@@ -69,29 +90,55 @@
             <template slot="title">
               <div class="collapse_div">
                 <span>关联告警</span>
-                <el-button icon="el-icon-plus" class="btnone" @click.stop="addAssociatedAlarm">关联告警 </el-button>
+                <el-button
+                  icon="el-icon-plus"
+                  class="btnone"
+                  @click.stop="addAssociatedAlarm"
+                >关联告警 </el-button>
               </div>
             </template>
             <ul class="ul_list">
-              <li class="ul_item" v-for="(alarm, alarmIndex) in alarmSelection" :key="alarmIndex">
+              <li
+                v-for="(alarm, alarmIndex) in alarmSelection"
+                :key="alarmIndex"
+                class="ul_item"
+              >
                 <div v-if="!alarm.alarmType">
-                  <i class="el-icon-tickets"></i>
+                  <i class="el-icon-tickets" />
                   {{ alarm.alarmName }}
                 </div>
                 <div v-else>
-                  <i class="el-icon-tickets"></i>
+                  <i class="el-icon-tickets" />
                   {{ alarm.alarmType }}-{{ alarm.alarmName }}-{{ alarm.alarmObject }}-{{ alarm.alarmContent }}
                 </div>
-                <i class="el-icon-delete" @click.stop="deleteAlarmList(alarmIndex)"></i>
+                <i
+                  class="el-icon-delete"
+                  @click.stop="deleteAlarmList(alarmIndex)"
+                />
               </li>
             </ul>
           </el-collapse-item>
         </el-collapse>
       </el-form-item>
       <el-form-item class="textCenter">
-        <el-button class="ml-16" size="small" type="primary" @click="onSave(1)">提交</el-button>
-        <el-button class="ml-16" size="small" type="primary" @click="onSave(0)">暂存</el-button>
-        <el-button class="ml-16" size="small" type="primary" @click="onCancel">取消</el-button>
+        <el-button
+          class="ml-16"
+          size="small"
+          type="primary"
+          @click="onSave(1)"
+        >提交</el-button>
+        <el-button
+          class="ml-16"
+          size="small"
+          type="primary"
+          @click="onSave(0)"
+        >暂存</el-button>
+        <el-button
+          class="ml-16"
+          size="small"
+          type="primary"
+          @click="onCancel"
+        >取消</el-button>
       </el-form-item>
     </el-form>
 
@@ -111,13 +158,19 @@
           :show-table-checkbox="true"
           :show-operation="false"
           :opend="dialogVisible1"
-          :selectionList="selectDeviceList"
+          :selection-list="selectDeviceList"
           :selectChange.sync="tmpSelectDeviceList"
         />
       </div>
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-button @click="dialogVisible1 = false">取 消</el-button>
-        <el-button type="primary" @click="selectData">确 定</el-button>
+        <el-button
+          type="primary"
+          @click="selectData"
+        >确 定</el-button>
       </div>
     </el-dialog>
     <el-dialog
@@ -129,11 +182,21 @@
       @opened="dialogOpen"
     >
       <div class="dialog-content-wrap">
-        <LocationTree :opend="dialogVisible2" :selectionList="locationList" :selectChange.sync="tmpLocationList" />
+        <LocationTree
+          :opend="dialogVisible2"
+          :selection-list="locationList"
+          :selectChange.sync="tmpLocationList"
+        />
       </div>
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-button @click="dialogVisible2 = false">取 消</el-button>
-        <el-button type="primary" @click="selectData">确 定</el-button>
+        <el-button
+          type="primary"
+          @click="selectData"
+        >确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -175,14 +238,6 @@ export default {
     visible: Boolean,
     isEdit: Boolean
   },
-  created() {
-    if (this.isEdit) {
-      this.getDetail()
-    } else {
-      this.form.workTypeName = this.initData.tag.workTypeName
-      this.alarmSelection = this.initData.alarmSelection || []
-    }
-  },
   data() {
     this.locationTreeUrl = locationTreeUrl
     this.conf = workOrderAddFormFields
@@ -216,6 +271,14 @@ export default {
       }
     }
   },
+  created() {
+    if (this.isEdit) {
+      this.getDetail()
+    } else {
+      this.form.workTypeName = this.initData.tag.workTypeName
+      this.alarmSelection = this.initData.alarmSelection || []
+    }
+  },
   methods: {
     getDetail() {
       workPlanDetails({ id: this.rowData.id }).then((res) => {
@@ -238,7 +301,7 @@ export default {
       }
     },
     onSave(isSubmit = 0) {
-      let params = { ...this.form, submissionStatus: isSubmit }
+      const params = { ...this.form, submissionStatus: isSubmit }
       params.files = this.form.files.map((i) => {
         if (i.response) {
           return {
@@ -288,7 +351,7 @@ export default {
       this.dialogClose()
     },
     selectData() {
-      let val = this.dialogType
+      const val = this.dialogType
       if (val == 1) {
         this.dialogVisible1 = false
         this.selectDeviceList = this.selectDeviceList.concat(JSON.parse(JSON.stringify(this.tmpSelectDeviceList)))

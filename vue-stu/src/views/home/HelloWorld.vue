@@ -4,35 +4,62 @@
     <h2>Essential Links</h2>
     <ul>
       <li>
-        <a href="https://vuejs.org" target="_blank"> Core Docs </a>
+        <a
+          href="https://vuejs.org"
+          target="_blank"
+        > Core Docs </a>
       </li>
       <li>
-        <a href="https://forum.vuejs.org" target="_blank"> Forum </a>
+        <a
+          href="https://forum.vuejs.org"
+          target="_blank"
+        > Forum </a>
       </li>
       <li>
-        <a href="https://chat.vuejs.org" target="_blank"> Community Chat </a>
+        <a
+          href="https://chat.vuejs.org"
+          target="_blank"
+        > Community Chat </a>
       </li>
       <li>
-        <a href="https://twitter.com/vuejs" target="_blank"> Twitter </a>
+        <a
+          href="https://twitter.com/vuejs"
+          target="_blank"
+        > Twitter </a>
       </li>
-      <br />
+      <br>
       <li>
-        <a href="http://vuejs-templates.github.io/webpack/" target="_blank"> Docs for This Template </a>
+        <a
+          href="http://vuejs-templates.github.io/webpack/"
+          target="_blank"
+        > Docs for This Template </a>
       </li>
     </ul>
     <h2>Ecosystem</h2>
     <ul>
       <li>
-        <a href="http://router.vuejs.org/" target="_blank"> vue-router </a>
+        <a
+          href="http://router.vuejs.org/"
+          target="_blank"
+        > vue-router </a>
       </li>
       <li>
-        <a href="http://vuex.vuejs.org/" target="_blank"> vuex </a>
+        <a
+          href="http://vuex.vuejs.org/"
+          target="_blank"
+        > vuex </a>
       </li>
       <li>
-        <a href="http://vue-loader.vuejs.org/" target="_blank"> vue-loader </a>
+        <a
+          href="http://vue-loader.vuejs.org/"
+          target="_blank"
+        > vue-loader </a>
       </li>
       <li>
-        <a href="https://github.com/vuejs/awesome-vue" target="_blank"> awesome-vue </a>
+        <a
+          href="https://github.com/vuejs/awesome-vue"
+          target="_blank"
+        > awesome-vue </a>
       </li>
     </ul>
 
@@ -47,7 +74,12 @@
       <h2>
         测试export 深层对象 personsNew会随着count变化,所以child组件会刷新,至于true false切换,是因为personsNew中没使用深拷贝,重新计算时将export出来的变量改变了
       </h2>
-      <child ref="child" :personsNew="personsNew" :arr="arr" :constArr="constArr"></child>
+      <child
+        ref="child"
+        :persons-new="personsNew"
+        :arr="arr"
+        :const-arr="constArr"
+      />
 
       <!-- <h2>
         测试export 深层对象
@@ -72,7 +104,6 @@ import myh2 from '../../components/BaseH2.vue'
 import { persons, deepObj, constArr } from '../../components/constant'
 export default {
   name: 'HelloWorld',
-  props: ['author'],
   components: {
     myh2,
     child: {
@@ -119,6 +150,7 @@ export default {
       }
     }
   },
+  props: ['author'],
   data() {
     this.constArr = constArr
     return {
@@ -137,20 +169,20 @@ export default {
       return persons
     },
     personsNew() {
-      let tmp = []
+      const tmp = []
       console.log('calc personsNew', this.count)
       deepObj.forEach((obj) => {
-        let j = { ...obj }
+        const j = { ...obj }
         j.config.face = !j.config.face
         tmp.push(j)
       })
       return tmp
     },
     personsNew2() {
-      let tmp = []
+      const tmp = []
       console.log('calc personsNew2', this.count)
       deepObj.forEach((obj) => {
-        let j = { ...obj }
+        const j = { ...obj }
         const face = !j.config.face
         // j.config指向了新的对象; 促使deepObj中的config对象变成新的
         j.config = {
@@ -162,17 +194,6 @@ export default {
       return tmp
     }
   },
-  mounted() {
-    console.log(this.author)
-    console.clear()
-    let interval = setInterval(() => {
-      this.count++
-    }, 1000)
-    setTimeout(() => {
-      clearInterval(interval)
-    }, 3000)
-    window.hello = this
-  },
   watch: {
     count(val) {
       console.log('HelloWorld: count变化了, 用来模拟render多次', val)
@@ -180,6 +201,17 @@ export default {
     personsNew(val) {
       console.log('HelloWorld: personsNew 变化了', val)
     }
+  },
+  mounted() {
+    console.log(this.author)
+    console.clear()
+    const interval = setInterval(() => {
+      this.count++
+    }, 1000)
+    setTimeout(() => {
+      clearInterval(interval)
+    }, 3000)
+    window.hello = this
   }
 }
 </script>

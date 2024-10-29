@@ -1,21 +1,52 @@
 <template>
   <div class="page">
     <div v-show="!detailVisible">
-      <el-form :model="form" ref="form" size="small" label-width="80px" inline>
-        <el-form-item v-for="item in standardQueryFields" :label="item.label" :key="item.formKey">
-          <DictSelect :options="typeData[item.optionsKey]" v-bind="item" v-model="form[item.formKey]" @change="queryList"> </DictSelect>
+      <el-form
+        ref="form"
+        :model="form"
+        size="small"
+        label-width="80px"
+        inline
+      >
+        <el-form-item
+          v-for="item in standardQueryFields"
+          :key="item.formKey"
+          :label="item.label"
+        >
+          <DictSelect
+            v-bind="item"
+            v-model="form[item.formKey]"
+            :options="typeData[item.optionsKey]"
+            @change="queryList"
+          />
         </el-form-item>
       </el-form>
 
-      <div class="tools" v-if="!isDialogType">
-        <el-button size="small" plain @click="typeDialogVisible = true">新增类型</el-button>
-        <el-button size="small" type="primary" @click="addKnowledge">新增知识</el-button>
-        <export-button type="primary" :exportUrl="exportPageListUrl" :getQueryParam="getQueryParam" fileName="知识库列表.xls">导出</export-button>
+      <div
+        v-if="!isDialogType"
+        class="tools"
+      >
+        <el-button
+          size="small"
+          plain
+          @click="typeDialogVisible = true"
+        >新增类型</el-button>
+        <el-button
+          size="small"
+          type="primary"
+          @click="addKnowledge"
+        >新增知识</el-button>
+        <export-button
+          type="primary"
+          :export-url="exportPageListUrl"
+          :get-query-param="getQueryParam"
+          file-name="知识库列表.xls"
+        >导出</export-button>
       </div>
 
       <tables
-        class="query-table"
         ref="table"
+        class="query-table"
         :config="{
           tableData,
           tableList,
@@ -29,39 +60,94 @@
         @sizeChange="sizeChange"
         @handleSelection="handleSelection"
       >
-        <template slot="operation" slot-scope="scope">
-          <el-button @click.native.prevent="viewDetail(scope.data, false)" type="text" style="color: #4e60f6" size="small"> 详情 </el-button>
-          <el-button @click.native.prevent="viewDetail(scope.data, true)" type="text" style="color: #4e60f6" size="small"> 编辑 </el-button>
+        <template
+          slot="operation"
+          slot-scope="scope"
+        >
+          <el-button
+            type="text"
+            style="color: #4e60f6"
+            size="small"
+            @click.native.prevent="viewDetail(scope.data, false)"
+          > 详情 </el-button>
+          <el-button
+            type="text"
+            style="color: #4e60f6"
+            size="small"
+            @click.native.prevent="viewDetail(scope.data, true)"
+          > 编辑 </el-button>
         </template>
       </tables>
 
       <!-- 新增类型 -->
-      <el-dialog title="新增类型" :close-on-click-modal="false" :visible.sync="typeDialogVisible" @closed="typeClosed">
-        <el-form :model="typeForm" :rules="typeRules" ref="typeForm" size="small" label-width="100px" @submit.native.prevent>
+      <el-dialog
+        title="新增类型"
+        :close-on-click-modal="false"
+        :visible.sync="typeDialogVisible"
+        @closed="typeClosed"
+      >
+        <el-form
+          ref="typeForm"
+          :model="typeForm"
+          :rules="typeRules"
+          size="small"
+          label-width="100px"
+          @submit.native.prevent
+        >
           <el-form-item label="所属类别">
-            <el-select v-model="typeForm.type" prop="type" @change="selectChange">
-              <el-option label="现象类型" value="issue"></el-option>
-              <el-option label="措施类型" value="method"></el-option>
-              <el-option label="知识类型" value="category"></el-option>
+            <el-select
+              v-model="typeForm.type"
+              prop="type"
+              @change="selectChange"
+            >
+              <el-option
+                label="现象类型"
+                value="issue"
+              />
+              <el-option
+                label="措施类型"
+                value="method"
+              />
+              <el-option
+                label="知识类型"
+                value="category"
+              />
             </el-select>
           </el-form-item>
-          <el-form-item label="名称" prop="name">
-            <el-input style="width: 70%" v-model="typeForm.name"></el-input>
+          <el-form-item
+            label="名称"
+            prop="name"
+          >
+            <el-input
+              v-model="typeForm.name"
+              style="width: 70%"
+            />
           </el-form-item>
         </el-form>
-        <div slot="footer" class="textCenter">
-          <el-button size="small" type="primary" @click="typeAdd" :loading="typeLoading">新 增</el-button>
-          <el-button size="small" @click="typeDialogVisible = false">取 消</el-button>
+        <div
+          slot="footer"
+          class="textCenter"
+        >
+          <el-button
+            size="small"
+            type="primary"
+            :loading="typeLoading"
+            @click="typeAdd"
+          >新 增</el-button>
+          <el-button
+            size="small"
+            @click="typeDialogVisible = false"
+          >取 消</el-button>
         </div>
       </el-dialog>
     </div>
     <standard-detail
+      v-if="detailVisible"
       :canEdit.sync="canEdit"
       :visible.sync="detailVisible"
-      v-if="detailVisible"
-      :rowData="rowData"
+      :row-data="rowData"
       @reloadTableData="queryList"
-    ></standard-detail>
+    />
   </div>
 </template>
 
@@ -83,6 +169,24 @@ export default {
     DictSelect,
     StandardDetail,
     ExportButton
+  },
+  beforeRouteEnter(to, from, next) {
+    const id = to.query.id
+    if (id) {
+      selectBasePageList({ maintainKnowledgeId: id }).then((res) => {
+        if (res?.code == 0 && res.data.list?.length > 0) {
+          next((vm) => {
+            vm.rowData = res.data.list[0]
+            vm.viewDetail(vm.rowData, false)
+          })
+        } else {
+          this.$message.error('获取详情失败')
+          next(from)
+        }
+      })
+    } else {
+      next()
+    }
   },
   props: {
     isDialogType: {
@@ -189,22 +293,11 @@ export default {
       typeData: {}
     }
   },
-  beforeRouteEnter(to, from, next) {
-    let id = to.query.id
-    if (id) {
-      selectBasePageList({ maintainKnowledgeId: id }).then((res) => {
-        if (res?.code == 0 && res.data.list?.length > 0) {
-          next((vm) => {
-            vm.rowData = res.data.list[0]
-            vm.viewDetail(vm.rowData, false)
-          })
-        } else {
-          this.$message.error('获取详情失败')
-          next(from)
-        }
-      })
-    } else {
-      next()
+  watch: {
+    opend(v) {
+      if (v) {
+        this.filterTableDataBySelectionList()
+      }
     }
   },
   created() {
@@ -225,7 +318,7 @@ export default {
     // 兼容 作为弹框时候, 过滤掉已选中数据
     filterTableDataBySelectionList() {
       if (this.isDialogType) {
-        let selectIdSet = new Set(this.selectionList.map((i) => i.id))
+        const selectIdSet = new Set(this.selectionList.map((i) => i.id))
         this.tableData = this.tableDataBak.filter((i) => !selectIdSet.has(i.id))
         if (!this.tableData.length) {
           this.opend && this.$message.info('当前页面已全部选中哦！可进行操作下一页')
@@ -280,7 +373,7 @@ export default {
       this.queryList(false)
     },
     getQueryParam() {
-      let params = { ...this.form, limit: this.limit, pageNo: this.pageNo }
+      const params = { ...this.form, limit: this.limit, pageNo: this.pageNo }
       this.form.workPlanType == '全部' && delete params.workPlanType
       return params
     },
@@ -315,13 +408,6 @@ export default {
           }
         }
       })
-    }
-  },
-  watch: {
-    opend(v) {
-      if (v) {
-        this.filterTableDataBySelectionList()
-      }
     }
   }
 }

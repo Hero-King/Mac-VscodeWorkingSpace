@@ -1,7 +1,13 @@
 <template>
   <div style="padding-left: 200px">
-    <el-checkbox-group v-model="selectedKey" @change="change">
-      <div v-for="item in viewData" :key="item.id">
+    <el-checkbox-group
+      v-model="selectedKey"
+      @change="change"
+    >
+      <div
+        v-for="item in viewData"
+        :key="item.id"
+      >
         <el-checkbox :label="item.id">{{ item.name }}</el-checkbox>
       </div>
     </el-checkbox-group>
@@ -23,9 +29,6 @@ export default {
       viewData: []
     }
   },
-  created() {
-    this.getData()
-  },
   watch: {
     opend(v) {
       if (v) {
@@ -33,11 +36,14 @@ export default {
       }
     }
   },
+  created() {
+    this.getData()
+  },
 
   methods: {
     filterDataBySelectList() {
       this.selectedKey = []
-      let selectIdSet = new Set(this.selectionList.map((i) => i.id))
+      const selectIdSet = new Set(this.selectionList.map((i) => i.id))
       this.viewData = this.treeData.filter((i) => !selectIdSet.has(i.id))
     },
     change() {
@@ -47,7 +53,7 @@ export default {
       )
     },
     getData() {
-      let params = {
+      const params = {
         type: 'common',
         bindType: 'common',
         energyCode: 'common'

@@ -1,12 +1,19 @@
 <template>
   <div class="page">
-    <el-form :model="form" @submit.native.prevent ref="form" label-width="80px">
-      <el-row> <SelectFormContent :conf="taskNotesQueryFormFields" :form="form" /> </el-row
-    ></el-form>
+    <el-form
+      ref="form"
+      :model="form"
+      label-width="80px"
+      @submit.native.prevent
+    >
+      <el-row> <SelectFormContent
+        :conf="taskNotesQueryFormFields"
+        :form="form"
+      /> </el-row></el-form>
 
     <tables
-      class="query-table"
       ref="table"
+      class="query-table"
       :config="{
         tableData,
         tableList,
@@ -20,34 +27,48 @@
       @sizeChange="sizeChange"
       @handleSelection="handleSelection"
     >
-      <template slot="workName" slot-scope="scope">
-        <el-link :underline="false" type="primary" @click="viewWorkOrder(scope.data)">{{
+      <template
+        slot="workName"
+        slot-scope="scope"
+      >
+        <el-link
+          :underline="false"
+          type="primary"
+          @click="viewWorkOrder(scope.data)"
+        >{{
           scope.data.workName
         }}</el-link>
       </template>
-      <template slot="operation" slot-scope="scope">
+      <template
+        slot="operation"
+        slot-scope="scope"
+      >
         <el-button
           v-if="scope.data.maintainKnowledgeState == '已落库'"
-          @click.native.prevent="viewDetail(scope.data)"
           type="text"
           style="color: #4e60f6"
           size="small"
+          @click.native.prevent="viewDetail(scope.data)"
         >
           查看知识库
         </el-button>
         <el-button
           v-else
-          @click.native.prevent="classify(scope.data)"
           type="text"
           style="color: #4e60f6"
           size="small"
+          @click.native.prevent="classify(scope.data)"
         >
           分类落库
         </el-button>
       </template>
     </tables>
 
-    <ClassifyDailog :visible.sync="dialogVisible" :rowData="rowData" @reloadTableData="queryList" />
+    <ClassifyDailog
+      :visible.sync="dialogVisible"
+      :row-data="rowData"
+      @reloadTableData="queryList"
+    />
   </div>
 </template>
 
@@ -84,7 +105,7 @@ export default {
   },
   data() {
     this.taskNotesQueryFormFields = taskNotesQueryFormFields.map((i) => {
-      ;(i.events || (i.events = {})).change = this.queryList
+      (i.events || (i.events = {})).change = this.queryList
       return i
     })
     this.tableList = [
@@ -153,6 +174,13 @@ export default {
       rowData: {}
     }
   },
+  watch: {
+    opend(v) {
+      if (v) {
+        this.filterTableDataBySelectionList()
+      }
+    }
+  },
   created() {
     if (this.isDialogType) {
       this.form.isKnowledge = null
@@ -195,7 +223,7 @@ export default {
     // 兼容 作为弹框时候, 过滤掉已选中数据
     filterTableDataBySelectionList() {
       if (this.isDialogType) {
-        let selectIdSet = new Set(this.selectionList.map((i) => i.id))
+        const selectIdSet = new Set(this.selectionList.map((i) => i.id))
         this.tableData = this.tableDataBak.filter((i) => !selectIdSet.has(i.id))
         if (!this.tableData.length) {
           this.opend && this.$message.info('当前页面已全部选中哦！可进行操作下一页')
@@ -224,7 +252,7 @@ export default {
         this.limit = 10
         this.total = 0
       }
-      let params = { ...this.form, limit: this.limit, pageNo: this.pageNo }
+      const params = { ...this.form, limit: this.limit, pageNo: this.pageNo }
       this.form.workType == '全部' && delete params.workType
       selectRecordPageList(params).then((res) => {
         if (res?.code == 0) {
@@ -239,13 +267,6 @@ export default {
           this.filterTableDataBySelectionList()
         }
       })
-    }
-  },
-  watch: {
-    opend(v) {
-      if (v) {
-        this.filterTableDataBySelectionList()
-      }
     }
   }
 }

@@ -52,8 +52,15 @@
     </div>
 
     <div class="module">
-      <el-table :data="[]" border v-loading="tableLoading">
-        <el-table-column label="姓名" prop="name"></el-table-column>
+      <el-table
+        v-loading="tableLoading"
+        :data="[]"
+        border
+      >
+        <el-table-column
+          label="姓名"
+          prop="name"
+        />
       </el-table>
     </div>
   </div>

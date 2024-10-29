@@ -30,7 +30,7 @@ const config = {
   devServer: {
     host: '0.0.0.0',
     disableHostCheck: true,
-    open: isRemote ? false : true,
+    open: !isRemote,
     hot: true,
     port,
     // https://www.webpackjs.com/configuration/dev-server/#devserver-public 解决sockPath远程环境总是指向本机IP的问题

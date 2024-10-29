@@ -2,18 +2,34 @@
   <div class="login_container">
     <div class="login-box">
       <div class="avatar-box">
-        <img :src="'@/assets/logo.png'" />
+        <img :src="'@/assets/logo.png'">
       </div>
       <div class="login-form">
-        <el-form ref="loginform" :model="form" label-width="0px" :rules="rules">
+        <el-form
+          ref="loginform"
+          :model="form"
+          label-width="0px"
+          :rules="rules"
+        >
           <el-form-item prop="username">
-            <el-input v-model="form.username" prefix-icon="el-icon-user-solid" />
+            <el-input
+              v-model="form.username"
+              prefix-icon="el-icon-user-solid"
+            />
           </el-form-item>
           <el-form-item prop="password">
-            <el-input v-model="form.password" type="password" prefix-icon="el-icon-goods" @keyup.enter="login" />
+            <el-input
+              v-model="form.password"
+              type="password"
+              prefix-icon="el-icon-goods"
+              @keyup.enter="login"
+            />
           </el-form-item>
           <el-form-item class="btns">
-            <el-button type="primary" @click="login"> 登录 </el-button>
+            <el-button
+              type="primary"
+              @click="login"
+            > 登录 </el-button>
             <el-button @click="resetForm()"> 重置 </el-button>
           </el-form-item>
         </el-form>
@@ -43,11 +59,11 @@ export default {
   methods: {
     resetForm() {
       console.log('vm实例: ', this)
-      let formInstance = this.$refs.loginform
+      const formInstance = this.$refs.loginform
       formInstance.resetFields()
     },
     login() {
-      let formInstance = this.$refs.loginform
+      const formInstance = this.$refs.loginform
       formInstance.validate((valid) => {
         if (!valid) return
         this.$http

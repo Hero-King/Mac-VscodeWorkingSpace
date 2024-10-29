@@ -1,5 +1,8 @@
 <template>
-  <div style="height: 100%" ref="dom"></div>
+  <div
+    ref="dom"
+    style="height: 100%"
+  />
 </template>
 
 <script>
@@ -21,6 +24,14 @@ export default {
     },
     activeName: String
   },
+  watch: {
+    dataConf: {
+      handler(data) {
+        this.update()
+      },
+      deep: true
+    }
+  },
   mounted() {
     this.$nextTick(() => {
       this.initChart()
@@ -38,7 +49,7 @@ export default {
   },
   methods: {
     getBase() {
-      let values = this.dataConf.data.map((i) => Number(i.value)) || [10]
+      const values = this.dataConf.data.map((i) => Number(i.value)) || [10]
       const average = values.reduce((a, b) => a + b) / values.length
       return 40 / average
     },
@@ -69,30 +80,30 @@ export default {
         ]
       })
 
-      let model = this.chart.getModel().getSeriesByIndex(0).preservedPoints
+      const model = this.chart.getModel().getSeriesByIndex(0).preservedPoints
 
-      let index = this.dataConf.data.findIndex((i) => i.name === this.activeName)
+      const index = this.dataConf.data.findIndex((i) => i.name === this.activeName)
       if (index !== -1) {
         this.chart.setOption({ series: [{ center: model[index] }] })
       }
       this.$nextTick(this.zoom)
     },
     zoom() {
-      let model = this.chart.getModel().getSeriesByIndex(0).preservedPoints
+      const model = this.chart.getModel().getSeriesByIndex(0).preservedPoints
       //   console.log('model', model)
-      let [curWidth, curHeight] = this.getModelSize()
-      let height = this.$refs.dom.clientHeight
-      let width = this.$refs.dom.clientWidth
-      let zoom = Math.min(width / (curWidth * 2 + 50), height / (curHeight * 2 + 50))
+      const [curWidth, curHeight] = this.getModelSize()
+      const height = this.$refs.dom.clientHeight
+      const width = this.$refs.dom.clientWidth
+      const zoom = Math.min(width / (curWidth * 2 + 50), height / (curHeight * 2 + 50))
       //   console.log(zoom,'zoom');
       this.chart.setOption({ series: [{ zoom }] })
     },
     getModelSize() {
-      let minx = Number.MAX_SAFE_INTEGER,
-        miny = Number.MAX_SAFE_INTEGER,
-        maxx = Number.MIN_SAFE_INTEGER,
-        maxy = Number.MIN_SAFE_INTEGER
-      let model = this.chart.getModel().getSeriesByIndex(0).preservedPoints
+      let minx = Number.MAX_SAFE_INTEGER
+      let miny = Number.MAX_SAFE_INTEGER
+      let maxx = Number.MIN_SAFE_INTEGER
+      let maxy = Number.MIN_SAFE_INTEGER
+      const model = this.chart.getModel().getSeriesByIndex(0).preservedPoints
       Object.values(model).forEach((item) => {
         if (item[0] < minx) {
           minx = item[0]
@@ -115,7 +126,7 @@ export default {
         this.chart = echarts.init(this.$refs.dom)
       }
 
-      let option = {
+      const option = {
         tooltip: {},
 
         legend: {
@@ -158,14 +169,6 @@ export default {
       this.chart.on('click', 'series.graph', (param) => {
         this.$emit('click', param)
       })
-    }
-  },
-  watch: {
-    dataConf: {
-      handler(data) {
-        this.update()
-      },
-      deep: true
     }
   }
 }

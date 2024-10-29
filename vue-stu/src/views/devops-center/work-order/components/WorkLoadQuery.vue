@@ -1,27 +1,34 @@
 <template>
   <div class="work-order-query">
     <el-row>
-      <el-form :model="form" label-width="80px" inline @submit.native.prevent>
+      <el-form
+        :model="form"
+        label-width="80px"
+        inline
+        @submit.native.prevent
+      >
         <el-col :span="6">
           <el-form-item label="工厂选择">
             <DictSelect
-              labelKey="locationName"
-              valueKey="topParentId"
-              forKey="topParentId"
-              :dictUrl="factorySelectUrl"
-              :options.sync="factoryList"
               v-model="form.factoryId"
+              label-key="locationName"
+              value-key="topParentId"
+              for-key="topParentId"
+              :dict-url="factorySelectUrl"
+              :options.sync="factoryList"
               methods="post"
               placeholder="请选择工厂"
               @getSuccess="getfactoryListSuccess"
               @change="queryList"
-            >
-            </DictSelect>
+            />
           </el-form-item>
         </el-col>
         <el-col :span="16">
           <el-form-item label="时间筛选">
-            <TimeSelect v-model="form.date" @change="queryList" />
+            <TimeSelect
+              v-model="form.date"
+              @change="queryList"
+            />
           </el-form-item>
         </el-col>
 
@@ -29,11 +36,10 @@
           <el-form-item class="fr">
             <export-button
               type="primary"
-              :exportUrl="exportWorkloadUrl"
-              :getQueryParam="getQueryParam"
-              fileName="工作量列表.xls"
-              >导出</export-button
-            >
+              :export-url="exportWorkloadUrl"
+              :get-query-param="getQueryParam"
+              file-name="工作量列表.xls"
+            >导出</export-button>
           </el-form-item>
         </el-col>
       </el-form>
@@ -52,8 +58,7 @@
       }"
       @currentChange="currentChange"
       @sizeChange="sizeChange"
-    >
-    </tables>
+    />
   </div>
 </template>
 <script>
@@ -107,7 +112,7 @@ export default {
         prop: 'completedQuantity',
         label: '完单量',
         align: 'center',
-        fixed: null,
+        fixed: null
       },
       {
         prop: 'incompleteQuantity',

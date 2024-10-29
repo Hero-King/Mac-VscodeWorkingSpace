@@ -2,35 +2,47 @@
   <div>
     <el-checkbox-group v-model="checkList">
       <!-- el-checkbox 的 label属性是该 checkbox 对应的值，若该标签中无内容，则该属性也充当 checkbox 按钮后的介绍。label与数组中的元素值相对应，如果存在指定的值则为选中状态，否则为不选中。 -->
-      <el-checkbox v-for="item in options" :key="item.label" :label="item.value">
+      <el-checkbox
+        v-for="item in options"
+        :key="item.label"
+        :label="item.value"
+      >
         {{ item.label }}
       </el-checkbox>
     </el-checkbox-group>
 
-    <hr />
+    <hr>
     <h3>多层ckeckbox</h3>
 
-    <el-form ref="form" :model="form" label-width="20px" size="small">
-      <div v-for="(item, index) in multipleOptions" :key="item.taskCode">
+    <el-form
+      ref="form"
+      :model="form"
+      label-width="20px"
+      size="small"
+    >
+      <div
+        v-for="(item, index) in multipleOptions"
+        :key="item.taskCode"
+      >
         <template v-if="item.groupCode in checkAllConfig && index > 0 && multipleOptions[index - 1].groupCode !== item.groupCode">
           <el-checkbox
-            :indeterminate="checkAllConfig[item.groupCode].isIndeterminate"
             v-model="checkAllConfig[item.groupCode].checked"
-            @change="handleCheckAllChange($event, item.groupCode)"
+            :indeterminate="checkAllConfig[item.groupCode].isIndeterminate"
             :disabled="checkedList.length > 0 ? item.groupCode !== checkedList[0].groupCode : false"
+            @change="handleCheckAllChange($event, item.groupCode)"
           >
             全选
           </el-checkbox>
         </template>
         <template>
           <CheckInputItem
-            :checkboxLabel="item.taskName"
-            :checkboxKey="item.taskCode"
+            :checkbox-label="item.taskName"
+            :checkbox-key="item.taskCode"
             :disabled="isDisabled(item)"
             :value="form[item.taskCode]"
             :prop="`${item.taskCode}.processNote`"
             @change="handleItemChange(item.groupCode, $event)"
-          ></CheckInputItem>
+          />
         </template>
       </div>
     </el-form>
@@ -69,76 +81,6 @@ export default {
     },
     checkedTaskNameSet() {
       return new Set(this.checkedList.map((i) => i.taskCode))
-    }
-  },
-  methods: {
-    isDisabled(nodeItem) {
-      if (this.checkedList.length > 0) {
-        if (this.form[nodeItem.taskCode].checked) {
-          return false
-        }
-        // 退回并行任务中审核节点和非审核节点只能选择一个
-        if (this.checkedTaskNameSet.has(nodeItem.taskCode.replace('_examine', '')) || this.checkedTaskNameSet.has(nodeItem.taskCode + '_examine')) {
-          return true
-        } else {
-          // 不同groupCode 互斥
-          return nodeItem.groupCode !== this.checkedList[0].groupCode
-        }
-      } else {
-        return false
-      }
-    },
-    handleCheckAllChange(checked, groupCode) {
-      this.multipleOptions.forEach((item) => {
-        if (item.groupCode === groupCode) {
-          if (checked) {
-            !item.taskCode.includes('_examine') ? (this.form[item.taskCode].checked = checked) : ''
-          } else {
-            this.form[item.taskCode].checked = checked
-          }
-        }
-      })
-      this.handleItemChange(groupCode)
-    },
-    getCheckedSizeByGroupCode(groupCode) {
-      let size = 0
-      this.multipleOptions.forEach((item) => {
-        if (item.groupCode === groupCode && this.form[item.taskCode].checked) {
-          size++
-        }
-      })
-      return size
-    },
-    handleItemChange(groupCode, checked) {
-      const sameGroupCodeSize = this.nodeSizeMap.get(groupCode)
-      // 处理全选逻辑
-      if (sameGroupCodeSize > 1) {
-        const checkedSize = this.getCheckedSizeByGroupCode(groupCode)
-        if (checkedSize === 0) {
-          this.checkAllConfig[groupCode].checked = false
-          this.checkAllConfig[groupCode].isIndeterminate = false
-        } else if (checkedSize === sameGroupCodeSize) {
-          this.checkAllConfig[groupCode].checked = true
-          this.checkAllConfig[groupCode].isIndeterminate = false
-        } else {
-          this.checkAllConfig[groupCode].checked = false
-          this.checkAllConfig[groupCode].isIndeterminate = true
-        }
-      }
-    },
-    loopInitFormData(data = []) {
-      const { nodeSizeMap } = this
-      nodeSizeMap.clear()
-      data.forEach((i) => {
-        const { groupCode, taskCode } = i
-        nodeSizeMap.set(groupCode, (nodeSizeMap.get(groupCode) || 0) + 1)
-        if (!(taskCode in this.form)) {
-          this.$set(this.form, taskCode, { checked: false, processNote: null })
-        }
-        if (nodeSizeMap.get(groupCode) > 1 && !(groupCode in this.checkAllConfig)) {
-          this.$set(this.checkAllConfig, groupCode, { isIndeterminate: false, checked: false })
-        }
-      })
     }
   },
   updated() {
@@ -319,6 +261,76 @@ export default {
       ].sort((a, b) => a.groupCode - b.groupCode)
       this.loopInitFormData(this.multipleOptions)
     }, 200)
+  },
+  methods: {
+    isDisabled(nodeItem) {
+      if (this.checkedList.length > 0) {
+        if (this.form[nodeItem.taskCode].checked) {
+          return false
+        }
+        // 退回并行任务中审核节点和非审核节点只能选择一个
+        if (this.checkedTaskNameSet.has(nodeItem.taskCode.replace('_examine', '')) || this.checkedTaskNameSet.has(nodeItem.taskCode + '_examine')) {
+          return true
+        } else {
+          // 不同groupCode 互斥
+          return nodeItem.groupCode !== this.checkedList[0].groupCode
+        }
+      } else {
+        return false
+      }
+    },
+    handleCheckAllChange(checked, groupCode) {
+      this.multipleOptions.forEach((item) => {
+        if (item.groupCode === groupCode) {
+          if (checked) {
+            !item.taskCode.includes('_examine') ? (this.form[item.taskCode].checked = checked) : ''
+          } else {
+            this.form[item.taskCode].checked = checked
+          }
+        }
+      })
+      this.handleItemChange(groupCode)
+    },
+    getCheckedSizeByGroupCode(groupCode) {
+      let size = 0
+      this.multipleOptions.forEach((item) => {
+        if (item.groupCode === groupCode && this.form[item.taskCode].checked) {
+          size++
+        }
+      })
+      return size
+    },
+    handleItemChange(groupCode, checked) {
+      const sameGroupCodeSize = this.nodeSizeMap.get(groupCode)
+      // 处理全选逻辑
+      if (sameGroupCodeSize > 1) {
+        const checkedSize = this.getCheckedSizeByGroupCode(groupCode)
+        if (checkedSize === 0) {
+          this.checkAllConfig[groupCode].checked = false
+          this.checkAllConfig[groupCode].isIndeterminate = false
+        } else if (checkedSize === sameGroupCodeSize) {
+          this.checkAllConfig[groupCode].checked = true
+          this.checkAllConfig[groupCode].isIndeterminate = false
+        } else {
+          this.checkAllConfig[groupCode].checked = false
+          this.checkAllConfig[groupCode].isIndeterminate = true
+        }
+      }
+    },
+    loopInitFormData(data = []) {
+      const { nodeSizeMap } = this
+      nodeSizeMap.clear()
+      data.forEach((i) => {
+        const { groupCode, taskCode } = i
+        nodeSizeMap.set(groupCode, (nodeSizeMap.get(groupCode) || 0) + 1)
+        if (!(taskCode in this.form)) {
+          this.$set(this.form, taskCode, { checked: false, processNote: null })
+        }
+        if (nodeSizeMap.get(groupCode) > 1 && !(groupCode in this.checkAllConfig)) {
+          this.$set(this.checkAllConfig, groupCode, { isIndeterminate: false, checked: false })
+        }
+      })
+    }
   }
 }
 </script>

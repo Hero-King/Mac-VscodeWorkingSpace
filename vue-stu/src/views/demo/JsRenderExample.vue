@@ -1,13 +1,32 @@
 <template>
   <div>
-    <el-table :data="data" style="width: 100%">
+    <el-table
+      :data="data"
+      style="width: 100%"
+    >
       <template v-for="column in columns">
-        <el-table-column v-if="column.render" :key="column.label" :prop="column.prop" :label="column.label" :width="column.width">
+        <el-table-column
+          v-if="column.render"
+          :key="column.label"
+          :prop="column.prop"
+          :label="column.label"
+          :width="column.width"
+        >
           <template slot-scope="scope">
-            <js-render :render="column.render" :renderArgument="scope.row" :renderContext="_self" />
+            <js-render
+              :render="column.render"
+              :render-argument="scope.row"
+              :render-context="_self"
+            />
           </template>
         </el-table-column>
-        <el-table-column v-else :key="column.label" :prop="column.prop" :label="column.label" :width="column.width"> </el-table-column>
+        <el-table-column
+          v-else
+          :key="column.label"
+          :prop="column.prop"
+          :label="column.label"
+          :width="column.width"
+        />
       </template>
     </el-table>
   </div>

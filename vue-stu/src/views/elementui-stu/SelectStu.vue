@@ -131,7 +131,7 @@ export default {
   },
   watch: {
     $data: {
-      handler: function (newV, oldV) {
+      handler: function(newV, oldV) {
         console.log('$data数据变化了,:', newV)
       },
       deep: true

@@ -206,7 +206,7 @@ export function getTime(type) {
 export function debounce(func, wait, immediate) {
   let timeout, args, context, timestamp, result
 
-  const later = function () {
+  const later = function() {
     // 据上一次触发时间间隔
     const last = +new Date() - timestamp
 
@@ -223,7 +223,7 @@ export function debounce(func, wait, immediate) {
     }
   }
 
-  return function (...args) {
+  return function(...args) {
     context = this
     timestamp = +new Date()
     const callNow = immediate && !timeout
@@ -374,7 +374,6 @@ export function isNumberStr(str) {
   return /^[+-]?(0|([1-9]\d*))(\.\d+)?$/g.test(str)
 }
 
-
 /**
  * @name 前端文件下载
  * @param {Blob|Required} data The binary stream returned by the server
@@ -383,14 +382,14 @@ export function isNumberStr(str) {
  * @param {String} bom
  * @return {undefined}
  */
- export const downloadFile = function (data, filename, mime, bom) {
+export const downloadFile = function(data, filename, mime, bom) {
   if (!data || !filename) {
     throw new Error('data and filename is Required')
   }
   var blobData = null
   var blob = null
   // Determine whether the incoming is a blob
-  if (typeof data == 'object' && data instanceof Blob) {
+  if (typeof data === 'object' && data instanceof Blob) {
     blobData = data
     blob = data
   } else {
@@ -407,9 +406,9 @@ export function isNumberStr(str) {
     window.navigator.msSaveBlob(blob, filename)
   } else {
     var blobURL =
-      window.URL && window.URL.createObjectURL ?
-      window.URL.createObjectURL(blob) :
-      window.webkitURL.createObjectURL(blob)
+      window.URL && window.URL.createObjectURL
+        ? window.URL.createObjectURL(blob)
+        : window.webkitURL.createObjectURL(blob)
     var tempLink = document.createElement('a')
     tempLink.style.display = 'none'
     tempLink.href = blobURL
@@ -427,7 +426,7 @@ export function isNumberStr(str) {
     tempLink.click()
 
     // Fixes "webkit blob resource error 1"
-    setTimeout(function () {
+    setTimeout(function() {
       document.body.removeChild(tempLink)
       window.URL.revokeObjectURL(blobURL)
     }, 200)
@@ -442,7 +441,7 @@ export function isNumberStr(str) {
  * @description 将一个sheet转成最终的excel文件的blob对象，然后利用URL.createObjectURL下载
  * @throw:
  */
-export const sheet2blob = function (sheet, sheetName) {
+export const sheet2blob = function(sheet, sheetName) {
   sheetName = sheetName || 'sheet1'
   var workbook = {
     SheetNames: [sheetName],
@@ -476,7 +475,7 @@ export const sheet2blob = function (sheet, sheetName) {
  * @param {Function} handle 事件名称
  */
 export const EventListener = {
-  add: function (e, type, handle) {
+  add: function(e, type, handle) {
     if (e.addEventListener) {
       e.addEventListener(type, handle, false)
     } else if (e.attachEvent) {
@@ -485,7 +484,7 @@ export const EventListener = {
       e['on' + type] = handle
     }
   },
-  remove: function (e, type, handle) {
+  remove: function(e, type, handle) {
     if (e.addEventListener) {
       e.removeEventListener(type, handle, false)
     } else if (e.attachEvent) {

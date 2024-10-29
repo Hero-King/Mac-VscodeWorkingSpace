@@ -22,7 +22,7 @@
       </keep-alive>
     </transition> -->
 
-    <KeepAliveTestItem :id="$route.path"></KeepAliveTestItem>
+    <KeepAliveTestItem :id="$route.path" />
     <!-- <router-view></router-view> -->
   </div>
 </template>
@@ -51,6 +51,20 @@ export default {
   components: {
     KeepAliveTestItem
   },
+  beforeRouteEnter(to, from, next) {
+    console.log('KeepAliveTest', 'beforeRouteEnter')
+    next(function(vm) {
+      console.log(vm._uid, 'KeepAliveTest beforeRouteEnter 中next')
+    })
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log(this.$options.name, 'beforeRouteLeave', this._uid)
+    next()
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log(this.$options.name, 'beforeRouteUpdate', this._uid)
+    next()
+  },
   data() {
     return {}
   },
@@ -62,20 +76,6 @@ export default {
   },
   updated() {
     console.log(this.$options.name, 'updated', this._uid)
-  },
-  beforeRouteEnter(to, from, next) {
-    console.log('KeepAliveTest', 'beforeRouteEnter')
-    next(function (vm) {
-      console.log(vm._uid, 'KeepAliveTest beforeRouteEnter 中next')
-    })
-  },
-  beforeRouteLeave(to, from, next) {
-    console.log(this.$options.name, 'beforeRouteLeave', this._uid)
-    next()
-  },
-  beforeRouteUpdate(to, from, next) {
-    console.log(this.$options.name, 'beforeRouteUpdate', this._uid)
-    next()
   },
   methods: {
     click() {

@@ -3,18 +3,18 @@
     <!-- <el-alert type="warning" title="11212"></el-alert> -->
     <el-form
       :model="form"
-      @submit.native.prevent
       size="small"
       class="label-blod-form"
       label-width="80px"
+      @submit.native.prevent
     >
       <el-row>
         <el-col
           v-for="item in standardEditFields"
+          :key="item.formKey"
           :span="item.span"
           :offset="item.offset"
           :pull="item.pull"
-          :key="item.formKey"
         >
           <el-form-item
             :label="item.label"
@@ -24,12 +24,16 @@
             :class="item.formItemClass"
           >
             <DictSelect
-              :options="typeData[item.optionsKey]"
               v-bind="item"
               v-model="form[item.formKey]"
+              :options="typeData[item.optionsKey]"
             >
               <template v-if="item.comType === 'upload' && canEdit">
-                <el-button size="small" icon="el-icon-upload2" plain>上传文件</el-button>
+                <el-button
+                  size="small"
+                  icon="el-icon-upload2"
+                  plain
+                >上传文件</el-button>
               </template>
             </DictSelect>
           </el-form-item>
@@ -37,31 +41,43 @@
         <el-col :span="24">
           <el-form-item label="关联工单">
             <el-button
+              v-if="canEdit"
               size="small"
               type="text"
-              v-if="canEdit"
               icon="el-icon-plus"
               @click="workDialogVisible = true"
-              >关联</el-button
-            >
+            >关联</el-button>
             <div>
               <ul class="ul_list">
                 <li
-                  class="ul_item"
                   v-for="(device, deviceIndex) in form.workList"
                   :key="deviceIndex"
+                  class="ul_item"
                 >
-                  <div><i class="el-icon-tickets"></i>{{ device.workName }}</div>
-                  <i class="el-icon-delete" @click.stop="deleteDeviceList(deviceIndex)"></i>
+                  <div><i class="el-icon-tickets" />{{ device.workName }}</div>
+                  <i
+                    class="el-icon-delete"
+                    @click.stop="deleteDeviceList(deviceIndex)"
+                  />
                 </li>
               </ul>
             </div>
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="" class="textCenter">
-            <el-button size="small" type="primary" @click="edit">{{ confirmBtnText }}</el-button>
-            <el-button size="small" @click="cancel">取消</el-button>
+          <el-form-item
+            label=""
+            class="textCenter"
+          >
+            <el-button
+              size="small"
+              type="primary"
+              @click="edit"
+            >{{ confirmBtnText }}</el-button>
+            <el-button
+              size="small"
+              @click="cancel"
+            >取消</el-button>
           </el-form-item>
         </el-col>
       </el-row>
@@ -77,14 +93,20 @@
     >
       <div class="dialog-content-wrap">
         <TaskNotes
-          :isDialogType="true"
+          :is-dialog-type="true"
           :opend="workDialogVisible"
-          :selectionList="form.workList"
+          :selection-list="form.workList"
           :selectChange.sync="tmpSelectionList"
         />
       </div>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="selectData">确 定</el-button>
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          type="primary"
+          @click="selectData"
+        >确 定</el-button>
         <el-button @click="workDialogVisible = false">取 消</el-button>
       </div>
     </el-dialog>
@@ -101,12 +123,12 @@ import {
 import { standardEditFields } from '../const'
 import TaskNotes from '../takeNotes.vue'
 export default {
-  inheritAttrs: false,
   name: 'StandardDetail',
   components: {
     DictSelect,
     TaskNotes
   },
+  inheritAttrs: false,
   props: {
     canEdit: Boolean,
     rowData: Object
@@ -169,7 +191,7 @@ export default {
         this.detailEditFlag = true
         this.$nextTick(this.setStandardEditFields)
       } else {
-        let params = JSON.parse(JSON.stringify(this.form))
+        const params = JSON.parse(JSON.stringify(this.form))
         params.issueFileList = params.issueFileList.map((i) => (i.response ? i.response.data : i))
         params.methodFileList = params.methodFileList.map((i) => (i.response ? i.response.data : i))
 

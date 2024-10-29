@@ -46,7 +46,7 @@ export default {
             color: '#fff',
             fontSize: this.getFontSize(20)
           },
-          formatter: function (name) {
+          formatter: function(name) {
             if (!name) return ''
             if (name.length > 8) {
               name = name.slice(0, 6) + '...'

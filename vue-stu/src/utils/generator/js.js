@@ -80,16 +80,16 @@ function mixinMethod(type) {
   const minxins = {
     file: confGlobal.formBtns
       ? {
-          submitForm: `submitForm() {
+        submitForm: `submitForm() {
         this.$refs['${confGlobal.formRef}'].validate(valid => {
           if(!valid) return
           // TODO 提交表单
         })
       },`,
-          resetForm: `resetForm() {
+        resetForm: `resetForm() {
         this.$refs['${confGlobal.formRef}'].resetFields()
       },`
-        }
+      }
       : null,
     dialog: {
       onOpen: 'onOpen() {},',

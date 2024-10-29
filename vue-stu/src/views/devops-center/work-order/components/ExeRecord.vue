@@ -21,18 +21,24 @@
           <el-col :span="6">
             <template v-if="item.knowledges && item.knowledges.length > 0">
               <el-link
-                class="mr-16"
                 v-for="know in item.knowledges"
                 :key="know.knowledgeId"
-                @click="linkClick(know)"
+                class="mr-16"
                 type="primary"
                 :underline="false"
-                >{{ know.knowledgeName }}</el-link
-              >
+                @click="linkClick(know)"
+              >{{ know.knowledgeName }}</el-link>
             </template>
             <template v-else-if="item.actionFile && item.actionFile.length > 0">
-              <div v-for="file in item.actionFile" :key="file.id">
-                <el-link class="mr-16" @click="download(file)" :underline="false">
+              <div
+                v-for="file in item.actionFile"
+                :key="file.id"
+              >
+                <el-link
+                  class="mr-16"
+                  :underline="false"
+                  @click="download(file)"
+                >
                   {{ file.fileName }} <i class="el-icon-download el-icon--right" />
                 </el-link>
               </div>
@@ -43,7 +49,7 @@
             {{ item.createDate }}
           </el-col>
         </el-row>
-        <el-divider class="record-divider"></el-divider>
+        <el-divider class="record-divider" />
       </el-timeline-item>
     </el-timeline>
   </div>

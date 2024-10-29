@@ -1,6 +1,10 @@
 <template>
   <div>
-    <el-button type="primary" size="small" @click="handleBack">返回</el-button>
+    <el-button
+      type="primary"
+      size="small"
+      @click="handleBack"
+    >返回</el-button>
     <tables
       :config="{
         tableData,
@@ -17,18 +21,25 @@
     >
       <template #name="scope">
         <div v-if="scope.data.workList && scope.data.workList.length > 0">
-          <el-link :underline="false" type="primary" @click="toWork(scope.data.workList[0])">
+          <el-link
+            :underline="false"
+            type="primary"
+            @click="toWork(scope.data.workList[0])"
+          >
             {{ scope.data.workList[0].workName }}
           </el-link>
         </div>
         <div v-else>暂无</div>
       </template>
-      <template slot="operation" slot-scope="scope">
+      <template
+        slot="operation"
+        slot-scope="scope"
+      >
         <el-button
-          @click.native.prevent="viewDetail(scope.data)"
           type="text"
           style="color: #4e60f6"
           size="small"
+          @click.native.prevent="viewDetail(scope.data)"
         >
           详情
         </el-button>
@@ -48,12 +59,12 @@ import {
 } from '@/api/devops-center/knowledgeBase'
 export default {
   name: 'GraphyDetailTable',
+  components: {
+    tables
+  },
   props: {
     queryParam: Object,
     visible: Boolean
-  },
-  components: {
-    tables
   },
   data() {
     return {
@@ -63,12 +74,9 @@ export default {
       total: 0
     }
   },
-  created() {
-    this.queryList()
-  },
   computed: {
     tableList() {
-      let middle = [
+      const middle = [
         {
           prop: 'issueName',
           label: '现象类型',
@@ -82,7 +90,7 @@ export default {
           fixed: null
         }
       ]
-      let key = Object.keys(this.queryParam)[0]
+      const key = Object.keys(this.queryParam)[0]
       key == 'methodName' && middle.reverse()
       return [
         {
@@ -111,6 +119,9 @@ export default {
         }
       ])
     }
+  },
+  created() {
+    this.queryList()
   },
   methods: {
     toWork(row) {
@@ -160,7 +171,7 @@ export default {
       this.queryList(false)
     },
     getQueryParam() {
-      let params = { ...this.queryParam, limit: this.limit, pageNo: this.pageNo }
+      const params = { ...this.queryParam, limit: this.limit, pageNo: this.pageNo }
       return params
     },
     queryList(initPagination = true) {

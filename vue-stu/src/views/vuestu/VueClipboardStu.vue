@@ -2,13 +2,27 @@
   <div>
     <div class="module">
       <h2>v-clipboard</h2>
-      <el-input type="text" v-model="message" />
-      <el-button type="button" v-clipboard:copy="message" v-clipboard:success="onCopy" v-clipboard:error="onError">Copy!</el-button>
+      <el-input
+        v-model="message"
+        type="text"
+      />
+      <el-button
+        v-clipboard:copy="message"
+        v-clipboard:success="onCopy"
+        v-clipboard:error="onError"
+        type="button"
+      >Copy!</el-button>
     </div>
 
     <div class="module">
-      <input type="text" v-model="message" />
-      <button type="button" @click="doCopy">Copy!</button>
+      <input
+        v-model="message"
+        type="text"
+      >
+      <button
+        type="button"
+        @click="doCopy"
+      >Copy!</button>
     </div>
   </div>
 </template>
@@ -21,19 +35,19 @@ export default {
     }
   },
   methods: {
-    onCopy: function (e) {
+    onCopy: function(e) {
       alert('You just copied: ' + e.text)
     },
-    onError: function (e) {
+    onError: function(e) {
       alert('Failed to copy texts')
     },
-    doCopy: function () {
+    doCopy: function() {
       this.$copyText(this.message).then(
-        function (e) {
+        function(e) {
           alert('Copied')
           console.log(e)
         },
-        function (e) {
+        function(e) {
           alert('Can not copy')
           console.log(e)
         }

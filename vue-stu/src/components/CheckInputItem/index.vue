@@ -1,9 +1,21 @@
 <template>
   <div class="select-wrap">
-    <el-checkbox :label="checkboxKey" v-on="$listeners" v-model="value.checked" :disabled="disabled">{{ checkboxLabel }}</el-checkbox>
-    <el-form-item :prop="prop" :rules="[{ required: value.checked, message: '请输入' }]" label=" ">
+    <el-checkbox
+      v-model="value.checked"
+      :label="checkboxKey"
+      :disabled="disabled"
+      v-on="$listeners"
+    >{{ checkboxLabel }}</el-checkbox>
+    <el-form-item
+      :prop="prop"
+      :rules="[{ required: value.checked, message: '请输入' }]"
+      label=" "
+    >
       <slot>
-        <el-input v-model="value.processNote" :disabled="disabled"></el-input>
+        <el-input
+          v-model="value.processNote"
+          :disabled="disabled"
+        />
       </slot>
     </el-form-item>
   </div>

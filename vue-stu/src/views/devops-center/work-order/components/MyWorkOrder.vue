@@ -1,18 +1,45 @@
 <template>
   <div>
-    <LabelValue class="top-tip" label="待处理工单总数" labelWidth="120px" value-class="primaryButton" :value="statistic.pendingQuantity" />
-    <LabelValue class="top-tip" label="个人平均处理时长" labelWidth="130px" value-class="primaryButton" :value="statistic.avgProcessTime" />
+    <LabelValue
+      class="top-tip"
+      label="待处理工单总数"
+      label-width="120px"
+      value-class="primaryButton"
+      :value="statistic.pendingQuantity"
+    />
+    <LabelValue
+      class="top-tip"
+      label="个人平均处理时长"
+      label-width="130px"
+      value-class="primaryButton"
+      :value="statistic.avgProcessTime"
+    />
 
     <div class="tab-wrap">
-      <el-tabs v-model="activeName" @tab-click="queryList">
-        <el-tab-pane v-for="(tab, index) in tabs" :key="tab.name" :name="tab.name">
+      <el-tabs
+        v-model="activeName"
+        @tab-click="queryList"
+      >
+        <el-tab-pane
+          v-for="(tab, index) in tabs"
+          :key="tab.name"
+          :name="tab.name"
+        >
           <template slot="label">
             {{ tab.label }}
-            <el-badge v-if="!tab.hidden" :value="statistic[tab.valueKey]"> </el-badge>
+            <el-badge
+              v-if="!tab.hidden"
+              :value="statistic[tab.valueKey]"
+            />
           </template>
         </el-tab-pane>
       </el-tabs>
-      <el-button class="export-btn" type="primary" size="small" @click="apply">工单申请</el-button>
+      <el-button
+        class="export-btn"
+        type="primary"
+        size="small"
+        @click="apply"
+      >工单申请</el-button>
       <tables
         class="query-table"
         :config="{
@@ -33,32 +60,49 @@
         <template #workPlanStatus="{ data }">
           {{ WorkOrderStatusMap[data.workPlanStatus] }}
         </template>
-        <template slot="operation" slot-scope="scope">
+        <template
+          slot="operation"
+          slot-scope="scope"
+        >
           <!-- 1、对于自己发起的事项，操作中可以进行“查看、催办、撤回”
             查看：进入详情页
             催办：系统发送催办邮件到当前节点
             撤回：流程中单据撤消，状态变回草稿 -->
-          <div class="btn-list" v-if="userId == scope.data.creator">
-            <el-button @click.stop="viewDetail(scope.data)" type="text" style="color: #4e60f6" size="small"> 查看 </el-button>
+          <div
+            v-if="userId == scope.data.creator"
+            class="btn-list"
+          >
+            <el-button
+              type="text"
+              style="color: #4e60f6"
+              size="small"
+              @click.stop="viewDetail(scope.data)"
+            > 查看 </el-button>
             <el-button
               v-if="scope.data.workPlanStatus == 'pendding' || scope.data.workPlanStatus == 'processing'"
               size="small"
               style="color: #4e60f6"
               type="text"
               @click="toUrge(scope.data)"
-              >催办</el-button
-            >
+            >催办</el-button>
             <el-button
               v-if="scope.data.workPlanStatus == 'pendding' || scope.data.workPlanStatus == 'processing'"
               size="small"
               style="color: #f5222d"
               type="text"
               @click="toReview(scope.data)"
-              >撤回</el-button
-            >
+            >撤回</el-button>
           </div>
-          <div class="btn-list" v-else>
-            <el-button @click.stop="viewDetail(scope.data)" type="text" style="color: #4e60f6" size="small">
+          <div
+            v-else
+            class="btn-list"
+          >
+            <el-button
+              type="text"
+              style="color: #4e60f6"
+              size="small"
+              @click.stop="viewDetail(scope.data)"
+            >
               {{ isToDoTab ? '处理' : '详情' }}
             </el-button>
           </div>

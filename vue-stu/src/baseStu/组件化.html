@@ -11,7 +11,7 @@
     <div id="root">
         <!-- <myh3></myh3> -->
         <my-h3></my-h3>
-        <test></test>
+        <test :some-data="someData"></test>
         <app />
     </div>
 
@@ -38,7 +38,10 @@
 
         // 创建组件 2.直接给一个对象
         Vue.component("test", {
-            template: "<div>我是test组件</div>"
+            template: "<div>我是test组件{{ someData }}</div>",
+            props: {
+                someData: Object
+            }
         })
 
         // 创建组件 3.templete指向html页面结构(在vue实例控制的外部,使用templete标签书写模板结构)
@@ -46,11 +49,17 @@
             template: "#tem1"
         })
 
+        const someData = {
+            name: "someData",
+            age: 18
+        }
         const vue = new Vue({
             el: "#root",
-            data: {
-
-            },
+            data(){
+                this.someData = someData
+                return {
+                }
+            }
 
         })
 

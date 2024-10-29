@@ -1,5 +1,13 @@
 <template>
-  <el-input :value="value" v-on="_listeners" @input="handleInput" :step="step" type="number" class="mo-input--number" v-bind="$attrs"></el-input>
+  <el-input
+    :value="value"
+    :step="step"
+    type="number"
+    class="mo-input--number"
+    v-bind="$attrs"
+    v-on="_listeners"
+    @input="handleInput"
+  />
 </template>
 <script>
 /**
@@ -7,8 +15,8 @@
  * 拦截input事件冒泡的value值,做逻辑处理
  */
 export default {
-  inheritAttrs: false,
   name: 'NumberInput',
+  inheritAttrs: false,
   props: {
     value: [String, Number],
     decimal: {

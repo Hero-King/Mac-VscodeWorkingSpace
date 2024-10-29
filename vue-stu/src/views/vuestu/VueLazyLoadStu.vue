@@ -2,29 +2,32 @@
   <div>
     <h2>图片列表</h2>
     <ul class="img-list">
-      <li class="img-item" v-for="img in list">
-        <img v-lazy="img.src" />
+      <li
+        v-for="img in list"
+        class="img-item"
+      >
+        <img v-lazy="img.src">
       </li>
     </ul>
 
     <h2>demo</h2>
-    <img v-lazy="imgUrl" />
-    <div v-lazy:background-image="imgUrl"></div>
+    <img v-lazy="imgUrl">
+    <div v-lazy:background-image="imgUrl" />
 
     <!-- with customer error and loading -->
-    <img v-lazy="imgObj" />
-    <div v-lazy:background-image="imgObj"></div>
+    <img v-lazy="imgObj">
+    <div v-lazy:background-image="imgObj" />
 
     <!-- Customer scrollable element -->
-    <img v-lazy.container="imgUrl" />
+    <img v-lazy.container="imgUrl">
   </div>
 </template>
 <script>
 export default {
   name: 'VueLazyLoadStu',
   data() {
-    let imgBaseUrl = 'http://hilongjw.github.io/vue-lazyload/dist/avatar/'
-    let list = []
+    const imgBaseUrl = 'http://hilongjw.github.io/vue-lazyload/dist/avatar/'
+    const list = []
     for (let i = 0; i < 10; i++) {
       list.push({ src: `${imgBaseUrl}test${i}.jpg` })
     }

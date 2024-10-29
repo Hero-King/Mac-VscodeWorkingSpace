@@ -11,10 +11,10 @@ const system = {
 }
 
 function genderEnum(statusObj, keyIsNumber = false) {
-  let map = {}
-  let list = []
+  const map = {}
+  const list = []
   Object.keys(statusObj).forEach((key) => {
-    let val = statusObj[key]
+    const val = statusObj[key]
     map[key] = val
     map[val] = key
     list.push({ label: val, value: keyIsNumber ? Number(key) : key })
@@ -30,14 +30,14 @@ export const WorkOrderStatusObj = {
   closed: '已关闭'
 }
 
-let map = {}
+const map = {}
 Object.keys(WorkOrderStatusObj).forEach((key) => {
-  let val = WorkOrderStatusObj[key]
+  const val = WorkOrderStatusObj[key]
   map[key] = val
   map[val] = key
 })
 
-export let WorkOrderStatusMap = map
+export const WorkOrderStatusMap = map
 
 export const WorkOrderStatusList = Object.keys(WorkOrderStatusObj).map((i) => ({
   label: WorkOrderStatusObj[i],
@@ -51,14 +51,14 @@ export const WorkOrderLevelObj = {
   general: '一般'
 }
 
-let levelMap = {}
+const levelMap = {}
 Object.keys(WorkOrderLevelObj).forEach((key) => {
-  let val = WorkOrderLevelObj[key]
+  const val = WorkOrderLevelObj[key]
   levelMap[key] = val
   levelMap[val] = key
 })
 
-export let WorkOrderLevelMap = levelMap
+export const WorkOrderLevelMap = levelMap
 
 export const WorkOrderLevelList = Object.keys(WorkOrderLevelObj).map((i) => ({
   label: WorkOrderLevelObj[i],

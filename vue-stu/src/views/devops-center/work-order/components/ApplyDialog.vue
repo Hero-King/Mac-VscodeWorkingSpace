@@ -9,49 +9,90 @@
       @open="queryWorkPlanType"
       @close="close"
     >
-      <div class="clearfix" v-if="!isEdit" v-permission="'addWorkBookType'">
-        <el-button style="float: right" type="primary" size="small" @click="createType" :disabled="workPlanTypes.length === 0">创建工单类型</el-button>
+      <div
+        v-if="!isEdit"
+        v-permission="'addWorkBookType'"
+        class="clearfix"
+      >
+        <el-button
+          style="float: right"
+          type="primary"
+          size="small"
+          :disabled="workPlanTypes.length === 0"
+          @click="createType"
+        >创建工单类型</el-button>
       </div>
       <div class="tags-list">
-        <div v-if="isEdit" key="edit">
+        <div
+          v-if="isEdit"
+          key="edit"
+        >
           <el-tag
-            :class="['type-tag', { disbaled: !!item.isSystem }]"
             v-for="(item, index) in editWorkPlanTypes"
             :key="item.id"
+            :class="['type-tag', { disbaled: !!item.isSystem }]"
             :closable="!!!item.isSystem"
+            :disable-transitions="true"
             @click="tagClick(item)"
             @close="handleClose(item)"
-            :disable-transitions="true"
           >
             {{ item.workTypeName }}
           </el-tag>
-          <el-divider style="margin: 10px 0"></el-divider>
-          <el-form ref="form" @submit.native.prevent :model="form" :rules="rules" inline>
+          <el-divider style="margin: 10px 0" />
+          <el-form
+            ref="form"
+            :model="form"
+            :rules="rules"
+            inline
+            @submit.native.prevent
+          >
             <el-form-item prop="inputValue">
               <el-input
-                class="input-new-tag"
-                v-model="form.inputValue"
                 ref="saveTagInput"
+                v-model="form.inputValue"
+                class="input-new-tag"
                 size="small"
-                @keyup.enter.native="handleInputConfirm"
                 placeholder="请输入工单类型名称"
-              >
-              </el-input>
+                @keyup.enter.native="handleInputConfirm"
+              />
             </el-form-item>
             <el-form-item>
-              <el-button size="small" icon="el-icon-plus" @click="handleInputConfirm"></el-button>
+              <el-button
+                size="small"
+                icon="el-icon-plus"
+                @click="handleInputConfirm"
+              />
             </el-form-item>
           </el-form>
         </div>
-        <div v-else key="2">
-          <el-tag class="type-tag" v-for="(item, index) in workPlanTypes" :key="item.id" @click="tagClick(item)">
+        <div
+          v-else
+          key="2"
+        >
+          <el-tag
+            v-for="(item, index) in workPlanTypes"
+            :key="item.id"
+            class="type-tag"
+            @click="tagClick(item)"
+          >
             {{ item.workTypeName }}
           </el-tag>
         </div>
       </div>
-      <div slot="footer" class="textCenter" v-if="isEdit">
-        <el-button size="small" type="primary" @click="handleSave">确 定</el-button>
-        <el-button size="small" @click="cancelEdit">取 消</el-button>
+      <div
+        v-if="isEdit"
+        slot="footer"
+        class="textCenter"
+      >
+        <el-button
+          size="small"
+          type="primary"
+          @click="handleSave"
+        >确 定</el-button>
+        <el-button
+          size="small"
+          @click="cancelEdit"
+        >取 消</el-button>
       </div>
     </el-dialog>
   </div>
@@ -61,22 +102,22 @@ import { queryWorkPlanType, editWorkPlanType } from '@/api/devops-center/workOrd
 export default {
   name: 'ApplyDailog',
   components: {},
+  directives: {
+    permission: {
+      inserted: function(el, binding) {
+        // let show = store.state.poros.btnAuth.includes(binding.value)
+        const show = true
+        !show && (el.style.display = 'none')
+      }
+    }
+  },
   props: {
     visible: {
       type: Boolean
     }
   },
-  directives: {
-    permission: {
-      inserted: function (el, binding) {
-        // let show = store.state.poros.btnAuth.includes(binding.value)
-        let show = true
-        !show && (el.style.display = 'none')
-      }
-    }
-  },
   data() {
-    let validateInput = (rule, value, callback) => {
+    const validateInput = (rule, value, callback) => {
       if (value.length > 4) {
         callback('工单类型长度不得超过4位')
       } else if (!value.endsWith('工单')) {

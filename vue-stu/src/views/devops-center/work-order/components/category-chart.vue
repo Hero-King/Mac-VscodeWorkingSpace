@@ -1,5 +1,5 @@
 <template>
-  <div ref="dom"></div>
+  <div ref="dom" />
 </template>
 
 <script>
@@ -20,6 +20,14 @@ export default {
       default: () => []
     }
   },
+  watch: {
+    pieData: {
+      handler(data) {
+        this.initPie(data)
+      },
+      deep: true
+    }
+  },
   mounted() {
     this.$nextTick(() => {
       this.initPie()
@@ -37,10 +45,10 @@ export default {
   },
   methods: {
     initPie() {
-      let data = this.pieData
+      const data = this.pieData
       this.chart = echarts.init(this.$refs.dom)
 
-      let option = {
+      const option = {
         tooltip: {
           trigger: 'item',
           formatter: '{b} : {c}',
@@ -99,14 +107,6 @@ export default {
         ]
       }
       this.chart.setOption(option, true)
-    }
-  },
-  watch: {
-    pieData: {
-      handler(data) {
-        this.initPie(data)
-      },
-      deep: true
     }
   }
 }

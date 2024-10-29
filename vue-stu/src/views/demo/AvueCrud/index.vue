@@ -1,5 +1,11 @@
 <template lang="">
-  <avue-crud @search-change="searchChange" :search.sync="search" :option="option" :data="data" :page.sync="page"></avue-crud>
+  <avue-crud
+    :search.sync="search"
+    :option="option"
+    :data="data"
+    :page.sync="page"
+    @search-change="searchChange"
+  />
 </template>
 <script>
 export default {
@@ -201,7 +207,7 @@ export default {
   },
   methods: {
     onLoad(page) {
-      //模拟分页
+      // 模拟分页
       this.page.total = 40
     },
     // search-change为点击搜索后执行方法，done方法为关闭等待框,search-reset点击清空的执行方法

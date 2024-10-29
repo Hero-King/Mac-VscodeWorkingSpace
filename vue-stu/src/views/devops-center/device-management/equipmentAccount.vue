@@ -2,52 +2,69 @@
   <div class="device-account page">
     <div v-show="!showDetail">
       <!-- 查询form -->
-      <el-form ref="form" :model="form" label-width="80px" inline>
+      <el-form
+        ref="form"
+        :model="form"
+        label-width="80px"
+        inline
+      >
         <el-form-item label="工厂选择">
           <DictSelect
-            labelKey="locationName"
-            valueKey="topParentId"
-            forKey="topParentId"
-            :dictUrl="factorySelectUrl"
             v-model="form.locationId"
+            label-key="locationName"
+            value-key="topParentId"
+            for-key="topParentId"
+            :dict-url="factorySelectUrl"
             methods="post"
             placeholder="请选择工厂"
             @getSuccess="getLocationOptSuccess"
             @change="setActiveTreeNode"
-          >
-          </DictSelect>
+          />
         </el-form-item>
         <el-form-item label="设备类型">
           <DictSelect
-            labelKey="modelName"
-            valueKey="modelMark"
-            forKey="modelMark"
-            :dictUrl="deviceTypeListUrl"
             v-model="form.modelMark"
+            label-key="modelName"
+            value-key="modelMark"
+            for-key="modelMark"
+            :dict-url="deviceTypeListUrl"
             methods="get"
             :params="{ modelType: 'other' }"
             :options.sync="deviceTypes"
             placeholder="请选择设备类型"
-            @change="handleSearch"
             clearable
+            @change="handleSearch"
           />
         </el-form-item>
-        <el-form-item label="" label-width="0px">
+        <el-form-item
+          label=""
+          label-width="0px"
+        >
           <el-input
-            placeholder="请输入编号、名称等搜索"
             v-model.trim="form.keyword"
-            @change="handleSearch"
+            placeholder="请输入编号、名称等搜索"
             clearable
-          ></el-input>
+            @change="handleSearch"
+          />
         </el-form-item>
-        <el-form-item style="float: right" v-if="showExport">
-          <el-button size="mini" type="primary" @click="handleExport">导出</el-button>
+        <el-form-item
+          v-if="showExport"
+          style="float: right"
+        >
+          <el-button
+            size="mini"
+            type="primary"
+            @click="handleExport"
+          >导出</el-button>
         </el-form-item>
       </el-form>
 
       <!-- content -->
       <div class="content">
-        <div class="left" v-if="showLeftTree">
+        <div
+          v-if="showLeftTree"
+          class="left"
+        >
           <el-tree
             ref="tree"
             :data="treeData"
@@ -55,7 +72,7 @@
             :props="defaultProps"
             node-key="id"
             @node-click="handleNodeClick"
-          ></el-tree>
+          />
         </div>
         <div class="right">
           <tables
@@ -73,21 +90,26 @@
             @sizeChange="sizeChange"
             @handleSelection="handleSelection"
           >
-            <template slot="qr" slot-scope="scope">
+            <template
+              slot="qr"
+              slot-scope="scope"
+            >
               <el-image
                 class="table-img"
                 fit="scale-down"
                 :src="scope.data.qrcodeUrl"
                 :preview-src-list="[scope.data.qrcodeUrl]"
-              >
-              </el-image>
+              />
             </template>
-            <template slot="operation" slot-scope="scope">
+            <template
+              slot="operation"
+              slot-scope="scope"
+            >
               <el-button
-                @click.native.prevent="viewDetail(scope.data)"
                 type="text"
                 style="color: #4e60f6"
                 size="small"
+                @click.native.prevent="viewDetail(scope.data)"
               >
                 查看
               </el-button>
@@ -100,8 +122,8 @@
     <!-- 设备详情页 -->
     <EquipmentDetail
       v-if="showDetail"
-      :deviceTypes="deviceTypes"
-      :deviceInfo="deviceInfo"
+      :device-types="deviceTypes"
+      :device-info="deviceInfo"
       :visible.sync="showDetail"
       @reload="query"
     />
@@ -223,6 +245,13 @@ export default {
       total: 0
     }
   },
+  watch: {
+    opend(v) {
+      if (v) {
+        this.filterTableDataBySelectionList()
+      }
+    }
+  },
   created() {
     if (this.$route.query.id) {
       this.viewDetail(this.$route.query)
@@ -254,7 +283,7 @@ export default {
     // 兼容 作为弹框时候, 过滤掉已选中数据
     filterTableDataBySelectionList() {
       if (this.showTableCheckbox) {
-        let selectIdSet = new Set(this.selectionList.map((i) => i.id))
+        const selectIdSet = new Set(this.selectionList.map((i) => i.id))
         this.tableData = this.tableDataBak.filter((i) => !selectIdSet.has(i.id))
         this.selfSelectionList = []
         if (!this.tableData.length) {
@@ -291,7 +320,7 @@ export default {
     },
     getQueryParam() {
       const { limit, pageNo, form } = this
-      let row = this.$refs.tree?.getCurrentNode()
+      const row = this.$refs.tree?.getCurrentNode()
       // 如果没有树节点数据, 认为只有上面的查询
       if (!row) {
         return {
@@ -303,7 +332,7 @@ export default {
         }
       }
 
-      let listLocationId = []
+      const listLocationId = []
       deepGetIds(row, listLocationId)
 
       return {
@@ -341,13 +370,12 @@ export default {
       getTreeQuery({ type: 'device', bindType: 'device', energyCode: 'common' }).then((res) => {
         if (res.code == 0) {
           this.treeData = res.data
-          let locationId = this.form.locationId || res.data?.[0]?.id
+          const locationId = this.form.locationId || res.data?.[0]?.id
           this.setActiveTreeNode(locationId, false)
         }
       })
     },
- 
-    
+
     handleSearch() {
       this.query()
     },
@@ -359,23 +387,16 @@ export default {
       })
     },
     handleExport() {
-      let param = this.getQueryParam()
+      const param = this.getQueryParam()
       delete param.limit
       delete param.pageNo
       exportDeviceList(param).then((res) => {
-        let fileType = 'application/octet-stream;charset=UTF-8'
+        const fileType = 'application/octet-stream;charset=UTF-8'
         // this.$tool.downloadFile({ data: res }, fileType, '设备列表.xls')
       })
     },
     handleNodeClick(data) {
       this.setActiveTreeNode(data.id)
-    }
-  },
-  watch: {
-    opend(v) {
-      if (v) {
-        this.filterTableDataBySelectionList()
-      }
     }
   }
 }

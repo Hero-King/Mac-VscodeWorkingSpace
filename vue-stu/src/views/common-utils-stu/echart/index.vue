@@ -1,10 +1,10 @@
 <template>
   <div>
     <h2>echart v-show</h2>
-    <EchartDomVShow></EchartDomVShow>
-    <graph-test></graph-test>
+    <EchartDomVShow />
+    <graph-test />
     <EchartLayoutStu />
-    <echart-tree></echart-tree>
+    <echart-tree />
     <EchartResizeStu />
   </div>
 </template>

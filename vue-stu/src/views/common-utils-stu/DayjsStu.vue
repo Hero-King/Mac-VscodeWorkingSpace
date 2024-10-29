@@ -28,7 +28,7 @@ export default {
     var day = dayjs(d)
     console.log('day.isValid()', day.isValid())
 
-    //Dayjs -> Date
+    // Dayjs -> Date
     console.log(now.toDate() instanceof Date, 'now.toDate() instanceof Date')
 
     // Dayjs 操作
@@ -41,13 +41,13 @@ export default {
     // 获取月天数
     console.log(dayjs('2019-01-25').daysInMonth())
 
-    let tmp = now.diff('2022-05-10', 'day')
+    const tmp = now.diff('2022-05-10', 'day')
     console.log(tmp, '距离多少天')
 
     // dayjs.locale('zh-cn')
-    console.log(dayjs().startOf('week'));
-    console.log(dayjs().locale('zh-cn').startOf('week'));
-    console.log(dayjs().locale('zh-cn').locale());
+    console.log(dayjs().startOf('week'))
+    console.log(dayjs().locale('zh-cn').startOf('week'))
+    console.log(dayjs().locale('zh-cn').locale())
   }
 }
 </script>

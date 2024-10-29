@@ -35,7 +35,7 @@ export function each(data, callback, childName = 'children') {
  * let arr=utils.getTreeData(arr, 'flowId', item.decategoryId, 'name','children',true);
  */
 export function getTreeData(data, id = 'id', val = '', name = 'name', children = 'children', isRow = false) {
-  let arr = []
+  const arr = []
   each(
     data,
     (item) => {

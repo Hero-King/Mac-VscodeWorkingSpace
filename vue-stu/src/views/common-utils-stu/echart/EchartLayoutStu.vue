@@ -3,24 +3,40 @@
     <section>
       <div>
         containLabel:
-        <el-switch v-model="containLabel"></el-switch>
+        <el-switch v-model="containLabel" />
       </div>
       <el-row :gutter="24">
-        <el-col :span="6" v-for="i in sliderList" :key="i.text">
+        <el-col
+          v-for="i in sliderList"
+          :key="i.text"
+          :span="6"
+        >
           {{ i.text }}
-          <el-slider v-model="sliderOpt[i.valueKey]" show-input :format-tooltip="(v) => v + '%'"> </el-slider>
+          <el-slider
+            v-model="sliderOpt[i.valueKey]"
+            show-input
+            :format-tooltip="(v) => v + '%'"
+          />
         </el-col>
       </el-row>
 
       <el-row :gutter="24">
-        <el-col :span="6" v-for="(v, k) in borderColor" :key="k">
+        <el-col
+          v-for="(v, k) in borderColor"
+          :key="k"
+          :span="6"
+        >
           {{ k }}
-          <el-color-picker v-model="borderColor[k]"></el-color-picker>
+          <el-color-picker v-model="borderColor[k]" />
         </el-col>
       </el-row>
     </section>
 
-    <div ref="echart" style="height: 400px; width: 600px" class="border"></div>
+    <div
+      ref="echart"
+      style="height: 400px; width: 600px"
+      class="border"
+    />
   </div>
 </template>
 <script>
@@ -28,7 +44,7 @@ import * as echarts from 'echarts'
 export default {
   name: 'EchartLayoutStu',
   data() {
-    let data = {
+    const data = {
       containLabel: true,
       sliderOpt: {},
       borderColor: {
@@ -67,7 +83,7 @@ export default {
           //   return value + '个'
           // }
           // tooltip 数据添加单位 %  回调函数支持返回 HTML 字符串或者创建的 DOM 实例。
-          formatter: function (params) {
+          formatter: function(params) {
             // console.log(params)
             var relVal = params[0].name
             for (var i = 0, l = params.length; i < l; i++) {
@@ -188,14 +204,14 @@ export default {
       }
     }
   },
-  mounted() {
-    this.echart = echarts.init(this.$refs.echart)
-    this.echart.setOption(this.opt)
-  },
   watch: {
     opt(v) {
       this.echart.setOption(v)
     }
+  },
+  mounted() {
+    this.echart = echarts.init(this.$refs.echart)
+    this.echart.setOption(this.opt)
   }
 }
 </script>

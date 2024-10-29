@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="../assets/vueSourceStu.js"></script>
+    <script src="../assets/vue.js"></script>
+    <!-- <script src="../assets/vueSourceStu.js"></script> -->
   </head>
 
   <body>
@@ -37,7 +38,7 @@
 
       <br />
 
-      测试props是对象时候更改属性 --> 组件会重新渲染 但是不推荐使用
+      测试props是响应式对象时候更改属性 --> 组件会重新渲染 但是不推荐使用;推荐使用父子组件通信方式确保单向数据流
       <ul>
         <li v-for="p in list" :key="p.id">
           <input type="checkbox" :checked="p.isDelete" @change="p.isDelete = !p.isDelete" />
@@ -127,7 +128,7 @@
         }
       })
 
-      let onlyMountHello = true
+      let onlyMountHello = false
       if (onlyMountHello) {
         var vc = new Hello()
         vc.$mount('#app')
@@ -257,7 +258,7 @@
       // 查看脚手架默认打包配置  vue inspect
       // 样式冲突依赖的原则是后来者居上, 也就是以最后导入的为主
 
-      // props 当props是对象的时候,更改对象属性值是没问题的, 而且还会触发组件重新渲染(对象是被observe的)
+      // props 当props是响应式对象的时候,更改对象属性值是没问题的, 会触发组件重新渲染; 当props是基本类型时,更改值是没用的,不会触发组件重新渲染; Vue内部只对root实例的props进行响应式处理,子组件的props被跳过响应式处理(参见initProps中的toggleObserving)
 
       // 数据总线
     </script>

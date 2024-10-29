@@ -1,10 +1,10 @@
 <template>
   <div class="efficiency-monitor">
     <ScreenHeader>
-      <template v-slot:leftTitle>
+      <template #leftTitle>
         {{ leftTitle }}
       </template>
-      <template v-slot:centerTitle>
+      <template #centerTitle>
         <div class="flex spaceAround w100 h100 center-content">
           <Selector
             v-model="formParam.factory"
@@ -34,7 +34,7 @@
           />
         </div>
       </template>
-      <template v-slot:rightTitle>
+      <template #rightTitle>
         <div class="flex h100 spaceAround">
           <ScreenDatePicker
             v-model="formParam.year"
@@ -467,7 +467,7 @@ export default {
           console.log('getEfficiencyTrend', res)
           this.EfficiencyTrend = res.data
             .map((i) => {
-              let rate = this.formatRate(i['good_qty'] / i['act_out_qty'], 1)
+              const rate = this.formatRate(i['good_qty'] / i['act_out_qty'], 1)
               return { ...i, act_good_rate: rate }
             })
             .sort((a, b) => a['month_code'] - b['month_code'])
@@ -489,7 +489,7 @@ export default {
           this.msgError(err.errMsg || err)
         })
 
-      let productParam = { ...this.param }
+      const productParam = { ...this.param }
       if (productParam.grouptype == 3) {
         productParam.product = '9999'
       }

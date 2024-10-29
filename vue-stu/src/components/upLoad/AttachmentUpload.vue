@@ -9,7 +9,10 @@
   >
     <slot>
       <el-button size="small">点击上传</el-button>
-      <div slot="tip" class="el-upload__tip">支持拓展名: .rar .zip .docx .pdf .jpg...</div>
+      <div
+        slot="tip"
+        class="el-upload__tip"
+      >支持拓展名: .rar .zip .docx .pdf .jpg...</div>
     </slot>
   </el-upload>
 </template>

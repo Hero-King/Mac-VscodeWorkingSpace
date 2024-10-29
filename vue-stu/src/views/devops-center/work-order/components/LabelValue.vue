@@ -1,7 +1,13 @@
 <template lang="">
   <div class="el-form-item">
-    <label class="el-form-item__label" :style="{ width: labelWidth }">{{ label }}</label>
-    <div class="el-form-item__content" :style="{ marginLeft: labelWidth }">
+    <label
+      class="el-form-item__label"
+      :style="{ width: labelWidth }"
+    >{{ label }}</label>
+    <div
+      class="el-form-item__content"
+      :style="{ marginLeft: labelWidth }"
+    >
       <slot>
         <span :class="valueClass">{{ value }}</span>
       </slot>

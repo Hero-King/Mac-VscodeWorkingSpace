@@ -1,12 +1,31 @@
 <template>
-  <el-dialog title="分类落库" :visible.sync="dialogVisible" width="60%" @open="getTypes">
-    <el-form ref="form" :model="form" label-width="80px" @submit.native.prevent>
+  <el-dialog
+    title="分类落库"
+    :visible.sync="dialogVisible"
+    width="60%"
+    @open="getTypes"
+  >
+    <el-form
+      ref="form"
+      :model="form"
+      label-width="80px"
+      @submit.native.prevent
+    >
       <el-row>
-        <SelectFormContent :conf="classifyFields" :form="form" />
+        <SelectFormContent
+          :conf="classifyFields"
+          :form="form"
+        />
       </el-row>
     </el-form>
-    <div slot="footer" class="textCenter">
-      <el-button type="primary" @click="save">确 定</el-button>
+    <div
+      slot="footer"
+      class="textCenter"
+    >
+      <el-button
+        type="primary"
+        @click="save"
+      >确 定</el-button>
       <el-button @click="dialogVisible = false">取 消</el-button>
     </div>
   </el-dialog>
@@ -122,6 +141,14 @@ export default {
       }
     }
   },
+  watch: {
+    visible(v) {
+      if (v) {
+        this.setFormInitData()
+        this.chnageFormDisabled(false)
+      }
+    }
+  },
   methods: {
     save() {
       this.$refs.form.validate((valid) => {
@@ -207,14 +234,6 @@ export default {
             }
           })
         })
-    }
-  },
-  watch: {
-    visible(v) {
-      if (v) {
-        this.setFormInitData()
-        this.chnageFormDisabled(false)
-      }
     }
   }
 }
