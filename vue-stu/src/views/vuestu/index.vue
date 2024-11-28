@@ -1,15 +1,8 @@
 <template>
   <div>
-    <TestEvent
-      v-model="inputValue"
-      title="我是Title"
-      @click="handleClick"
-    />
+    <TestEvent v-model="inputValue" title="我是Title" @click="handleClick" />
     <!-- 把原生事件绑定到自定义组件根元素 -->
-    <TestEvent
-      v-model="inputValue"
-      @click.native="handleClick"
-    />
+    <TestEvent v-model="inputValue" @click.native="handleClick" />
 
     <!-- input事件是绑定在子组件的div上面的 -->
     <TestEvent @input.native="handleInput" />

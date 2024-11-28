@@ -1,5 +1,7 @@
 <template lang="">
-  <div @click="count++">KeepAliveTestItem id: {{ id }} count: {{ count }}</div>
+  <div @click="count++">
+    KeepAliveTestItem id: {{ id }} count: {{ count }}
+  </div>
 </template>
 <script>
 export default {

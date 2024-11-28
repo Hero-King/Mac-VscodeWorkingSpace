@@ -3,7 +3,9 @@
     size="mini"
     v-bind="$attrs"
     @click="handleExport"
-  ><slot>导出</slot></el-button>
+  >
+    <slot>导出</slot>
+  </el-button>
 </template>
 <script>
 export default {

@@ -12,7 +12,9 @@
           @uploadSuccess="uploadSuccess"
         />
 
-        <h4 class="mt-20">设备二维码</h4>
+        <h4 class="mt-20">
+          设备二维码
+        </h4>
         <div class="qr-wrap textCenter">
           <el-image
             style="height: 100px; width: 100%"
@@ -147,12 +149,16 @@
         type="primary"
         size="small"
         @click="onOk"
-      >保存</el-button>
+      >
+        保存
+      </el-button>
       <el-button
         style="margin-left: 20px"
         size="small"
         @click="onCancel"
-      >取消</el-button>
+      >
+        取消
+      </el-button>
     </div>
   </div>
 </template>

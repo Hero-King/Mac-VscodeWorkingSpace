@@ -4,7 +4,9 @@
       type="primary"
       size="small"
       @click="handleBack"
-    >返回</el-button>
+    >
+      返回
+    </el-button>
     <tables
       :config="{
         tableData,
@@ -29,7 +31,9 @@
             {{ scope.data.workList[0].workName }}
           </el-link>
         </div>
-        <div v-else>暂无</div>
+        <div v-else>
+          暂无
+        </div>
       </template>
       <template
         slot="operation"

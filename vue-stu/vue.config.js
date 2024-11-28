@@ -39,8 +39,8 @@ const config = {
     proxy: {
       '/api': {
         // target: 'https://www.heroking.top:9999',
-        target: 'http://10.46.34.60:7002',
-        target: 'https://mock.apifox.com/m1/4058088-0-default',
+        // target: 'http://10.46.34.60:7002',
+        target: 'https://apifoxmock.com/m1/4058088-3695528-default',
         ws: false,
         secure: false,
         changeOrigin: true,

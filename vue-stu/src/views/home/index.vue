@@ -88,7 +88,7 @@ export default {
     // 在渲染该组件的对应路由被验证前调用
     // 不能获取组件实例 `this` ！
     // 因为当守卫执行时，组件实例还没被创建！
-    next(function(vm) {
+    next(function (vm) {
       console.log(vm._uid, 'Home beforeRouteEnter 中next')
     })
   },

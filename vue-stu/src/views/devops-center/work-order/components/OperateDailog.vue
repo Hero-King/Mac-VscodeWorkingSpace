@@ -22,7 +22,9 @@
                 type="text"
                 icon="el-icon-plus"
                 @click="workDialogVisible = true"
-              >选择</el-button>
+              >
+                选择
+              </el-button>
               <div>
                 <ul class="ul_list">
                   <li
@@ -55,11 +57,15 @@
         size="small"
         type="primary"
         @click="submit"
-      >提 交</el-button>
+      >
+        提 交
+      </el-button>
       <el-button
         size="small"
         @click="dialogVisible = false"
-      >取 消</el-button>
+      >
+        取 消
+      </el-button>
     </div>
 
     <el-dialog
@@ -85,12 +91,16 @@
         <el-button
           size="small"
           @click="workDialogVisible = false"
-        >取 消</el-button>
+        >
+          取 消
+        </el-button>
         <el-button
           size="small"
           type="primary"
           @click="selectData"
-        >确 定</el-button>
+        >
+          确 定
+        </el-button>
       </div>
     </el-dialog>
   </el-dialog>

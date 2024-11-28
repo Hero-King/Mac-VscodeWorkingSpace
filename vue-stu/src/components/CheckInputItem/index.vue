@@ -5,7 +5,9 @@
       :label="checkboxKey"
       :disabled="disabled"
       v-on="$listeners"
-    >{{ checkboxLabel }}</el-checkbox>
+    >
+      {{ checkboxLabel }}
+    </el-checkbox>
     <el-form-item
       :prop="prop"
       :rules="[{ required: value.checked, message: '请输入' }]"

@@ -1,6 +1,8 @@
 <template>
   <div class="demo-edit-table">
-    <el-button @click="add">添加行</el-button>
+    <el-button @click="add">
+      添加行
+    </el-button>
     <EditTable
       ref="table"
       :data.sync="data"

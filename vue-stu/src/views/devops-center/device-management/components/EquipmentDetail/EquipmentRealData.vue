@@ -1,14 +1,18 @@
 <template lang="">
   <div>
     <el-row>
-      <el-col :span="12"><span style="font-weight: bolder; padding-right: 10px">{{ deviceInfo.deviceName }}</span><span
-        class="extra--span"
-        @click.stop="() => viewLine()"
-      >曲线</span><i
-        class="el-icon-arrow-right"
-        style="color: #4e60f6"
-      /></el-col>
-      <el-col :span="12">&nbsp;</el-col>
+      <el-col :span="12">
+        <span style="font-weight: bolder; padding-right: 10px">{{ deviceInfo.deviceName }}</span><span
+          class="extra--span"
+          @click.stop="() => viewLine()"
+        >曲线</span><i
+          class="el-icon-arrow-right"
+          style="color: #4e60f6"
+        />
+      </el-col>
+      <el-col :span="12">
+&nbsp;
+      </el-col>
     </el-row>
     <el-row>
       <el-col
@@ -50,7 +54,6 @@
         </a-tooltip>
       </el-col>
     </el-row>
-
   </div>
 </template>
 <script>

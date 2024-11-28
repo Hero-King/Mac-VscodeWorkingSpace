@@ -55,7 +55,8 @@
               :options="WorkOrderStatusListFilter"
               com-type="checkbox"
               @change="queryList"
-            /></el-form-item>
+            />
+          </el-form-item>
         </el-col>
         <el-col :span="10">
           <el-form-item label="优先级">
@@ -64,7 +65,8 @@
               :options="WorkOrderLevelList"
               com-type="checkbox"
               @change="queryList"
-            /></el-form-item>
+            />
+          </el-form-item>
         </el-col>
         <el-col
           :span="2"
@@ -76,7 +78,9 @@
               :export-url="exportWorkPlanUrl"
               :get-query-param="getQueryParam"
               file-name="工单列表.xls"
-            >导出</export-button>
+            >
+              导出
+            </export-button>
           </el-form-item>
         </el-col>
       </el-form>

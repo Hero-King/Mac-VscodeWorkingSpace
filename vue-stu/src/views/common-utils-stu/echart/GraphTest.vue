@@ -3,7 +3,9 @@
     <el-button
       type="primary"
       @click="click"
-    >切换</el-button>
+    >
+      切换
+    </el-button>
     <div
       ref="dom"
       style="height: 300px"

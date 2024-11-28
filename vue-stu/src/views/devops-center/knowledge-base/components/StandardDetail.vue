@@ -33,7 +33,9 @@
                   size="small"
                   icon="el-icon-upload2"
                   plain
-                >上传文件</el-button>
+                >
+                  上传文件
+                </el-button>
               </template>
             </DictSelect>
           </el-form-item>
@@ -46,7 +48,9 @@
               type="text"
               icon="el-icon-plus"
               @click="workDialogVisible = true"
-            >关联</el-button>
+            >
+              关联
+            </el-button>
             <div>
               <ul class="ul_list">
                 <li
@@ -73,11 +77,15 @@
               size="small"
               type="primary"
               @click="edit"
-            >{{ confirmBtnText }}</el-button>
+            >
+              {{ confirmBtnText }}
+            </el-button>
             <el-button
               size="small"
               @click="cancel"
-            >取消</el-button>
+            >
+              取消
+            </el-button>
           </el-form-item>
         </el-col>
       </el-row>
@@ -106,8 +114,12 @@
         <el-button
           type="primary"
           @click="selectData"
-        >确 定</el-button>
-        <el-button @click="workDialogVisible = false">取 消</el-button>
+        >
+          确 定
+        </el-button>
+        <el-button @click="workDialogVisible = false">
+          取 消
+        </el-button>
       </div>
     </el-dialog>
   </div>

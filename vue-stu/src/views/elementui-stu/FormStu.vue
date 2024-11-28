@@ -60,7 +60,9 @@
           <el-col
             class="line"
             :span="2"
-          > - </el-col>
+          >
+            -
+          </el-col>
           <el-col :span="11">
             <el-time-picker
               v-model="form.date2"
@@ -108,7 +110,9 @@
           <el-button
             type="primary"
             @click="onSubmit"
-          > 立即创建 </el-button>
+          >
+            立即创建
+          </el-button>
           <el-button>取消</el-button>
         </el-form-item>
       </draggable>

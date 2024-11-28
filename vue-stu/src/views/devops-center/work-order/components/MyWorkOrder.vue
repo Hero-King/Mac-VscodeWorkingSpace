@@ -39,7 +39,9 @@
         type="primary"
         size="small"
         @click="apply"
-      >工单申请</el-button>
+      >
+        工单申请
+      </el-button>
       <tables
         class="query-table"
         :config="{
@@ -77,21 +79,27 @@
               style="color: #4e60f6"
               size="small"
               @click.stop="viewDetail(scope.data)"
-            > 查看 </el-button>
+            >
+              查看
+            </el-button>
             <el-button
               v-if="scope.data.workPlanStatus == 'pendding' || scope.data.workPlanStatus == 'processing'"
               size="small"
               style="color: #4e60f6"
               type="text"
               @click="toUrge(scope.data)"
-            >催办</el-button>
+            >
+              催办
+            </el-button>
             <el-button
               v-if="scope.data.workPlanStatus == 'pendding' || scope.data.workPlanStatus == 'processing'"
               size="small"
               style="color: #f5222d"
               type="text"
               @click="toReview(scope.data)"
-            >撤回</el-button>
+            >
+              撤回
+            </el-button>
           </div>
           <div
             v-else

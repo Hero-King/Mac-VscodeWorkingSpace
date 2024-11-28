@@ -4,7 +4,9 @@
       v-if="!editable"
       class="dict-select noEdit"
     >
-      <template v-if="isComplexCom"> {{ translatedText }}</template>
+      <template v-if="isComplexCom">
+        {{ translatedText }}
+      </template>
       <template v-else-if="comType === 'upload'">
         <el-upload
           :disabled="true"
@@ -131,11 +133,15 @@
           v-on="$listeners"
         >
           <slot>
-            <el-button size="small">点击上传</el-button>
+            <el-button size="small">
+              点击上传
+            </el-button>
             <div
               slot="tip"
               class="el-upload__tip"
-            >{{ $attrs.uploadTip || '' }}</div>
+            >
+              {{ $attrs.uploadTip || '' }}
+            </div>
           </slot>
         </el-upload>
       </template>

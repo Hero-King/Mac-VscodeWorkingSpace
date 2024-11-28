@@ -30,18 +30,24 @@
           size="small"
           plain
           @click="typeDialogVisible = true"
-        >新增类型</el-button>
+        >
+          新增类型
+        </el-button>
         <el-button
           size="small"
           type="primary"
           @click="addKnowledge"
-        >新增知识</el-button>
+        >
+          新增知识
+        </el-button>
         <export-button
           type="primary"
           :export-url="exportPageListUrl"
           :get-query-param="getQueryParam"
           file-name="知识库列表.xls"
-        >导出</export-button>
+        >
+          导出
+        </export-button>
       </div>
 
       <tables
@@ -69,13 +75,17 @@
             style="color: #4e60f6"
             size="small"
             @click.native.prevent="viewDetail(scope.data, false)"
-          > 详情 </el-button>
+          >
+            详情
+          </el-button>
           <el-button
             type="text"
             style="color: #4e60f6"
             size="small"
             @click.native.prevent="viewDetail(scope.data, true)"
-          > 编辑 </el-button>
+          >
+            编辑
+          </el-button>
         </template>
       </tables>
 
@@ -133,11 +143,15 @@
             type="primary"
             :loading="typeLoading"
             @click="typeAdd"
-          >新 增</el-button>
+          >
+            新 增
+          </el-button>
           <el-button
             size="small"
             @click="typeDialogVisible = false"
-          >取 消</el-button>
+          >
+            取 消
+          </el-button>
         </div>
       </el-dialog>
     </div>

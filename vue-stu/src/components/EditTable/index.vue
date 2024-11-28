@@ -21,25 +21,33 @@
               type="text"
               size="small"
               @click="handleSave(scope.row, scope.column, scope.$index)"
-            >保存</el-button>
+            >
+              保存
+            </el-button>
             <el-button
               type="text"
               size="small"
               @click="handleCancel(scope.row, scope.column, scope.$index)"
-            >取消</el-button>
+            >
+              取消
+            </el-button>
           </template>
           <template v-else>
             <el-button
               type="text"
               size="small"
               @click="handleEdit(scope.row, scope.column, scope.$index)"
-            >编辑</el-button>
+            >
+              编辑
+            </el-button>
           </template>
           <el-button
             type="text"
             size="small"
             @click="handleDelete(scope.row, scope.column, scope.$index)"
-          >删除</el-button>
+          >
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -29,13 +29,17 @@
         文件，但又不希望将其编译为 CSS，只需要在文件名前添加下划线，这样会告诉 Sass 不要编译这些文件，但导入语句中却不需要添加下划线。例如，将文件命名为
         _colors.scss，便不会编译 _colours.css 文件。
       </div>
-      <div class="seriousError">@extend语法继承CSS</div>
+      <div class="seriousError">
+        @extend语法继承CSS
+      </div>
       <div>定义混合器： @mixin name { 样式 }</div>
       <div>调用混合器： @include name</div>
       <span>然后就可以在你的样式表中通过@include来使用这个混合器，放在你希望的任何地方。@include调用会把混合器中的所有样式提取出来放在@include被调用的地方。</span>
       <div>给混合器传参数 @mixin link-colors($normal, $hover, $visited) { color: $normal; &:hover { color: $hover; } &:visited { color: $visited; } }</div>
       <div>Vue组件中的scss引用全局变量和方法使用: sass-resources-loader</div>
-      <div class="other-scss">其他scss定义的样式</div>
+      <div class="other-scss">
+        其他scss定义的样式
+      </div>
       <div>
         打包问题: 1. 公共代码common.scss多次放在scoped内
         由于加了scoped，导致common里面的样式都加上了[data-v-aaaa]这样的标识，最后打出来的css重复，这就不是公共css了。

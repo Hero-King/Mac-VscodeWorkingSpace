@@ -1,7 +1,9 @@
 <template lang="">
   <div>
     <h3>KeepAliveTest</h3>
-    <el-button @click="click">切换</el-button>
+    <el-button @click="click">
+      切换
+    </el-button>
     <!-- 没有绑定key的话 对于路由到同一个组件时候 Vue会复用组件 只执行beforeRouteUpdate钩子-->
     <!-- <router-view></router-view> -->
 

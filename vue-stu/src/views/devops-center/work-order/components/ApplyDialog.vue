@@ -20,7 +20,9 @@
           size="small"
           :disabled="workPlanTypes.length === 0"
           @click="createType"
-        >创建工单类型</el-button>
+        >
+          创建工单类型
+        </el-button>
       </div>
       <div class="tags-list">
         <div
@@ -88,11 +90,15 @@
           size="small"
           type="primary"
           @click="handleSave"
-        >确 定</el-button>
+        >
+          确 定
+        </el-button>
         <el-button
           size="small"
           @click="cancelEdit"
-        >取 消</el-button>
+        >
+          取 消
+        </el-button>
       </div>
     </el-dialog>
   </div>

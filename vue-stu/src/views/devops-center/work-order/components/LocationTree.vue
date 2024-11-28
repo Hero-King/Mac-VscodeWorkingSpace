@@ -8,7 +8,9 @@
         v-for="item in viewData"
         :key="item.id"
       >
-        <el-checkbox :label="item.id">{{ item.name }}</el-checkbox>
+        <el-checkbox :label="item.id">
+          {{ item.name }}
+        </el-checkbox>
       </div>
     </el-checkbox-group>
   </div>

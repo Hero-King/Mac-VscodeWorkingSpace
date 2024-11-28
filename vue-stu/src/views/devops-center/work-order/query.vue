@@ -19,18 +19,20 @@
           lazy
           label="工作量查询"
           name="WorkLoadQuery"
-        ><WorkLoadQuery ref="WorkLoadQuery" />
+        >
+          <WorkLoadQuery ref="WorkLoadQuery" />
         </el-tab-pane>
         <el-tab-pane
           lazy
           label="我的工单"
           name="MyWorkOrder"
-        ><MyWorkOrder
-          ref="MyWorkOrder"
-          :typeDialogVisible.sync="typeDialogVisible"
-          @rowClick="rowClick"
-          @reloadTableData="change"
-        />
+        >
+          <MyWorkOrder
+            ref="MyWorkOrder"
+            :typeDialogVisible.sync="typeDialogVisible"
+            @rowClick="rowClick"
+            @reloadTableData="change"
+          />
         </el-tab-pane>
       </el-tabs>
     </div>

@@ -6,7 +6,9 @@
         size="small"
         type="primary"
         @click="handleBack"
-      >返回</el-button>
+      >
+        返回
+      </el-button>
       <span
         class="fr right-tip"
         :class="rightTipClass"
@@ -19,14 +21,22 @@
       @submit.native.prevent
     >
       <el-row>
-        <el-col :span="6"><el-form-item
-          style="margin-bottom: 0"
-          label="工单编号"
-        >{{ form.workMark }}</el-form-item></el-col>
-        <el-col :span="6"><el-form-item
-          style="margin-bottom: 0"
-          label="工单标题"
-        >{{ form.workName }}</el-form-item></el-col>
+        <el-col :span="6">
+          <el-form-item
+            style="margin-bottom: 0"
+            label="工单编号"
+          >
+            {{ form.workMark }}
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item
+            style="margin-bottom: 0"
+            label="工单标题"
+          >
+            {{ form.workName }}
+          </el-form-item>
+        </el-col>
       </el-row>
       <!-- 基本信息 -->
       <el-alert
@@ -51,9 +61,11 @@
             :underline="false"
             type="info"
             @click="locationClick(item)"
-          >{{
-            item.locationName
-          }}</el-link>
+          >
+            {{
+              item.locationName
+            }}
+          </el-link>
         </el-form-item>
       </div>
       <div>
@@ -65,9 +77,11 @@
             :underline="false"
             type="primary"
             @click="deviceClick(item)"
-          >{{
-            item.deviceName
-          }}</el-link>
+          >
+            {{
+              item.deviceName
+            }}
+          </el-link>
         </el-form-item>
       </div>
       <div>
@@ -100,33 +114,43 @@
           size="small"
           plain
           @click="operateBtnClick('assign')"
-        >指派</el-button>
+        >
+          指派
+        </el-button>
         <el-button
           v-if="form.status == 'pendding'"
           v-permission="'assignmentRejection'"
           size="small"
           plain
           @click="operateBtnClick('reject')"
-        >驳回</el-button>
+        >
+          驳回
+        </el-button>
         <el-button
           v-if="form.status == 'processing'"
           v-permission="'inputDetail'"
           size="small"
           plain
           @click="operateBtnClick('inputDetail')"
-        >录入详情</el-button>
+        >
+          录入详情
+        </el-button>
         <el-button
           v-if="form.status == 'finished' && form.createBy == userId"
           size="small"
           plain
           @click="operateBtnClick('confirm')"
-        >工单确认</el-button>
+        >
+          工单确认
+        </el-button>
         <el-button
           v-if="showKnowledgeBtn"
           size="small"
           plain
           @click="operateBtnClick('assignKnowledge')"
-        >知识库</el-button>
+        >
+          知识库
+        </el-button>
       </div>
       <operate-dailog
         :visible.sync="operateVisible"

@@ -77,7 +77,9 @@
           methods="post"
           @change="handleChange"
         >
-          <template #default="{ optItem }"> {{ optItem.id }} - {{ optItem.label }} </template>
+          <template #default="{ optItem }">
+            {{ optItem.id }} - {{ optItem.label }}
+          </template>
         </DictSelect>
       </el-form-item>
       <el-form-item label="input">

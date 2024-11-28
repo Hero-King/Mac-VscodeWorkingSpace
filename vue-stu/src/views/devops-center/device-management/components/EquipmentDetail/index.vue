@@ -5,7 +5,9 @@
         type="primary"
         size="small"
         @click="handleBack"
-      >返回</el-button>
+      >
+        返回
+      </el-button>
       <el-tree
         ref="tree"
         class="mt-20"

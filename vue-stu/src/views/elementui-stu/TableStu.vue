@@ -1,8 +1,12 @@
 <template>
   <div class="module">
     <h3>表格</h3>
-    <el-button @click="toggleSelection()">取消选择</el-button>
-    <el-button @click="toggleSelection(initSelectedRows)">初始化选中状态</el-button>
+    <el-button @click="toggleSelection()">
+      取消选择
+    </el-button>
+    <el-button @click="toggleSelection(initSelectedRows)">
+      初始化选中状态
+    </el-button>
     <el-table
       ref="multipleTable"
       :data="tableData"
@@ -100,11 +104,15 @@
             type="text"
             size="small"
             @click="handleClick(scope)"
-          > 查看 </el-button>
+          >
+            查看
+          </el-button>
           <el-button
             type="text"
             size="small"
-          > 编辑 </el-button>
+          >
+            编辑
+          </el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -38,7 +38,9 @@
         class-name="prettier-class"
         type="primary"
         circle
-      > Click Here </el-button>
+      >
+        Click Here
+      </el-button>
       <el-input label="姓名" />
     </div>
 

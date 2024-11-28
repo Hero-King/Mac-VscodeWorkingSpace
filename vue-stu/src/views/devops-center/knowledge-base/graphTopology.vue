@@ -24,7 +24,9 @@
               :export-url="exportGraphTopologyUrl"
               :get-query-param="getQueryParam"
               file-name="图谱列表.xls"
-            >导出</export-button>
+            >
+              导出
+            </export-button>
           </el-col>
         </el-row>
       </el-form>

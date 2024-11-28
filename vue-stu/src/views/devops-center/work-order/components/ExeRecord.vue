@@ -27,7 +27,9 @@
                 type="primary"
                 :underline="false"
                 @click="linkClick(know)"
-              >{{ know.knowledgeName }}</el-link>
+              >
+                {{ know.knowledgeName }}
+              </el-link>
             </template>
             <template v-else-if="item.actionFile && item.actionFile.length > 0">
               <div

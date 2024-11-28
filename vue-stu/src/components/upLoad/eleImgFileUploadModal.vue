@@ -9,13 +9,13 @@
   >
     <el-upload
       ref="upload"
+      v-loading="loading"
       class="upload-demo"
       :action="action"
       :http-request="httpRequest"
       :on-remove="handleRemove"
       :on-success="handleAvatarSuccess"
       :on-error="handleAvatarError"
-      v-loading="loading"
       :before-upload="beforeAvatarUpload"
       :on-change="handleChange"
       :show-file-list="config.showFileList"
@@ -30,19 +30,25 @@
         slot="trigger"
         size="small"
         type="primary"
-      >选取文件</el-button>
+      >
+        选取文件
+      </el-button>
       <el-button
         class="submit"
         style="margin-left: 10px;"
         size="small"
         type="success"
         @click="submitUpload"
-      >确定上传{{ shows }}</el-button>
+      >
+        确定上传{{ shows }}
+      </el-button>
       <div
         v-if="config.tips"
         slot="tip"
         class="el-upload__tip"
-      >{{ config.tips }}</div>
+      >
+        {{ config.tips }}
+      </div>
     </el-upload>
   </el-dialog>
 </template>

@@ -6,10 +6,13 @@
       label-width="80px"
       @submit.native.prevent
     >
-      <el-row> <SelectFormContent
-        :conf="taskNotesQueryFormFields"
-        :form="form"
-      /> </el-row></el-form>
+      <el-row>
+        <SelectFormContent
+          :conf="taskNotesQueryFormFields"
+          :form="form"
+        />
+      </el-row>
+    </el-form>
 
     <tables
       ref="table"
@@ -35,9 +38,11 @@
           :underline="false"
           type="primary"
           @click="viewWorkOrder(scope.data)"
-        >{{
-          scope.data.workName
-        }}</el-link>
+        >
+          {{
+            scope.data.workName
+          }}
+        </el-link>
       </template>
       <template
         slot="operation"

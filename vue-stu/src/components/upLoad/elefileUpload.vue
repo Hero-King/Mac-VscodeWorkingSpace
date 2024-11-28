@@ -23,7 +23,8 @@
         :key="item.url"
         class="avatar-p"
       >
-        {{ item.name }}</p>
+        {{ item.name }}
+      </p>
     </el-upload>
   </div>
 </template>

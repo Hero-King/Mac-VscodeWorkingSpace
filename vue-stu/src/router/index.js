@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import NProgress from 'nprogress'
 import DayjsStuVue from '@/views/common-utils-stu/DayjsStu.vue'
 import ScssStuVue from '@/views/common-utils-stu/ScssStu.vue'
 import FormStuVue from '@/views/elementui-stu/FormStu.vue'
@@ -289,6 +288,17 @@ const router = new Router({
               props: true
             }
           ]
+        }
+      ]
+    },
+    {
+      path: '/mxLoanCase',
+      name: 'mxLoanCase',
+      component: Home,
+      children: [
+        {
+          path: 'mxLoanCase',
+          component: () => import(/* webpackChunkName: "mxLoanCase" */ '@/views/mxLoanCase/CaseDetail.vue')
         }
       ]
     }

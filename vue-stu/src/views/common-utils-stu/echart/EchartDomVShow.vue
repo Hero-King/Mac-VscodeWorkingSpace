@@ -1,6 +1,8 @@
 <template lang="">
   <div>
-    <el-button @click="show = !show">显示隐藏</el-button>
+    <el-button @click="show = !show">
+      显示隐藏
+    </el-button>
     <div class="chart-wrap">
       <div
         v-show="show"

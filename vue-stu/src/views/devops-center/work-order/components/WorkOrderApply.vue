@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h2 class="apply-tip">工单申请</h2>
+    <h2 class="apply-tip">
+      工单申请
+    </h2>
 
     <el-form
       ref="form"
@@ -34,7 +36,9 @@
                     dialogType = 2
                     dialogVisible2 = true
                   "
-                >关联站点</el-button>
+                >
+                  关联站点
+                </el-button>
               </div>
             </template>
             <ul class="ul_list">
@@ -67,7 +71,9 @@
                     dialogType = 1
                     dialogVisible1 = true
                   "
-                >关联设备</el-button>
+                >
+                  关联设备
+                </el-button>
               </div>
             </template>
             <ul class="ul_list">
@@ -94,7 +100,9 @@
                   icon="el-icon-plus"
                   class="btnone"
                   @click.stop="addAssociatedAlarm"
-                >关联告警 </el-button>
+                >
+                  关联告警
+                </el-button>
               </div>
             </template>
             <ul class="ul_list">
@@ -126,19 +134,25 @@
           size="small"
           type="primary"
           @click="onSave(1)"
-        >提交</el-button>
+        >
+          提交
+        </el-button>
         <el-button
           class="ml-16"
           size="small"
           type="primary"
           @click="onSave(0)"
-        >暂存</el-button>
+        >
+          暂存
+        </el-button>
         <el-button
           class="ml-16"
           size="small"
           type="primary"
           @click="onCancel"
-        >取消</el-button>
+        >
+          取消
+        </el-button>
       </el-form-item>
     </el-form>
 
@@ -166,11 +180,15 @@
         slot="footer"
         class="dialog-footer"
       >
-        <el-button @click="dialogVisible1 = false">取 消</el-button>
+        <el-button @click="dialogVisible1 = false">
+          取 消
+        </el-button>
         <el-button
           type="primary"
           @click="selectData"
-        >确 定</el-button>
+        >
+          确 定
+        </el-button>
       </div>
     </el-dialog>
     <el-dialog
@@ -192,11 +210,15 @@
         slot="footer"
         class="dialog-footer"
       >
-        <el-button @click="dialogVisible2 = false">取 消</el-button>
+        <el-button @click="dialogVisible2 = false">
+          取 消
+        </el-button>
         <el-button
           type="primary"
           @click="selectData"
-        >确 定</el-button>
+        >
+          确 定
+        </el-button>
       </div>
     </el-dialog>
   </div>

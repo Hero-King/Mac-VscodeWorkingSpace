@@ -11,7 +11,9 @@
         v-clipboard:success="onCopy"
         v-clipboard:error="onError"
         type="button"
-      >Copy!</el-button>
+      >
+        Copy!
+      </el-button>
     </div>
 
     <div class="module">
@@ -22,7 +24,9 @@
       <button
         type="button"
         @click="doCopy"
-      >Copy!</button>
+      >
+        Copy!
+      </button>
     </div>
   </div>
 </template>

@@ -1,11 +1,5 @@
 <template lang="">
-  <avue-crud
-    :search.sync="search"
-    :option="option"
-    :data="data"
-    :page.sync="page"
-    @search-change="searchChange"
-  />
+  <avue-crud :search.sync="search" :option="option" :data="data" :page.sync="page" @search-change="searchChange" />
 </template>
 <script>
 export default {

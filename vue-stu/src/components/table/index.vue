@@ -6,6 +6,7 @@
         v-loading="config.loading ? config.loading : false"
         :data="config.tableData"
         stripe
+        :key="key"
         :height="config.height ? config.height : tableHeight"
         :border="config.border || true"
         :row-key="getRowKey"
@@ -16,7 +17,6 @@
         :span-method="config.spanMethod"
         :header-cell-style="{ 'background-color': config.background || '#edf2ff', color: '#000' }"
         @selection-change="handleSelectionChange"
-        :key="key"
       >
         <template v-for="item in config.tableList">
           <el-table-column
@@ -42,8 +42,8 @@
             </template>
           </el-table-column>
           <el-table-column
-            :key="item.label"
             v-else
+            :key="item.label"
             :prop="item.prop"
             :type="item.status"
             :width="item.width"
