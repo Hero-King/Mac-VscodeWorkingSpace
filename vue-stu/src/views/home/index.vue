@@ -66,16 +66,23 @@
             <el-menu-item index="/knowledge-base/standard"> 标准知识库 </el-menu-item>
             <el-menu-item index="/device-management/equipmentAccount"> 设备台账 </el-menu-item>
           </el-submenu>
+          <el-submenu index="62">
+            <template slot="title"> 催收 </template>
+            <el-menu-item index="/mxLoanCase/list"> 工作台 </el-menu-item>
+          </el-submenu>
         </el-submenu>
       </el-menu>
     </el-aside>
 
     <el-main>
-      <transition>
+      <transition v-if="$route.path.includes('/keepalive')">
+        <!-- 测试 keepalive时走下逻辑 -->
         <keep-alive include="KeepAliveTest">
           <router-view :key="$route.path" />
         </keep-alive>
       </transition>
+
+      <router-view v-else />
     </el-main>
   </el-container>
 </template>
@@ -115,9 +122,6 @@ export default {
     return {
       tableData: Array(5).fill(item)
     }
-  },
-  mounted() {
-    console.error('工单原型地址: https://modao.cc/app/i2qzxprrqpwreEvQ8BcPu#screen=sle2j2qha65lem7q0nfa48dtm')
   }
 }
 </script>

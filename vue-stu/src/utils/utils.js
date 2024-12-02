@@ -47,3 +47,26 @@ export function getTreeData(data, id = 'id', val = '', name = 'name', children =
   )
   return arr.length > 0 ? (isRow ? arr : arr[0][name]) : null
 }
+
+export function isElementVisibleInContainer(dom1, dom2, completely) {
+  if (!dom1 || !dom2) {
+    console.error('dom1 或 dom2 不存在')
+    return false
+  }
+
+  // 获取 dom1 和 dom2 的边界信息
+  const dom1Rect = dom1.getBoundingClientRect()
+  const dom2Rect = dom2.getBoundingClientRect()
+
+  // 判断 dom1 是否在 dom2 的可见范围内
+  const isVisible =
+    dom1Rect.top < dom2Rect.bottom && // dom1 的顶部在 dom2 的底部之上
+    dom1Rect.bottom > dom2Rect.top && // dom1 的底部在 dom2 的顶部之下
+    dom1Rect.left < dom2Rect.right && // dom1 的左边在 dom2 的右边之左
+    dom1Rect.right > dom2Rect.left // dom1 的右边在 dom2 的左边之右
+
+  const isCompletelyVisible =
+    dom1Rect.top >= dom2Rect.top && dom1Rect.bottom <= dom2Rect.bottom && dom1Rect.left >= dom2Rect.left && dom1Rect.right <= dom2Rect.right
+
+  return completely ? isCompletelyVisible : isVisible
+}

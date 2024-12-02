@@ -31,6 +31,7 @@ import Home from '@/views/home/index.vue'
 import KeepAliveTest from '@/components/KeepAliveTest.vue'
 import KeepAliveTestItem from '@/components/KeepAliveTestItem.vue'
 import JsRenderExampleVue from '@/views/demo/JsRenderExample.vue'
+import gechuangRouter from './gechuang.js'
 // 路由懒加载
 const HelloWorld = () => import(/* webpackChunkName: "HelloWorld" */ '../views/home/HelloWorld.vue')
 
@@ -116,36 +117,17 @@ const router = new Router({
             console.log('lazy route beforeEnter')
             next()
           }
-        },
-
-        {
-          path: '/work-order/statistics',
-          component: () => import(/* webpackChunkName: "workOrder" */ '@/views/devops-center/work-order/statistics')
-        },
-        {
-          path: '/work-order/query',
-          component: () => import(/* webpackChunkName: "workOrder" */ '@/views/devops-center/work-order/query')
-        },
-        // 运维图谱
-        {
-          path: '/knowledge-base/graphTopology',
-          component: () => import(/* webpackChunkName: "workOrder" */ '@/views/devops-center/knowledge-base/graphTopology')
-        },
-        // 运维记录
-        {
-          path: '/knowledge-base/takeNotes',
-          component: () => import(/* webpackChunkName: "workOrder" */ '@/views/devops-center/knowledge-base/takeNotes')
-        },
-        // 标准知识库
-        {
-          path: '/knowledge-base/standard',
-          component: () => import(/* webpackChunkName: "workOrder" */ '@/views/devops-center/knowledge-base/standard')
-        },
-        {
-          path: '/device-management/equipmentAccount',
-          component: () => import(/* webpackChunkName: "workOrder" */ '@/views/devops-center/device-management/equipmentAccount')
         }
       ]
+    },
+    {
+      path: '/workOrder',
+      component: Home,
+      beforeEnter: (to, from, next) => {
+        console.log('工单原型地址: https://modao.cc/app/i2qzxprrqpwreEvQ8BcPu#screen=sle2j2qha65lem7q0nfa48dtm')
+        next()
+      },
+      children: gechuangRouter
     },
     {
       path: '/demo',
@@ -297,8 +279,19 @@ const router = new Router({
       component: Home,
       children: [
         {
-          path: 'mxLoanCase',
-          component: () => import(/* webpackChunkName: "mxLoanCase" */ '@/views/mxLoanCase/CaseDetail.vue')
+          path: 'list',
+          component: () => import(/* webpackChunkName: "mxLoanCase" */ '@/views/mxLoanCase/list.vue'),
+        },
+        {
+          path: 'detail',
+          component: () => import(/* webpackChunkName: "mxLoanCase" */ '@/views/mxLoanCase/CaseDetailLayout.vue'),
+          children: [
+            {
+              path: ':id',
+              props: true,
+              component: () => import(/* webpackChunkName: "mxLoanCase" */ '@/views/mxLoanCase/CaseDetail.vue')
+            }
+          ]
         }
       ]
     }
@@ -317,12 +310,12 @@ const router = new Router({
 
 // 从/home -> /lazy 看路由钩子的顺序
 router.beforeEach((to, from, next) => {
-  console.log('router.beforeEach', 'from', from, ';', 'to:', to)
+  // console.log('router.beforeEach', 'from', from, ';', 'to:', to)
   next()
 })
 
 router.afterEach((to, from) => {
-  console.log('router.afterEach', 'from', from, ';', 'to:', to)
+  // console.log('router.afterEach', 'from', from, ';', 'to:', to)
 })
 
 export default router
