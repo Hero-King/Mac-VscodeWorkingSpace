@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="tableData" v-loading="loading || $attrs.loading" style="width: 100%">
+  <el-table border :data="tableData" v-loading="loading || $attrs.loading" style="width: 100%">
     <el-table-column v-for="column in columns" :key="column.prop || column.label" v-bind="column"> </el-table-column>
   </el-table>
 </template>

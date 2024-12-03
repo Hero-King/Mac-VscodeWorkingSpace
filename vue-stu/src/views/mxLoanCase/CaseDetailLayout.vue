@@ -20,13 +20,17 @@
       <router-view />
       <!-- 渲染子路由内容 -->
     </div>
+    <!-- 其实为全局组件，需要放到项目全局挂载 放在这里Mock-->
+    <LoanGlobalCom />
   </div>
 </template>
 
 <script>
 import { isElementVisibleInContainer } from '@/utils/utils'
+import LoanGlobalCom from './components/LoanGlobalCom.vue'
 export default {
   name: 'CaseDetailLayout',
+  components: { LoanGlobalCom },
   data() {
     return {
       list: [],

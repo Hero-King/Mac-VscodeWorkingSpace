@@ -2,7 +2,7 @@
   <div>
     <div>
       <el-button size="mini" type="primary" @click="$router.push('9')">Call </el-button>
-      <el-button size="mini" type="primary" @click="$router.push('9')">Call Conclusion</el-button>
+      <el-button size="mini" type="primary" @click="handleShowCallRecord">Call Conclusion</el-button>
       <el-button size="mini" type="primary" @click="$router.push('9')">Apply Derate</el-button>
     </div>
     <el-collapse style="border: none" v-model="collapseList">
@@ -23,6 +23,8 @@
 <script>
 import BaseInfo from './components/BaseInfo.vue'
 import DerateInfo from './components/DerateInfo.vue'
+import { CallType } from './const'
+import { mapMutations } from 'vuex'
 export default {
   props: {
     id: String
@@ -38,6 +40,14 @@ export default {
       collapseList: ['baseInfo', 'extendInfo']
     }
   },
-  methods: {}
+  methods: {
+    ...mapMutations('caseDetail', ['setCallRecord']),
+    handleShowCallRecord() {
+      this.setCallRecord({
+        visible: true,
+        type: CallType.user
+      })
+    }
+  }
 }
 </script>

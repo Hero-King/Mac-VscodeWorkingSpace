@@ -70,3 +70,5 @@ export function isElementVisibleInContainer(dom1, dom2, completely) {
 
   return completely ? isCompletelyVisible : isVisible
 }
+
+export const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time))
