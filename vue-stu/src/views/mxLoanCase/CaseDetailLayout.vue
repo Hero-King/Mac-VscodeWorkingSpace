@@ -37,6 +37,11 @@ export default {
       loading: true
     }
   },
+  provide() {
+    return {
+      globalComParent: this
+    }
+  },
   computed: {
     id() {
       return this.$route.params.id

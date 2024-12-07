@@ -1,11 +1,11 @@
 <template>
   <div>
-    <el-collapse-item name="baseInfo">
+    <el-collapse-item name="derateInfo">
       <template slot="title"> 平台减免信息 </template>
       <mini-table :columns="deratePcColumns" :requestParams="deratePcInfoParams" :loading="loading || $attrs.loading" style="width: 100%"> </mini-table>
     </el-collapse-item>
 
-    <el-collapse-item name="extendInfo">
+    <el-collapse-item name="appDerateInfo">
       <template slot="title"> APP减免信息 </template>
       <mini-table :columns="derateAppColumns" :requestParams="derateAppInfoParams" :loading="loading || $attrs.loading" style="width: 100%"> </mini-table>
     </el-collapse-item>
@@ -20,6 +20,7 @@ export default {
   props: {
     isActive: Boolean
   },
+  inject: ['globalComParent'],
   data() {
     this.deratePcColumns = [
       {
@@ -40,6 +41,9 @@ export default {
       deratePcInfoParams: null,
       derateAppInfoParams: null
     }
+  },
+  created() {
+    //  订阅事件
   },
   computed: {
     // 获取 caseDetail 模块的状态

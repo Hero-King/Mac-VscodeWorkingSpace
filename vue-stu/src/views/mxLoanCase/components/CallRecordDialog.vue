@@ -52,6 +52,7 @@ export default {
       }
     })
   },
+  inject: ['globalComParent'],
   computed: {
     ...mapState('caseDetail', ['callRecord', 'phoneCaseDetail'])
   },
@@ -68,6 +69,8 @@ export default {
         this.setPhoneCaseDetail({})
       }
       this.setCallRecord({ visible: false })
+      // step2: 通知某一个折叠框刷新
+      this.globalComParent.$emit('refresh:callRecordInfo')
     },
     handleCancel() {
       this.$refs.ruleForm.resetFields()
