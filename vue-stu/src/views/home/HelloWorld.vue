@@ -172,7 +172,14 @@ export default {
   },
   mounted() {
     console.log(this.author)
-    console.clear()
+    // console.clear()
+    if (module.hot) {
+      // module.hot.accept(dependencies, callback); 当指定模块更新时执行的回调函数, dependencies（字符串或数组）：需要监听的模块路径（文件名）
+      // module.hot.accept(callback);当前模块更新时执行的回调函数
+      module.hot.accept(() => {
+        console.log('module.hot.accept')
+      })
+    }
     const interval = setInterval(() => {
       this.count++
     }, 1000)
